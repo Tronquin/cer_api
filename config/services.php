@@ -35,4 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'erp' => [
+        'base' => env('ERP_API_BASE'),
+        'api_key' => env('ERP_API_KEY'),
+    ]
+
 ];
