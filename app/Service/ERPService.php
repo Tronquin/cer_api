@@ -8,17 +8,32 @@ class ERPService {
     const METHOD_GET = 2;
 
     /**
-     * Busca una reserva por numero o apellido
+     * Busca las reservas para checkin por ubicacion y fecha
      *
-     * @param $numberOrName
+     * @param $data
      * @return array
      */
-    public static function findReservation($numberOrName)
+    public static function findReservationToCheckin($data)
     {
         $response = self::send('reservas/buscar_checkins', [
-            'dato' => $numberOrName,
-            'ubicacion_id' => 1,
-            'fecha' => '2018-07-10'
+            'ubicacion_id' => $data['ubicacion_id'],
+            'fecha' => $data['date']
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca las reservas por numero,codigo o nombre
+     *
+     * @param $numberCodeOrName
+     * @return array
+     */
+    public static function findReservation($numberCodeOrName)
+    {
+        $response = self::send('reservas/buscar_reservas', [
+            'dato' => $numberCodeOrName,
+            'ubicacion_id' => 1
         ]);
 
         return $response;
