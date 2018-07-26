@@ -24,6 +24,21 @@ class ERPService {
     }
 
     /**
+     * Busca las reservas para checkin por ubicacion y fecha
+     *
+     * @param $id
+     * @return array
+     */
+    public static function reservationCheckin($id)
+    {
+        $response = self::send('reservas/realizar_checkin', [
+            'reserva_id' => $id,
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Busca las reservas por numero,codigo o nombre
      *
      * @param $numberCodeOrName
@@ -40,7 +55,22 @@ class ERPService {
     }
 
     /**
-     * Busca y actualiza la habitacion de la reserva seleccionada
+     * Busca la habitacion de la reserva y las disponibles para mejorar
+     *
+     * @param $data
+     * @return array
+     */
+    public static function findReservationRoom($data)
+    {
+        $response = self::send('reservas/buscar_tipologia', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Actualiza la habitacion de la reserva seleccionada
      *
      * @param $data
      * @return array
@@ -48,8 +78,7 @@ class ERPService {
     public static function changeReservationRoom($data)
     {
         $response = self::send('reservas/change_room', [
-            'reserva_id' => $data['reservation_id'],
-            'pagado' => 1,
+            'reserva_id' => $data['reserva_id'],
             'room' => $data['room_change']
         ]);
 
@@ -57,7 +86,23 @@ class ERPService {
     }
 
     /**
-     * Busca y actualiza la habitacion de la reserva seleccionada
+     * Busca los servicios de la reserva y las disponibles para comprar
+     *
+     * @param $data
+     * @return array
+     */
+    public static function findReservationService($data)
+    {
+        $response = self::send('reservas/buscar_extras', [
+            'reserva_id' => $data['reserva_id'],
+            'funcion' => $data['funcion']
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Actualiza los servicios de la reserva seleccionada
      *
      * @param $data
      * @return array
@@ -65,16 +110,31 @@ class ERPService {
     public static function changeReservationService($data)
     {
         $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reservation_id'],
-            'pagado' => 1,
-            'services' => $data['service_change']
+            'reserva_id' => $data['reserva_id'],
+            'pagado' => 0,
+            'extras' => $data['service_change']
         ]);
 
         return $response;
     }
 
     /**
-     * Busca y actualiza la habitacion de la reserva seleccionada
+     * Busca la experiencia de una reserva y las disponibles para mejorar
+     *
+     * @param $data
+     * @return array
+     */
+    public static function findReservationExperience($data)
+    {
+        $response = self::send('reservas/buscar_experience', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Actualiza la experiencia de la reserva seleccionada
      *
      * @param $data
      * @return array
@@ -82,7 +142,7 @@ class ERPService {
     public static function changeReservationExperience($data)
     {
         $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reservation_id'],
+            'reserva_id' => $data['reserva_id'],
             'pagado' => 1,
             'Experience' => $data['experience_change']
         ]);
@@ -91,24 +151,54 @@ class ERPService {
     }
 
     /**
-     * Busca y actualiza la habitacion de la reserva seleccionada
+     * Busca el pax de la reserva
      *
      * @param $data
      * @return array
      */
-    public static function changeReservationPack($data)
+    public static function findReservationPax($data)
     {
-        $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reservation_id'],
-            'pagado' => 1,
-            'Pack' => $data['pack_change']
+        $response = self::send('reservas/buscar_pax', [
+            'reserva_id' => $data['reserva_id'],
         ]);
 
         return $response;
     }
 
     /**
-     * Busca y actualiza la habitacion de la reserva seleccionada
+     * Actualiza el pax de la reserva seleccionada
+     *
+     * @param $data
+     * @return array
+     */
+    public static function changeReservationPax($data)
+    {
+        $response = self::send('reservas/add_extras', [
+            'reserva_id' => $data['reserva_id'],
+            'pagado' => 1,
+            'Pax' => $data['pax_change']
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca las llaves de la reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function findReservationKey($data)
+    {
+        $response = self::send('reservas/buscar_key', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca y actualiza la cantidad de llaves de la reserva seleccionada
      *
      * @param $data
      * @return array
@@ -116,7 +206,7 @@ class ERPService {
     public static function changeReservationKey($data)
     {
         $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reservation_id'],
+            'reserva_id' => $data['reserva_id'],
             'pagado' => 1,
             'Key' => $data['Key_change']
         ]);

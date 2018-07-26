@@ -3,14 +3,14 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class ChangeReservationPackHandler extends BaseHandler {
+class ChangeReservationPaxHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::changeReservationPack($this->params);
+        $response = ERPService::changeReservationPax($this->params);
 
         return $response;
     }
