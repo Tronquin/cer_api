@@ -8,6 +8,36 @@ class ERPService {
     const METHOD_GET = 2;
 
     /**
+     * adjunta imagen del pasaporte
+     *
+     * @param $data
+     * @return array
+     */
+    public static function addPassaport($data)
+    {
+        $response = self::send('reservas/put_pasaporte', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * escaneo del pasaporte
+     *
+     * @param $data
+     * @return array
+     */
+    public static function scanPassaport($data)
+    {
+        $response = self::send('reservas/put_pasaporte', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Busca las reservas para checkin por ubicacion y fecha
      *
      * @param $data
@@ -214,6 +244,35 @@ class ERPService {
         return $response;
     }
 
+    /**
+     * Guarda los datos de huespedes en la reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function saveReservationGuest($data)
+    {
+        $response = self::send('reservas/', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca los datos de huespedes en la reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function findReservationGuest($data)
+    {
+        $response = self::send('reservas/', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
 
     /**
      * Envia un request al ERP

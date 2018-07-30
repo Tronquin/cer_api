@@ -1,16 +1,17 @@
 <?php
 namespace App\Handler;
 
+
 use App\Service\ERPService;
 
-class ChangeReservationPaxHandler extends BaseHandler {
+class SaveReservationGuestHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::changeReservationPax($this->params);
+        $response = ERPService::saveReservationGuest($this->params);
 
         return $response;
     }
@@ -22,8 +23,9 @@ class ChangeReservationPaxHandler extends BaseHandler {
      */
     protected function validationRules()
     {
+        return [
 
+        ];
     }
-
 
 }

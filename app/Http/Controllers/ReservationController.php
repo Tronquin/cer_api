@@ -73,7 +73,7 @@ class ReservationController extends Controller
     /**
      * Busca un dato especifico agregado a una reserva y los disponibles para agregar
      *
-     * @param $data
+     * @param Request $request
      * @return JsonResponse
      */
     public function findReservationChange(Request $request)
@@ -158,7 +158,7 @@ class ReservationController extends Controller
     /**
      * Busca los datos de los huespedes de una reserva
      *
-     * @param $data
+     * @param Request $request
      * @return JsonResponse
      */
     public function findReservationGuest(Request $request)
@@ -175,15 +175,34 @@ class ReservationController extends Controller
     }
 
     /**
-     * agrega los datos de los huespedes a la reserva
+     * guarda los datos de los huespedes
      *
-     * @param $data
+     * @param Request $request
      * @return JsonResponse
      */
     public function saveReservationGuest(Request $request)
     {
         $request = $request->all();
         $handler = new SaveReservationGuestHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * guarda la imagen del pasaporte
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addPassaport(Request $request)
+    {
+        $request = $request->all();
+        $handler = new AddPassaportHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
