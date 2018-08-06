@@ -4,14 +4,14 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class FindReservationHandler extends BaseHandler {
+class FindReservationByIdHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::findReservation($this->params);
+        $response = ERPService::findReservationById($this->params['reserva_id']);
 
         return $response;
     }
@@ -24,7 +24,7 @@ class FindReservationHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'numberCodeOrName' =>'required',
+            'reserva_id' =>'required',
         ];
     }
 

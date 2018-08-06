@@ -69,19 +69,35 @@ class ERPService {
     }
 
     /**
-     * Busca las reservas por numero,codigo o nombre
+     * Busca las reservas por localizador o apellido
      *
      * @param $numberCodeOrName
      * @return array
      */
     public static function findReservation($numberCodeOrName)
     {
+
         $response = self::send('reservas/buscar_reservas', [
-            'dato' => $numberCodeOrName,
-            'ubicacion_id' => 1
-        ]);
+            'reserva_id' => $numberCodeOrName['numberCodeOrName'],
+            //'ubicacion_id' => 1
+        ],1);
 
         return $response;
+    }
+
+    /**
+     * Busca las reservas por id
+     *
+     * @param $numberCodeOrName
+     * @return array
+     */
+    public static function findReservationById($reserva_id)
+    {
+
+        $response = self::send('reservas/get_reserva/'.$reserva_id, [],2);
+
+        return $response;
+
     }
 
     /**
@@ -326,6 +342,9 @@ class ERPService {
             }
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+        }elseif ($method === self::METHOD_GET){
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         }
 
         $response = curl_exec($ch);

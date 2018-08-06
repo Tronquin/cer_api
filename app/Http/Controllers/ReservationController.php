@@ -9,8 +9,9 @@ use App\Handler\FindReservationGuestHandler;
 use App\Handler\SaveReservationGuestHandler;
 use App\Handler\AddPassaport;
 use App\Handler\FindReservationHandler;
+use App\Handler\FindReservationByIdHandler;
 use App\Handler\ChangeReservationRoomHandler;
-use App\Handler\FindReservationChangeHandler;
+use App\Handler\AvailabilityRoomHandler;
 use App\Handler\ChangeReservationPaxHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca una reserva por numero, codigo o nombre
+     * Busca una reserva por localizador o apellido
      *
      * @param $numberCodeOrName
      * @return JsonResponse
@@ -74,15 +75,33 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca un dato especifico agregado a una reserva y los disponibles para agregar
+     * Busca una reserva por id
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function findReservationById($id)
+    {
+        $handler = new FindReservationByIdHandler(['reserva_id' => $id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los datos disponibles para modificar
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function findReservationChange(Request $request)
+    public function availabilityRoom(Request $request)
     {
         $request = $request->all();
-        $handler = new FindReservationChangeHandler(['data' => $request]);
+        $handler = new AvailabilityRoomHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
