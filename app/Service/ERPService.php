@@ -78,8 +78,8 @@ class ERPService {
     {
 
         $response = self::send('reservas/buscar_reservas', [
-            'reserva_id' => $numberCodeOrName['numberCodeOrName'],
-            //'ubicacion_id' => 1
+            'dato' => $numberCodeOrName['numberCodeOrName'],
+            'ubicacion_id' => 1
         ],1);
 
         return $response;

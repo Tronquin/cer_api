@@ -13,7 +13,7 @@ class FindReservationChangeHandler extends BaseHandler {
     {
         $response['data']=[];
 
-            $dataService =[
+            /*$dataService =[
                 'reserva_id' => $this->params['data']['reserva_id'],
                 'funcion' => $this->params['data']['funcion'],
             ];
@@ -21,7 +21,7 @@ class FindReservationChangeHandler extends BaseHandler {
             if($service['res'] > 0 && $service['data']['list']){
                 $response['data']['list']['service']['extras_contratados']=$service['data']['list']['extras_contratados'];
                 $response['data']['list']['service']['extras_disponibles']=$service['data']['list']['extras_disponibles'];
-            }
+            }*/
 
             $dataRoom =[
                 'reserva_id' => $this->params['data']['reserva_id'],
