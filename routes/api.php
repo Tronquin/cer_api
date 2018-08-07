@@ -14,6 +14,6 @@ Route::group(['prefix' => 'v1'], function () {
     // Reservation edicion
     Route::get('/reservation/change/data/', 'ReservationController@changeReservation');
     // Reservation busqueda de cambios disponibles
-    Route::get('/reservation/find/changes', 'ReservationController@findReservationChange');
+    Route::get('/reservation/find/room', 'ReservationController@availabilityRoom');
 
 });

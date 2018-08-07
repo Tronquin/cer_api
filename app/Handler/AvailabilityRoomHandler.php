@@ -24,7 +24,7 @@ class AvailabilityRoomHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'numberCodeOrName' =>'required',
+
         ];
     }
 

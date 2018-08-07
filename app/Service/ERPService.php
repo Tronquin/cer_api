@@ -106,9 +106,9 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function findReservationRoom($data)
+    public static function availabilityRoom($data)
     {
-        $response = self::send('reservas/buscar_tipologia', [
+        $response = self::send('reservas/buscar_habitaciones', [
             'reserva_id' => $data['reserva_id'],
         ]);
 
