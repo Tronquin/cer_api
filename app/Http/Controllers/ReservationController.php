@@ -97,13 +97,12 @@ class ReservationController extends Controller
     /**
      * Busca los datos de las habitaciones disponibles para la reserva
      *
-     * @param Request $request
+     * @param $id
      * @return JsonResponse
      */
-    public function availabilityRoom(Request $request)
+    public function availabilityRoom($id)
     {
-        $request = $request->all();
-        $handler = new AvailabilityRoomHandler(['reserva_id' => $request['reserva_id']]);
+        $handler = new AvailabilityRoomHandler(['reserva_id' => $id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -116,13 +115,12 @@ class ReservationController extends Controller
     /**
      * Busca los datos de los planes disponibles para la reserva
      *
-     * @param Request $request
+     * @param $id
      * @return JsonResponse
      */
-    public function availabilityPlan(Request $request)
+    public function availabilityPlan($id)
     {
-        $request = $request->all();
-        $handler = new AvailabilityPlanHandler(['reserva_id' => $request['reserva_id']]);
+        $handler = new AvailabilityPlanHandler(['reserva_id' => $id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -135,13 +133,12 @@ class ReservationController extends Controller
     /**
      * Busca los datos de las experiencias disponibles para la reserva
      *
-     * @param Request $request
+     * @param $id
      * @return JsonResponse
      */
-    public function availabilityExperience(Request $request)
+    public function availabilityExperience($id)
     {
-        $request = $request->all();
-        $handler = new AvailabilityExperienceHandler(['reserva_id' => $request['reserva_id']]);
+        $handler = new AvailabilityExperienceHandler(['reserva_id' => $id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
