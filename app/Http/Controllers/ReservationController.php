@@ -84,7 +84,25 @@ class ReservationController extends Controller
      */
     public function findReservationById($id)
     {
-        $handler = new FindReservationByIdHandler(['reserva_id' => $id]);
+        $handler = new FindReservationByIdHandler(['reserva_id' => $id,'method' => 2]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca una reserva por id
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function reservationFindById($id)
+    {
+        $handler = new FindReservationByIdHandler(['reserva_id' => $id,'method' => 1]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

@@ -9,8 +9,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/reservation/checkin/{ubicacion_id}/{date}', 'ReservationController@findReservationToCheckin');
     // Reservation por localizador o apellido
     Route::get('/reservation/{numberCodeOrName}', 'ReservationController@findReservation');
-    // Reservation por id
+    // Reservation por id (url)
     Route::get('/find/reservation/{numberCodeOrName}', 'ReservationController@findReservationById');
+    // Reservation por id (post)
+    Route::get('/reservation/find/{reserva_id}', 'ReservationController@reservationFindById');
     // Reservation edicion
     //Route::get('/reservation/change/data/', 'ReservationController@changeReservation');
     // Reservation busqueda de habitaciones disponibles

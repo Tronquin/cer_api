@@ -11,7 +11,7 @@ class FindReservationByIdHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $response = ERPService::findReservationById($this->params['reserva_id']);
+        $response = ERPService::findReservationById($this->params);
 
         return $response;
     }

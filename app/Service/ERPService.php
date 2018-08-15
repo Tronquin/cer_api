@@ -91,10 +91,26 @@ class ERPService {
      * @param $numberCodeOrName
      * @return array
      */
-    public static function findReservationById($reserva_id)
+    public static function findReservationById($data)
     {
+        if($data['method'] == 2){
+            $data = self::send('reservas/get_reserva/'.$data['reserva_id'], [],$data['method']);
+            $response['res'] = $data['res'];
+            $response['msg'] = $data['msg'];
+            $response['data'] = [
+                'list' => $data['reserva'],
+            ];
+        }else{
+            $data= self::send('reservas/buscar_reserva_por_id', [
+                'reserva_id' => $data['reserva_id'],
+            ],$data['method']);
+            $response['res'] = 1;
+            $response['msg'] = 'reserva encontrada';
+            $response['data'] = [
+                'list' => $data,
+            ];
+        }
 
-        $response = self::send('reservas/get_reserva/'.$reserva_id, [],2);
 
         return $response;
 
