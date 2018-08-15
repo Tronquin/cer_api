@@ -101,16 +101,15 @@ class ERPService {
     }
 
     /**
-     * Busca la habitacion de la reserva y las disponibles para mejorar
+     * Busca los datos de las habitaciones disponibles para la reserva
      *
      * @param $data
      * @return array
      */
     public static function availabilityRoom($data)
     {
-        $response = self::send('reservas/buscar_habitaciones', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
+
+        $response = self::send('apartamentos/listar_disponibles/'.$data['reserva_id'], [],2);
 
         return $response;
     }
@@ -137,7 +136,7 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function findReservationService($data)
+    public static function availabilityService($data)
     {
         $response = self::send('reservas/buscar_extras', [
             'reserva_id' => $data['reserva_id'],
@@ -170,11 +169,9 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function findReservationExperience($data)
+    public static function availabilityExperience($data)
     {
-        $response = self::send('reservas/buscar_experience', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
+        $response = self::send('experiencias/listar/'.$data['reserva_id'], [],2);
 
         return $response;
     }
@@ -202,11 +199,9 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function findReservationPax($data)
+    public static function availabilityPlan($data)
     {
-        $response = self::send('reservas/buscar_pax', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
+        $response = self::send('regimenes/listar/'.$data['reserva_id'], [],2);
 
         return $response;
     }
@@ -217,7 +212,7 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function changeReservationPax($data)
+    public static function changeReservationPlan($data)
     {
         $response = self::send('reservas/add_extras', [
             'reserva_id' => $data['reserva_id'],
@@ -234,7 +229,7 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function findReservationKey($data)
+    public static function availabilityKey($data)
     {
         $response = self::send('reservas/buscar_key', [
             'reserva_id' => $data['reserva_id'],

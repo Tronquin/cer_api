@@ -12,8 +12,12 @@ Route::group(['prefix' => 'v1'], function () {
     // Reservation por id
     Route::get('/find/reservation/{numberCodeOrName}', 'ReservationController@findReservationById');
     // Reservation edicion
-    Route::get('/reservation/change/data/', 'ReservationController@changeReservation');
-    // Reservation busqueda de cambios disponibles
-    Route::get('/reservation/find/room', 'ReservationController@availabilityRoom');
+    //Route::get('/reservation/change/data/', 'ReservationController@changeReservation');
+    // Reservation busqueda de habitaciones disponibles
+    Route::get('/reservation/find/room/', 'ReservationController@availabilityRoom');
+    // Reservation busqueda de planes disponibles
+    Route::get('/reservation/find/plan/', 'ReservationController@availabilityPlan');
+    // Reservation busqueda de planes disponibles
+    Route::get('/reservation/find/experiences/', 'ReservationController@availabilityExperience');
 
 });

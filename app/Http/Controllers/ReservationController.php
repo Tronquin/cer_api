@@ -12,6 +12,8 @@ use App\Handler\FindReservationHandler;
 use App\Handler\FindReservationByIdHandler;
 use App\Handler\ChangeReservationRoomHandler;
 use App\Handler\AvailabilityRoomHandler;
+use App\Handler\AvailabilityPlanHandler;
+use App\Handler\AvailabilityExperienceHandler;
 use App\Handler\ChangeReservationPaxHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -20,7 +22,7 @@ class ReservationController extends Controller
 {
 
     /**
-     * Busca una reserva por ubicacion_id y fecha
+     * Busca todas las reservas por ubicacion_id y fecha
      *
      * @param $id
      * @param $date
@@ -39,7 +41,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * Realiza el checkin de la reserva
+     * Realiza el checkin de una reserva
      *
      * @param $id
      * @return JsonResponse
@@ -93,7 +95,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca los datos disponibles para modificar
+     * Busca los datos de las habitaciones disponibles para la reserva
      *
      * @param Request $request
      * @return JsonResponse
@@ -101,7 +103,64 @@ class ReservationController extends Controller
     public function availabilityRoom(Request $request)
     {
         $request = $request->all();
-        $handler = new AvailabilityRoomHandler(['data' => $request]);
+        $handler = new AvailabilityRoomHandler(['reserva_id' => $request['reserva_id']]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los datos de los planes disponibles para la reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function availabilityPlan(Request $request)
+    {
+        $request = $request->all();
+        $handler = new AvailabilityPlanHandler(['reserva_id' => $request['reserva_id']]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los datos de las experiencias disponibles para la reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function availabilityExperience(Request $request)
+    {
+        $request = $request->all();
+        $handler = new AvailabilityExperienceHandler(['reserva_id' => $request['reserva_id']]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los datos de los servicios disponibles para la reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function availabilityService(Request $request)
+    {
+        $request = $request->all();
+        $handler = new AvailabilityServiceHandler(['reserva_id' => $request['reserva_id']]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -225,6 +284,25 @@ class ReservationController extends Controller
     {
         $request = $request->all();
         $handler = new AddPassaportHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Pago al momento de hacer el checkin
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reservationPayment(Request $request)
+    {
+        $request = $request->all();
+        $handler = new ReservationPaymentHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

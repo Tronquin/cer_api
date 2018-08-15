@@ -4,20 +4,15 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class AvailabilityRoomHandler extends BaseHandler {
+class ReservationPaymentHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $data = ERPService::availabilityRoom($this->params);
+        $response = ERPService::reservationPayment($this->params);
 
-        $response['res'] = count($data);
-        $response['msg'] = count($data).' Tipologias encontradas';
-        $response['data'] = [
-            'list' => $data,
-        ];
         return $response;
     }
 

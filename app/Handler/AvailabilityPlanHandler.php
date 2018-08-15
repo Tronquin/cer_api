@@ -4,17 +4,17 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class AvailabilityRoomHandler extends BaseHandler {
+class AvailabilityPlanHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $data = ERPService::availabilityRoom($this->params);
+        $data = ERPService::availabilityPlan($this->params);
 
         $response['res'] = count($data);
-        $response['msg'] = count($data).' Tipologias encontradas';
+        $response['msg'] = count($data).' Planes encontrados';
         $response['data'] = [
             'list' => $data,
         ];
