@@ -71,15 +71,15 @@ class ERPService {
     /**
      * Busca las reservas por localizador o apellido
      *
-     * @param $numberCodeOrName
+     * @param $data
      * @return array
      */
-    public static function findReservation($numberCodeOrName)
+    public static function findReservation($data)
     {
 
         $response = self::send('reservas/buscar_reservas', [
-            'dato' => $numberCodeOrName['numberCodeOrName'],
-            'ubicacion_id' => 1
+            'dato' => $data['numberCodeOrName'],
+            'ubicacion_id' => $data['ubicacion_id'],
         ],1);
 
         return $response;

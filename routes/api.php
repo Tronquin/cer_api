@@ -8,7 +8,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Find all Reservation to checkin by date
     Route::get('/reservation/checkin/{ubicacion_id}/{date}', 'ReservationController@findReservationToCheckin');
     // Reservation por localizador o apellido
-    Route::get('/reservation/{numberCodeOrName}', 'ReservationController@findReservation');
+    Route::get('/reservation/{numberCodeOrName}/{ubicacion_id}', 'ReservationController@findReservation');
     // Reservation por id (url)
     Route::get('/find/reservation/{numberCodeOrName}', 'ReservationController@findReservationById');
     // Reservation por id (post)

@@ -62,11 +62,12 @@ class ReservationController extends Controller
      * Busca una reserva por localizador o apellido
      *
      * @param $numberCodeOrName
+     * @param $ubicacion_id
      * @return JsonResponse
      */
-    public function findReservation($numberCodeOrName)
+    public function findReservation($numberCodeOrName,$ubicacion_id)
     {
-        $handler = new FindReservationHandler(['numberCodeOrName' => $numberCodeOrName]);
+        $handler = new FindReservationHandler(['numberCodeOrName' => $numberCodeOrName,'ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
