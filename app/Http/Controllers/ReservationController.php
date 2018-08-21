@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Handler\ChangeReservationServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\FindReservationGuestHandler;
@@ -10,11 +9,11 @@ use App\Handler\SaveReservationGuestHandler;
 use App\Handler\AddPassaport;
 use App\Handler\FindReservationHandler;
 use App\Handler\FindReservationByIdHandler;
-use App\Handler\ChangeReservationRoomHandler;
 use App\Handler\AvailabilityRoomHandler;
 use App\Handler\AvailabilityPlanHandler;
 use App\Handler\AvailabilityExperienceHandler;
-use App\Handler\ChangeReservationPaxHandler;
+use App\Handler\AvailabilityServiceHandler;
+use App\Handler\ReservationPersistenceHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -170,13 +169,13 @@ class ReservationController extends Controller
     /**
      * Busca los datos de los servicios disponibles para la reserva
      *
-     * @param Request $request
+     * @param id $id
+     * @param funcion $funcion
      * @return JsonResponse
      */
-    public function availabilityService(Request $request)
+    public function availabilityService($id,$funcion)
     {
-        $request = $request->all();
-        $handler = new AvailabilityServiceHandler(['reserva_id' => $request['reserva_id']]);
+        $handler = new AvailabilityServiceHandler(['reserva_id' => $id,'funcion' => $funcion]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -198,8 +197,7 @@ class ReservationController extends Controller
     {
         $request = $request->all();
 
-            if ($request['type'] == 'room') {
-                $handler = new ChangeReservationRoomHandler(['reserva_id' => $request['reserva_id'], 'room_change' => $request['room']]);
+                $handler = new ReservationPersistenceHandler(['data' => $request]);
                 $handler->processHandler();
 
                 if ($handler->isSuccess()) {
@@ -207,49 +205,6 @@ class ReservationController extends Controller
                 }
 
                 return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-            } elseif ($request['type'] == 'pax') {
-                $handler = new ChangeReservationPaxHandler(['reserva_id' => $request['reserva_id'], 'pax_change' => $request['pax']]);
-                $handler->processHandler();
-
-                if ($handler->isSuccess()) {
-                    return new JsonResponse($handler->getData());
-                }
-
-                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-
-            } elseif ($request['type'] == 'experience') {
-                $handler = new ChangeReservationRoomHandler(['reserva_id' => $request['reserva_id'], 'experience_change' => $request['experience']]);
-                $handler->processHandler();
-
-                if ($handler->isSuccess()) {
-                    return new JsonResponse($handler->getData());
-                }
-
-                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-
-            } elseif ($request['type'] == 'service') {
-                    $handler = new ChangeReservationServiceHandler(['reserva_id' => $request['reserva_id'], 'service_change' => $request['services']]);
-                    $handler->processHandler();
-
-                    if ($handler->isSuccess()) {
-                        return new JsonResponse($handler->getData());
-                    }
-
-                    return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-            } elseif ($request['type'] == 'key') {
-                $handler = new ChangeReservationRoomHandler(['reserva_id' => $request['reserva_id'], 'key_change' => $request['key']]);
-                $handler->processHandler();
-
-                if ($handler->isSuccess()) {
-                    return new JsonResponse($handler->getData());
-                }
-
-                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-
-            } else {
-                return new JsonResponse(['res' => 0, 'msg' => 'el tipo de modificacion no existe', 'data' => []]);
-            }
-
     }
 
     /**
