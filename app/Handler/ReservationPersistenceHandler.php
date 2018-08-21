@@ -226,22 +226,51 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }else{
                         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
                     }
-                    $services = $reservation_persistence->services != '' ? $reservation_persistence->services : $this->params['data']['services'];
-                    $services = json_decode($services,true);
+                    $servicesPersistence = json_decode($reservation_persistence->services,true);
+                    if ($servicesPersistence != ''){
+                        foreach ($servicesPersistence as $value => $v){
+
+                            foreach ($this->params['data']['services'] as $add => $a){
+                                if ($a['id'] == $v['id']){
+                                    $servicesPersistence[$value]['cantidad'] = $servicesPersistence[$value]['cantidad'] + $a['cantidad'];
+                                    unset($this->params['data']['services'][$add]);
+                                }
+                            }
+                        }
+                    }else{
+                        $servicesPersistence = [];
+                    }
 
                     foreach ($serviceValidate['data']['list']['extras_disponibles'] as $valid){
-                        if ($valid['id'] == $services){
-                            $validType = true;
+                        foreach ($this->params['data']['services'] as $add){
+                            if ($valid['id'] == $add['id']){
+                                array_push($servicesPersistence,$add);
+                            }
                         }
                     }
-                    if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
-                    array_push($services, $this->params['data']['services']);
-                    $reservation_persistence->services = json_encode($services);
-                    $response = $reservation_persistence->save();
+                    //if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
+                        $reservation_persistence->services = json_encode($servicesPersistence);
+                        $response = $reservation_persistence->save();
+                    //}
                 }else{
+                    $handler = new AvailabilityServiceHandler(['reserva_id' => $this->params['data']['reserva_id'],'funcion' => 'checkin']);
+                    $handler->processHandler();
+                    $servicesPersistence = [];
+                    if ($handler->isSuccess()) {
+                        $serviceValidate = $handler->getData();
+                    }else{
+                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                    }
+                    foreach ($serviceValidate['data']['list']['extras_disponibles'] as $valid){
+                        foreach ($this->params['data']['services'] as $add){
+                            if ($valid['id'] == $add['id']){
+                                array_push($servicesPersistence,$add);
+                            }
+                        }
+                    }
                     $reservation_persistence = new ReservationPersistence();
                     $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
-                    $reservation_persistence->services = json_encode($this->params['data']['services']);
+                    $reservation_persistence->services = json_encode($servicesPersistence);
                     $response = $reservation_persistence->save();
                 }
             }else{
