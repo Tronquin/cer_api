@@ -76,7 +76,6 @@ class ERPService {
      */
     public static function findReservation($data)
     {
-
         $response = self::send('reservas/buscar_reservas', [
             'dato' => $data['numberCodeOrName'],
             'ubicacion_id' => $data['ubicacion_id'],
@@ -86,9 +85,9 @@ class ERPService {
     }
 
     /**
-     * Busca las reservas por id
+     * Busca las reservas por id por post o get
      *
-     * @param $numberCodeOrName
+     * @param $data
      * @return array
      */
     public static function findReservationById($data)
@@ -124,7 +123,6 @@ class ERPService {
      */
     public static function availabilityRoom($data)
     {
-
         $response = self::send('apartamentos/listar_disponibles/'.$data['reserva_id'], [],2);
 
         return $response;
