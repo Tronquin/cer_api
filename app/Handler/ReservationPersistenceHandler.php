@@ -74,7 +74,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                 $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['data']['reserva_id'])->first();
 
                 if (count($reservation_persistence) >= 1){
-                    $tipologia = $reservation_persistence->tipologia_id != '' ? $reservation_persistence->tipologia_id : $reserva['data']['list']['tipologia']['id'];
+                    $tipologia = $this->params['data']['tipologia_id'];
                     $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -85,10 +85,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                     foreach ($roomValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
-                            $ValidType = true;
+                            $validType = ($valid['incidencia_porcentaje'] > $reserva['data']['list']['tipologia']['incidencia_porcentaje']) ? true : false;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
+                    if ($validType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
                     $reservation_persistence->tipologia_id = $this->params['data']['tipologia_id'];
                     $response = $reservation_persistence->save();
                     }else{
@@ -96,7 +96,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                 }else{
                     $reservation_persistence = new ReservationPersistence();
-                    $tipologia = $reserva['data']['list']['tipologia']['id'];
+                    $tipologia = $this->params['data']['tipologia_id'];
                     $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -107,10 +107,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                     foreach ($roomValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
-                            $ValidType = true;
+                            $validType = ($valid['incidencia_porcentaje'] > $reserva['data']['list']['tipologia']['incidencia_porcentaje']) ? true : false;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
+                    if ($validType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
                     $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                     $reservation_persistence->tipologia_id = $this->params['data']['tipologia_id'];
                     $response = $reservation_persistence->save();
@@ -122,7 +122,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                 $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['data']['reserva_id'])->first();
 
                 if (count($reservation_persistence) >= 1){
-                    $plan = $reservation_persistence->plan_id != '' ? $reservation_persistence->plan_id : $reserva['data']['list']['tarifa']['id'];
+                    $plan = $this->params['data']['plan_id'];
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -133,10 +133,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                     foreach ($planValidate['data']['list'] as $valid){
                         if ($valid['id'] == $plan){
-                            $ValidType = true;
+                            $validType = true;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
+                    if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
                     $reservation_persistence->plan_id = $this->params['data']['plan_id'];
                     $response = $reservation_persistence->save();
                     }else{
@@ -144,7 +144,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                 }else{
                     $reservation_persistence = new ReservationPersistence();
-                    $plan = $reserva['data']['list']['tarifa_id']['id'];
+                    $plan = $this->params['data']['plan_id'];
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -155,10 +155,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                     foreach ($planValidate['data']['list'] as $valid){
                         if ($valid['id'] == $plan){
-                            $ValidType = true;
+                            $validType = true;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
+                    if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
                     $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                     $reservation_persistence->plan_id = $this->params['data']['plan_id'];
                     $response = $reservation_persistence->save();
@@ -170,21 +170,21 @@ class ReservationPersistenceHandler extends BaseHandler {
                 $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['data']['reserva_id'])->first();
 
                 if (count($reservation_persistence) >= 1){
-                    $experience = $reservation_persistence->experience_id != '' ? $reservation_persistence->experience_id : $reserva['data']['list']['experience_id']['id'];
+                    $experience = $this->params['data']['experience_id'];
                     $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
                     if ($handler->isSuccess()) {
-                        $experiencelidate = $handler->getData();
+                        $experienceValidate = $handler->getData();
                     }else{
                         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
                     }
-                    foreach ($experiencelidate['data']['list'] as $valid){
+                    foreach ($experienceValidate['data']['list'] as $valid){
                         if ($valid['id'] == $experience){
-                            $ValidType = true;
+                            $validType = ($valid['incidencia_porcentaje'] > $reserva['data']['list']['experiencia']['incidencia_porcentaje']) ? true : false;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
+                    if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
                     $reservation_persistence->experience_id = $this->params['data']['experience_id'];
                     $response = $reservation_persistence->save();
                     }else{
@@ -192,7 +192,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                 }else{
                     $reservation_persistence = new ReservationPersistence();
-                    $experience = $reservation_persistence->experience_id != '' ? $reservation_persistence->experience_id : $reserva['data']['list']['experience_id']['id'];
+                    $experience = $this->params['data']['experience_id'];
                     $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -203,10 +203,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
                     foreach ($experiencelidate['data']['list'] as $valid){
                         if ($valid['id'] == $experience){
-                            $ValidType = true;
+                            $validType = ($valid['incidencia_porcentaje'] > $reserva['data']['list']['experiencia']['incidencia_porcentaje']) ? true : false;
                         }
                     }
-                    if ($ValidType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
+                    if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
                     $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                     $reservation_persistence->experience_id = $this->params['data']['experience_id'];
                     $response = $reservation_persistence->save();
@@ -218,13 +218,24 @@ class ReservationPersistenceHandler extends BaseHandler {
                 $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['data']['reserva_id'])->first();
 
                 if (count($reservation_persistence) >= 1){
-                    $services = json_decode($reservation_persistence->services,true);
+                    $handler = new AvailabilityServiceHandler(['reserva_id' => $this->params['data']['reserva_id'],'funcion' => 'checkin']);
+                    $handler->processHandler();
 
-                    $newServices = [
-                        'id' => $this->params['data']['services'][0]['id'],
-                        'cantidad' => $this->params['data']['services'][0]['cantidad'],
-                    ];
-                    array_push($services, $newServices);
+                    if ($handler->isSuccess()) {
+                        $serviceValidate = $handler->getData();
+                    }else{
+                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                    }
+                    $services = $reservation_persistence->services != '' ? $reservation_persistence->services : $this->params['data']['services'];
+                    $services = json_decode($services,true);
+
+                    foreach ($serviceValidate['data']['list']['extras_disponibles'] as $valid){
+                        if ($valid['id'] == $services){
+                            $validType = true;
+                        }
+                    }
+                    if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
+                    array_push($services, $this->params['data']['services']);
                     $reservation_persistence->services = json_encode($services);
                     $response = $reservation_persistence->save();
                 }else{
