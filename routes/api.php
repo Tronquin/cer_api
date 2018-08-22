@@ -22,6 +22,6 @@ Route::group(['prefix' => 'v1'], function () {
     // Reservation busqueda de servicios disponibles
     Route::get('/reservation/find/services/{reserva_id}/{funcion}', 'ReservationController@availabilityService');
     // Reservation edicion
-    Route::get('/persistence/reservation/', 'ReservationController@changeReservation');
+    Route::get('/persistence/reservation/', 'ReservationController@reservationPersistence');
 
 });

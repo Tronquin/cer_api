@@ -193,7 +193,7 @@ class ReservationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function changeReservation(Request $request)
+    public function reservationPersistence(Request $request)
     {
         $request = $request->all();
 

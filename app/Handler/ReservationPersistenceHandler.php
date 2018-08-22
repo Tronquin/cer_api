@@ -125,14 +125,14 @@ class ReservationPersistenceHandler extends BaseHandler {
                     $plan = $this->params['data']['plan_id'];
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
-
+                    $actualPrice = $reserva['data']['list']['tarifa']['extra_id'] != 0 ? $reserva['data']['list']['tarifa']['extra']['base_imponible'] : 0;
                     if ($handler->isSuccess()) {
                         $planValidate = $handler->getData();
                     }else{
                         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
                     }
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan){
+                        if ($valid['id'] == $plan && $valid['extra']['base_imponible'] > $actualPrice){
                             $validType = true;
                         }
                     }
@@ -145,6 +145,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                 }else{
                     $reservation_persistence = new ReservationPersistence();
                     $plan = $this->params['data']['plan_id'];
+                    $actualPrice = $reserva['data']['list']['tarifa']['extra_id'] != 0 ? $reserva['data']['list']['tarifa']['extra']['base_imponible'] : 0;
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -154,7 +155,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
                     }
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan){
+                        if ($valid['id'] == $plan && $valid['extra']['base_imponible'] > $actualPrice){
                             $validType = true;
                         }
                     }
