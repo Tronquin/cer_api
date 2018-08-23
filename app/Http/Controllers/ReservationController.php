@@ -14,6 +14,7 @@ use App\Handler\AvailabilityPlanHandler;
 use App\Handler\AvailabilityExperienceHandler;
 use App\Handler\AvailabilityServiceHandler;
 use App\Handler\ReservationPersistenceHandler;
+use App\Handler\ReservationFindPersistenceHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -77,7 +78,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca una reserva por id
+     * Busca una reserva por id por url
      *
      * @param $id
      * @return JsonResponse
@@ -88,14 +89,21 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
+            $response = $handler->getData();
+            $handler = new ReservationFindPersistenceHandler(['reserva_id' => $id]);
+            $handler->processHandler();
+            if ($handler->isSuccess()) {
+                $reservaUpdate = $handler->getData();
+                $response['data']['list']['reservaUpdate'] = $reservaUpdate['data']['list'];
+            }
+            return new JsonResponse($response);
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
     /**
-     * Busca una reserva por id
+     * Busca una reserva por id por post
      *
      * @param $id
      * @return JsonResponse
@@ -197,14 +205,31 @@ class ReservationController extends Controller
     {
         $request = $request->all();
 
-                $handler = new ReservationPersistenceHandler(['data' => $request]);
-                $handler->processHandler();
+        $handler = new ReservationPersistenceHandler(['data' => $request]);
+        $handler->processHandler();
 
-                if ($handler->isSuccess()) {
-                    return new JsonResponse($handler->getData());
-                }
+        if ($handler->isSuccess()) {
+        return new JsonResponse($handler->getData());
+        }
 
-                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+    /**
+     * Obtiene los datos modificados de la reserva
+     *
+     * @param id $id
+     * @return JsonResponse
+     */
+    public function reservationFindPersistence($id)
+    {
+        $handler = new ReservationFindPersistenceHandler(['reserva_id' => $id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
     /**

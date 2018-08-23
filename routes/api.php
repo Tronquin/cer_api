@@ -21,7 +21,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/reservation/find/experiences/{reserva_id}', 'ReservationController@availabilityExperience');
     // Reservation busqueda de servicios disponibles
     Route::get('/reservation/find/services/{reserva_id}/{funcion}', 'ReservationController@availabilityService');
-    // Reservation edicion
+    // Guarda los datos modificados de la reserva en cer-api
     Route::get('/persistence/reservation/', 'ReservationController@reservationPersistence');
+    // Obtiene los datos modificados de la reserva de cer-api
+    Route::get('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
 
 });
