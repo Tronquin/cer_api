@@ -42,7 +42,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($validMaxOfPeople >= ($this->params['data']['adults']+$this->params['data']['kids']) && (($reserva['data']['list']['adultos'] != $this->params['data']['adults']) || ($reserva['data']['list']['ninos'] != $this->params['data']['kids']))) {
                         $reservation_persistence->adults = $this->params['data']['adults'] != '' ? $this->params['data']['adults'] : null;
                         $reservation_persistence->kids = $this->params['data']['kids'] != '' ? $this->params['data']['kids'] : null;
-                        $response = $reservation_persistence->save();
                     }else{
                         $response = 'maximo de huespedes excedido';
                         return $response;
@@ -66,7 +65,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if($this->params['data']['tipologia_id'] != ""){
                         if ($validType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
                             $reservation_persistence->tipologia_id = $this->params['data']['tipologia_id'] != "" ? $this->params['data']['tipologia_id'] : null;
-                            $response = $reservation_persistence->save();
                         }else{
                             $response = 'Tipologia Invalida';
                             return $response;
@@ -93,7 +91,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if($this->params['data']['plan_id'] != "") {
                         if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
                             $reservation_persistence->plan_id = $this->params['data']['plan_id'] != "" ? $this->params['data']['plan_id'] : null;
-                            $response = $reservation_persistence->save();
                         } else {
                             $response = 'Plan Invalido';
                             return $response;
@@ -117,12 +114,12 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if($this->params['data']['experience_id'] != "") {
                         if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
                             $reservation_persistence->experience_id = $this->params['data']['experience_id'] != "" ? $this->params['data']['experience_id'] : null;
-                            $response = $reservation_persistence->save();
                         } else {
                             $response = 'Experiencia Invalida';
                             return $response;
                         }
                     }
+                    $response = $reservation_persistence->save();
                 }else{
                     $reservation_persistence = new ReservationPersistence();
                     $tipologia = $reserva['data']['list']['tipologia']['id'];
@@ -143,7 +140,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                     $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                     $reservation_persistence->adults = $this->params['data']['adults'] != "" ? $this->params['data']['adults'] : null;
                     $reservation_persistence->kids = $this->params['data']['kids'] != "" ? $this->params['data']['kids'] : null;
-                    $response = $reservation_persistence->save();
                     }else{
                         $response = 'maximo de huespedes excedido';
                         return $response;
@@ -167,7 +163,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                         if ($validType && ($reserva['data']['list']['tipologia']['id'] != $this->params['data']['tipologia_id'])) {
                             $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                             $reservation_persistence->tipologia_id = $this->params['data']['tipologia_id'] != "" ? $this->params['data']['tipologia_id'] : null;
-                            $response = $reservation_persistence->save();
                         } else {
                             $response = 'Tipologia Invalida';
                             return $response;
@@ -192,7 +187,6 @@ class ReservationPersistenceHandler extends BaseHandler {
                         if ($validType && ($reserva['data']['list']['tarifa']['id'] != $this->params['data']['plan_id'])) {
                             $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                             $reservation_persistence->plan_id = $this->params['data']['plan_id'] != "" ? $this->params['data']['plan_id'] : null;
-                            $response = $reservation_persistence->save();
                         } else {
                             $response = 'Plan Invalido';
                             return $response;
@@ -216,12 +210,12 @@ class ReservationPersistenceHandler extends BaseHandler {
                         if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
                             $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                             $reservation_persistence->experience_id = $this->params['data']['experience_id'] != "" ? $this->params['data']['experience_id'] : null;
-                            $response = $reservation_persistence->save();
                         } else {
                             $response = 'Experiencia Invalida';
                             return $response;
                         }
                     }
+                    $response = $reservation_persistence->save();
                 }
 
         return $response;
