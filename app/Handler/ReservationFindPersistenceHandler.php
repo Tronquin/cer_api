@@ -17,7 +17,15 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         $components = "";
         $data['res'] = 0;
         $data['msg'] = 'persistencia de la reserva';
-        $data['data']['list']['mejoraService'] = [];
+
+        if($reservation_persistence['adults'] != '' && $reservation_persistence['kids'] != ''){
+            $data['data']['list']['mejoraPax']['adults'] = $reservation_persistence['adults'];
+            $data['data']['list']['mejoraPax']['kids'] = $reservation_persistence['kids'];
+
+            $data['res'] = $data['res'] + 1;
+        }else{
+            $data['data']['list']['mejoraPax'] = [];
+        }
 
         $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();
@@ -35,7 +43,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            unset($data['mejoraApartamento']);
+            $data['data']['list']['mejoraApartamento'] = [];
         }
         $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();
@@ -53,7 +61,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            unset($data['mejoraPlan']);
+            $data['data']['list']['mejoraPlan'] = [];
         }
         $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();
@@ -71,41 +79,9 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            unset($data['mejoraExperience']);
-        }
-        $handler = new AvailabilityServiceHandler(['reserva_id' => $this->params['reserva_id'],'funcion' => 'checkin']);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            $services = $handler->getData();
-        }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $data['data']['list']['mejoraExperience'] = [];
         }
 
-        if($reservation_persistence['services'] != ''){
-            foreach ($services['data']['list']['extras_contratados'] as $valid => $key){
-                array_push($data['data']['list']['mejoraService'],$key);
-            }
-            $servicesAdd = json_decode($reservation_persistence['services'],true);
-
-            foreach ($services['data']['list']['extras_disponibles'] as $valid => $key){
-                foreach ($servicesAdd as $index => $keyService){
-                    if($keyService['id'] == $key['id']){
-                        array_push($data['data']['list']['mejoraService'],$key);
-                    }
-                }
-            }
-            $data['res'] = $data['res'] + 1;
-        }else{
-            if($services['data']['list']['extras_contratados']){
-                foreach ($services['data']['list']['extras_contratados'] as $valid => $key){
-                    array_push($data['data']['list']['mejoraService'],$key);
-                }
-                $data['res'] = $data['res'] + 1;
-            }else{
-                unset($data['list']['mejoraService']);
-            }
-        }
         return $data;
     }
 
