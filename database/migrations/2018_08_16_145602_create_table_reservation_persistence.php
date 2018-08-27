@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaReservationPersistence extends Migration
+class CreateTableReservationPersistence extends Migration
 {
     /**
      * Run the migrations.

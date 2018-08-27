@@ -18,4 +18,14 @@ class ReservationPersistence extends Model
         'services',
     ];
 
+    /**
+     * Define los huespedes de la reserva
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reservationGuestPersistence()
+    {
+        return $this->hasMany(ReservationGuestPersistence::class, 'reservation_persistence_id');
+    }
+
 }

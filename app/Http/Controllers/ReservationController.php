@@ -203,8 +203,6 @@ class ReservationController extends Controller
      */
     public function reservationPersistence(Request $request)
     {
-        $request = $request->all();
-
         $handler = new ReservationPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 

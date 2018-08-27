@@ -84,7 +84,7 @@ class ReservationPersistenceHandler extends BaseHandler {
 
                     $validType = false;
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan && $valid['extra']['base_imponible'] > $actualPrice){
+                        if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
                             $validType = true;
                         }
                     }
