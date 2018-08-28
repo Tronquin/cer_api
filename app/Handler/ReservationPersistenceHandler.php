@@ -102,7 +102,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         }
                     }
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
+                        if ($valid['id'] == $plan && $valid['precio_upgrade'] > $actualPrice){
                             $validType = true;
                         }
                     }
@@ -222,7 +222,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         }
                     }
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
+                        if ($valid['id'] == $plan && $valid['precio_upgrade'] > $actualPrice){
                             $validType = true;
                         }
                     }
