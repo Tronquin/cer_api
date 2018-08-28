@@ -10,7 +10,8 @@ class ReservationGuestPersistence extends Model
     protected $table = 'reservation_guest_persistence';
 
     protected $fillable = [
-        'reservation_persistence_id',
+        'reserva_id',
+        'guest_id',
         'type_id',
         'nombre',
         'apellido',
@@ -30,16 +31,6 @@ class ReservationGuestPersistence extends Model
     public function tipo()
     {
         return $this->belongsTo(Type::class, 'type_id');
-    }
-
-    /**
-     * Reserva a la que pertenece
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function reservationPersistence()
-    {
-        return $this->belongsTo(ReservationPersistence::class, 'reservation_persistence_id');
     }
 
 }

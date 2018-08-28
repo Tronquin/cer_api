@@ -21,7 +21,6 @@ class CreateTableReservationPersistence extends Migration
             $table->integer('tipologia_id')->unsigned()->nullable();
             $table->integer('plan_id')->unsigned()->nullable();
             $table->integer('experience_id')->unsigned()->nullable();
-            $table->text('services')->nullable();
             $table->timestamps();
         });
     }

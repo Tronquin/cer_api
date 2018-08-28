@@ -78,13 +78,15 @@ class ReservationPersistenceHandler extends BaseHandler {
                             $response = 'Tipologia Invalida';
                             return $response;
                         }
+                    }else{
+                        $reservation_persistence->tipologia_id = null;
                     }
 
                     $validType = false;
                     $plan = $this->params['data']['plan_id'];
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
-                    $actualPrice = $reserva['data']['list']['tarifa']['extra_id'] != 0 ? $reserva['data']['list']['tarifa']['extra']['base_imponible'] : 0;
+                    $actualPrice = 0;
                     if ($handler->isSuccess()) {
                         $planValidate = $handler->getData();
                     }else{
@@ -94,7 +96,11 @@ class ReservationPersistenceHandler extends BaseHandler {
                         return $response;
                     }
 
-                    $validType = false;
+                    foreach ($planValidate['data']['list'] as $valid){
+                        if ($valid['id'] == $reserva['data']['list']['tarifa']['id']){
+                            $actualPrice = $valid['precio_upgrade'];
+                        }
+                    }
                     foreach ($planValidate['data']['list'] as $valid){
                         if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
                             $validType = true;
@@ -107,7 +113,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                             $response = 'Plan Invalido';
                             return $response;
                         }
+                    }else{
+                        $reservation_persistence->plan_id = null;
                     }
+
                     $validType = false;
                     $experience = $this->params['data']['experience_id'];
                     $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['data']['reserva_id']]);
@@ -133,6 +142,8 @@ class ReservationPersistenceHandler extends BaseHandler {
                             $response = 'Experiencia Invalida';
                             return $response;
                         }
+                    }else{
+                        $reservation_persistence->experience_id = null;
                     }
                     $response = $reservation_persistence->save();
                 }else{
@@ -163,6 +174,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         return $response;
                     }
 
+                    $validType = false;
                     $tipologia = $this->params['data']['tipologia_id'];
                     $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
@@ -189,8 +201,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                             return $response;
                         }
                     }
+
+                    $validType = false;
                     $plan = $this->params['data']['plan_id'];
-                    $actualPrice = $reserva['data']['list']['tarifa']['extra_id'] != 0 ? $reserva['data']['list']['tarifa']['extra']['base_imponible'] : 0;
+                    $actualPrice = 0;
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
 
@@ -201,6 +215,11 @@ class ReservationPersistenceHandler extends BaseHandler {
                         $response['msg'] = $handler->getStatusCode();
                         $response['data'] = $handler->getErrors();
                         return $response;
+                    }
+                    foreach ($planValidate['data']['list'] as $valid){
+                        if ($valid['id'] == $reserva['data']['list']['tarifa']['id']){
+                            $actualPrice = $valid['precio_upgrade'];
+                        }
                     }
                     foreach ($planValidate['data']['list'] as $valid){
                         if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
@@ -216,6 +235,8 @@ class ReservationPersistenceHandler extends BaseHandler {
                             return $response;
                         }
                     }
+
+                    $validType = false;
                     $experience = $this->params['data']['experience_id'];
                     $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();

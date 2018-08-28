@@ -14,6 +14,7 @@ use App\Handler\AvailabilityPlanHandler;
 use App\Handler\AvailabilityExperienceHandler;
 use App\Handler\AvailabilityServiceHandler;
 use App\Handler\ReservationPersistenceHandler;
+use App\Handler\ReservationGuestPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -250,15 +251,17 @@ class ReservationController extends Controller
     }
 
     /**
-     * guarda los datos de los huespedes
+     * guarda los datos de los huespedes en cer-api
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function saveReservationGuest(Request $request)
+    public function reservationGuestPersistence(Request $request)
     {
+
         $request = $request->all();
-        $handler = new SaveReservationGuestHandler(['data' => $request]);
+        dump($request);
+        $handler = new ReservationGuestPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

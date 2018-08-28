@@ -15,17 +15,16 @@ class CreateTableReservationGuestPersistence extends Migration
     {
         Schema::create('reservation_guest_persistence', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reservation_persistence_id')->unsigned();
-            $table->foreign('reservation_persistence_id')->references('id')->on('reservation_persistence');
+            $table->integer('reserva_id')->unsigned();
+            $table->integer('guest_id')->unsigned();
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('type');
-            $table->text('nombre')->nullable();
-            $table->text('apellido')->nullable();
-            $table->text('nacionalidad')->nullable();
-            $table->text('identificacion')->nullable();
-            $table->integer('tipo')->nullable();
+            $table->text('nombre');
+            $table->text('apellido');
+            $table->text('nacionalidad');
+            $table->text('identificacion');
             $table->text('email')->nullable();
-            $table->integer('telefono')->nullable();
+            $table->text('telefono')->nullable();
             $table->text('img')->nullable();
             $table->timestamps();
         });

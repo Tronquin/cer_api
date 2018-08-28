@@ -26,6 +26,6 @@ Route::group(['prefix' => 'v1'], function () {
     // Obtiene los datos modificados de la reserva de cer-api
     Route::post('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
     // Guarda los datos modificados de los huespedes de la reserva
-    Route::get('/persistence/guest/{reserva_id}', 'ReservationController@saveReservationGuest');
+    Route::get('/persistence/guest', 'ReservationController@reservationGuestPersistence');
 
 });
