@@ -23,7 +23,10 @@ class AvailabilityExperienceHandler extends BaseHandler {
             $noches_alojamiento = $noches_alojamiento['data']['list']['noches_alojamiento'];
 
         }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $response['res'] = 0;
+            $response['msg'] = $handler->getStatusCode();
+            $response['data'] = $handler->getErrors();
+            return $response;
         }
         $experiences = $this->orderExperiences($data, 'precio_upgrade',SORT_ASC);
         // ordenamos por precio de menor a mayor

@@ -18,7 +18,10 @@ class ReservationPersistenceHandler extends BaseHandler {
         if ($handler->isSuccess()) {
             $reserva = $handler->getData();
         }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $response['res'] = 0;
+            $response['msg'] = $handler->getStatusCode();
+            $response['data'] = $handler->getErrors();
+            return $response;
         }
 
                 $validMaxOfPeople = 0;
@@ -31,7 +34,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $roomValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($roomValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
@@ -55,7 +61,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $roomValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($roomValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
@@ -79,7 +88,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $planValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
 
                     $validType = false;
@@ -104,7 +116,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $experienceValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($experienceValidate['data']['list'] as $valid){
                         if ($valid['id'] == $experience){
@@ -112,7 +127,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         }
                     }
                     if($this->params['data']['experience_id'] != "") {
-                        if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
+                        if ($validType && ($reserva['data']['list']['experiencia']['id'] != $this->params['data']['experience_id'])) {
                             $reservation_persistence->experience_id = $this->params['data']['experience_id'] != "" ? $this->params['data']['experience_id'] : null;
                         } else {
                             $response = 'Experiencia Invalida';
@@ -129,7 +144,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $maxValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($maxValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
@@ -152,7 +170,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $roomValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($roomValidate['data']['list'] as $valid){
                         if ($valid['id'] == $tipologia){
@@ -176,10 +197,13 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $planValidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($planValidate['data']['list'] as $valid){
-                        if ($valid['id'] == $plan && $valid['extra']['base_imponible'] > $actualPrice){
+                        if ($valid['id'] == $plan && $valid['extra'] != null && $valid['extra']['base_imponible'] > $actualPrice){
                             $validType = true;
                         }
                     }
@@ -199,7 +223,10 @@ class ReservationPersistenceHandler extends BaseHandler {
                     if ($handler->isSuccess()) {
                         $experiencelidate = $handler->getData();
                     }else{
-                        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+                        $response['res'] = 0;
+                        $response['msg'] = $handler->getStatusCode();
+                        $response['data'] = $handler->getErrors();
+                        return $response;
                     }
                     foreach ($experiencelidate['data']['list'] as $valid){
                         if ($valid['id'] == $experience){
@@ -207,7 +234,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         }
                     }
                     if($this->params['data']['experience_id'] != "") {
-                        if ($validType && ($reserva['data']['list']['experiencie']['id'] != $this->params['data']['experience_id'])) {
+                        if ($validType && ($reserva['data']['list']['experiencia']['id'] != $this->params['data']['experience_id'])) {
                             $reservation_persistence->reserva_id = $this->params['data']['reserva_id'];
                             $reservation_persistence->experience_id = $this->params['data']['experience_id'] != "" ? $this->params['data']['experience_id'] : null;
                         } else {

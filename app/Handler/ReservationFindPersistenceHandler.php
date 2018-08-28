@@ -33,7 +33,9 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         if ($handler->isSuccess()) {
             $tipologia = $handler->getData();
         }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $data['msg'] = $handler->getStatusCode();
+            $data['data'] = $handler->getErrors();
+            return $data;
         }
         if($reservation_persistence['tipologia_id'] != ''){
             foreach ($tipologia['data']['list'] as $valid => $key){
@@ -51,7 +53,9 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         if ($handler->isSuccess()) {
             $planes = $handler->getData();
         }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $data['msg'] = $handler->getStatusCode();
+            $data['data'] = $handler->getErrors();
+            return $data;
         }
         if($reservation_persistence['plan_id'] != ''){
             foreach ($planes['data']['list'] as $valid => $key){
@@ -69,7 +73,9 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         if ($handler->isSuccess()) {
             $experiences = $handler->getData();
         }else{
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            $data['msg'] = $handler->getStatusCode();
+            $data['data'] = $handler->getErrors();
+            return $data;
         }
         if($reservation_persistence['experience_id'] != ''){
             foreach ($experiences['data']['list'] as $valid => $key){
