@@ -4,14 +4,14 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class ReservationPaymentHandler extends BaseHandler {
+class ScanGuestPassaportHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::reservationPayment($this->params['data']);
+        $response = ERPService::scanGuestPassaport($this->params['data']);
 
         return $response;
     }

@@ -23,12 +23,12 @@ class ERPService {
     }
 
     /**
-     * escaneo del pasaporte
+     * escaneo del pasaporte del huesped
      *
      * @param $data
      * @return array
      */
-    public static function scanPassaport($data)
+    public static function scanGuestPassaport($data)
     {
         $response = self::send('reservas/put_pasaporte', [
             'reserva_id' => $data['reserva_id'],
@@ -129,22 +129,6 @@ class ERPService {
     }
 
     /**
-     * Actualiza la habitacion de la reserva seleccionada
-     *
-     * @param $data
-     * @return array
-     */
-    public static function changeReservationRoom($data)
-    {
-        $response = self::send('reservas/change_room', [
-            'reserva_id' => $data['reserva_id'],
-            'room' => $data['room_change']
-        ]);
-
-        return $response;
-    }
-
-    /**
      * Busca los servicios de la reserva y las disponibles para comprar
      *
      * @param $data
@@ -155,23 +139,6 @@ class ERPService {
         $response = self::send('reservas/buscar_extras', [
             'reserva_id' => $data['reserva_id'],
             'funcion' => $data['funcion']
-        ]);
-
-        return $response;
-    }
-
-    /**
-     * Actualiza los servicios de la reserva seleccionada
-     *
-     * @param $data
-     * @return array
-     */
-    public static function changeReservationService($data)
-    {
-        $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reserva_id'],
-            'pagado' => 0,
-            'extras' => $data['service_change']
         ]);
 
         return $response;
@@ -191,23 +158,6 @@ class ERPService {
     }
 
     /**
-     * Actualiza la experiencia de la reserva seleccionada
-     *
-     * @param $data
-     * @return array
-     */
-    public static function changeReservationExperience($data)
-    {
-        $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reserva_id'],
-            'pagado' => 1,
-            'Experience' => $data['experience_change']
-        ]);
-
-        return $response;
-    }
-
-    /**
      * Busca el pax de la reserva
      *
      * @param $data
@@ -221,17 +171,17 @@ class ERPService {
     }
 
     /**
-     * Actualiza el pax de la reserva seleccionada
+     * Actualiza los servicios de la reserva seleccionada
      *
      * @param $data
      * @return array
      */
-    public static function changeReservationPlan($data)
+    public static function changeReservationService($data)
     {
         $response = self::send('reservas/add_extras', [
             'reserva_id' => $data['reserva_id'],
-            'pagado' => 1,
-            'Pax' => $data['pax_change']
+            'pagado' => 0,
+            'extras' => $data['service_change']
         ]);
 
         return $response;
@@ -268,6 +218,27 @@ class ERPService {
 
         return $response;
     }
+
+    /**
+     * Realiza los cambios en la reserva luego de procesar el pago
+     *
+     * @param $data
+     * @return array
+     */
+    public static function reservationPayment($data)
+    {
+        $response = self::send('reservas/modificar_reserva', [
+            'reserva_id' => $data['reserva_id'],
+            'regimen_id' => $data['plan_id'],
+            'apartamento_id' => $data['tipologia_id'],
+            'experiencia_id' => $data['experience_id'],
+            'pax' => $data['adults'].','.$data['kids'],
+            'pago_realizado' => $data['total']
+        ]);
+
+        return $response;
+    }
+
 
     /**
      * Guarda los datos de huespedes en la reserva

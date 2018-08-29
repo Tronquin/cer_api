@@ -13,9 +13,11 @@ use App\Handler\AvailabilityRoomHandler;
 use App\Handler\AvailabilityPlanHandler;
 use App\Handler\AvailabilityExperienceHandler;
 use App\Handler\AvailabilityServiceHandler;
+use App\Handler\ReservationPaymentHandler;
 use App\Handler\ReservationPersistenceHandler;
 use App\Handler\ReservationGuestPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
+use App\Handler\ScanGuestPassaportHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -260,7 +262,7 @@ class ReservationController extends Controller
     {
 
         $request = $request->all();
-        dump($request);
+
         $handler = new ReservationGuestPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 
@@ -272,15 +274,15 @@ class ReservationController extends Controller
     }
 
     /**
-     * guarda la imagen del pasaporte
+     * envia la imagen del passaporte al erp y devuelve los datos decifrados
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function addPassaport(Request $request)
+    public function scanGuestPassaport(Request $request)
     {
         $request = $request->all();
-        $handler = new AddPassaportHandler(['data' => $request]);
+        $handler = new ScanGuestPassaportHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -291,7 +293,7 @@ class ReservationController extends Controller
     }
 
     /**
-     * Pago al momento de hacer el checkin
+     * Pago de la reserva para hacer el checkin
      *
      * @param Request $request
      * @return JsonResponse
