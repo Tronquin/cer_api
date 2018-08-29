@@ -17,6 +17,7 @@ use App\Handler\ReservationPaymentHandler;
 use App\Handler\ReservationPersistenceHandler;
 use App\Handler\ReservationGuestPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
+use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ScanGuestPassaportHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -98,6 +99,12 @@ class ReservationController extends Controller
             if ($handler->isSuccess()) {
                 $reservaUpdate = $handler->getData();
                 $response['data']['list']['reservaUpdate'] = $reservaUpdate['data']['list'];
+            }
+            $handler = new ReservationFindGuestPersistenceHandler(['reserva_id' => $id]);
+            $handler->processHandler();
+            if ($handler->isSuccess()) {
+                $guestUpdate = $handler->getData();
+                $response['data']['list']['guestUpdate'] = $guestUpdate['data']['list'];
             }
             return new JsonResponse($response);
         }
@@ -206,6 +213,7 @@ class ReservationController extends Controller
      */
     public function reservationPersistence(Request $request)
     {
+        $request = $request->all();
         $handler = new ReservationPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 

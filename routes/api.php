@@ -22,14 +22,14 @@ Route::group(['prefix' => 'v1'], function () {
     // Reservation busqueda de servicios disponibles
     Route::get('/reservation/find/services/{reserva_id}/{funcion}', 'ReservationController@availabilityService');
     // Guarda los datos modificados de la reserva en cer-api
-    Route::post('/persistence/reservation', 'ReservationController@reservationPersistence');
+    Route::get('/persistence/reservation', 'ReservationController@reservationPersistence');
     // Obtiene los datos modificados de la reserva de cer-api
     Route::post('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
     // Guarda los datos modificados de los huespedes de la reserva
-    Route::get('/persistence/guest', 'ReservationController@reservationGuestPersistence');
+    Route::post('/persistence/guest', 'ReservationController@reservationGuestPersistence');
     // Envia la imagen del pasaporte del huesped al erp para guardarla y procesarla
-    Route::get('/scan/guest', 'ReservationController@scanGuestPassaport');
+    Route::post('/scan/guest', 'ReservationController@scanGuestPassaport');
     // Envia al erp los datos modificados de la reserva al realizar el pago
-    Route::get('/reservation/payment', 'ReservationController@reservationPayment');
+    Route::post('/reservation/payment', 'ReservationController@reservationPayment');
 
 });
