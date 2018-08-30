@@ -25,6 +25,7 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
                     $guest_persistence->apellido = $guest['apellido'];
                     $guest_persistence->nacionalidad = $guest['nacionalidad'];
                     $guest_persistence->sexo = $guest['sexo'];
+                    $guest_persistence->fecha_nacimiento= $guest['fecha_nacimiento'];
                     $guest_persistence->identificacion = $guest['identificacion'];
                     $guest_persistence->email = $guest['email'];
                     $guest_persistence->telefono = $guest['telefono'];
@@ -49,6 +50,7 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
                     $guest_persistence->apellido = $guest['apellido'];
                     $guest_persistence->nacionalidad = $guest['nacionalidad'];
                     $guest_persistence->sexo = $guest['sexo'];
+                    $guest_persistence->fecha_nacimiento = $guest['fecha_nacimiento'];
                     $guest_persistence->identificacion = $guest['identificacion'];
                     $guest_persistence->email = $guest['email'];
                     $guest_persistence->telefono = $guest['telefono'];

@@ -23,6 +23,7 @@ class CreateTableReservationGuestPersistence extends Migration
             $table->text('apellido');
             $table->text('nacionalidad');
             $table->text('sexo');
+            $table->date('fecha_nacimiento');
             $table->text('identificacion');
             $table->text('email')->nullable();
             $table->text('telefono')->nullable();

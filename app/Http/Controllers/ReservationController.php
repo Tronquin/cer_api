@@ -81,14 +81,14 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca una reserva por id por url
+     * Busca una reserva por id
      *
      * @param $id
      * @return JsonResponse
      */
     public function findReservationById($id)
     {
-        $handler = new FindReservationByIdHandler(['reserva_id' => $id,'method' => 2]);
+        $handler = new FindReservationByIdHandler(['reserva_id' => $id,'method' => 1]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -212,7 +212,6 @@ class ReservationController extends Controller
      */
     public function reservationPersistence(Request $request)
     {
-        $request = $request->all();
         $handler = new ReservationPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 
@@ -222,6 +221,7 @@ class ReservationController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
+
     /**
      * Obtiene los datos modificados de la reserva
      *
@@ -241,25 +241,6 @@ class ReservationController extends Controller
     }
 
     /**
-     * Busca los datos de los huespedes de una reserva
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function findReservationGuest(Request $request)
-    {
-        $request = $request->all();
-        $handler = new FindReservationGuestHandler(['data' => $request]);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }
-
-    /**
      * guarda los datos de los huespedes en cer-api
      *
      * @param Request $request
@@ -267,9 +248,6 @@ class ReservationController extends Controller
      */
     public function reservationGuestPersistence(Request $request)
     {
-
-        $request = $request->all();
-
         $handler = new ReservationGuestPersistenceHandler(['data' => $request]);
         $handler->processHandler();
 
@@ -288,7 +266,6 @@ class ReservationController extends Controller
      */
     public function scanGuestPassaport(Request $request)
     {
-        $request = $request->all();
         $handler = new ScanGuestPassaportHandler(['data' => $request]);
         $handler->processHandler();
 
@@ -307,7 +284,7 @@ class ReservationController extends Controller
      */
     public function reservationPayment(Request $request)
     {
-        $request = $request->all();
+
         $handler = new ReservationPaymentHandler(['data' => $request]);
         $handler->processHandler();
 

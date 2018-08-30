@@ -17,6 +17,7 @@ class ReservationGuestPersistence extends Model
         'apellido',
         'nacionalidad',
         'sexo',
+        'fecha_nacimiento',
         'identificacion',
         'tipo',
         'email',

@@ -40,12 +40,12 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         if($reservation_persistence['tipologia_id'] != ''){
             foreach ($tipologia['data']['list'] as $valid => $key){
                 if ($key['id'] == $reservation_persistence['tipologia_id']){
-                    $data['data']['list']['mejoraApartamento'] = $key;
+                    $data['data']['list']['mejoraTipologia'] = $key;
                 }
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            $data['data']['list']['mejoraApartamento'] = [];
+            $data['data']['list']['mejoraTipologia'] = [];
         }
         $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();

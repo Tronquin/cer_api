@@ -26,7 +26,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Obtiene los datos modificados de la reserva de cer-api
     Route::get('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
     // Guarda los datos modificados de los huespedes de la reserva
-    Route::get('/persistence/guest', 'ReservationController@reservationGuestPersistence');
+    Route::post('/persistence/guest', 'ReservationController@reservationGuestPersistence');
     // Envia la imagen del pasaporte del huesped al erp para guardarla y procesarla
     Route::post('/scan/guest', 'ReservationController@scanGuestPassaport');
     // Envia al erp los datos modificados de la reserva al realizar el pago
