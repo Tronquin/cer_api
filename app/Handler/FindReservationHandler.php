@@ -25,6 +25,7 @@ class FindReservationHandler extends BaseHandler {
     {
         return [
             'numberCodeOrName' =>'required',
+            'ubicacion_id' => 'required|numeric',
         ];
     }
 

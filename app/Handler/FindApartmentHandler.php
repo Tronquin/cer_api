@@ -3,14 +3,14 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class ReservationCheckinHandler extends BaseHandler {
+class FindApartmentHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::reservationCheckin($this->params['reserva_id']);
+        $response = ERPService::findApartment($this->params['id']);
 
         return $response;
     }
@@ -23,9 +23,8 @@ class ReservationCheckinHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'reserva_id' => 'required|numeric',
+
         ];
     }
-
 
 }

@@ -24,7 +24,13 @@ class ReservationPaymentHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-
+            'reserva_id' =>'required|numeric',
+            'plan_id' =>'required|numeric',
+            'tipologia_id' =>'required|numeric',
+            'experience_id' =>'required|numeric',
+            'kids' =>'required|numeric',
+            'adults' =>'required|numeric',
+            'total' =>'required|numeric',
         ];
     }
 

@@ -24,7 +24,7 @@ class FindReservationByIdHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'reserva_id' =>'required',
+            'reserva_id' =>'required|numeric',
         ];
     }
 

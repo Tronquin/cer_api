@@ -99,7 +99,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-
+            'reserva_id' =>'required|numeric',
         ];
     }
 

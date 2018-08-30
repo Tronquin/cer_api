@@ -1,7 +1,6 @@
 <?php
 namespace App\Handler;
 
-use App\ReservationPersistence;
 use App\ReservationGuestPersistence;
 use App\Service\ERPService;
 
@@ -17,7 +16,7 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
             if (count($guest_persistence) > 0) {
                 $guest_persistence->delete();
 
-                foreach ($this->params['data']['huespedes'] as $guest) {
+                foreach ($this->params['data']['huesped'] as $guest) {
                     $guest_persistence = new ReservationGuestPersistence();
                     $guest_persistence->reserva_id = $this->params['data']['reserva_id'];
                     $guest_persistence->guest_id = $guest['id'];
@@ -74,7 +73,8 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-
+            'reserva_id' =>'required|numeric',
+            'huesped' =>'required',
         ];
     }
 

@@ -165,7 +165,12 @@ abstract class BaseHandler {
      */
     private function checkValidationRules()
     {
-        $validator = Validator::make($this->params, $this->rules);
+        //Validacion para metodos post (se envia en data) y get
+        if(isset($this->params['data'])){
+            $validator = Validator::make($this->params['data'], $this->rules);
+        }else{
+            $validator = Validator::make($this->params, $this->rules);
+        }
 
         if (! $validator->passes()) {
 

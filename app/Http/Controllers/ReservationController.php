@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\FindReservationGuestHandler;
-use App\Handler\SaveReservationGuestHandler;
 use App\Handler\AddPassaport;
 use App\Handler\FindReservationHandler;
 use App\Handler\FindReservationByIdHandler;
@@ -187,7 +186,7 @@ class ReservationController extends Controller
     /**
      * Busca los datos de los servicios disponibles para la reserva
      *
-     * @param id $id
+     * @param $id
      * @param funcion $funcion
      * @return JsonResponse
      */
@@ -226,7 +225,7 @@ class ReservationController extends Controller
     /**
      * Obtiene los datos modificados de la reserva
      *
-     * @param id $id
+     * @param $id
      * @return JsonResponse
      */
     public function reservationFindPersistence($id)

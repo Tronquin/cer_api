@@ -32,6 +32,7 @@ class ERPService {
     {
         $response = self::send('reservas/put_pasaporte', [
             'reserva_id' => $data['reserva_id'],
+            'file_encode' => $data['file'],
         ]);
 
         return $response;
@@ -265,6 +266,21 @@ class ERPService {
     {
         $response = self::send('reservas/', [
             'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca los apartamentos de una ubicacion
+     *
+     * @param $id
+     * @return array
+     */
+    public static function findApartment($id)
+    {
+        $response = self::send('reservas/', [
+            'ubicacion_id' => $id,
         ]);
 
         return $response;
