@@ -27,16 +27,12 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
                     $guest_persistence->sexo = $guest['sexo'];
                     $guest_persistence->fecha_nacimiento= $guest['fecha_nacimiento'];
                     $guest_persistence->identificacion = $guest['identificacion'];
+                    $guest_persistence->pais = $guest['pais'];
                     $guest_persistence->email = $guest['email'];
                     $guest_persistence->telefono = $guest['telefono'];
                     $guest_persistence->img = $guest['img'];
 
                     $response = $guest_persistence->save();
-                    if ($response != true) {
-                        $guest_persistence = ReservationGuestPersistence::where('reserva_id', '=', $this->params['data']['reserva_id'])->first();
-                        $guest_persistence->delete();
-                        return $response;
-                    }
                 }
                 return $response;
             } else {
@@ -52,16 +48,12 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
                     $guest_persistence->sexo = $guest['sexo'];
                     $guest_persistence->fecha_nacimiento = $guest['fecha_nacimiento'];
                     $guest_persistence->identificacion = $guest['identificacion'];
+                    $guest_persistence->pais = $guest['pais'];
                     $guest_persistence->email = $guest['email'];
                     $guest_persistence->telefono = $guest['telefono'];
                     $guest_persistence->img = $guest['img'];
 
                     $response = $guest_persistence->save();
-                    if ($response != true) {
-                        $guest_persistence = ReservationGuestPersistence::where('reserva_id', '=', $this->params['data']['reserva_id'])->first();
-                        $guest_persistence->delete();
-                        return $response;
-                    }
                 }
                 return $response;
             }

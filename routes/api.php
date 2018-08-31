@@ -30,6 +30,6 @@ Route::group(['prefix' => 'v1'], function () {
     // Envia la imagen del pasaporte del huesped al erp para guardarla y procesarla
     Route::post('/scan/guest', 'ReservationController@scanGuestPassaport');
     // Envia al erp los datos modificados de la reserva al realizar el pago
-    Route::post('/reservation/payment', 'ReservationController@reservationPayment');
+    Route::get('/reservation/payment', 'ReservationController@reservationPayment');
 
 });

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
-use App\Handler\FindReservationGuestHandler;
 use App\Handler\AddPassaport;
 use App\Handler\FindReservationHandler;
 use App\Handler\FindReservationByIdHandler;
@@ -15,6 +14,7 @@ use App\Handler\AvailabilityServiceHandler;
 use App\Handler\ReservationPaymentHandler;
 use App\Handler\ReservationPersistenceHandler;
 use App\Handler\ReservationGuestPersistenceHandler;
+use App\Handler\ReservationPaymentPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ScanGuestPassaportHandler;
@@ -284,6 +284,15 @@ class ReservationController extends Controller
      */
     public function reservationPayment(Request $request)
     {
+        $request = $request->all();
+        $handler = new ReservationPaymentPersistenceHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            \Log::info('Persistencia de pago guardada con exito.');
+        }else{
+            \Log::info('Error al persistir los datos del pago',$handler->getErrors());
+        }
 
         $handler = new ReservationPaymentHandler(['data' => $request]);
         $handler->processHandler();

@@ -24,7 +24,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
 
             $data['res'] = $data['res'] + 1;
         }else{
-            $data['data']['list']['mejoraPax'] = [];
+            $data['data']['list']['mejoraPax'] = new \stdClass;
         }
 
         $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['reserva_id']]);
@@ -45,7 +45,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            $data['data']['list']['mejoraTipologia'] = [];
+            $data['data']['list']['mejoraTipologia'] = new \stdClass;
         }
         $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();
@@ -65,7 +65,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            $data['data']['list']['mejoraPlan'] = [];
+            $data['data']['list']['mejoraPlan'] = new \stdClass;
         }
         $handler = new AvailabilityExperienceHandler(['reserva_id' => $this->params['reserva_id']]);
         $handler->processHandler();
@@ -85,7 +85,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             }
             $data['res'] = $data['res'] + 1;
         }else{
-            $data['data']['list']['mejoraExperience'] = [];
+            $data['data']['list']['mejoraExperience'] = new \stdClass;
         }
 
         return $data;

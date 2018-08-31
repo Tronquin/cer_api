@@ -20,7 +20,7 @@ class ReservationFindGuestPersistenceHandler extends BaseHandler {
         if (count($guest_persistence) > 0) {
             $data['data']['list'] = $guest_persistence;
         }else{
-            $data['data']['list'] = [];
+            $data['data']['list'] = new \stdClass;
         }
 
         return $data;
