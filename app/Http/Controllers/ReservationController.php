@@ -266,6 +266,7 @@ class ReservationController extends Controller
      */
     public function scanGuestPassport(Request $request)
     {
+        $request = $request->all();
         $handler = new ScanGuestPassportHandler(['data' => $request]);
         $handler->processHandler();
 
