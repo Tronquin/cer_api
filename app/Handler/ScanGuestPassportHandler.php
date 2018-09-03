@@ -25,7 +25,7 @@ class ScanGuestPassportHandler extends BaseHandler {
     {
         return [
             'reserva_id' =>'required|numeric',
-            'file' =>'required',
+            'file_encode' =>'required',
         ];
     }
 
