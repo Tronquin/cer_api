@@ -47,31 +47,45 @@ class AvailabilityRoomHandler extends BaseHandler {
         foreach ($tipos as $key => $value){
             $apartamentoTipologia[$key] = $value['apartamentos'];
             foreach ($value['apartamentos'] as $aptkey => $apartamento){
-
+                // juntamos todos los apartamentos en un array
                 array_push($todosLosApartamentos,$apartamento);
 
                 if ($apartamento['planta'] > $pisos){
+                    //obtenemos los pisos principales
                     $pisos = $apartamento['planta'];
                 }
-                if ($apartamento['planta'] = $plantaBaja){
+                if ($apartamento['planta'] == $plantaBaja){
+                    // identificamos si tiene planta baja
                     $plantaBaja = 1;
                 }
             }
         }
-        // Ordenamos los apartamentos por piso
+
+        if($plantaBaja == 0){
+            // si no tiene plantabaja se recorren los pisos a partir del 1
+            $plantaBaja = 1;
+        }elseif ($plantaBaja > 0){
+            // si tiene plantabaja se recorren los pisos a partir del 0
+            $plantaBaja = 0;
+        }
+
+        // Ordenamos por piso
         $ordenadosPorPiso = $this->order($todosLosApartamentos, 'planta',SORT_ASC);
-        $pisos = $pisos + $plantaBaja;
-        $ordenados = [];
-        for ($i = 0 ; $i <= $pisos; $i++){
-            /*foreach ($ordenadosPorPiso as $key => $value){
-                if($value['planta'] == $i && $value['puerta'] == $i) array_push($ordenados,$value);
-            }*/
+        //recorremos los pisos para asignar los apartamentos
+        for ($i = $plantaBaja ; $i <= $pisos; $i++){
+            $ordenados[$i] = [];
+            foreach ($ordenadosPorPiso as $key => $value){
+                if($i == $value['planta']){
+                    array_push($ordenados[$i],$value);
+                  //Ordenamos los Apartamentos de cada piso
+                    $ordenados[$i] = $this->order($ordenados[$i], 'puerta',SORT_ASC);
+                }
+            }
         }
 
         $response['data'] = [
             'list' => $tipos,
-            //'pisos' => $pisos,
-            //'orden' => $ordenadosPorPiso,
+            'pisos' => $ordenados,
         ];
         return $response;
     }
