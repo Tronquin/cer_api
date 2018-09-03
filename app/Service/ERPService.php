@@ -7,36 +7,6 @@ class ERPService {
     const METHOD_POST = 1;
     const METHOD_GET = 2;
 
-    /**
-     * adjunta imagen del pasaporte
-     *
-     * @param $data
-     * @return array
-     */
-    public static function addPassaport($data)
-    {
-        $response = self::send('reservas/put_pasaporte', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
-
-        return $response;
-    }
-
-    /**
-     * escaneo del pasaporte del huesped
-     *
-     * @param $data
-     * @return array
-     */
-    public static function scanGuestPassaport($data)
-    {
-        $response = self::send('reservas/put_pasaporte', [
-            'reserva_id' => $data['reserva_id'],
-            'file_encode' => $data['file'],
-        ]);
-
-        return $response;
-    }
 
     /**
      * Busca las reservas para checkin por ubicacion y fecha
@@ -221,6 +191,45 @@ class ERPService {
     }
 
     /**
+     * escaneo del pasaporte del huesped
+     *
+     * @param $data
+     * @return array
+     */
+    public static function scanGuestPassport($data)
+    {
+        $response = self::send('reservas/put_pasaporte', [
+            'reserva_id' => $data['reserva_id'],
+            'file_encode' => $data['file_encode'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * actualiza los datos del huesped/pasaporte
+     *
+     * @param $data
+     * @return array
+     */
+    public static function updateGuestPassport($data)
+    {
+        $response = self::send('reservas/update_pasaporte', [
+            'pasaporte_id' => $data['pasaporte_id'],
+            'tipo_documento' => $data['tipo_documento'],
+            'numero' => $data['numero'],
+            'apellido1' => $data['apellido1'],
+            'apellido2' => $data['apellido2'],
+            'nombre' => $data['nombre'],
+            'pais' => $data['pais'],
+            'fecha_nacimiento' => $data['fecha_nacimiento'],
+            'sexo' => $data['sexo'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Realiza los cambios en la reserva luego de procesar el pago
      *
      * @param $data
@@ -235,37 +244,6 @@ class ERPService {
             'experiencia_id' => $data['experience_id'],
             'pax' => $data['adults'].','.$data['kids'],
             'pago_realizado' => $data['total']
-        ]);
-
-        return $response;
-    }
-
-
-    /**
-     * Guarda los datos de huespedes en la reserva
-     *
-     * @param $data
-     * @return array
-     */
-    public static function saveReservationGuest($data)
-    {
-        $response = self::send('reservas/', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
-
-        return $response;
-    }
-
-    /**
-     * Busca los datos de huespedes en la reserva
-     *
-     * @param $data
-     * @return array
-     */
-    public static function findReservationGuest($data)
-    {
-        $response = self::send('reservas/', [
-            'reserva_id' => $data['reserva_id'],
         ]);
 
         return $response;

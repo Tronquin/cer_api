@@ -17,7 +17,7 @@ use App\Handler\ReservationGuestPersistenceHandler;
 use App\Handler\ReservationPaymentPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
-use App\Handler\ScanGuestPassaportHandler;
+use App\Handler\ScanGuestPassportHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -264,9 +264,27 @@ class ReservationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function scanGuestPassaport(Request $request)
+    public function scanGuestPassport(Request $request)
     {
-        $handler = new ScanGuestPassaportHandler(['data' => $request]);
+        $handler = new ScanGuestPassportHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Actualiza los datos de un passport/guest
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateGuestPassaport(Request $request)
+    {
+        $handler = new UpdateGuestPassportHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

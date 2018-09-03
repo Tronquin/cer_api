@@ -4,14 +4,14 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 
-class ScanGuestPassaportHandler extends BaseHandler {
+class ScanGuestPassportHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::scanGuestPassaport($this->params['data']);
+        $response = ERPService::scanGuestPassport($this->params['data']);
 
         return $response;
     }
