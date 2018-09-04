@@ -18,6 +18,7 @@ use App\Handler\ReservationPaymentPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
+use App\Handler\UpdateGuestPassportHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -285,6 +286,7 @@ class ReservationController extends Controller
      */
     public function updateGuestPassaport(Request $request)
     {
+        $request = $request->all();
         $handler = new UpdateGuestPassportHandler(['data' => $request]);
         $handler->processHandler();
 

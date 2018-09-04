@@ -216,7 +216,7 @@ class ERPService {
     public static function updateGuestPassport($data)
     {
         $response = self::send('reservas/update_pasaporte', [
-            'pasaporte_id' => $data['pasaporte_id'],
+            'pasaporte_id' => $data['id'],
             'tipo_documento' => $data['tipo_documento'],
             'numero' => $data['numero'],
             'apellido1' => $data['apellido1'],

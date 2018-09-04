@@ -24,7 +24,14 @@ class UpdateGuestPassportHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'reserva_id' =>'required|numeric',
+            'id' =>'required|numeric',
+            'tipo_documento' =>'required',
+            'apellido1' =>'required',
+            'apellido2' =>'required',
+            'nombre' =>'required',
+            'pais' =>'required',
+            'fecha_nacimiento' =>'required',
+            'sexo' =>'required',
         ];
     }
 

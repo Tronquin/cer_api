@@ -29,6 +29,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/persistence/guest', 'ReservationController@reservationGuestPersistence');
     // Envia la imagen del pasaporte del huesped al erp para guardarla y procesarla
     Route::post('/scan/guest', 'ReservationController@scanGuestPassport');
+    // Modifica los datos de los pasaportes/guest
+    Route::post('/edit/guest', 'ReservationController@updateGuestPassaport');
     // Envia al erp los datos modificados de la reserva al realizar el pago
     Route::post('/reservation/payment', 'ReservationController@reservationPayment');
 
