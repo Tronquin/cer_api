@@ -41,6 +41,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             foreach ($tipologia['data']['list'] as $valid => $key){
                 if ($key['id'] == $reservation_persistence['tipologia_id']){
                     $data['data']['list']['mejoraTipologia'] = $key;
+                    break;
                 }
             }
             $data['res'] = $data['res'] + 1;
@@ -61,6 +62,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             foreach ($planes['data']['list'] as $valid => $key){
                 if ($key['id'] == $reservation_persistence['plan_id']){
                     $data['data']['list']['mejoraPlan'] = $key;
+                    break;
                 }
             }
             $data['res'] = $data['res'] + 1;
@@ -81,6 +83,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             foreach ($experiences['data']['list'] as $valid => $key){
                 if ($key['id'] == $reservation_persistence['experience_id']){
                     $data['data']['list']['mejoraExperience'] = $key;
+                    break;
                 }
             }
             $data['res'] = $data['res'] + 1;
