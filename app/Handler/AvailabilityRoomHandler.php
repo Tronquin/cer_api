@@ -42,7 +42,6 @@ class AvailabilityRoomHandler extends BaseHandler {
 
         $todosLosApartamentos = [];
         $pisos = 0;
-        $plantaBaja = 0;
 
         foreach ($tipos as $key => $value){
             $apartamentoTipologia[$key] = $value['apartamentos'];
@@ -54,25 +53,13 @@ class AvailabilityRoomHandler extends BaseHandler {
                     //obtenemos los pisos principales
                     $pisos = $apartamento['planta'];
                 }
-                if ($apartamento['planta'] == $plantaBaja){
-                    // identificamos si tiene planta baja
-                    $plantaBaja = 1;
-                }
             }
-        }
-
-        if($plantaBaja == 0){
-            // si no tiene plantabaja se recorren los pisos a partir del 1
-            $plantaBaja = 1;
-        }elseif ($plantaBaja > 0){
-            // si tiene plantabaja se recorren los pisos a partir del 0
-            $plantaBaja = 0;
         }
 
         // Ordenamos por piso
         $ordenadosPorPiso = $this->order($todosLosApartamentos, 'planta',SORT_ASC);
         //recorremos los pisos para asignar los apartamentos
-        for ($i = $plantaBaja ; $i <= $pisos; $i++){
+        for ($i = 0 ; $i <= $pisos; $i++){
             $ordenados[$i] = [];
             foreach ($ordenadosPorPiso as $key => $value){
                 if($i == $value['planta']){
