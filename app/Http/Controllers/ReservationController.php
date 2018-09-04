@@ -267,8 +267,7 @@ class ReservationController extends Controller
      */
     public function scanGuestPassport(Request $request)
     {
-        $request = $request->all();
-        $handler = new ScanGuestPassportHandler(['data' => $request]);
+        $handler = new ScanGuestPassportHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -286,8 +285,7 @@ class ReservationController extends Controller
      */
     public function updateGuestPassaport(Request $request)
     {
-        $request = $request->all();
-        $handler = new UpdateGuestPassportHandler(['data' => $request]);
+        $handler = new UpdateGuestPassportHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -305,8 +303,7 @@ class ReservationController extends Controller
      */
     public function reservationPayment(Request $request)
     {
-        $request = $request->all();
-        $handler = new ReservationPaymentPersistenceHandler(['data' => $request]);
+        $handler = new ReservationPaymentPersistenceHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
