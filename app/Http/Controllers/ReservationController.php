@@ -271,7 +271,11 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
+            $guest = $handler->getData();
+            $handler = new ReservationGuestPersistenceHandler(['data' => $guest]);
+            $handler->processHandler();
+
+            return new JsonResponse($guest);
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());

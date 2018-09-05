@@ -198,7 +198,7 @@ class ERPService {
      */
     public static function scanGuestPassport($data)
     {
-        $file_encode = str_replace(' ', '%2B', $data['file_encode']);
+        $file_encode = str_replace('+', '%2B', $data['file_encode']);
         $response = self::send('reservas/put_pasaporte', [
             'reserva_id' => $data['reserva_id'],
             'file_encode' => $file_encode,
