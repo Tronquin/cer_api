@@ -29,7 +29,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
 
         if($reservation_persistence['tipologia_id'] != ''){
 
-            $data['data']['list']['mejoraTipologia'] = $reservation_persistence['tipologia_id'];
+            $data['data']['list']['mejoraTipologia']['id'] = $reservation_persistence['tipologia_id'];
             $data['res'] = $data['res'] + 1;
         }else{
             $data['data']['list']['mejoraTipologia'] = new \stdClass;
@@ -37,7 +37,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
 
         if($reservation_persistence['plan_id'] != ''){
 
-            $data['data']['list']['mejoraPlan'] = $reservation_persistence['plan_id'];
+            $data['data']['list']['mejoraPlan']['id'] = $reservation_persistence['plan_id'];
             $data['res'] = $data['res'] + 1;
         }else{
             $data['data']['list']['mejoraPlan'] = new \stdClass;
@@ -45,7 +45,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
 
         if($reservation_persistence['experience_id'] != ''){
 
-            $data['data']['list']['mejoraExperience'] = $reservation_persistence['experience_id'];
+            $data['data']['list']['mejoraExperience']['id'] = $reservation_persistence['experience_id'];
             $data['res'] = $data['res'] + 1;
         }else{
             $data['data']['list']['mejoraExperience'] = new \stdClass;
