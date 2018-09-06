@@ -148,7 +148,7 @@ class ERPService {
      * @return array
      */
     public static function addReservationService($data)
-    {dump($data);
+    {
         $response = self::send('reservas/add_extras', [
             'reserva_id' => $data['reserva_id'],
             'pagado' => $data['pago_extras'],
