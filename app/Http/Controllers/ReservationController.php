@@ -308,7 +308,7 @@ class ReservationController extends Controller
 
             $handler = new ReservationGuestPersistenceHandler(['data' => $guest]);
             $handler->processHandler();
-            $data = $handler->getData();
+
             return new JsonResponse($data);
         }
 
