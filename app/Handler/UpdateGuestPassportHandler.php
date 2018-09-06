@@ -11,7 +11,7 @@ class UpdateGuestPassportHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $response = ERPService::updateGuestPassport($this->params['data']);
+        $response = ERPService::updateGuestPassport($this->params['data']['huesped']);
 
         return $response;
     }
@@ -24,14 +24,7 @@ class UpdateGuestPassportHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'id' =>'required|numeric',
-            'tipo_documento' =>'required',
-            'apellido1' =>'required',
-            'apellido2' =>'required',
-            'nombre' =>'required',
-            'pais' =>'required',
-            'fecha_nacimiento' =>'required',
-            'sexo' =>'required',
+            'huesped' =>'required',
         ];
     }
 

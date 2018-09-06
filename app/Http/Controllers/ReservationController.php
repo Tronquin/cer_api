@@ -249,7 +249,7 @@ class ReservationController extends Controller
      */
     public function reservationGuestPersistence(Request $request)
     {
-        $handler = new ReservationGuestPersistenceHandler(['data' => $request]);
+        $handler = new ReservationGuestPersistenceHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -271,11 +271,15 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            $guest = $handler->getData();
+            $data = $handler->getData();
+            $guest['reserva_id'] = $data['data']['reserva_id'];
+            $guest['huesped'] = [];
+            array_push($guest['huesped'],$data['data']);
+
             $handler = new ReservationGuestPersistenceHandler(['data' => $guest]);
             $handler->processHandler();
 
-            return new JsonResponse($guest);
+            return new JsonResponse($data);
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
@@ -289,11 +293,23 @@ class ReservationController extends Controller
      */
     public function updateGuestPassaport(Request $request)
     {
-        $handler = new UpdateGuestPassportHandler(['data' => $request->all()]);
+        $request = $request->all();
+        $handler = new UpdateGuestPassportHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
+            $data = $handler->getData();
+
+            $guest['reserva_id'] = $request['huesped'][0]['reserva_id'];
+            $guest['huesped'] = [];
+            foreach ($request['huesped'] as $huesped){
+                array_push($guest['huesped'],$huesped);
+            }
+
+            $handler = new ReservationGuestPersistenceHandler(['data' => $guest]);
+            $handler->processHandler();
+            $data = $handler->getData();
+            return new JsonResponse($data);
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());

@@ -15,40 +15,45 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
 
             if (count($guest_persistence) > 0) {
 
-                foreach ($this->params['data']['huesped'] as $guest) {
-                    $guest = ReservationGuestPersistence::where('guest_id', '=', $guest['id'])->first();
+                foreach ($this->params['data']['huesped'] as $huesped){
+
+                    $guest = ReservationGuestPersistence::where('guest_id', '=', $huesped['id'])->first();
+
                     if (count($guest) > 0) {
 
-                        $guest_persistence->identificacion = $guest['numero'];
-                        $guest_persistence->type_id = $guest['tipo_documento'];
-                        $guest_persistence->nombre = $guest['nombre'];
-                        $guest_persistence->apellido1 = $guest['apellido1'];
-                        $guest_persistence->apellido2 = $guest['apellido2'];
-                        $guest_persistence->pais = $guest['pais'];
-                        $guest_persistence->nacionalidad = $guest['nacionalidad'];
-                        $guest_persistence->fecha_nacimiento = $guest['fecha_nacimiento'];
-                        $guest_persistence->sexo = $guest['sexo'];
-                        $guest_persistence->email = $guest['email'];
-                        $guest_persistence->telefono = $guest['telefono'];
-                        $guest_persistence->img = $guest['img'];
+                        $guest->type_id = isset($huesped['tipo']) ? $huesped['tipo'] : null;
+                        $guest->nombre = $huesped['nombre'];
+                        $guest->apellido1 = $huesped['apellido1'];
+                        $guest->apellido2 = $huesped['apellido2'];
+                        $guest->nacionalidad = $huesped['nacionalidad'];
+                        $guest->sexo = $huesped['sexo'];
+                        $guest->fecha_nacimiento = $huesped['fecha_nacimiento'];
+                        $guest->identificacion = $huesped['numero'];
+                        $guest->tipo_documento = $huesped['tipo_documento'];
+                        $guest->pais = $huesped['pais'];
+                        $guest->email = isset($huesped['email']) ? $huesped['email'] : null;
+                        $guest->telefono = isset($huesped['telefono']) ? $huesped['telefono'] : null;
 
                         $response = $guest->save();
+
                         if($response != true)break;
                     }else{
                         $guest_persistence = new ReservationGuestPersistence();
-                        $guest_persistence->guest_id = $guest['id'];
-                        $guest_persistence->identificacion = $guest['numero'];
-                        $guest_persistence->type_id = $guest['tipo_documento'];
-                        $guest_persistence->nombre = $guest['nombre'];
-                        $guest_persistence->apellido1 = $guest['apellido1'];
-                        $guest_persistence->apellido2 = $guest['apellido2'];
-                        $guest_persistence->pais = $guest['pais'];
-                        $guest_persistence->nacionalidad = $guest['nacionalidad'];
-                        $guest_persistence->fecha_nacimiento = $guest['fecha_nacimiento'];
-                        $guest_persistence->sexo = $guest['sexo'];
-                        $guest_persistence->email = $guest['email'];
-                        $guest_persistence->telefono = $guest['telefono'];
-                        $guest_persistence->img = $guest['img'];
+                        $guest_persistence->reserva_id = $this->params['data']['reserva_id'];
+                        $guest_persistence->guest_id = $huesped['id'];
+                        $guest_persistence->type_id = isset($huesped['tipo']) ? $huesped['tipo'] : null;
+                        $guest_persistence->nombre = $huesped['nombre'];
+                        $guest_persistence->apellido1 = $huesped['apellido1'];
+                        $guest_persistence->apellido2 = $huesped['apellido2'];
+                        $guest_persistence->nacionalidad = $huesped['nacionalidad'];
+                        $guest_persistence->sexo = $huesped['sexo'];
+                        $guest_persistence->fecha_nacimiento = $huesped['fecha_nacimiento'];
+                        $guest_persistence->identificacion = $huesped['numero'];
+                        $guest_persistence->tipo_documento = $huesped['tipo_documento'];
+                        $guest_persistence->pais = $huesped['pais'];
+                        $guest_persistence->email = isset($huesped['email']) ? $huesped['email'] : null;
+                        $guest_persistence->telefono = isset($huesped['telefono']) ? $huesped['telefono'] : null;
+                        $guest_persistence->img = $huesped['url'];
 
                         $response = $guest_persistence->save();
                         if($response != true)break;
@@ -56,26 +61,30 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
 
                 }
                 return $response;
-            } else {
+            }else {
 
-                foreach ($this->params['data']['huespedes'] as $guest) {
+                foreach ($this->params['data']['huesped'] as $huesped) {
+
                     $guest_persistence = new ReservationGuestPersistence();
+
                     $guest_persistence->reserva_id = $this->params['data']['reserva_id'];
-                    $guest_persistence->guest_id = $guest['id'];
-                    $guest_persistence->identificacion = $guest['numero'];
-                    $guest_persistence->type_id = $guest['tipo_documento'];
-                    $guest_persistence->nombre = $guest['nombre'];
-                    $guest_persistence->apellido1 = $guest['apellido1'];
-                    $guest_persistence->apellido2 = $guest['apellido2'];
-                    $guest_persistence->pais = $guest['pais'];
-                    $guest_persistence->nacionalidad = $guest['nacionalidad'];
-                    $guest_persistence->fecha_nacimiento = $guest['fecha_nacimiento'];
-                    $guest_persistence->sexo = $guest['sexo'];
-                    $guest_persistence->email = $guest['email'];
-                    $guest_persistence->telefono = $guest['telefono'];
-                    $guest_persistence->img = $guest['img'];
+                    $guest_persistence->guest_id = $huesped['id'];
+                    $guest_persistence->type_id = isset($huesped['tipo']) ? $huesped['tipo'] : null;
+                    $guest_persistence->nombre = $huesped['nombre'];
+                    $guest_persistence->apellido1 = $huesped['apellido1'];
+                    $guest_persistence->apellido2 = $huesped['apellido2'];
+                    $guest_persistence->nacionalidad = $huesped['nacionalidad'];
+                    $guest_persistence->sexo = $huesped['sexo'];
+                    $guest_persistence->fecha_nacimiento = $huesped['fecha_nacimiento'];
+                    $guest_persistence->identificacion = $huesped['numero'];
+                    $guest_persistence->tipo_documento = $huesped['tipo_documento'];
+                    $guest_persistence->pais = $huesped['pais'];
+                    $guest_persistence->email = isset($huesped['email']) ? $huesped['email'] : null;
+                    $guest_persistence->telefono = isset($huesped['telefono']) ? $huesped['telefono'] : null;
+                    $guest_persistence->img = $huesped['url'];
 
                     $response = $guest_persistence->save();
+
                     if($response != true)break;
                 }
                 return $response;

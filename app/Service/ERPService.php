@@ -215,17 +215,19 @@ class ERPService {
      */
     public static function updateGuestPassport($data)
     {
-        $response = self::send('reservas/update_pasaporte', [
-            'pasaporte_id' => $data['id'],
-            'tipo_documento' => $data['tipo_documento'],
-            'numero' => $data['numero'],
-            'apellido1' => $data['apellido1'],
-            'apellido2' => $data['apellido2'],
-            'nombre' => $data['nombre'],
-            'pais' => $data['pais'],
-            'fecha_nacimiento' => $data['fecha_nacimiento'],
-            'sexo' => $data['sexo'],
-        ]);
+        foreach ($data as $key => $huesped){
+            $response = self::send('reservas/update_pasaporte', [
+                'pasaporte_id' => $huesped['id'],
+                'tipo_documento' => $huesped['tipo_documento'],
+                'numero' => $huesped['numero'],
+                'apellido1' => $huesped['apellido1'],
+                'apellido2' => $huesped['apellido2'],
+                'nombre' => $huesped['nombre'],
+                'pais' => $huesped['pais'],
+                'fecha_nacimiento' => $huesped['fecha_nacimiento'],
+                'sexo' => $huesped['sexo'],
+            ]);
+        }
 
         return $response;
     }
