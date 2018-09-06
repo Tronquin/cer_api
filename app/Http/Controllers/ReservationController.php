@@ -333,21 +333,22 @@ class ReservationController extends Controller
             \Log::info('Error al persistir los datos del pago',$handler->getErrors());
         }
 
-        if($request['respuesta']){
+        if($request['extras'][0] != null){
             $handler = new AddReservationServiceHandler(['data' => $request]);
             $handler->processHandler();
 
             if ($handler->isSuccess()) {
                 \Log::info('Extras agregados con exito.');
-                $handler = new ReservationPaymentHandler(['data' => $request]);
-                $handler->processHandler();
-
-                if ($handler->isSuccess()) {
-                    return new JsonResponse($handler->getData());
-                }
             }else{
                 \Log::info('Error al agregar los extras',$handler->getErrors());
+                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
             }
+        }
+        $handler = new ReservationPaymentHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
