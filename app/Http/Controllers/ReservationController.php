@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Handler\AddReservationServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\AddPassaport;
@@ -323,20 +324,30 @@ class ReservationController extends Controller
      */
     public function reservationPayment(Request $request)
     {
-        $handler = new ReservationPaymentPersistenceHandler(['data' => $request->all()]);
+        $request = $request->all();
+        $handler = new ReservationPaymentPersistenceHandler(['data' => $request]);
         $handler->processHandler();
-
         if ($handler->isSuccess()) {
             \Log::info('Persistencia de pago guardada con exito.');
         }else{
             \Log::info('Error al persistir los datos del pago',$handler->getErrors());
         }
 
-        $handler = new ReservationPaymentHandler(['data' => $request]);
-        $handler->processHandler();
+        if($request['respuesta']){
+            $handler = new AddReservationServiceHandler(['data' => $request]);
+            $handler->processHandler();
 
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
+            if ($handler->isSuccess()) {
+                \Log::info('Extras agregados con exito.');
+                $handler = new ReservationPaymentHandler(['data' => $request]);
+                $handler->processHandler();
+
+                if ($handler->isSuccess()) {
+                    return new JsonResponse($handler->getData());
+                }
+            }else{
+                \Log::info('Error al agregar los extras',$handler->getErrors());
+            }
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());

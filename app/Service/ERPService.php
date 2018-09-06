@@ -147,44 +147,12 @@ class ERPService {
      * @param $data
      * @return array
      */
-    public static function changeReservationService($data)
-    {
+    public static function addReservationService($data)
+    {dump($data);
         $response = self::send('reservas/add_extras', [
             'reserva_id' => $data['reserva_id'],
-            'pagado' => 0,
-            'extras' => $data['service_change']
-        ]);
-
-        return $response;
-    }
-
-    /**
-     * Busca las llaves de la reserva
-     *
-     * @param $data
-     * @return array
-     */
-    public static function availabilityKey($data)
-    {
-        $response = self::send('reservas/buscar_key', [
-            'reserva_id' => $data['reserva_id'],
-        ]);
-
-        return $response;
-    }
-
-    /**
-     * Busca y actualiza la cantidad de llaves de la reserva seleccionada
-     *
-     * @param $data
-     * @return array
-     */
-    public static function changeReservationKey($data)
-    {
-        $response = self::send('reservas/add_extras', [
-            'reserva_id' => $data['reserva_id'],
-            'pagado' => 1,
-            'Key' => $data['Key_change']
+            'pagado' => $data['pago_extras'],
+            'extras' => $data['extras']
         ]);
 
         return $response;
