@@ -348,7 +348,21 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
+            \Log::info('Extras agregados con exito.');
+        }else{
+            \Log::info('Error guardar los datos modificados',$handler->getErrors());
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+        }
+
+        $handler = new ReservationCheckinHandler(['reserva_id' => $request['reserva_id']]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            \Log::info('Checkin realizado con exito.');
             return new JsonResponse($handler->getData());
+        }else{
+            \Log::info('No se pudo realizar el checkin',$handler->getErrors());
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
