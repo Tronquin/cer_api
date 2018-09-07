@@ -20,6 +20,7 @@ use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
 use App\Handler\UpdateGuestPassportHandler;
+use App\Handler\DeletePersistenceHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -358,11 +359,33 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
+            $data = $handler->getData();
+            $handler = new DeletePersistenceHandler(['reserva_id' => $request['reserva_id']]);
+            $handler->processHandler();
+
             \Log::info('Checkin realizado con exito.');
-            return new JsonResponse($handler->getData());
+            return new JsonResponse($data);
         }else{
             \Log::info('No se pudo realizar el checkin',$handler->getErrors());
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * elimina la peristencia de datos de una reserva
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function deletePersistence($id){
+
+        $handler = new DeletePersistenceHandler(['reserva_id' => $id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());

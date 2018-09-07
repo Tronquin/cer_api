@@ -149,7 +149,6 @@ class ERPService {
      */
     public static function addReservationService($data)
     {
-        dump($data);
         $response = self::send('reservas/add_extras', [
             'reserva_id' => $data['reserva_id'],
             'pagado' => $data['pago_extras'],
@@ -193,6 +192,7 @@ class ERPService {
                 'apellido2' => $huesped['apellido2'],
                 'nombre' => $huesped['nombre'],
                 'pais' => $huesped['pais'],
+                'nacionalidad' => $huesped['nacionalidad'],
                 'fecha_nacimiento' => $huesped['fecha_nacimiento'],
                 'sexo' => $huesped['sexo'],
             ]);
