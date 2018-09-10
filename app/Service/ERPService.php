@@ -237,6 +237,23 @@ class ERPService {
     }
 
     /**
+     * Genera las tasas de una reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function generateRate($data)
+    {
+        $response = self::send('reservas/generar_tasas', [
+            'reserva_id' => $data['reserva_id'],
+            'adultos' => $data['adults'],
+            'ninos' => $data['kids'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

@@ -21,6 +21,7 @@ use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
 use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
+use App\Handler\GenerateRateHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -349,7 +350,7 @@ class ReservationController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            \Log::info('Extras agregados con exito.');
+            \Log::info('Reserva modificada con exito.');
         }else{
             \Log::info('Error guardar los datos modificados',$handler->getErrors());
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
@@ -382,6 +383,24 @@ class ReservationController extends Controller
     public function deletePersistence($id){
 
         $handler = new DeletePersistenceHandler(['reserva_id' => $id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * genera las tasas de la reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function generateRate(Request $request){
+
+        $handler = new GenerateRateHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
