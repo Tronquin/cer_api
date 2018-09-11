@@ -82,6 +82,12 @@ class ReservationPersistenceHandler extends BaseHandler {
                         $reservation_persistence->tipologia_id = null;
                     }
 
+                    if($this->params['data']['apartamento_id'] != ""){
+                        $reservation_persistence->apartamento_id = $this->params['data']['apartamento_id'] != "" ? $this->params['data']['apartamento_id'] : null;
+                    }else{
+                        $reservation_persistence->tipologia_id = null;
+                    }
+
                     $validType = false;
                     $plan = $this->params['data']['plan_id'];
                     $handler = new AvailabilityPlanHandler(['reserva_id' => $this->params['data']['reserva_id']]);

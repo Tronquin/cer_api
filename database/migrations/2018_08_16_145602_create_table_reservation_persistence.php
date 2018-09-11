@@ -19,6 +19,7 @@ class CreateTableReservationPersistence extends Migration
             $table->integer('adults')->unsigned()->nullable();
             $table->integer('kids')->unsigned()->nullable();
             $table->integer('tipologia_id')->unsigned()->nullable();
+            $table->integer('apartamento_id')->unsigned()->nullable();
             $table->integer('plan_id')->unsigned()->nullable();
             $table->integer('experience_id')->unsigned()->nullable();
             $table->timestamps();

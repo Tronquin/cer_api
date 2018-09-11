@@ -35,6 +35,14 @@ class ReservationFindPersistenceHandler extends BaseHandler {
             $data['data']['list']['mejoraTipologia'] = new \stdClass;
         }
 
+        if($reservation_persistence['apartamento_id'] != ''){
+
+            $data['data']['list']['mejoraApartamento']['id'] = $reservation_persistence['apartamento_id'];
+            $data['res'] = $data['res'] + 1;
+        }else{
+            $data['data']['list']['mejoraApartamento'] = new \stdClass;
+        }
+
         if($reservation_persistence['plan_id'] != ''){
 
             $data['data']['list']['mejoraPlan']['id'] = $reservation_persistence['plan_id'];

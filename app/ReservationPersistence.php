@@ -13,6 +13,7 @@ class ReservationPersistence extends Model
         'adults',
         'kids',
         'tipologia_id',
+        'apartamento_id',
         'plan_id',
         'experience_id',
     ];
