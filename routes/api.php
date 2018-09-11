@@ -37,5 +37,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/reservation/payment', 'ReservationController@reservationPayment');
     // Envia al erp los datos modificados de la reserva al realizar el pago
     Route::post('/reservation/rate', 'ReservationController@generateRate');
+    // Envia al erp los datos modificados de la reserva al realizar el pago
+    Route::get('/reservation/find/earlycheckin/{reserva_id}', 'ReservationController@earlyAndLateCheckin');
 
 });

@@ -254,6 +254,21 @@ class ERPService {
     }
 
     /**
+     * extras early and late checkin
+     *
+     * @param $id
+     * @return array
+     */
+    public static function earlyAndLateCheckin($data)
+    {
+        $response = self::send('reservas/get_early_extra', [
+            'reserva_id' => $data['reserva_id'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

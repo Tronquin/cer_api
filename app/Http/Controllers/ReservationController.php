@@ -22,6 +22,7 @@ use App\Handler\ScanGuestPassportHandler;
 use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
+use App\Handler\EarlyAndLateCheckinHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -401,6 +402,24 @@ class ReservationController extends Controller
     public function generateRate(Request $request){
 
         $handler = new GenerateRateHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * early and lated checkin
+     *
+     * @param $id
+     * @return JsonResponse
+     */
+    public function earlyAndLateCheckin($id){
+
+        $handler = new EarlyAndLateCheckinHandler(['reserva_id' => $id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
