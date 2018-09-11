@@ -82,7 +82,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                         $reservation_persistence->tipologia_id = null;
                     }
 
-                    if($this->params['data']['apartamento_id'] != ""){
+                    if($this->params['data']['apartamento_id'] != "" && $this->params['data']['tipologia_id'] != ""){
                         $reservation_persistence->apartamento_id = $this->params['data']['apartamento_id'] != "" ? $this->params['data']['apartamento_id'] : null;
                     }else{
                         $reservation_persistence->tipologia_id = null;
@@ -206,6 +206,12 @@ class ReservationPersistenceHandler extends BaseHandler {
                             $response = 'Tipologia Invalida';
                             return $response;
                         }
+                    }
+
+                    if($this->params['data']['apartamento_id'] != "" && $this->params['data']['tipologia_id'] != ""){
+                        $reservation_persistence->apartamento_id = $this->params['data']['apartamento_id'] != "" ? $this->params['data']['apartamento_id'] : null;
+                    }else{
+                        $reservation_persistence->tipologia_id = null;
                     }
 
                     $validType = false;
