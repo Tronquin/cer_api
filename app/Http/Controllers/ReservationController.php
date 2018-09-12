@@ -336,7 +336,7 @@ class ReservationController extends Controller
             \Log::info('Error al persistir los datos del pago',$handler->getErrors());
         }
 
-        if($request['extras'][0] != null){
+        if($request['extras'] != null){
             $handler = new AddReservationServiceHandler(['data' => $request]);
             $handler->processHandler();
 
@@ -352,23 +352,10 @@ class ReservationController extends Controller
 
         if ($handler->isSuccess()) {
             \Log::info('Reserva modificada con exito.');
+
+            return new JsonResponse($handler->getData());
         }else{
             \Log::info('Error guardar los datos modificados',$handler->getErrors());
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-        }
-
-        $handler = new ReservationCheckinHandler(['reserva_id' => $request['reserva_id']]);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            $data = $handler->getData();
-            $handler = new DeletePersistenceHandler(['reserva_id' => $request['reserva_id']]);
-            $handler->processHandler();
-
-            \Log::info('Checkin realizado con exito.');
-            return new JsonResponse($data);
-        }else{
-            \Log::info('No se pudo realizar el checkin',$handler->getErrors());
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
         }
 
