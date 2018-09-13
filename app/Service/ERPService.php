@@ -214,8 +214,10 @@ class ERPService {
             'regimen_id' => $data['plan_id'],
             'apartamento_id' => $data['apartamento_id'],
             'experiencia_id' => $data['experience_id'],
-            'pax' => $data['adults'].','.$data['kids'],
-            'pago_realizado' => $data['total']
+            'pax_adultos' => $data['adults'],
+            'pax_ninos' => $data['kids'],
+            'pago_realizado' => $data['total'],
+            'ha_seleccionado_apartamento' => $data['ha_seleccionado_apartamento'],
         ]);
 
         return $response;
