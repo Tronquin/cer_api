@@ -25,6 +25,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
     // elimina la persistencia de una reserva
     Route::get('/persistence/delete/{reserva_id}', 'ReservationController@deletePersistence');
+    // Envia al erp los datos modificados de la reserva al realizar el pago
+    Route::get('/reservation/find/earlycheckin/{reserva_id}', 'ReservationController@earlyAndLateCheckin');
     // Guarda los datos modificados de la reserva en cer-api
     Route::post('/persistence/reservation', 'ReservationController@reservationPersistence');
     // Guarda los datos modificados de los huespedes de la reserva
@@ -38,6 +40,6 @@ Route::group(['prefix' => 'v1'], function () {
     // Envia al erp los datos modificados de la reserva al realizar el pago
     Route::post('/reservation/rate', 'ReservationController@generateRate');
     // Envia al erp los datos modificados de la reserva al realizar el pago
-    Route::get('/reservation/find/earlycheckin/{reserva_id}', 'ReservationController@earlyAndLateCheckin');
+    Route::post('/persistence/service', 'ReservationController@reservationServicePersistence');
 
 });

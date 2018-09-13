@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Handler\AddReservationServiceHandler;
+use App\Handler\DeleteServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\AddPassaport;
@@ -18,6 +19,7 @@ use App\Handler\ReservationGuestPersistenceHandler;
 use App\Handler\ReservationPaymentPersistenceHandler;
 use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
+use App\Handler\ReservationServicePersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
 use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
@@ -342,6 +344,14 @@ class ReservationController extends Controller
 
             if ($handler->isSuccess()) {
                 \Log::info('Extras agregados con exito.');
+                $handler = new DeleteServiceHandler(['reserva_id' => $request['reserva_id']]);
+                $handler->processHandler();
+                if ($handler->isSuccess()) {
+                    \Log::info('persistencia de servicios eliminada correctamente.');
+                }else{
+                    \Log::info('Error al borrar la persistencia de servicios',$handler->getErrors());
+                }
+
             }else{
                 \Log::info('Error al agregar los extras',$handler->getErrors());
                 return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
@@ -415,4 +425,41 @@ class ReservationController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
+
+    /**
+     * guarda la persistencia de los servicios
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reservationServicePersistence(Request $request){
+
+        $handler = new ReservationServicePersistenceHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * persiste un servicio especifico
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function oneServicePeristence(Request $request){
+
+        $handler = new oneServicePersistence(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
 }
