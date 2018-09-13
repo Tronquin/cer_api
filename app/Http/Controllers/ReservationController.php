@@ -333,42 +333,46 @@ class ReservationController extends Controller
         $request = $request->all();
         $handler = new ReservationPaymentPersistenceHandler(['data' => $request]);
         $handler->processHandler();
-        if ($handler->isSuccess()) {
-            \Log::info('Persistencia de pago guardada con exito.');
-        }else{
-            \Log::info('Error al persistir los datos del pago',$handler->getErrors());
+
+        if (! $handler->isSuccess()) {
+            \Log::error('Error al persistir los datos del pago',$handler->getErrors());
+            \Log::error('data:',json_encode($request));
+
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
         }
 
+        \Log::info('Persistencia de pago guardada con exito.');
         if($request['extras'] != null){
             $handler = new AddReservationServiceHandler(['data' => $request]);
             $handler->processHandler();
 
-            if ($handler->isSuccess()) {
-                \Log::info('Extras agregados con exito.');
-                $handler = new DeleteServiceHandler(['reserva_id' => $request['reserva_id']]);
-                $handler->processHandler();
-                if ($handler->isSuccess()) {
-                    \Log::info('persistencia de servicios eliminada correctamente.');
-                }else{
-                    \Log::info('Error al borrar la persistencia de servicios',$handler->getErrors());
-                }
-
-            }else{
+            if (! $handler->isSuccess()) {
                 \Log::info('Error al agregar los extras',$handler->getErrors());
+
                 return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
             }
+
+            \Log::info('Extras agregados con exito.');
         }
         $handler = new ReservationPaymentHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
+            $res = $handler->getData();
+
+            $handler = new DeletePersistenceHandler(['reserva_id' => $request['reserva_id']]);
+            $handler->processHandler();
+            if (! $handler->isSuccess()) {
+                \Log::info('Error al agregar los extras',$handler->getErrors());
+
+                return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            }
             \Log::info('Reserva modificada con exito.');
 
-            return new JsonResponse($handler->getData());
-        }else{
-            \Log::info('Error guardar los datos modificados',$handler->getErrors());
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            return new JsonResponse($res);
         }
+
+        \Log::info('Error guardar los datos modificados',$handler->getErrors());
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
