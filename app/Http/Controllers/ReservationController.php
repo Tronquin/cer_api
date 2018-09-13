@@ -25,6 +25,7 @@ use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
 use App\Handler\EarlyAndLateCheckinHandler;
+use App\Handler\OneServicePersistenceHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -452,7 +453,7 @@ class ReservationController extends Controller
      */
     public function oneServicePeristence(Request $request){
 
-        $handler = new oneServicePersistence(['data' => $request->all()]);
+        $handler = new OneServicePersistenceHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
