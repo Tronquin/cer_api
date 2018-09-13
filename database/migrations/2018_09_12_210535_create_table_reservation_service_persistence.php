@@ -29,6 +29,6 @@ class CreateTableReservationServicePersistence extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservation_services_persistence');
+        Schema::dropIfExists('reservation_service_persistence');
     }
 }

@@ -13,7 +13,7 @@ class CreateTableReservationPaymentPersistence extends Migration
      */
     public function up()
     {
-        Schema::create('reservation_pago_persistence', function (Blueprint $table) {
+        Schema::create('reservation_payment_persistence', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reserva_id')->unsigned();
             $table->boolean('respuesta');
@@ -57,6 +57,6 @@ class CreateTableReservationPaymentPersistence extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservation_pago_persistence');
+        Schema::dropIfExists('reservation_payment_persistence');
     }
 }

@@ -212,7 +212,7 @@ class ERPService {
         $response = self::send('reservas/modificar_reserva', [
             'reserva_id' => $data['reserva_id'],
             'regimen_id' => $data['plan_id'],
-            'apartamento_id' => $data['tipologia_id'],
+            'apartamento_id' => $data['apartamento_id'],
             'experiencia_id' => $data['experience_id'],
             'pax' => $data['adults'].','.$data['kids'],
             'pago_realizado' => $data['total']

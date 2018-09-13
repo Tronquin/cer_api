@@ -336,7 +336,7 @@ class ReservationController extends Controller
 
         if (! $handler->isSuccess()) {
             \Log::error('Error al persistir los datos del pago',$handler->getErrors());
-            \Log::error('data:',json_encode($request));
+            \Log::error('data:',$request);
 
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
         }
