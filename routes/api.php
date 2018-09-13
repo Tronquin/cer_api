@@ -24,7 +24,7 @@ Route::group(['prefix' => 'v1'], function () {
     // Obtiene los datos modificados de la reserva de cer-api
     Route::get('/persistence/reservation/{reserva_id}', 'ReservationController@reservationFindPersistence');
     // elimina la persistencia de una reserva
-    Route::get('/persistence/delete/{reserva_id}', 'ReservationController@deletePersistence');
+    Route::delete('/persistence/delete/{reserva_id}', 'ReservationController@deletePersistence');
     // Envia al erp los datos modificados de la reserva al realizar el pago
     Route::get('/reservation/find/earlycheckin/{reserva_id}', 'ReservationController@earlyAndLateCheckin');
     // Guarda los datos modificados de la reserva en cer-api
