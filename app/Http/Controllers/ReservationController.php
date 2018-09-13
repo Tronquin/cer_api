@@ -26,6 +26,7 @@ use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
 use App\Handler\EarlyAndLateCheckinHandler;
 use App\Handler\OneServicePersistenceHandler;
+use App\Handler\ApartmentDisponibilityHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -195,7 +196,7 @@ class ReservationController extends Controller
      * Busca los datos de los servicios disponibles para la reserva
      *
      * @param $id
-     * @param funcion $funcion
+     * @param $funcion
      * @return JsonResponse
      */
     public function availabilityService($id,$funcion)
@@ -458,6 +459,25 @@ class ReservationController extends Controller
     public function oneServicePeristence(Request $request){
 
         $handler = new OneServicePersistenceHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * disponibilidad de un apartamento
+     *
+     * @param $apartamento_id
+     * @param $reserva_id
+     * @return JsonResponse
+     */
+    public function apartmentDisponibility($apartamento_id,$reserva_id){
+
+        $handler = new ApartmentDisponibilityHandler(['reserva_id' => $reserva_id,'apartamento_id' => $apartamento_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
