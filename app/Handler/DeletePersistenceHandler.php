@@ -2,7 +2,9 @@
 namespace App\Handler;
 
 
+use App\ReservationGuestPersistence;
 use App\ReservationPersistence;
+use App\ReservationServicePersistence;
 
 class DeletePersistenceHandler extends BaseHandler {
 
@@ -11,14 +13,11 @@ class DeletePersistenceHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->first();
-        if(count($reservation_persistence) > 0){
-            $response = $reservation_persistence->delete();
-        }else{
-            $response = 'no se encontro persistencia para la reserva';
-        }
+        ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->delete();
+        ReservationGuestPersistence::where('reserva_id', $this->params['reserva_id'])->delete();
+        ReservationServicePersistence::where('reserva_id', $this->params['reserva_id'])->delete();
 
-        return $response;
+        return true;
     }
 
     /**
