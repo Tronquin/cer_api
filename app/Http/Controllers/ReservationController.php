@@ -27,6 +27,7 @@ use App\Handler\GenerateRateHandler;
 use App\Handler\EarlyAndLateCheckinHandler;
 use App\Handler\OneServicePersistenceHandler;
 use App\Handler\ApartmentDisponibilityHandler;
+use App\Handler\ReservationFeedbackHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -513,7 +514,7 @@ class ReservationController extends Controller
      */
     public function reservationFeedback(Request $request){
 
-        $handler = new ReservationFeedbackHandler(['data' => $request]);
+        $handler = new ReservationFeedbackHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

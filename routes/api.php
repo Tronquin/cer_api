@@ -45,5 +45,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/persistence/service', 'ReservationController@reservationServicePersistence');
     // Envia al erp los datos modificados de la reserva al realizar el pago
     Route::post('/persistence/oneservice', 'ReservationController@oneServicePeristence');
+    // guarda el feedback de la reserva
+    Route::post('/reservation/feedback', 'ReservationController@reservationFeedback');
 
 });
