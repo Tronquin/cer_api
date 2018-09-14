@@ -11,7 +11,7 @@ class ReservationServicePersistenceHandler extends BaseHandler {
     protected function handle()
     {
         $service_persistence = ReservationServicePersistence::where('reserva_id', '=', $this->params['data']['reserva_id'])->delete();
-
+        $response = true;
         if ($this->params['data']['extras'] != null){
             foreach ($this->params['data']['extras'] as $extras) {
                 $service_persistence = new ReservationServicePersistence();
@@ -25,8 +25,8 @@ class ReservationServicePersistenceHandler extends BaseHandler {
                 if($response != true)break;
 
             }
-            return $response;
         }
+        return $response;
     }
 
     /**
