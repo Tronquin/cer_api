@@ -487,4 +487,22 @@ class ReservationController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+     * guarda el numero de llaves entregadas a la reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function keysDelivered(Request $request){
+
+        $handler = new KeyDeliveredHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
 }

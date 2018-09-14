@@ -287,6 +287,22 @@ class ERPService {
     }
 
     /**
+     * cantidad de llaves entregadas de una reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function keyDelivered($data)
+    {
+        $response = self::send('accesos/set_llaves_entregadas', [
+            'reserva_id' => $data['reserva_id'],
+            'llaves_entregadas' => $data['llaves_entregadas'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

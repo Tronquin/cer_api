@@ -13,7 +13,6 @@ class ReservationPaymentPersistenceHandler extends BaseHandler {
     {
         $payment_persistence = new ReservationPaymentPersistence();
         $payment_persistence->reserva_id = $this->params['data']['reserva_id'];
-        $payment_persistence->respuesta = $this->params['data']['respuesta'];
         $payment_persistence->msg = $this->params['data']['msg'];
         $payment_persistence->numOpBco = $this->params['data']['numOpBco'];
         $payment_persistence->code = $this->params['data']['code'];
@@ -28,7 +27,7 @@ class ReservationPaymentPersistenceHandler extends BaseHandler {
         $payment_persistence->tipoOp = $this->params['data']['tipoOp'];
         $payment_persistence->cVM = $this->params['data']['cVM'];
         $payment_persistence->txtBanco = $this->params['data']['txtBanco'];
-        $payment_persistence->tarjeta = $this->params['data']['tarjeta'];
+        $payment_persistence->tarjeta = $this->params['data']['tarjeta(enmascarada)'];
         $payment_persistence->taxFree = $this->params['data']['taxFree'];
         $payment_persistence->ticket = $this->params['data']['ticket'];
         $payment_persistence->tipoTarjeta = $this->params['data']['tipoTarjeta'];
@@ -59,19 +58,6 @@ class ReservationPaymentPersistenceHandler extends BaseHandler {
     {
         return [
             'reserva_id' =>'required|numeric',
-            'respuesta' =>'required',
-            'msg' =>'required',
-            'numOpBco' =>'required',
-            'code' =>'required',
-            'tipoLectura' =>'required',
-            'moneda' =>'required',
-            'txtBanco' =>'required',
-            'tarjeta' =>'required',
-            'taxFree' =>'required',
-            'importe' =>'required',
-            'fechaContable' =>'required',
-            'pais' =>'required',
-            'txtMarca' =>'required',
         ];
     }
 

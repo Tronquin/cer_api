@@ -11,7 +11,6 @@ class ReservationPaymentPersistence extends Model
 
     protected $fillable = [
         'reserva_id',
-        'respuesta',
         'msg',
         'numOpBco',
         'code',
