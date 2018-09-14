@@ -12,20 +12,21 @@ class ReservationServicePersistenceHandler extends BaseHandler {
     {
         $service_persistence = ReservationServicePersistence::where('reserva_id', '=', $this->params['data']['reserva_id'])->delete();
 
-        foreach ($this->params['data']['extras'] as $extras) {
+        if ($this->params['data']['extras'] != null){
+            foreach ($this->params['data']['extras'] as $extras) {
+                $service_persistence = new ReservationServicePersistence();
 
-            $service_persistence = new ReservationServicePersistence();
+                $service_persistence->reserva_id = $this->params['data']['reserva_id'];
+                $service_persistence->extra_id = $extras['id'];
+                $service_persistence->cantidad = $extras['cantidad'];
 
-            $service_persistence->reserva_id = $this->params['data']['reserva_id'];
-            $service_persistence->extra_id = $extras['id'];
-            $service_persistence->cantidad = $extras['cantidad'];
+                $response = $service_persistence->save();
 
-            $response = $service_persistence->save();
+                if($response != true)break;
 
-            if($response != true)break;
-
+            }
+            return $response;
         }
-        return $response;
     }
 
     /**
@@ -37,7 +38,6 @@ class ReservationServicePersistenceHandler extends BaseHandler {
     {
         return [
             'reserva_id' =>'required|numeric',
-            'extras' =>'required',
         ];
     }
 
