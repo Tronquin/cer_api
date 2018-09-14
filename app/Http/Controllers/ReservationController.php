@@ -505,4 +505,22 @@ class ReservationController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+     * guarda el feedback de una reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reservationFeedback(Request $request){
+
+        $handler = new ReservationFeedbackHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
 }
