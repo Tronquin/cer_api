@@ -16,12 +16,17 @@ class KeyDeliveredHandler extends BaseHandler {
         $key_delivered = ReservationKey::where('reserva_id', '=', $this->params['data']['reserva_id'])->first();
 
         if (count($key_delivered) > 0) {
-            $key_delivered->Keys_delivered = $response['data']['llaves_entregadas'];
+            $key_delivered->keys_delivered = $response['data']['llaves_entregadas'];
+            $sql = $key_delivered->save();
+
+            if($sql != true)return $sql;
         }else{
-            $keyDelivered = new ReservationKey();
-            $keyDelivered->reserva_id = $this->params['data']['reserva_id'];
-            $keyDelivered->Keys_delivered = $response['data']['llaves_entregadas'];
-            $keyDelivered->Keys_received = 0;
+            $key_delivered = new ReservationKey();
+            $key_delivered->reserva_id = $this->params['data']['reserva_id'];
+            $key_delivered->keys_delivered = $response['data']['llaves_entregadas'];
+            $sql = $key_delivered->save();
+
+            if($sql != true)return $sql;
         }
         return $response;
     }
