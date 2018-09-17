@@ -28,6 +28,8 @@ use App\Handler\EarlyAndLateCheckinHandler;
 use App\Handler\OneServicePersistenceHandler;
 use App\Handler\ApartmentDisponibilityHandler;
 use App\Handler\ReservationFeedbackHandler;
+use App\Handler\ReservationKeyReceivedHandler;
+use App\Handler\KeyDeliveredHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -497,7 +499,7 @@ class ReservationController extends Controller
      */
     public function keysDelivered(Request $request){
 
-        $handler = new KeyDeliveredHandler(['data' => $request]);
+        $handler = new KeyDeliveredHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -516,6 +518,24 @@ class ReservationController extends Controller
     public function reservationFeedback(Request $request){
 
         $handler = new ReservationFeedbackHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * llaves recibidas
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function KeyReceived(Request $request){
+
+        $handler = new ReservationKeyReceivedHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

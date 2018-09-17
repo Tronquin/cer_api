@@ -47,5 +47,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/persistence/oneservice', 'ReservationController@oneServicePeristence');
     // guarda el feedback de la reserva
     Route::post('/reservation/feedback', 'ReservationController@reservationFeedback');
+    // guarda el numero de llaves entregadas
+    Route::post('/reservation/keydelivered', 'ReservationController@keysDelivered');
+    // guarda el numero de llaves recibidas
+    Route::post('/reservation/keyreceived', 'ReservationController@KeyReceived');
 
 });
