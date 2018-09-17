@@ -474,11 +474,12 @@ class ReservationController extends Controller
      *
      * @param $apartamento_id
      * @param $reserva_id
+     * @param $tipologia_id
      * @return JsonResponse
      */
-    public function apartmentDisponibility($apartamento_id,$reserva_id){
+    public function apartmentDisponibility($apartamento_id,$reserva_id,$tipologia_id){
 
-        $handler = new ApartmentDisponibilityHandler(['reserva_id' => $reserva_id,'apartamento_id' => $apartamento_id]);
+        $handler = new ApartmentDisponibilityHandler(['reserva_id' => $reserva_id,'apartamento_id' => $apartamento_id,'tipologia_id' => $tipologia_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

@@ -13,6 +13,12 @@ class ApartmentDisponibilityHandler extends BaseHandler {
     {
         $response = ERPService::apartmentDisponibility($this->params);
 
+        if($response['res'] == 0){
+            $room = ERPService::availabilityRoom($this->params);
+
+            $response['data'] = $room;
+        }
+
         return $response;
     }
 
