@@ -17,7 +17,7 @@ class CreateTableReservationKey extends Migration
             $table->increments('id');
             $table->integer('reserva_id')->unsigned();
             $table->integer('keys_delivered')->nullable();
-            $table->text('keys_received ')->nullable();
+            $table->text('keys_received')->nullable();
             $table->timestamps();
         });
     }

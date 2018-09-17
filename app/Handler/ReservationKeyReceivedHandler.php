@@ -38,7 +38,7 @@ class ReservationKeyReceivedHandler extends BaseHandler {
     {
         return [
             'reserva_id' => 'required|numeric',
-            'keys_received' => 'required|numeric',
+            'llaves_recibidas' => 'required|numeric',
         ];
     }
 
