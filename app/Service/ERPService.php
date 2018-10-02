@@ -303,6 +303,22 @@ class ERPService {
     }
 
     /**
+     * cantidad de llaves entregadas de una reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function editMail($data)
+    {
+        $response = self::send('reservas/editar_email', [
+            'cliente_id' => $data['cliente_id'],
+            'email' => $data['email'],
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
@@ -370,4 +386,5 @@ class ERPService {
 
         return $response;
     }
+
 }

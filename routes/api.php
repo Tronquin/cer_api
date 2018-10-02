@@ -51,5 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/reservation/keydelivered', 'ReservationController@keysDelivered');
     // guarda el numero de llaves recibidas
     Route::post('/reservation/keyreceived', 'ReservationController@KeyReceived');
+    // edita el email del cliente
+    Route::post('/reservation/editmail', 'ReservationController@editMail');
 
 });
