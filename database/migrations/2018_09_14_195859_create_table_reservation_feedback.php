@@ -15,7 +15,7 @@ class CreateTableReservationFeedback extends Migration
     {
         Schema::create('reservation_feedback', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('reserva_id')->unsigned();
+            $table->integer('reserva_id')->unsigned()->nullable();
             $table->integer('puntuacion')->nullable();
             $table->text('comentario')->nullable();
             $table->timestamps();

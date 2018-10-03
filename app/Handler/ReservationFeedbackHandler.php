@@ -10,13 +10,17 @@ class ReservationFeedbackHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $feedback = ReservationFeedback::where('reserva_id', '=', $this->params['data']['reserva_id'])->delete();
         $feedback = new ReservationFeedback();
-
-        $feedback->reserva_id = $this->params['data']['reserva_id'];
-        $feedback->puntuacion = $this->params['data']['puntuacion'];
-        $feedback->comentario = "";
-        if($this->params['data']['puntuacion'] < 5){
+        
+        if(isset($this->params['data']['reserva_id'])){
+        
+            $feedback->reserva_id = $this->params['data']['reserva_id'];
+            $feedback->puntuacion = $this->params['data']['puntuacion'];
+            $feedback->comentario = "";
+                if($this->params['data']['puntuacion'] < 5){
+                    $feedback->comentario = $this->params['data']['comentario'];
+                }
+        }else{
             $feedback->comentario = $this->params['data']['comentario'];
         }
 
@@ -33,7 +37,7 @@ class ReservationFeedbackHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'reserva_id' => 'required|numeric',
+        
         ];
     }
 
