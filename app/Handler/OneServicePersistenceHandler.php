@@ -2,6 +2,7 @@
 namespace App\Handler;
 
 use App\ReservationServicePersistence;
+use App\Service\ERPService;
 
 class OneServicePersistenceHandler extends BaseHandler {
 
@@ -10,6 +11,8 @@ class OneServicePersistenceHandler extends BaseHandler {
      */
     protected function handle()
     {
+        $response = ERPService::addReservationService($this->params['data']);
+
         foreach ($this->params['data']['extras'] as $extras) {
 
             $service_persistence = new ReservationServicePersistence();
@@ -18,11 +21,9 @@ class OneServicePersistenceHandler extends BaseHandler {
             $service_persistence->extra_id = $extras['id'];
             $service_persistence->cantidad = $extras['cantidad'];
 
-            $response = $service_persistence->save();
-
-            if($response != true)break;
-
+            $service_persistence->save();
         }
+        
         return $response;
     }
 
