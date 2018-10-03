@@ -30,6 +30,7 @@ use App\Handler\ApartmentDisponibilityHandler;
 use App\Handler\ReservationFeedbackHandler;
 use App\Handler\ReservationKeyReceivedHandler;
 use App\Handler\KeyDeliveredHandler;
+use App\Handler\ReservationEditMailHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -479,7 +480,7 @@ class ReservationController extends Controller
      * @param $tipologia_id
      * @return JsonResponse
      */
-    public function apartmentDisponibility($apartamento_id,$reserva_id,$tipologia_id){
+    public function apartmentDisponibility($reserva_id,$apartamento_id,$tipologia_id){
 
         $handler = new ApartmentDisponibilityHandler(['reserva_id' => $reserva_id,'apartamento_id' => $apartamento_id,'tipologia_id' => $tipologia_id]);
         $handler->processHandler();
@@ -536,6 +537,24 @@ class ReservationController extends Controller
     public function KeyReceived(Request $request){
 
         $handler = new ReservationKeyReceivedHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * editar email del cliente
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function editMail(Request $request){
+
+        $handler = new ReservationEditMailHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
