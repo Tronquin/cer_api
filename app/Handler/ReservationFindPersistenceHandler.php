@@ -17,7 +17,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
         $data['res'] = 0;
         $data['msg'] = 'persistencia de la reserva';
 
-        if($reservation_persistence['adults'] != '' && $reservation_persistence['kids'] != ''){
+        if($reservation_persistence['adults'] != '' || $reservation_persistence['kids'] != ''){
             $data['data']['list']['mejoraPax']['adults'] = $reservation_persistence['adults'];
             $data['data']['list']['mejoraPax']['kids'] = $reservation_persistence['kids'];
 
