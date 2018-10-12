@@ -46,8 +46,8 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }
 
                     if ($validMaxOfPeople >= ($this->params['data']['adults']+$this->params['data']['kids']) && (($reserva['data']['list']['adultos'] != $this->params['data']['adults']) || ($reserva['data']['list']['ninos'] != $this->params['data']['kids']))) {
-                        $reservation_persistence->adults = $this->params['data']['adults'] != '' ? $this->params['data']['adults'] : null;
-                        $reservation_persistence->kids = $this->params['data']['kids'] != '' ? $this->params['data']['kids'] : null;
+                        $reservation_persistence->adults = $this->params['data']['adults'] !== '' ? $this->params['data']['adults'] : null;
+                        $reservation_persistence->kids = $this->params['data']['kids'] !== '' ? $this->params['data']['kids'] : null;
                     }else{
                         $response = 'maximo de huespedes excedido';
                         return $response;
