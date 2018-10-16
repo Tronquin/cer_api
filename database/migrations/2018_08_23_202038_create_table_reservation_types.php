@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableType extends Migration
+class CreateTableReservationTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTableType extends Migration
      */
     public function up()
     {
-        Schema::create('type', function (Blueprint $table) {
+        Schema::create('reservation_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('type');
+            $table->text('code');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type');
+        Schema::dropIfExists('reservation_types');
     }
 }

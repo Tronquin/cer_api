@@ -10,7 +10,7 @@ class Audit extends Model
 
     protected $fillable = [
         'ip',
-        'api_client_id',
+        'oauth2_client_id',
         'action',
         'params',
         'response',
@@ -24,6 +24,6 @@ class Audit extends Model
      */
     public function apiClient()
     {
-        return $this->belongsTo(ApiClient::class, 'api_client_id');
+        return $this->belongsTo(OAuth2Client::class, 'oauth2_client_id');
     }
 }

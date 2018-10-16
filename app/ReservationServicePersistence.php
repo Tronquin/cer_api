@@ -7,7 +7,7 @@ use Laravel\Tinker\TinkerServiceProvider;
 
 class ReservationServicePersistence extends Model
 {
-    protected $table = 'reservation_service_persistence';
+    protected $table = 'reservation_service_persistences';
 
     protected $fillable = [
         'reserva_id',

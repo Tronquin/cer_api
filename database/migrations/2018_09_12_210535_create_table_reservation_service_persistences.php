@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableReservationKey extends Migration
+class CreateTableReservationServicePersistences extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTableReservationKey extends Migration
      */
     public function up()
     {
-        Schema::create('reservation_key', function (Blueprint $table) {
+        Schema::create('reservation_service_persistences', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reserva_id')->unsigned();
-            $table->integer('keys_delivered')->nullable();
-            $table->text('keys_received')->nullable();
+            $table->integer('extra_id')->unsigned();
+            $table->integer('cantidad')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTableReservationKey extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservation_key');
+        Schema::dropIfExists('reservation_service_persistences');
     }
 }

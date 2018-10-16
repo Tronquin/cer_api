@@ -9,7 +9,7 @@ class UpdateHistory extends Model
     protected $table = 'update_history';
 
     protected $fillable = [
-        'api_client_type_id',
+        'oauth2_client_type_id',
         'version',
         'date'
     ];
@@ -21,6 +21,6 @@ class UpdateHistory extends Model
      */
     public function apiClientType()
     {
-        return $this->belongsTo(ApiClientType::class, 'api_client_type_id');
+        return $this->belongsTo(OAuth2ClientType::class, 'oauth2_client_type_id');
     }
 }

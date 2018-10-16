@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableApiClientTypes extends Migration
+class CreateTableReservationFeedbacks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateTableApiClientTypes extends Migration
      */
     public function up()
     {
-        Schema::create('api_client_types', function (Blueprint $table) {
+        Schema::create('reservation_feedbacks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->integer('reserva_id')->unsigned()->nullable();
+            $table->integer('puntuacion')->nullable();
+            $table->text('comentario')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateTableApiClientTypes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_client_types');
+        Schema::dropIfExists('reservation_feedbacks');
     }
 }

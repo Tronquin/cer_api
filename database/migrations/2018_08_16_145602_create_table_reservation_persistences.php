@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableReservationPersistence extends Migration
+class CreateTableReservationPersistences extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableReservationPersistence extends Migration
      */
     public function up()
     {
-        Schema::create('reservation_persistence', function (Blueprint $table) {
+        Schema::create('reservation_persistences', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('reserva_id')->unsigned()->nullable();
             $table->integer('adults')->unsigned()->nullable();
@@ -33,6 +33,6 @@ class CreateTableReservationPersistence extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservation_persistence');
+        Schema::dropIfExists('reservation_persistences');
     }
 }

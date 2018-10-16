@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(TypeSeeder::class);
+        $this->call(ReservationTypeSeeder::class);
         $this->call(Oauth2ClientTypeSeeder::class);
         Model::reguard();
     }

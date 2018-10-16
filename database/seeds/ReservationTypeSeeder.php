@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Type;
+use App\ReservationType;
 
-class TypeSeeder extends Seeder
+class ReservationTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,8 @@ class TypeSeeder extends Seeder
     {
         $data = ['adulto','niño'];
         foreach ($data as $type){
-            Type::create([
-                'type' => $type
+            ReservationType::create([
+                'code' => $type
             ]);
         }
 

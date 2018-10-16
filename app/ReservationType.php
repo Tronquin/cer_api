@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class ReservationType extends Model
 {
-    protected $table = 'type';
+    protected $table = 'reservation_types';
 
     protected $fillable = [
-        'type',
+        'code',
     ];
 
     /**
@@ -19,7 +19,7 @@ class Type extends Model
      */
     public function reservationGuestPersistence()
     {
-        return $this->hasMany(ReservationGuestPersistence::class, 'type_id');
+        return $this->hasMany(ReservationGuestPersistence::class, 'reservation_type_id');
     }
 
 }

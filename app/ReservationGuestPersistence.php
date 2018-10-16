@@ -7,12 +7,12 @@ use Laravel\Tinker\TinkerServiceProvider;
 
 class ReservationGuestPersistence extends Model
 {
-    protected $table = 'reservation_guest_persistence';
+    protected $table = 'reservation_guest_persistences';
 
     protected $fillable = [
         'reserva_id',
         'guest_id',
-        'type_id',
+        'reservation_type_id',
         'nombre',
         'apellido1',
         'apellido2',
@@ -34,7 +34,7 @@ class ReservationGuestPersistence extends Model
      */
     public function tipo()
     {
-        return $this->belongsTo(Type::class, 'type_id');
+        return $this->belongsTo(ReservationType::class, 'reservation_type_id');
     }
 
 }

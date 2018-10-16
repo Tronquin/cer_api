@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableApiClients extends Migration
+class CreateTableAudits extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateTableApiClients extends Migration
      */
     public function up()
     {
-        Schema::create('api_clients', function (Blueprint $table) {
+        Schema::create('audits', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('api_client_type_id')->unsigned();
-            $table->foreign('api_client_type_id')->references('id')->on('api_client_types');
-            $table->string('location');
             $table->string('ip', 20);
+            $table->integer('oauth2_client_id')->unsigned();
+            $table->foreign('oauth2_client_id')->references('id')->on('oauth2_clients');
+            $table->string('action');
+            $table->text('params');
+            $table->text('response');
+            $table->string('version', 20);
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ class CreateTableApiClients extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_clients');
+        Schema::dropIfExists('audits');
     }
 }

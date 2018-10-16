@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableUpdateHistory extends Migration
+class CreateTableReservationKeys extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTableUpdateHistory extends Migration
      */
     public function up()
     {
-        Schema::create('update_history', function (Blueprint $table) {
+        Schema::create('reservation_keys', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('api_client_type_id')->unsigned();
-            $table->foreign('api_client_type_id')->references('id')->on('api_client_types');
-            $table->string('version', 10);
-            $table->date('date');
+            $table->integer('reserva_id')->unsigned();
+            $table->integer('keys_delivered')->nullable();
+            $table->text('keys_received')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTableUpdateHistory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('update_history');
+        Schema::dropIfExists('reservation_keys');
     }
 }

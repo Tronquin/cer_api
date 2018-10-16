@@ -7,7 +7,7 @@ use Laravel\Tinker\TinkerServiceProvider;
 
 class ReservationFeedback extends Model
 {
-    protected $table = 'reservation_feedback';
+    protected $table = 'reservation_feedbacks';
 
     protected $fillable = [
         'reserva_id',
