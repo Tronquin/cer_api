@@ -12,6 +12,9 @@ class Oauth2Controller extends Controller
     /**
      * Genera un nuevo token por 10 minutos
      *
+     * @param $clientId
+     * @param $secretId
+     * @return JsonResponse
      */
     public function token($clientId, $secretId)
     {
