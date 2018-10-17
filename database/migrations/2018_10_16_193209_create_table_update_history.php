@@ -15,8 +15,8 @@ class CreateTableUpdateHistory extends Migration
     {
         Schema::create('update_history', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('oauth2_client_type_id')->unsigned();
-            $table->foreign('oauth2_client_type_id')->references('id')->on('oauth2_client_types');
+            $table->integer('oauth2_client_id')->unsigned();
+            $table->foreign('oauth2_client_id')->references('id')->on('oauth2_clients');
             $table->string('version', 10);
             $table->date('date');
             $table->timestamps();

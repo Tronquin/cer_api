@@ -1,13 +1,14 @@
 <?php
 
 
-Route::group(['prefix' => 'v1'], function () {
-
-    Route::get('/oauth2/token/{clientId}/{secretId}', 'Oauth2Controller@token');
+Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
 
     // Rutas validadas por Oauth2
-    Route::group(['middleware' => 'oauth2'], function () {
+    
+    Route::post('/singup', 'UserController@create');
+    Route::post('/login', 'UserController@login');
 
+    Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // Find all Reservation to checkin by date

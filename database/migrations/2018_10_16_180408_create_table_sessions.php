@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableOauth2ClientTypes extends Migration
+class CreateTableSessions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateTableOauth2ClientTypes extends Migration
      */
     public function up()
     {
-        Schema::create('oauth2_client_types', function (Blueprint $table) {
+        Schema::create('sessions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code', 50)->unique();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('token');
+            $table->string('remember_me');
+            $table->dateTime('expired_at');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateTableOauth2ClientTypes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('oauth2_client_types');
+        Schema::dropIfExists('sessions');
     }
 }

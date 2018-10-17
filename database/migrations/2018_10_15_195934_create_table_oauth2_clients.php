@@ -16,10 +16,8 @@ class CreateTableOauth2Clients extends Migration
         Schema::create('oauth2_clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description', 50);
-            $table->string('client_id');
-            $table->string('secret_id');
-            $table->integer('oauth2_client_type_id')->unsigned();
-            $table->foreign('oauth2_client_type_id')->references('id')->on('oauth2_client_types');
+            $table->string('token');
+            $table->string('type',50);
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call(ReservationTypeSeeder::class);
-        $this->call(Oauth2ClientTypeSeeder::class);
+        $this->call(Oauth2ClientSeeder::class);
         Model::reguard();
     }
 }
