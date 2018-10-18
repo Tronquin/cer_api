@@ -60,11 +60,8 @@ class UserController extends Controller
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'La contraseña es incorrecta']);
         }
         
-        $sessionExist = Session::query()->where('id', $userExist['id'])->first();
+        $sessionExist = Session::query()->where('user_id', $userExist['id'])->delete();
 
-        if($sessionExist){
-            $sessionExist->delete();
-        }
         $clientIp = $request->ip();
         $minutes = config('oauth2.time_expire');
         $token = base64_encode(Hash::make($userExist['id'] . md5('Castro_Proyect') . $clientIp));

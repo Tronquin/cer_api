@@ -19,17 +19,17 @@ class SessionAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $type = OAuth2Client::query()->where('token', $request->get('token'))->first();
+        $type = OAuth2Client::query()->where('token', $request->headers->get('token'))->first();
 
         if ($type->type === 'machine') {
             return $next($request);
         }
 
-        if (! $request->has('session')) {
+        if (! $request->headers->has('session')) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session is required']);
         }
 
-        $session = Session::query()->where('token', $request->get('session'))->first();
+        $session = Session::query()->where('token', $request->headers->get('session'))->first();
 
         if (! $session) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session not found']);

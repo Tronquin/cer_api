@@ -17,11 +17,11 @@ class Oauth2Middleware
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->has('token')) {
+        if (! $request->headers->has('token')) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'token is required']);
         }
 
-        $token = OAuth2Client::query()->where('token', $request->get('token'))->first();
+        $token = OAuth2Client::query()->where('token', $request->headers->get('token'))->first();
 
         if (! $token) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'token not found']);

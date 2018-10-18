@@ -3,6 +3,10 @@ namespace App\Handler;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Request;
+use App\Audit;
+use App\OAuth2Client;
+use App\Configuration;
 
 /**
  * Clase base para todos los Handler. Esta clase se penso
@@ -91,6 +95,7 @@ abstract class BaseHandler {
 
                 // Inicia el handler
                 $this->data = $this->handle();
+                $this->audit();
 
             } catch (\Exception $ex) {
 
@@ -186,5 +191,25 @@ abstract class BaseHandler {
         }
 
         return false;
+    }
+
+    /**
+     * Auditoria
+     * 
+     */
+    private function audit()
+    {
+        $token = Request::header('token');
+        $client = OAuth2Client::query()->where('token', $token)->first();
+        $config = Configuration::query()->first();
+        $audit = new Audit();
+        $audit->ip = Request::ip();
+        $audit->oauth2_client_id = $client->id;
+        $audit->action = get_class($this);
+        $audit->params = json_encode($this->params);
+        $audit->response = json_encode($this->data);
+        $audit->version = $config->version;
+
+        $audit->save();
     }
 }
