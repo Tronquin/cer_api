@@ -6,7 +6,6 @@ use App\Handler\AddReservationServiceHandler;
 use App\Handler\DeleteServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
-use App\Handler\AddPassaport;
 use App\Handler\FindReservationHandler;
 use App\Handler\FindReservationByIdHandler;
 use App\Handler\AvailabilityRoomHandler;
