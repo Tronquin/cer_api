@@ -587,12 +587,12 @@ class ReservationController extends Controller
     /**
      * Obtiene extra para propina
      *
-     * @param Request $request
+     * @param $reservationId
      * @return JsonResponse
      */
-    public function baksheesh(Request $request){
+    public function baksheesh($reservationId){
 
-        $handler = new BaksheeshHandler(['data' => $request->all()]);
+        $handler = new BaksheeshHandler(['reserva_id' => $reservationId]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
