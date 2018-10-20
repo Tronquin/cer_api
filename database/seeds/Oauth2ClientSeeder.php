@@ -12,20 +12,20 @@ class Oauth2ClientSeeder extends Seeder
     public function run()
     {
         $type = new \App\OAuth2Client();
-        $type->description = '';
-        $type->token = md5(uniqid('Maquina',true));
+        $type->description = 'Maquina';
+        $type->token = md5('Machine_hotel_Castro_experiences');
         $type->type = 'machine';
         $type->save();
 
         $type = new \App\OAuth2Client();
-        $type->description = '';
-        $type->token = md5(uniqid('App',true));
+        $type->description = 'Aplicacion movil';
+        $type->token = md5('Movil_aplication_Castro_experiences');
         $type->type = 'app';
         $type->save();
 
         $type = new \App\OAuth2Client();
-        $type->description = '';
-        $type->token = md5(uniqid('Web',true));
+        $type->description = 'Pagina Web';
+        $type->token = md5('Web_page_Castro_experiences');
         $type->type = 'web';
         $type->save();
     }
