@@ -364,7 +364,7 @@ class ReservationController extends Controller
         if ($handler->isSuccess()) {
             $res = $handler->getData();
 
-            $handler = new DeletePersistenceHandler(['reserva_id' => $request['reserva_id']]);
+            $handler = new DeletePersistenceHandler(['reserva_id' => $request['reserva_id'],'status_id' => 2]);
             $handler->processHandler();
             if (! $handler->isSuccess()) {
                 \Log::info('Error al agregar los extras',$handler->getErrors());
@@ -385,11 +385,12 @@ class ReservationController extends Controller
      * elimina la peristencia de datos de una reserva
      *
      * @param $id
+     * @param $status
      * @return JsonResponse
      */
-    public function deletePersistence($id){
+    public function persistenceStatusChange($id,$status){
 
-        $handler = new DeletePersistenceHandler(['reserva_id' => $id]);
+        $handler = new DeletePersistenceHandler(['reserva_id' => $id,'status_id' => $status]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

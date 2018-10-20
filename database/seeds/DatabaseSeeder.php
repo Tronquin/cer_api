@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReservationTypeSeeder::class);
         $this->call(Oauth2ClientSeeder::class);
         $this->call(ConfigurationSeeder::class);
+        $this->call(StatusSeeder::class);
         Model::reguard();
     }
 }

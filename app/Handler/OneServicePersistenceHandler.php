@@ -20,6 +20,7 @@ class OneServicePersistenceHandler extends BaseHandler {
             $service_persistence->reserva_id = $this->params['data']['reserva_id'];
             $service_persistence->extra_id = $extras['id'];
             $service_persistence->cantidad = $extras['cantidad'];
+            $service_persistence->status_id = 2;
 
             $service_persistence->save();
         }

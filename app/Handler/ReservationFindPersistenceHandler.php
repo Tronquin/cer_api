@@ -11,7 +11,7 @@ class ReservationFindPersistenceHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->first();
+        $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->where('status_id','=',1)->first();
 
         $data=[];
         $data['res'] = 0;

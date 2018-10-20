@@ -17,7 +17,7 @@ class CreateTableOauth2Clients extends Migration
             $table->increments('id');
             $table->string('description', 50);
             $table->string('token');
-            $table->string('type',50);
+            $table->string('type',50)->unique();
             $table->timestamps();
         });
     }

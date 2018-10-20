@@ -19,7 +19,7 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
 
                 $guest_persistence->reserva_id = $this->params['data']['reserva_id'];
                 $guest_persistence->guest_id = $huesped['id'];
-                $guest_persistence->type_id = isset($huesped['tipo']) ? $huesped['tipo'] : null;
+                $guest_persistence->reservation_type_id = $huesped['isAdult'] ? 1 : 2;
                 $guest_persistence->nombre = $huesped['nombre'];
                 $guest_persistence->apellido1 = $huesped['apellido1'];
                 $guest_persistence->apellido2 = $huesped['apellido2'];
@@ -30,9 +30,10 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
                 $guest_persistence->tipo_documento = $huesped['tipo_documento'];
                 $guest_persistence->pais = $huesped['pais'];
                 $guest_persistence->email = isset($huesped['email']) ? $huesped['email'] : null;
-                $guest_persistence->telefono = isset($huesped['telefono']) ? $huesped['telefono'] : null;
+                $guest_persistence->telefono = isset($huesped['phone']) ? $huesped['phone'] : null;
                 $guest_persistence->img = $huesped['url'];
-
+                $guest_persistence->status_id = 1;
+                
                 $response = $guest_persistence->save();
 
                 if($response != true)break;

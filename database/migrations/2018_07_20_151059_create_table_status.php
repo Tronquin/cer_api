@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableConfig extends Migration
+class CreateTableStatus extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTableConfig extends Migration
      */
     public function up()
     {
-        Schema::create('configurations', function (Blueprint $table) {
+        Schema::create('status', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('version', 10)->unique();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTableConfig extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configurations');
+        Schema::dropIfExists('status');
     }
 }

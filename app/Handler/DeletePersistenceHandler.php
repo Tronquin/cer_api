@@ -13,9 +13,9 @@ class DeletePersistenceHandler extends BaseHandler {
      */
     protected function handle()
     {
-        ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->delete();
-        ReservationGuestPersistence::where('reserva_id', $this->params['reserva_id'])->delete();
-        ReservationServicePersistence::where('reserva_id', $this->params['reserva_id'])->delete();
+        ReservationPersistence::where('reserva_id','=',$this->params['reserva_id'])->update(['status_id' => $this->params['status_id']]);
+        ReservationGuestPersistence::where('reserva_id', $this->params['reserva_id'])->update(['status_id' => $this->params['status_id']]);
+        ReservationServicePersistence::where('reserva_id', $this->params['reserva_id'])->update(['status_id' => $this->params['status_id']]);
 
         return true;
     }

@@ -22,6 +22,8 @@ class CreateTableReservationPersistences extends Migration
             $table->integer('apartamento_id')->unsigned()->nullable();
             $table->integer('plan_id')->unsigned()->nullable();
             $table->integer('experience_id')->unsigned()->nullable();
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
         });
     }

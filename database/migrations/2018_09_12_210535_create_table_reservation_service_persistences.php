@@ -18,6 +18,8 @@ class CreateTableReservationServicePersistences extends Migration
             $table->integer('reserva_id')->unsigned();
             $table->integer('extra_id')->unsigned();
             $table->integer('cantidad')->unsigned();
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
         });
     }
