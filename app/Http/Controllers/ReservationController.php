@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Handler\AddReservationServiceHandler;
+use App\Handler\BaksheeshHandler;
+use App\Handler\CheckoutHandler;
 use App\Handler\DeleteServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
@@ -20,6 +22,7 @@ use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ReservationServicePersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
+use App\Handler\UndeliveredKeyHandler;
 use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
@@ -555,6 +558,60 @@ class ReservationController extends Controller
     public function editMail(Request $request){
 
         $handler = new ReservationEditMailHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene extra llave no entregada
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function undeliveredKey(Request $request){
+
+        $handler = new UndeliveredKeyHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene extra para propina
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function baksheesh(Request $request){
+
+        $handler = new BaksheeshHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Hace checkout de una reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkout(Request $request){
+
+        $handler = new CheckoutHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

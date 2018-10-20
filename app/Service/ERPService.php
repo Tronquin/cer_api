@@ -319,6 +319,64 @@ class ERPService {
     }
 
     /**
+     * Registra valoracion y comentarios en el erp
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function feedback(array $data)
+    {
+        $response = self::send('reservas/valorar_reserva', [
+            'reserva_id' => $data['reservation_id'],
+            'valor' => $data['value'],
+            'comentario' => $data['comment']
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Obtiene el extra para llaves extraviadas
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getUndeliveredKeyExtra(array $data)
+    {
+        $response = self::send('extras/llave/' . $data['reserva_id'], [], self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
+     * Obtiene el extra para la propina
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getBaksheeshExtra(array $data)
+    {
+        $response = self::send('extras/propinas/' . $data['reserva_id'], [], self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
+     * Hace checkout de una reserva
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function setCheckout(array $data)
+    {
+        $response = self::send('reservas/realizar_checkout', [
+            'reserva_id' => $data['reserva_id']
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
