@@ -16,6 +16,16 @@ class ReservationPersistence extends Model
         'apartamento_id',
         'plan_id',
         'experience_id',
+        'status-id',
     ];
 
+    /**
+     * Status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function status()
+    {
+        return $this->hasOne(Status::class, 'status_id');
+    }
 }

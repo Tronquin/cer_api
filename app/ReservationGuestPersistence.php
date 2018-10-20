@@ -25,6 +25,7 @@ class ReservationGuestPersistence extends Model
         'email',
         'telefono',
         'img',
+        'status_id',
     ];
 
     /**
@@ -35,6 +36,16 @@ class ReservationGuestPersistence extends Model
     public function tipo()
     {
         return $this->belongsTo(ReservationType::class, 'reservation_type_id');
+    }
+
+    /**
+     * Status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function status()
+    {
+        return $this->hasOne(Status::class, 'status_id');
     }
 
 }

@@ -151,6 +151,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                     }else{
                         $reservation_persistence->experience_id = null;
                     }
+                    $reservation_persistence->status_id = 1;
                     $response = $reservation_persistence->save();
                 }else{
                     $reservation_persistence = new ReservationPersistence();
@@ -275,6 +276,7 @@ class ReservationPersistenceHandler extends BaseHandler {
                             return $response;
                         }
                     }
+                    $reservation_persistence->status_id = 1;
                     $response = $reservation_persistence->save();
                 }
 

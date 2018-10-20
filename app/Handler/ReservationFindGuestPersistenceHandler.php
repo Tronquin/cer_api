@@ -11,7 +11,7 @@ class ReservationFindGuestPersistenceHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $guest_persistence = ReservationGuestPersistence::where('reserva_id','=',$this->params['reserva_id'])->get();
+        $guest_persistence = ReservationGuestPersistence::where('reserva_id','=',$this->params['reserva_id'])->where('status_id','=',1)->get();
 
         $data=[];
         $components = "";

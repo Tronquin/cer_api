@@ -31,6 +31,8 @@ class CreateTableReservationGuestPersistences extends Migration
             $table->text('email')->nullable();
             $table->text('telefono')->nullable();
             $table->text('img')->nullable();
+            $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
         });
     }
