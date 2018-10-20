@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Handler\AddReservationServiceHandler;
 use App\Handler\BaksheeshHandler;
+use App\Handler\CheckoutHandler;
 use App\Handler\DeleteServiceHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
@@ -592,6 +593,24 @@ class ReservationController extends Controller
     public function baksheesh(Request $request){
 
         $handler = new BaksheeshHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Hace checkout de una reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function checkout(Request $request){
+
+        $handler = new CheckoutHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

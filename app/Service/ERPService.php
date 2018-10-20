@@ -362,6 +362,21 @@ class ERPService {
     }
 
     /**
+     * Hace checkout de una reserva
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function setCheckout(array $data)
+    {
+        $response = self::send('reservas/realizar_checkout', [
+            'reserva_id' => $data['reserva_id']
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

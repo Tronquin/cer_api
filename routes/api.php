@@ -63,5 +63,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/extra/undelivered_key/{reserva_id}', 'ReservationController@undeliveredKey');
         // Obtener extra para la propina
         Route::get('/extra/baksheesh/{reserva_id}', 'ReservationController@baksheesh');
+        // Checkout de una reserva
+        Route::post('/reservation/checkout', 'ReservationController@checkout');
     });
 });
