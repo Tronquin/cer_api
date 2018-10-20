@@ -2,6 +2,7 @@
 namespace App\Handler;
 
 use App\ReservationFeedback;
+use App\Service\ERPService;
 
 class ReservationFeedbackHandler extends BaseHandler {
 
@@ -11,22 +12,18 @@ class ReservationFeedbackHandler extends BaseHandler {
     protected function handle()
     {
         $feedback = new ReservationFeedback();
-        
-        if(isset($this->params['data']['reserva_id'])){
-        
-            $feedback->reserva_id = $this->params['data']['reserva_id'];
-            $feedback->puntuacion = $this->params['data']['puntuacion'];
-            $feedback->comentario = "";
-                if($this->params['data']['puntuacion'] < 5){
-                    $feedback->comentario = $this->params['data']['comentario'];
-                }
-        }else{
-            $feedback->comentario = $this->params['data']['comentario'];
-        }
+        $feedback->reserva_id = !empty($this->params['data']['reserva_id']) ? $this->params['data']['reserva_id'] : null;
+        $feedback->puntuacion = !empty($this->params['data']['puntuacion']) ? $this->params['data']['puntuacion'] : null;
+        $feedback->comentario = !empty($this->params['data']['comentario']) ? $this->params['data']['comentario'] : '';
+        $feedback->save();
 
-        $response = $feedback->save();
+       $response = ERPService::feedback([
+           'reservation_id' => !empty($this->params['data']['reserva_id']) ? $this->params['data']['reserva_id'] : null,
+           'value' => !empty($this->params['data']['puntuacion']) ? $this->params['data']['puntuacion'] : -1,
+           'comment' => !empty($this->params['data']['comentario']) ? $this->params['data']['comentario'] : ''
+       ]);
 
-        return $response;
+       return $response;
     }
 
     /**
@@ -37,7 +34,7 @@ class ReservationFeedbackHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-        
+
         ];
     }
 

@@ -20,6 +20,7 @@ use App\Handler\ReservationFindPersistenceHandler;
 use App\Handler\ReservationFindGuestPersistenceHandler;
 use App\Handler\ReservationServicePersistenceHandler;
 use App\Handler\ScanGuestPassportHandler;
+use App\Handler\UndeliveredKeyHandler;
 use App\Handler\UpdateGuestPassportHandler;
 use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
@@ -554,6 +555,24 @@ class ReservationController extends Controller
     public function editMail(Request $request){
 
         $handler = new ReservationEditMailHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene extra llave no entregada
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function undeliveredKey(Request $request){
+
+        $handler = new UndeliveredKeyHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

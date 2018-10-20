@@ -319,6 +319,36 @@ class ERPService {
     }
 
     /**
+     * Registra valoracion y comentarios en el erp
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function feedback(array $data)
+    {
+        $response = self::send('reservas/valorar_reserva', [
+            'reserva_id' => $data['reservation_id'],
+            'valor' => $data['value'],
+            'comentario' => $data['comment']
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Obtiene el extra para llaves extraviadas
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getUndeliveredKeyExtra(array $data)
+    {
+        $response = self::send('extras/llave/' . $data['reserva_id'], [], self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

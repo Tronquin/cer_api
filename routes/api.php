@@ -59,5 +59,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/keyreceived', 'ReservationController@KeyReceived');
         // edita el email del cliente
         Route::post('/reservation/editmail', 'ReservationController@editMail');
+        // Obtener extra llave no entregada
+        Route::get('/extra/undelivered_key', 'ReservationController@undeliveredKey');
     });
 });
