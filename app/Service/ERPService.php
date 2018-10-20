@@ -349,6 +349,19 @@ class ERPService {
     }
 
     /**
+     * Obtiene el extra para la propina
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getBaksheeshExtra(array $data)
+    {
+        $response = self::send('extras/propinas/' . $data['reserva_id'], [], self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
