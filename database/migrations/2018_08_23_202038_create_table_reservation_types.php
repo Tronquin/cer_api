@@ -15,7 +15,7 @@ class CreateTableReservationTypes extends Migration
     {
         Schema::create('reservation_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code')->unique();
+            $table->string('code', 100)->unique();
             $table->timestamps();
         });
     }
