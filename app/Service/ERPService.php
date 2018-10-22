@@ -384,8 +384,9 @@ class ERPService {
      */
     public static function getReservationByKey(array $data)
     {
+        
         $response = self::send('reservas/buscar_reserva_por_llave', [
-            'dato'=> $data['key']
+            'reserva_key'=> $data['key']
         ]);
 
         return $response;
@@ -450,7 +451,6 @@ class ERPService {
         $response = curl_exec($ch);
         curl_close($ch);
         
-        dd($response, $url);
         $response = json_decode($response, true);
 
 

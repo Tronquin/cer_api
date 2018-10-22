@@ -62,11 +62,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         // Obtener extra llave no entregada
         Route::get('/extra/undelivered_key/{reserva_id}', 'ReservationController@undeliveredKey');
         // Obtener extra para la propina
-        Route::get('/extra/baksheesh/{reserva_id}', 'ReservationController@baksheesh');
+        Route::get('/reservation/find/baksheesh/{reserva_id}', 'ReservationController@baksheesh');
         // Checkout de una reserva
         Route::post('/reservation/checkout', 'ReservationController@checkout');
-        
         // Obtener reserva por codigo de llave
-        Route::get('/reservas/buscar_reserva_por_llave/{key}', 'ReservationController@findReservationByKey');
+        Route::get('/reservation/find/bykey/{key}', 'ReservationController@findReservationByKey');
     });
 });
