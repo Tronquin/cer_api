@@ -2,7 +2,9 @@
 namespace App\Handler;
 
 
+use App\ReservationPersistence;
 use App\Service\ERPService;
+use App\Status;
 
 class CheckoutHandler extends BaseHandler {
 
@@ -12,6 +14,16 @@ class CheckoutHandler extends BaseHandler {
     protected function handle()
     {
         $response = ERPService::setCheckout(['reserva_id' => $this->params['data']['reserva_id']]);
+
+        if (intval($response['res']) === 1) {
+            // Cambia el estatus de la reserva a chechout
+
+            $reservation = ReservationPersistence::where('reserva_id', $this->params['data']['reserva_id'])->first();
+            $status = Status::where('code', ReservationPersistence::STATUS_CHECKOUT)->first();
+
+            $reservation->status_id = $status->id;
+            $reservation->save();
+        }
 
         return $response;
     }

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReservationPersistence extends Model
 {
+    /** Estatus de la reserva */
+    const STATUS_CHECKOUT = 'checkout';
+
     protected $table = 'reservation_persistences';
 
     protected $fillable = [

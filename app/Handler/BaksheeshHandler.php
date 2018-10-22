@@ -11,7 +11,7 @@ class BaksheeshHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $response = ERPService::getBaksheeshExtra(['reserva_id' => $this->params['data']['reserva_id']]);
+        $response = ERPService::getBaksheeshExtra(['reserva_id' => $this->params['reserva_id']]);
 
         return $response;
     }
