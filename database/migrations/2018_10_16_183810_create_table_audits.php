@@ -19,8 +19,8 @@ class CreateTableAudits extends Migration
             $table->integer('oauth2_client_id')->unsigned();
             $table->foreign('oauth2_client_id')->references('id')->on('oauth2_clients');
             $table->string('action');
-            $table->text('params');
-            $table->text('response');
+            $table->longText('params');
+            $table->longText('response');
             $table->string('version', 20);
             $table->timestamps();
         });
