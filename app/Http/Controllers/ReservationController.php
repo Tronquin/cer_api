@@ -33,6 +33,7 @@ use App\Handler\ReservationFeedbackHandler;
 use App\Handler\ReservationKeyReceivedHandler;
 use App\Handler\KeyDeliveredHandler;
 use App\Handler\ReservationEditMailHandler;
+use App\Handler\PaymentGateway\ReservationProcessPaymentHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -560,6 +561,24 @@ class ReservationController extends Controller
     public function editMail(Request $request){
 
         $handler = new ReservationEditMailHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Pago por gateway
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reservationPaymentGateway(Request $request){
+
+        $handler = new ReservationProcessPaymentHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
