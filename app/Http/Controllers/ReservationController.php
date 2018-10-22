@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Handler\AddReservationServiceHandler;
 use App\Handler\BaksheeshHandler;
 use App\Handler\CheckoutHandler;
-use App\Handler\DeleteServiceHandler;
+use App\Handler\GalleryHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\FindReservationHandler;
@@ -632,6 +632,24 @@ class ReservationController extends Controller
     public function findReservationByKey($key){
 
         $handler = new FindReservationByKeyHandler(['key' => $key]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene la galeria por el ID
+     *
+     * @param $galleryId
+     * @return JsonResponse
+     */
+    public function getGallery($galleryId){
+
+        $handler = new GalleryHandler(compact('galleryId'));
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

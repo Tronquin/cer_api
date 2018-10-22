@@ -67,5 +67,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/checkout', 'ReservationController@checkout');
         // Obtener reserva por codigo de llave
         Route::get('/reservation/find/bykey/{key}', 'ReservationController@findReservationByKey');
+        // Obtiene la galeria por id
+        Route::get('/reservation/find/gallery/{gallery_id}', 'ReservationController@getGallery');
     });
 });
