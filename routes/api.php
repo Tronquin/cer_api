@@ -60,7 +60,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         // edita el email del cliente
         Route::post('/reservation/editmail', 'ReservationController@editMail');
         // Obtener extra llave no entregada
-        Route::get('/extra/undelivered_key/{reserva_id}', 'ReservationController@undeliveredKey');
+        Route::get('/reservation/find/undelivered_key/{reserva_id}', 'ReservationController@undeliveredKey');
         // Obtener extra para la propina
         Route::get('/reservation/find/baksheesh/{reserva_id}', 'ReservationController@baksheesh');
         // Checkout de una reserva
