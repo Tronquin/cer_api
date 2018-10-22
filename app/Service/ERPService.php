@@ -377,6 +377,21 @@ class ERPService {
     }
 
     /**
+     * Obtener reserva por codigo de llave
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getReservationByKey(array $data)
+    {
+        $response = self::send('reservas/buscar_reserva_por_llave', [
+            'dato'=> $data['key']
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
@@ -434,8 +449,10 @@ class ERPService {
         }
         $response = curl_exec($ch);
         curl_close($ch);
-
+        
+        dd($response, $url);
         $response = json_decode($response, true);
+
 
         if (! $response) {
             // Si no retorna un Json dispara una exception

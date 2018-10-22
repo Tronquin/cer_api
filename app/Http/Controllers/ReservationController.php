@@ -36,6 +36,8 @@ use App\Handler\ReservationEditMailHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
+use App\Handler\FindReservationByKeyHandler;
+
 class ReservationController extends Controller
 {
 
@@ -612,6 +614,24 @@ class ReservationController extends Controller
     public function checkout(Request $request){
 
         $handler = new CheckoutHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtener reserva por codigo de llave
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function findReservationByKey($key){
+
+        $handler = new FindReservationByKeyHandler(['key' => $key]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

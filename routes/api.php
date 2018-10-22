@@ -65,5 +65,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/extra/baksheesh/{reserva_id}', 'ReservationController@baksheesh');
         // Checkout de una reserva
         Route::post('/reservation/checkout', 'ReservationController@checkout');
+        
+        // Obtener reserva por codigo de llave
+        Route::get('/reservas/buscar_reserva_por_llave/{key}', 'ReservationController@findReservationByKey');
     });
 });
