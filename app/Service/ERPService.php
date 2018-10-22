@@ -393,6 +393,19 @@ class ERPService {
     }
 
     /**
+     * Obtiene la galeria en base al ID
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function getGallery(array $data)
+    {
+        $response = self::send('web/get_galeria/' . $data['galleryId'], [], self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
@@ -450,7 +463,7 @@ class ERPService {
         }
         $response = curl_exec($ch);
         curl_close($ch);
-        
+
         $response = json_decode($response, true);
 
 
