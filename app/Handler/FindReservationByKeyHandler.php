@@ -14,6 +14,13 @@ class FindReservationByKeyHandler extends BaseHandler {
         
         $response = ERPService::getReservationByKey($this->params);
 
+        $response = [
+            'res' => 1,
+            'msg' => 'Reserva encontrada',
+            'data' => [
+                'list' => $response,
+            ],
+        ];
         return $response;
     }
 
