@@ -575,9 +575,9 @@ class ReservationController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function undeliveredKey(Request $request){
+    public function undeliveredKey($reserva_id){
 
-        $handler = new UndeliveredKeyHandler(['data' => $request->all()]);
+        $handler = new UndeliveredKeyHandler(['reserva_id' => $reserva_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
