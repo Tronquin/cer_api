@@ -43,6 +43,11 @@ class StripePaymentService {
         ];
     }
 
+    /**
+     * Envia los datos de un pago a stripe
+     * @param $request
+     * @return array
+     */
     public function processPayment($request)
     {
         try {
@@ -64,8 +69,9 @@ class StripePaymentService {
     /**
      * este metodo toma un conjunto de pagos, los valida y los procesa
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @param $request
      * @return  Object | json | array
      */
     public function processPayments($request)
@@ -84,9 +90,10 @@ class StripePaymentService {
     /**
      * debe validar que todos los campos requeridos para hacer la solicitud esten completos y sean correctos
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
      * @return  boolean
+     * @param $request
      */
     public function validateRequestData($request)
     {
@@ -122,15 +129,16 @@ class StripePaymentService {
     /**
      * debe devolver la data requerida para hacer la solicitud formateada segun los requerimientos de la entidad
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @param $request
      */
     public function formaterRequestData($request)
     {
         $amount = str_replace(",","",(string)$request['amount']); //Eliminar las comas del monto a cobrar
         //$amount = RateExteriorCalculator::calculateRateChange($amount); //cambia el monto a la moneda seleccionada
-        //$amount = (string)($amount*$this->zeroDecimalBase); //multiplica por la base zero decimal para convertirlo en su denominación mas baja
-        //$amount = str_replace(".","",(string)$amount); //Eliminar las comas del monto a cobrar
+        $amount = (string)($amount*100); //multiplica por la base zero decimal para convertirlo en su denominación mas baja
+        $amount = str_replace(".","",(string)$amount); //Eliminar las comas del monto a cobrar
 
         return [
             "amount" => $amount,
@@ -143,6 +151,11 @@ class StripePaymentService {
         ];
     }
 
+    /**
+     * Da formato a los datos de la tarjeta para enviarlos en la solicitud
+     * @param $request
+     * @return array
+     */
     public function formatCardData($request)
     {
         $name = $request['holder'];
@@ -159,8 +172,10 @@ class StripePaymentService {
     /**
      * debe devolver la data requerida para ser devuelta a el caso de uso segun el formato que necesite
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @param $response
+     * @return array
      */
     public function formaterResponseData($response)
     {
@@ -176,8 +191,8 @@ class StripePaymentService {
             'amount' => ((integer)$c_data['amount']), //devuelve el monto sin comas
             'response' => $dcharge,
             'currency' => $this->currency,
-            'dollarPrice' => 4,
-            'nationalPrice' => 350,
+            //'dollarPrice' => 4,
+            'nationalPrice' => $c_data['amount']/100,
             'responsecode' => 'success',
             'holder' => $response['source']['name'],
             'message' => 'success'
@@ -187,15 +202,18 @@ class StripePaymentService {
     /**
      * debe devolver la data requerida para ser devuelta a el caso de uso segun el formato que necesite
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @param $response
+     * @param $request
+     * @return array
      */
     public function formaterResponseErrorData($response,$request)
     {
         $national = str_replace(".",",",str_replace(",","",$response['amount']));
-        $foreign = RateExteriorCalculator::calculateRateChange($national);
-        new RateExteriorCalculator($this->rf,'USD');
-        $dollar = RateExteriorCalculator::calculateRateChange($national);
+        //$foreign = RateExteriorCalculator::calculateRateChange($national);
+        //new RateExteriorCalculator($this->rf,'USD');
+        //$dollar = RateExteriorCalculator::calculateRateChange($national);
         $name = $request['holder'];
         return [
             'id' => null,
@@ -203,10 +221,10 @@ class StripePaymentService {
             'code' => $response['status'],
             'reference' => null,
             'status' => 2,
-            'amount' => $foreign,
+            //'amount' => $foreign,
             'response' => json_encode($response),
             'currency' => $this->currency,
-            'dollarPrice' => $dollar,
+            //'dollarPrice' => $dollar,
             'nationalPrice' => $national,
             'responsecode' => $response['type'],
             'holder' => $name,
@@ -217,8 +235,10 @@ class StripePaymentService {
     /**
      * devueleve un entero que representa el estado de la reserva segun la condicion de los pagos
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 07-10-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @param Reservation $reservation
+     * @return string
      */
     public function getStatusReservation(Reservation $reservation)
     {
@@ -238,8 +258,9 @@ class StripePaymentService {
     /**
      * indica si el pago es valido y correcto
      *
-     * @author Gabriel Camacho <kbo025@gmail.com>
-     * @version 18-03-2015
+     * @author Ruben Hidalgo
+     * @version 1.0
+     * @return bolean
      */
     public function isSuccess()
     {
