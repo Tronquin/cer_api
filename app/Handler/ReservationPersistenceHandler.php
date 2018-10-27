@@ -26,7 +26,7 @@ class ReservationPersistenceHandler extends BaseHandler {
 
                 $validMaxOfPeople = 0;
                 $reservation_persistence = ReservationPersistence::where('reserva_id','=',$this->params['data']['reserva_id'])->first();
-                if (count($reservation_persistence) > 0){
+                if ($reservation_persistence){
                     $tipologia = $reservation_persistence->tipologia_id != '' ? $reservation_persistence->tipologia_id : $reserva['data']['list']['tipologia']['id'];
                     $handler = new AvailabilityRoomHandler(['reserva_id' => $this->params['data']['reserva_id']]);
                     $handler->processHandler();
