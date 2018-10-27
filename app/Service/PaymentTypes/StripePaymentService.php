@@ -135,11 +135,12 @@ class StripePaymentService {
      */
     public function formaterRequestData($request)
     {
-        $amount = str_replace(",","",(string)$request['amount']); //Eliminar las comas del monto a cobrar
-        //$amount = RateExteriorCalculator::calculateRateChange($amount); //cambia el monto a la moneda seleccionada
-        $amount = (string)($amount*100); //multiplica por la base zero decimal para convertirlo en su denominación mas baja
-        $amount = str_replace(".","",(string)$amount); //Eliminar las comas del monto a cobrar
-
+        if(!preg_match('/^[0-9]+([\.][0-9]{1,2})?$/',$request['amount'],$matches)){
+            throw new \Exception('Amount format error');
+        }
+        
+        $amount = (string)($request['amount']*100);
+        
         return [
             "amount" => $amount,
             "currency" => $this->currency,
