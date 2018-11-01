@@ -19,7 +19,8 @@ class ReservationPersistence extends Model
         'apartamento_id',
         'plan_id',
         'experience_id',
-        'status-id',
+        'status_id',
+        'has_checkin_movil'
     ];
 
     /**

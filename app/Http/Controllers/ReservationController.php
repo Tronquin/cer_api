@@ -36,6 +36,7 @@ use App\Handler\ReservationEditMailHandler;
 use App\Handler\PaymentGateway\ReservationProcessPaymentHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Handler\ReservationHasCheckinMovilHandler;
 
 use App\Handler\FindReservationByKeyHandler;
 
@@ -669,6 +670,24 @@ class ReservationController extends Controller
     public function getGallery($galleryId){
 
         $handler = new GalleryHandler(compact('galleryId'));
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Actualiza el status hasCheckinMovil al realizar la reserva por la web o la App
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function hasCheckinMovil(Request $request){
+        $request = $request->all();
+        $handler = new ReservationHasCheckinMovilHandler(['reserva_id' => $request['reserva_id']]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

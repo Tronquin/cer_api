@@ -71,5 +71,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/paymentgateway', 'ReservationController@reservationPaymentGateway');
         // Obtiene la galeria por id
         Route::get('/reservation/find/gallery/{gallery_id}', 'ReservationController@getGallery');
+        // Actualiza el checkin movil
+        Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
     });
 });
