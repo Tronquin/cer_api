@@ -23,6 +23,8 @@ class AvailabilityServiceHandler extends BaseHandler {
 
             foreach ($response['data']['list']['extras_contratados'] as $key => $services) {
                 $services['cantidad'] = 0;
+                $services['per_pax'] = stripos($services['manera_cobro'], "por_persona") !== false;
+                $services['per_night'] = stripos($services['manera_cobro'], "por_noche") !== false;
                 if(count($service_persistence) > 0){
                     foreach ($service_persistence as $key => $pservices){
                         if ($pservices['extra_id'] == $services['id']){
@@ -34,6 +36,8 @@ class AvailabilityServiceHandler extends BaseHandler {
             }
             foreach ($response['data']['list']['extras_disponibles'] as $key => $services) {
                 $services['cantidad'] = 0;
+                $services['per_pax'] = stripos($services['manera_cobro'], "por_persona") !== false;
+                $services['per_night'] = stripos($services['manera_cobro'], "por_noche") !== false;
                 if(count($service_persistence) > 0){
                     foreach ($service_persistence as $key => $pservices){
                         if ($pservices['extra_id'] == $services['id']){
