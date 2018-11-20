@@ -37,6 +37,32 @@ class UserController extends Controller
     }
 
     /**
+     * Create a new user by rol.
+     *
+     * @param  Request $request
+     * @return JsonResponse
+     */
+    protected function createByRol(Request $request)
+    {
+        $data = $request->all();
+        $userExist = User::query()->where('email', $data['email'])->first();
+
+        if ($userExist) {
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario ya existe']);
+        }
+
+        $user = new User();
+        $user->name = $data['name'];
+        $user->last_name = $data['last_name'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->rol_id = $data['rol_id'];
+        $user->save();
+
+        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => $user->email]);
+    }
+
+    /**
      * Create a new session instance after a valid login.
      *
      * @param  Request $request

@@ -13,6 +13,7 @@ class User extends Model
         'last_name',
         'email',
         'password',
+        'rol_id'
     ];
 
     /**
@@ -21,5 +22,13 @@ class User extends Model
     public function session()
     {
         return $this->hasOne(Session::class, 'session_id');
+    }
+
+     /**
+     * rol de este usuario
+     */
+    public function rol()
+    {
+        return $this->hasOne(Rol::class, 'rol_id');
     }
 }
