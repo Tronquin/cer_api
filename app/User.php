@@ -29,6 +29,6 @@ class User extends Model
      */
     public function rol()
     {
-        return $this->hasOne(Rol::class, 'rol_id');
+        return $this->belongsTo(Rol::class, 'rol_id');
     }
 }

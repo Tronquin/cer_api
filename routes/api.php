@@ -73,5 +73,12 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/reservation/find/gallery/{gallery_id}', 'ReservationController@getGallery');
         // Actualiza el checkin movil
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
+
+        Route::group(['middleware' => 'adminAuth'], function () {
+            // Obtiene la galeria por id
+            Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@allExperiencesByLocation');
+            //Obtiene los extras
+            Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@getAllExtras');
+        });
     });
 });

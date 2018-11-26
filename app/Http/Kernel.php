@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\Oauth2Middleware;
 use App\Http\Middleware\SessionAuthMiddleware;
+use App\Http\Middleware\AdminAuthMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -62,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'oauth2' => Oauth2Middleware::class,
         'sessionAuth' => SessionAuthMiddleware::class,
+        'adminAuth' => AdminAuthMiddleware::class,
     ];
 }
