@@ -75,6 +75,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
+        // obtiene los apartamentos de una ubicacion
+        Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
 
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene la galeria por id

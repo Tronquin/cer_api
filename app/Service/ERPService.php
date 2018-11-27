@@ -224,21 +224,6 @@ class ERPService {
     }
 
     /**
-     * Busca los apartamentos de una ubicacion
-     *
-     * @param $id
-     * @return array
-     */
-    public static function findApartment($id)
-    {
-        $response = self::send('reservas/', [
-            'ubicacion_id' => $id,
-        ]);
-
-        return $response;
-    }
-
-    /**
      * Genera las tasas de una reserva
      *
      * @param $data
@@ -417,6 +402,19 @@ class ERPService {
             'reserva_id' => $data['reserva_id']
         ]);
 
+        return $response;
+    }
+    
+    /**
+     * Busca los apartamentos de una ubicacion
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function findApartmentsByLocation(array $data)
+    {
+        $response = self::send('web/ubicacion_info/'.$data['ubicacion_id'], [],self::METHOD_GET);
+        
         return $response;
     }
 
