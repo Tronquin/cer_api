@@ -417,6 +417,47 @@ class ERPService {
         
         return $response;
     }
+    
+    /**
+     * Busca la disponibilidad de los apartamentos por fechas y personas
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function findApartmentsDisponibility(array $data)
+    {
+        $response = self::send('web/buscar_disponibilidad', [
+            'desde' => $data['desde'],
+            'hasta' => $data['hasta'],
+            'ubicacion_id' => $data['ubicacion_id'],
+            'adultos' => $data['adults'],
+            'ninos' => $data['kids'],
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * Busca el precio por noche y precio total de una reserva segun params
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function findPriceByNight(array $data)
+    {
+        $response = self::send('web/buscar_precios', [
+            'desde' => $data['desde'],
+            'hasta' => $data['hasta'],
+            'ubicacion_id' => $data['ubicacion_id'],
+            'tipologia_id' => $data['tipologia_id'],
+            'experiencia_id' => $data['experiencia_id'],
+            'regimen_id' => $data['regimen_id'],
+            'promocion_id' => $data['promocion_id'],
+            'politica_id' => $data['politica_id'],
+        ]);
+
+        return $response;
+    }
 
     /**
      * Envia un request al ERP

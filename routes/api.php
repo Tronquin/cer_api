@@ -8,6 +8,13 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
 
+    // obtiene los apartamentos de una ubicacion
+    Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
+    // Busca la disponibilidad de los apartamentos por fechas y personas
+    Route::post('/find/apartmenstDisponibility', 'General\SearchdController@findApartmentsDisponibility');
+    // Busca la disponibilidad de los apartamentos por fechas y personas
+    Route::post('/find/priceByNight', 'General\SearchdController@findPriceByNight');
+
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
@@ -75,9 +82,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
-        // obtiene los apartamentos de una ubicacion
-        Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
-
+        //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene la galeria por id
             Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@allExperiencesByLocation');
