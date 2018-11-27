@@ -460,6 +460,19 @@ class ERPService {
     }
 
     /**
+     * Busca los POI de una ubicacion
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function findPOIByLocation(array $data)
+    {
+        $response = self::send('web/get_pois/'. $data['ubicacion_id'], [],self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url

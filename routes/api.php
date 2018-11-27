@@ -14,6 +14,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/find/apartmenstDisponibility', 'General\SearchdController@findApartmentsDisponibility');
     // Busca la disponibilidad de los apartamentos por fechas y personas
     Route::post('/find/priceByNight', 'General\SearchdController@findPriceByNight');
+    // Busca los POI por ubicacion
+    Route::get('/find/poiByLocation/{ubicacion_id}', 'General\SearchdController@findPOIByLocation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin

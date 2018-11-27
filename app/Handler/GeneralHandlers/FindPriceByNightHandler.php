@@ -24,7 +24,14 @@ class FindPriceByNightHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
+            'desde' => 'required',
+            'hasta' => 'required',
             'ubicacion_id' => 'required|numeric',
+            'tipologia_id' => 'required|numeric',
+            'experiencia_id' => 'required|numeric',
+            'regimen_id' => 'required|numeric',
+            'promocion_id' => 'required|numeric',
+            'politica_id' => 'required|numeric',
         ];
     }
 

@@ -4,14 +4,14 @@ namespace App\Handler\GeneralHandlers;
 use App\Handler\BaseHandler;
 use App\Service\ERPService;
 
-class FindApartmentsDisponibilityHandler extends BaseHandler {
+class FindPOIByLocationHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
      */
     protected function handle()
     {
-        $response = ERPService::findApartmentsDisponibility($this->params['data']);
+        $response = ERPService::findPOIByLocation(['ubicacion_id' => $this->params['ubicacion_id']]);
 
         return $response;
     }
@@ -24,11 +24,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'desde' => 'required',
-            'hasta' => 'required',
             'ubicacion_id' => 'required|numeric',
-            'adults' => 'required|numeric',
-            'kids' => 'required|numeric',
         ];
     }
 
