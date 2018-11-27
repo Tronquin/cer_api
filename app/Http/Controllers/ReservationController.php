@@ -34,9 +34,10 @@ use App\Handler\ReservationKeyReceivedHandler;
 use App\Handler\KeyDeliveredHandler;
 use App\Handler\ReservationEditMailHandler;
 use App\Handler\PaymentGateway\ReservationProcessPaymentHandler;
+use App\Handler\ReservationHasCheckinMovilHandler;
+use App\Handler\DeactivateKeyHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Handler\ReservationHasCheckinMovilHandler;
 
 use App\Handler\FindReservationByKeyHandler;
 
@@ -688,6 +689,25 @@ class ReservationController extends Controller
     public function hasCheckinMovil(Request $request){
         $request = $request->all();
         $handler = new ReservationHasCheckinMovilHandler(['reserva_id' => $request['reserva_id']]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Desactiva el acceso de las llaves de una reserva
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deactivateKey(Request $request){
+
+        $request = $request->all();
+        $handler = new DeactivateKeyHandler(['reserva_id' => $request['reserva_id']]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

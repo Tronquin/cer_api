@@ -73,6 +73,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/reservation/find/gallery/{gallery_id}', 'ReservationController@getGallery');
         // Actualiza el checkin movil
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
+        // desactiva las llaves de una reserva
+        Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
 
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene la galeria por id

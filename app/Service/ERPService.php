@@ -406,6 +406,21 @@ class ERPService {
     }
 
     /**
+     * Desactiva el acceso de las llaves de una reserva
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function deactivateKey(array $data)
+    {
+        $response = self::send('accesos/desactivar', [
+            'reserva_id' => $data['reserva_id']
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Envia un request al ERP
      *
      * @param $url
