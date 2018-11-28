@@ -471,6 +471,20 @@ class ERPService {
 
         return $response;
     }
+
+    /**
+     * Busca una galeria por id
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function findGaleryById(array $data)
+    {
+
+        $response = self::send('web/get_galeria/'. $data['galeria_id'], [],self::METHOD_GET);
+
+        return $response;
+    }
     
     /**
      * Envia un request al ERP

@@ -20,6 +20,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/experiencesByLocation/{ubicacion_id}', 'General\SearchdController@findExperiencesByLocation');
     // Busca los extras por ubicacion
     Route::get('/find/extrasByLocation/{ubicacion_id}', 'General\SearchdController@findExtrasByLocation');
+    // Busca las tipologias por ubicacion
+    Route::get('/find/typologyByLocation/{ubicacion_id}', 'General\SearchdController@findTypologyByLocation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin

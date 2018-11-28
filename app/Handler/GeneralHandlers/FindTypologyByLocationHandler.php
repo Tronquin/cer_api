@@ -4,7 +4,7 @@ namespace App\Handler\GeneralHandlers;
 use App\Handler\BaseHandler;
 use App\Service\ERPService;
 
-class FindExperiencesByLocationHandler extends BaseHandler {
+class FindTypologyByLocationHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
@@ -13,13 +13,9 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     {
         $response = [];
         $data = ERPService::findUbicacionData(['ubicacion_id' => $this->params['ubicacion_id']]);
-
-        $response['res'] = '1';
-        $response['msg'] = 'Experiencias de la ubicacion '.$this->params['ubicacion_id'];
-        foreach($data['experiencias'] as $key => $galeriaExperiencia){
-            $data['experiencias'][$key]['galeria'] = ERPService::findGaleryById(['galeria_id' => $galeriaExperiencia['galeria_id']]);
-        }
-        $response['data'] = $data['experiencias'];
+        $response['res'] = 1;
+        $response['msg'] = 'Tipologias encontrados para la ubicacion '.$this->params['ubicacion_id'];
+        $response['data'] = $data['tipologias'];
 
         return $response;
     }

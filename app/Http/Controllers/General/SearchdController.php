@@ -8,6 +8,7 @@ use App\Handler\GeneralHandlers\FindPriceByNightHandler;
 use App\Handler\GeneralHandlers\FindPOIByLocationHandler;
 use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
 use App\Handler\GeneralHandlers\FindExtrasByLocationHandler;
+use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -116,6 +117,24 @@ class SearchdController extends Controller
     public function findExtrasByLocation($ubicacion_id){
 
         $handler = new FindExtrasByLocationHandler(['ubicacion_id' => $ubicacion_id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los extras por ubicacion
+     *
+     * @param $ubicacion_id
+     * @return JsonResponse
+     */
+    public function findTypologyByLocation($ubicacion_id){
+
+        $handler = new FindTypologyByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
