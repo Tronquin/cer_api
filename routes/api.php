@@ -16,6 +16,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/find/priceByNight', 'General\SearchdController@findPriceByNight');
     // Busca los POI por ubicacion
     Route::get('/find/poiByLocation/{ubicacion_id}', 'General\SearchdController@findPOIByLocation');
+    // Busca las experiencias por ubicacion
+    Route::get('/find/experiencesByLocation/{ubicacion_id}', 'General\SearchdController@findExperiencesByLocation');
+    // Busca los extras por ubicacion
+    Route::get('/find/extrasByLocation/{ubicacion_id}', 'General\SearchdController@findExtrasByLocation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin

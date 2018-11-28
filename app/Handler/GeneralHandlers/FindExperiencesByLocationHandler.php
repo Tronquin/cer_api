@@ -4,7 +4,7 @@ namespace App\Handler\GeneralHandlers;
 use App\Handler\BaseHandler;
 use App\Service\ERPService;
 
-class FindApartmentsByLocationHandler extends BaseHandler {
+class FindExperiencesByLocationHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
@@ -13,9 +13,10 @@ class FindApartmentsByLocationHandler extends BaseHandler {
     {
         $response = [];
         $data = ERPService::findUbicacionData(['ubicacion_id' => $this->params['ubicacion_id']]);
-        $response['res'] = 1;
-        $response['msg'] = 'Apartamentos encontrados para la ubicacion '.$this->params['ubicacion_id'];
-        $response['data'] = $data['apartamentos'];
+
+        $response['res'] = '1';
+        $response['msg'] = 'Experiencias de la ubicacion '.$this->params['ubicacion_id'];
+        $response['data'] = $data['experiencias'];
 
         return $response;
     }

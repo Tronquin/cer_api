@@ -411,7 +411,7 @@ class ERPService {
      * @param array $data
      * @return mixed
      */
-    public static function findApartmentsByLocation(array $data)
+    public static function findUbicacionData(array $data)
     {
         $response = self::send('web/ubicacion_info/'.$data['ubicacion_id'], [],self::METHOD_GET);
         
@@ -471,7 +471,7 @@ class ERPService {
 
         return $response;
     }
-
+    
     /**
      * Envia un request al ERP
      *
