@@ -20,9 +20,10 @@ class CheckoutHandler extends BaseHandler {
 
             $reservation = ReservationPersistence::where('reserva_id', $this->params['data']['reserva_id'])->first();
             $status = Status::where('code', ReservationPersistence::STATUS_CHECKOUT)->first();
-
-            $reservation->status_id = $status->id;
-            $reservation->save();
+            if($reservation){
+                $reservation->status_id = $status->id;
+                $reservation->save();
+            }
         }
 
         return $response;
