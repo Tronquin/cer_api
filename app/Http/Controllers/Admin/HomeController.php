@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Handler\FindExperienceHandler;
+use App\Handler\Web\SaveExtrasHandler;
 use App\Http\Controllers\Controller;
 use App\Location;
 use Illuminate\Database\Query\Builder;
@@ -14,11 +14,11 @@ class HomeController extends Controller
 {
     /**
     * Busca la experiencias de una Ubicacion
-    * @param $ubicacion_id
+    * @param Request $request
     * @return mixed
     */
-    public function allExperiencesByLocation($ubicacion_id){
-        $handler = new FindExperienceHandler(['ubicacion_id' => $ubicacion_id]);
+    public function saveExtras(Request $request){
+        $handler = new SaveExtrasHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -26,17 +26,6 @@ class HomeController extends Controller
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }
-
-    public function getAllExtras($ubicacion_id){
-        
-        $response = [];
-        $res = Location::find($ubicacion_id)->extras;
-        $response['res'] = 1;
-        $response['msg'] = "extras encontrados";
-        $response['data'] = $res;
-
-        return new JsonResponse($response);
     }
     
 

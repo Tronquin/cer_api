@@ -95,7 +95,9 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             // Obtiene la galeria por id
             Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@allExperiencesByLocation');
             //Obtiene los extras
-            Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@getAllExtras');
+            Route::get('/admin/extras/{ubicacion_id}', 'GeneralController@getExtrasByLocation');
+            //Obtiene los extras
+            Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
         });
     });
 });
