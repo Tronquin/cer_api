@@ -20,7 +20,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
             $extrasWebArray[] = $ew->getOriginal();
             $dataEW[] = $ew->extra_id;
         }
-        if($dataEW){
+        if(isset($dataEW)){
             $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
         }else{
             $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
