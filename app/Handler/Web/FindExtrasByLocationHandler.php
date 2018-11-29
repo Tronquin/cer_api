@@ -20,13 +20,17 @@ class FindExtrasByLocationHandler extends BaseHandler {
             $extrasWebArray[] = $ew->getOriginal();
             $dataEW[] = $ew->extra_id;
         }
-        $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
+        if($dataEW){
+            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
+        }else{
+            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
+        }
         foreach($extrasErp as $ee){
             $extrasErpArray[] = $ee->getOriginal();
         }
         $extras = array_merge($extrasWebArray,$extrasErpArray);
         $response['res'] = count($extras);
-        $response['msg'] = 'experiencias de la ubicacion: '.$this->params['ubicacion_id'];
+        $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $extras;
        
         return $response;
