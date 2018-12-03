@@ -368,8 +368,7 @@ class ERPService {
      * @return mixed
      */
     public static function getReservationByKey(array $data)
-    {
-        
+    { 
         $response = self::send('reservas/buscar_reserva_por_llave', [
             'reserva_key'=> $data['key']
         ]);
@@ -480,8 +479,19 @@ class ERPService {
      */
     public static function findGaleryById(array $data)
     {
-
         $response = self::send('web/get_galeria/'. $data['galeria_id'], [],self::METHOD_GET);
+
+        return $response;
+    }
+
+    /**
+     * Busca las ubicaciones
+     *
+     * @return mixed
+     */
+    public static function findLocations()
+    {
+        $response = self::send('web/ubicaciones_info', [],self::METHOD_GET);
 
         return $response;
     }
