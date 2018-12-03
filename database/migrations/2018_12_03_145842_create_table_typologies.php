@@ -20,9 +20,9 @@ class CreateTableTypologies extends Migration
             $table->integer('parent_id')->nullable();
             $table->integer('ubicacion_id');
             $table->string('nombre_manual');
-            $table->int('status')->nullable();
-            $table->int('max')->nullable();
-            $table->int('min')->nullable();
+            $table->integer('status')->nullable();
+            $table->integer('max')->nullable();
+            $table->integer('min')->nullable();
             $table->float('incidencia_porcentaje');
             $table->string('descripcion_es')->nullable();
             $table->string('descripcion_en')->nullable();

@@ -21,12 +21,12 @@ class CreateTableApartments extends Migration
             $table->string('nombre');
             $table->string('tipologia_id');
             $table->string('status')->nullable();
-            $table->int('ubicacion_id');
+            $table->integer('ubicacion_id');
             $table->integer('planta')->nullable();
             $table->integer('puerta')->nullable();
             $table->integer('acceso_id')->nullable();
             $table->float('altura')->nullable();
-            $table->int('area')->nullable();
+            $table->integer('area')->nullable();
             $table->string('orientacion')->nullable();
             $table->integer('galeria_id')->nullable();
             $table->string('pass_emergencia')->nullable();
