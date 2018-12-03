@@ -15,6 +15,8 @@ class CreateTableKeyTranslations extends Migration
     {
         Schema::create('key_translations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('device_type_id')->unsigned();
+            $table->foreign('device_type_id')->references('id')->on('device_types');
             $table->string('key');
             $table->timestamps();
         });
