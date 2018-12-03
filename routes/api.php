@@ -24,6 +24,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/typologyByLocation/{ubicacion_id}', 'General\SearchdController@findTypologyByLocation');
     // Busca las ubicaciones
     Route::get('/find/Locations/', 'General\SearchdController@findLocations');
+    // Obtiene todos los idiomas disponibles con su traduccion
+    Route::get('language/list_translation/{device}', 'LanguageController@listTranslation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
