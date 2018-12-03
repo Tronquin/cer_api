@@ -4,8 +4,6 @@ namespace App\Handler\Web;
 use App\Extra;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class FindExtrasByLocationHandler extends BaseHandler {
 
@@ -15,23 +13,17 @@ class FindExtrasByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $extrasWeb = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','web')->get();
-        foreach($extrasWeb as $ew){
-            $extrasWebArray[] = $ew->getOriginal();
-            $dataEW[] = $ew->extra_id;
-        }
-        if(isset($dataEW)){
-            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
+        $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
+        
+        if(count($extrasErp)){
+            $response['res'] = count($extrasErp);
+            $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
+            $response['data'] = $extrasErp;
         }else{
-            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
+            $response['res'] = 0;
+            $response['msg'] = 'Extras no encontrados';
+            $response['data'] = [];
         }
-        foreach($extrasErp as $ee){
-            $extrasErpArray[] = $ee->getOriginal();
-        }
-        $extras = array_merge($extrasWebArray,$extrasErpArray);
-        $response['res'] = count($extras);
-        $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
-        $response['data'] = $extras;
        
         return $response;
     }
@@ -44,7 +36,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'ubicacion_id' => 'required|numeric'
+            'ubicacion_id' => 'required|numeric',
         ];
     }
 
