@@ -17,7 +17,7 @@ class CreateTableLocations extends Migration
             $table->increments('id');
             $table->integer('ubicacion_id');
             $table->enum('type',['web','erp'])->default('erp');
-            $table->integer('parentId')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->string('nombre');
             $table->integer('minimo_noches')->nullable();
             $table->string('direccion')->nullable();

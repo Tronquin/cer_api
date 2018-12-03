@@ -17,7 +17,7 @@ class CreateTableExtras extends Migration
             $table->increments('id');
             $table->integer('extra_id');
             $table->enum('type',['web','erp'])->default('erp');
-            $table->integer('parentId')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->integer('ubicacion_id');
             $table->string('nombre');
             $table->string('nombre_es')->nullable();
