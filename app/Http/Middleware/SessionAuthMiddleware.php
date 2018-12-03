@@ -21,7 +21,7 @@ class SessionAuthMiddleware
     {
         $type = OAuth2Client::query()->where('token', $request->headers->get('token'))->first();
 
-        if ($type->type === 'machine') {
+        if ($type->device_type->code === 'machine') {
             return $next($request);
         }
 

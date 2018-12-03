@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableKeyTranslations extends Migration
+class CreateTableDeviceTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTableKeyTranslations extends Migration
      */
     public function up()
     {
-        Schema::create('key_translations', function (Blueprint $table) {
+        Schema::create('device_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('device_type_id')->unsigned();
-            $table->foreign('device_type_id')->references('id')->on('device_types');
-            $table->string('key');
+            $table->string('code', 20)->unique();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTableKeyTranslations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('key_translations');
+        Schema::dropIfExists('device_types');
     }
 }

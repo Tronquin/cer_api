@@ -17,7 +17,8 @@ class CreateTableOauth2Clients extends Migration
             $table->increments('id');
             $table->string('description', 50);
             $table->string('token');
-            $table->string('type',50)->unique();
+            $table->integer('device_type_id')->unsigned();
+            $table->foreign('device_type_id')->references('id')->on('device_types');
             $table->timestamps();
         });
     }

@@ -12,6 +12,16 @@ class OAuth2Client extends Model
         'description',
         'token',
         'type',
+        'device_type_id'
     ];
 
+    /**
+     * Tipo de dispositivo al que corresponde este cliente
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    protected function deviceType()
+    {
+        return $this->belongsTo(DeviceType::class, 'device_type_id');
+    }
 }
