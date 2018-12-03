@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call(ReservationTypeSeeder::class);
+        $this->call(DeviceTypeSeeder::class);
         $this->call(Oauth2ClientSeeder::class);
         $this->call(ConfigurationSeeder::class);
         $this->call(StatusSeeder::class);
