@@ -29,11 +29,20 @@ class ListTranslationHandler extends BaseHandler {
         $response = [];
         foreach ($languages as $lang) {
 
+            $temp = [
+                'name' => $lang->name,
+                'iso' => $lang->iso,
+                'flag' => $lang->flag,
+                'translations' => []
+            ];
+
             $keyTranslations = $lang->keyTranslations()->where('device_type_id', $deviceType->id)->get();
 
             foreach ($keyTranslations as $keyTranslation) {
-                $response[$lang->iso][$keyTranslation->key] = $keyTranslation->pivot->translation;
+                $temp['translations'][$keyTranslation->key] = $keyTranslation->pivot->translation;
             }
+
+            $response[] = $temp;
         }
 
         return $response;
