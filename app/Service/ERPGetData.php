@@ -26,7 +26,9 @@ class ERPGetData {
             foreach($ubicaciones as $ubicacion){
                 //Guardamos los id de las ubicaciones para las siguientes consultas
                 $ubicacion_id[] = ['id' => $ubicacion['id']];
-                $ubicacion_erp = Location::firstOrCreate(['ubicacion_id' => $ubicacion['id'],'type' =>'erp']);
+                $ubicacion_erp = Location::where('ubicacion_id','=',$ubicacion['id'])
+                    ->where('type','=','erp')
+                    ->firstOrNew(['ubicacion_id' => $ubicacion['id'],'type' =>'erp']);
                 
                 $ubicacion_erp->ubicacion_id = $ubicacion['id'];
                 $ubicacion_erp->nombre = $ubicacion['nombre'];
@@ -50,6 +52,7 @@ class ERPGetData {
                 $ubicacion_erp->descripcion_po = $ubicacion['descripcion_po'];
                 
                 $response = $ubicacion_erp->save();
+                
             }
             if(count($ubicacion_id)){
                 foreach($ubicacion_id as $ubicacion){
@@ -59,7 +62,9 @@ class ERPGetData {
                     $extras = $data['extras'];
 
                     foreach($extras as $extra){
-                        $extra_erp = Extra::firstOrCreate(['extra_id' => $extra['id'],'type' =>'erp']);
+                        $extra_erp = Extra::where('extra_id','=',$extra['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['extra_id' => $extra['id'],'type' =>'erp']);
 
                         $extra_erp->extra_id = $extra['id'];
                         $extra_erp->ubicacion_id = $extra['ubicacion_id'];
@@ -89,7 +94,9 @@ class ERPGetData {
                         $extra_erp->save();
                     }
                     foreach($experiencias as $experiencia){
-                        $experiencia_erp = Experience::firstOrCreate(['experiencia_id' => $experiencia['id'],'type' =>'erp']);
+                        $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
+                        ->where('type','=','erp')
+                        ->firstOrNew([]);
 
                         $experiencia_erp->experiencia_id = $experiencia['id'];
                         $experiencia_erp->ubicacion_id = $experiencia['ubicacion_id'];
@@ -106,10 +113,9 @@ class ERPGetData {
                         foreach ($experiencia['extras'] as $extra) {
                             $extraIds[] = Extra::where('extra_id', $extra['id'])->first()->id;
                         }
-
-                        $experiencia_erp->extras()->sync($extraIds);
-                    
                         $experiencia_erp->save();
+
+                        $experiencia_erp->extras()->sync($extraIds);                       
                     }
                 }
             }
