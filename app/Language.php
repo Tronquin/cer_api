@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+
     protected $table = 'languages';
 
     protected $fillable = [

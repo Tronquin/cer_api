@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(Oauth2ClientSeeder::class);
         $this->call(ConfigurationSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(LanguageSeeder::class);
+        $this->call(ComponentSeeder::class);
+        $this->call(MachineUbicationSeeder::class);
+        $this->call(MachineSeeder::class);
         Model::reguard();
     }
 }

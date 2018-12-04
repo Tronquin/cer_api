@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableLanguages extends Migration
+class CreateTableMachineUbications extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateTableLanguages extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
+        Schema::create('machine_ubications', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 30);
-            $table->string('iso', 2);
-            $table->string('flag');
-            $table->integer('status');
-            $table->integer('order');
+            $table->string('name');
+            $table->integer('erp_ubication');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateTableLanguages extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('machine_ubications');
     }
 }
