@@ -14,10 +14,12 @@ class SaveExtrasHandler extends BaseHandler {
      */
     protected function handle()
     {
+        $extra_erp = Extra::where('extra_id','=',$this->params['data']['extra_id'])->where('type','=','erp')->first();
         $extra = Extra::where('extra_id','=',$this->params['data']['extra_id'])->where('type','=','web')->first();
 
         if($extra){
             $extra->type = 'web';
+            $extra->parent_id = $extra_erp->id;
             $extra->nombre = $this->params['data']['nombre'];
             $extra->nombre_es = $this->params['data']['nombre_es'];
             $extra->nombre_en = $this->params['data']['nombre_en'];
@@ -39,6 +41,7 @@ class SaveExtrasHandler extends BaseHandler {
 
             $extra->extra_id = $this->params['data']['extra_id'];
             $extra->type = 'web';
+            $extra->parent_id = $extra_erp->id;
             $extra->ubicacion_id = $this->params['data']['ubicacion_id'];
             $extra->nombre = $this->params['data']['nombre'];
             $extra->nombre_es = $this->params['data']['nombre_es'];

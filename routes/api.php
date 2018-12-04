@@ -96,11 +96,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
-            // Obtiene la galeria por id
-            Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@allExperiencesByLocation');
-            //Obtiene los extras
+            // Obtiene las experiencias version erp
+            Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@findExperiencesByLocation');
+            //Obtiene los extras version erp
             Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@findExtrasByLocation');
-            //Obtiene los extras
+            //Guarda o Modifica los extras version web
             Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
         });
     });

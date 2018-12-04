@@ -34,9 +34,9 @@ class Extra extends Model
     ];
 
     
-    public function extras()
+    public function experiences()
     {
-        return $this->hasMany(Extra::class);
+        return $this->belongsToMany(Experience::class, 'expiriences_extras', 'extra_id', 'experience_id');
     }
 
     /**

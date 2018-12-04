@@ -39,6 +39,8 @@ class CreateTableExtras extends Migration
             $table->integer('servicio_gestion')->nullable();
             $table->integer('destacado')->nullable() ;
             $table->integer('activo')->nullable();
+            $table->integer('cambia_hora_entrada')->nullable()->default(0);
+            $table->integer('cambia_hora_salida')->nullable()->default(0);
             $table->timestamps();
         });
     }
