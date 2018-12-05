@@ -111,6 +111,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/admin/language/list', 'LanguageController@languageDevice');
             // Actualizar ubicaciones
             Route::put('/admin/location/{ubicationId}', 'LocationController@update');
+            // Actualizar experiencias
+            Route::put('/admin/experience/{experienceId}', 'ExperienceController@update');
         });
     });
 });
