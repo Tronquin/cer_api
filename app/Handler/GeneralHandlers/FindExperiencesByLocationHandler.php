@@ -3,6 +3,8 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Experience;
+use App\Galery;
+use App\Extra;
 
 class FindExperiencesByLocationHandler extends BaseHandler {
 
@@ -12,37 +14,71 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $experiencesWeb = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','web')->get();
-        
-        if(count($experiencesWeb)){
-            foreach($experiencesWeb as $ew){
-                $experiencesWebArray[] = $ew->getOriginal();
-                $dataEW[] = $ew->experiencia_id;
+        $experiences = [];
+
+        $experiencesCollection = Experience::where('ubicacion_id', $this->params['ubicacion_id'])
+            ->where('type', 'erp')
+            ->with(['child', 'extras', 'apartamentos','galeria'])
+            ->get();
+
+        $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
+            ->where('type', 'erp')    
+            ->with(['child'])
+            ->limit(5)
+            ->get();
+
+        $experiencia = [];
+        foreach ($experiencesCollection as $expErp) {
+
+            $webOrErp = $expErp->child ? $expErp->child->toArray() : $expErp->toArray();
+
+            $extraIds = [];
+            $available = [];
+            foreach ($expErp->extras as $extraErp) {
+                $available[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+                $extraIds[] = $extraErp->id;
             }
-        }else{
-            $experienciesWebArray=[];
+
+            $noAvailable = [];
+            foreach ($extras as $extraErp) {
+                if (! in_array($extraErp->id, $extraIds)) {
+                    $noAvailable[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+                }
+            }
+
+            unset($webOrErp['extras']);
+            $webOrErp['extras']['disponibles'] = $available;
+            $webOrErp['extras']['no_disponibles'] = $noAvailable;
+
+            $aparments = [];
+            foreach ($expErp->apartamentos as $aparmentErp) {
+                $aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
+            }
+
+            unset($webOrErp['apartamentos']);
+            $webOrErp['apartamentos'] = $aparments;
+
+            $galeries = [];
+            
+            foreach ($expErp->galeria as $galeriesErp) {
+                //$galeries[] = $galeriesErp->child ? $galeriesErp->child->toArray() : $galeriesErp->toArray();
+            }
+
+            //unset($webOrErp['galeria']);
+            //$webOrErp['galeria'] = $galeries;
+
+
+            $experiences[] = $webOrErp;
         }
 
-        if(isset($dataEW)){
-            $experienciesErp = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
-        }else{
-            $experienciesErp = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
-        }
-        if(count($experienciesErp)){
-            foreach($experienciesErp as $ee){
-                $experienciesErpArray[] = $ee->getOriginal();
-            }
-        }else{
-            $experienciesErpArray = [];
-        }
-        $experiencies = array_merge($experienciesWebArray,$experienciesErpArray);
-        foreach($experiencies as $experiencias){
-            $experiencias['extras'] = Experience::where('experiencia_id','=',$experiencias['experiencia_id'])->first()->extras;
-        }
+
+/*
+        $experiencia['galeria'] = Galery::where('galeria_id','=',$experiencia['galeria_id'])->where('type','=','web')->get();*/
         
-        $response['res'] = count($experiencies);
+        
+        $response['res'] = count($experiences);
         $response['msg'] = 'experiencias de la ubicacion: '.$this->params['ubicacion_id'];
-        $response['data'] = $experiencies;
+        $response['data'] = $experiences;
        
         return $response;
     }

@@ -27,8 +27,42 @@ class Typology extends Model
     /**
      * Session asociada al usuario
      */
-    public function experiencies()
+    public function apartamentos()
     {
-        return $this->belongsTo(Experience::class, 'user_id');
+        return $this->hasMany('App\Apartamento');
+    }
+
+    public function cocinas()
+    {
+        return $this->hasMany('App\Cocina');
+    }
+
+    public function dormitorios()
+    {
+        return $this->hasMany('App\Dormitorio');
+    }
+
+    public function lavabos()
+    {
+        return $this->hasMany('App\Lavabo');
+    }
+
+    public function salons()
+    {
+        return $this->hasMany('App\Salon');
+    }
+
+    public function terrazas()
+    {
+        return $this->hasMany('App\Terraza');
+    }
+
+    public function ubicacion(){
+        return $this->belongsTo('App\Ubicacion');
+    }
+
+    public function galerias()
+    {
+        return $this->hasMany('App\Galeria');
     }
 }

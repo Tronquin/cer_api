@@ -5,6 +5,7 @@ use App\Service\ERPService;
 use App\Location;
 use App\Extra;
 use App\Experience;
+use App\Apartment;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -60,6 +61,7 @@ class ERPGetData {
                     $data = ERPService::findUbicacionData(['ubicacion_id' => $ubicacion['id']]);
                     $experiencias = $data['experiencias'];
                     $extras = $data['extras'];
+                    $apartamentos = $data['apartamentos'];
 
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
@@ -93,6 +95,27 @@ class ERPGetData {
 
                         $extra_erp->save();
                     }
+                    foreach($apartamentos as $apartamento){
+                        $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['apartamento_id' => $apartamento['id'],'type' =>'erp']);
+
+                        $apartment_erp->apartamento_id = $apartamento['id'];
+                        $apartment_erp->ubicacion_id = $apartamento['ubicacion_id'];
+                        $apartment_erp->nombre = $apartamento['nombre'];
+                        $apartment_erp->tipologia_id = $apartamento['tipologia_id'];
+                        $apartment_erp->status = $apartamento['status'];
+                        $apartment_erp->planta = $apartamento['planta'];
+                        $apartment_erp->puerta = $apartamento['puerta'];
+                        $apartment_erp->acceso_id = $apartamento['acceso_id'];
+                        $apartment_erp->altura = $apartamento['altura'];
+                        $apartment_erp->area = $apartamento['area'];
+                        $apartment_erp->orientacion = $apartamento['orientacion'];
+                        $apartment_erp->galeria_id = $apartamento['galeria_id'];
+                        $apartment_erp->pass_emergencia = $apartamento['pass_emergencia'];
+
+                        $apartment_erp->save();
+                    }
                     foreach($experiencias as $experiencia){
                         $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
                         ->where('type','=','erp')
@@ -113,9 +136,14 @@ class ERPGetData {
                         foreach ($experiencia['extras'] as $extra) {
                             $extraIds[] = Extra::where('extra_id', $extra['id'])->first()->id;
                         }
+                        $apartamentoIds = [];
+                        foreach ($experiencia['apartamentos'] as $apartamento) {
+                            $apartamentoIds[] = Apartment::where('apartamento_id', $apartamento['id'])->first()->id;
+                        }
                         $experiencia_erp->save();
 
-                        $experiencia_erp->extras()->sync($extraIds);                       
+                        $experiencia_erp->extras()->sync($extraIds);  
+                        $experiencia_erp->apartamentos()->sync($apartamentoIds);                     
                     }
                 }
             }

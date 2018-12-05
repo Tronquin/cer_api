@@ -90,11 +90,11 @@ abstract class BaseHandler {
     final public function processHandler()
     {
         if ($this->checkValidationRules()) {
-
+            
+            
+                            // Inicia el handler
+                            $this->data = $this->handle();
             try {
-
-                // Inicia el handler
-                $this->data = $this->handle();
                 $this->audit();
 
             } catch (\Exception $ex) {

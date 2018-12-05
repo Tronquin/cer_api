@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Aparment extends Model
+class Apartment extends Model
 {
-    protected $table = 'aparments';
+    protected $table = 'apartments';
 
     protected $fillable = [
         'apartamento_id',
@@ -26,11 +26,55 @@ class Aparment extends Model
         'pass_emergencia',
     ];
 
-    /**
-     * Session asociada al usuario
-     */
-    public function experiencies()
+    public function experiencias()
     {
-        return $this->belongsTo(Experience::class, 'user_id');
+        return $this->belongsToMany(Experience::class,'experiences_apartments','apartment_id','experience_id');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function child()
+    {
+        return $this->hasOne(self::class, 'parent_id');
+    }
+
+    /*public function reservas()
+    {
+        return $this->hasMany('App\Reserva');
+
+    }
+
+    public function habitacions()
+    {
+        return $this->hasMany('App\Habitacion');
+
+    }
+
+    public function ubicacion()
+    {
+        return $this->belongsTo('App\Ubicacion');
+    }
+
+    public function acceso()
+    {
+        return $this->belongsTo('App\Acceso');
+    }
+
+    public function galeria(){
+        return $this->belongsTo('App\Galeria');
+    }
+
+    public function tipologia(){
+        return $this->belongsTo('App\Tipologia');
+    }
+
+
+    public function fondos()
+    {
+        return $this->hasMany('App\Fondo');
+
+    }*/
 }

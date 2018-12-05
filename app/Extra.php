@@ -36,7 +36,7 @@ class Extra extends Model
     
     public function experiences()
     {
-        return $this->belongsToMany(Experience::class, 'expiriences_extras', 'extra_id', 'experience_id');
+        return $this->belongsToMany(Experience::class, 'experiences_extras', 'extra_id', 'experience_id');
     }
 
     /**
@@ -49,4 +49,13 @@ class Extra extends Model
         return $this->belongsTo(Location::class, 'ubicacion_id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function child()
+    {
+        return $this->hasOne(self::class, 'parent_id');
+    }
 }
