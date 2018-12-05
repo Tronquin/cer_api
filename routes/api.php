@@ -109,6 +109,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/admin/machine/config/{publicId}', 'MachineController@config');
             // Listado de idiomas con traducciones
             Route::get('/admin/language/list', 'LanguageController@languageDevice');
+            // Actualizar ubicaciones
+            Route::put('/admin/location/{ubicationId}', 'LocationController@update');
         });
     });
 });
