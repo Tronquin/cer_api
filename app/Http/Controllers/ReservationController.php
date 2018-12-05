@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Handler\AddReservationServiceHandler;
 use App\Handler\BaksheeshHandler;
 use App\Handler\CheckoutHandler;
+use App\Handler\CreateReservationHandler;
 use App\Handler\GalleryHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
@@ -717,4 +718,21 @@ class ReservationController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+     * Crea una reserva en el ERP
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createReservation(Request $request)
+    {
+        $handler = new CreateReservationHandler($request->all());
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
 }
