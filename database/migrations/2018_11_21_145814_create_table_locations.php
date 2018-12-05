@@ -37,6 +37,7 @@ class CreateTableLocations extends Migration
             $table->longText('descripcion_en')->nullable();
             $table->longText('descripcion_fr')->nullable();
             $table->longText('descripcion_po')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
