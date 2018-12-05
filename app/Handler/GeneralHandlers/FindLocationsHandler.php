@@ -2,7 +2,7 @@
 namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
-use App\Service\ERPService;
+use App\Location;
 
 class FindLocationsHandler extends BaseHandler {
 
@@ -11,9 +11,9 @@ class FindLocationsHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $response = ERPService::findLocations();
+        $locations = Location::all();
 
-        return $response;
+        return $locations;
     }
 
     /**
