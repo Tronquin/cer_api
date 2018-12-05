@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCancellationPolicy extends Migration
+class CreateTableCancellationPolicys extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableCancellationPolicy extends Migration
      */
     public function up()
     {
-        Schema::create('cancellation_policy', function (Blueprint $table) {
+        Schema::create('cancellation_policys', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('politica_cancelacion_id');
             $table->enum('type',['web','erp'])->default('erp');
