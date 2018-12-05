@@ -19,4 +19,14 @@ class DeviceType extends Model
     {
         return $this->hasMany(OAuth2Client::class, 'device_type_id');
     }
+
+    /**
+     * Todas las claves de traduccion asociadas a este tipo de dispositivo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function keyTranslations()
+    {
+        return $this->hasMany(KeyTranslation::class, 'device_type_id');
+    }
 }
