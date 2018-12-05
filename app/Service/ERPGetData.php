@@ -29,7 +29,7 @@ class ERPGetData {
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
-                //Guardamos los id de las ubicaciones para las siguientes consultas
+                // Guardamos los id de las ubicaciones para las siguientes consultas
                 $ubicacion_id[] = ['id' => $ubicacion['id']];
                 $ubicacion_erp = Location::where('ubicacion_id','=',$ubicacion['id'])
                     ->where('type','=','erp')
@@ -61,7 +61,7 @@ class ERPGetData {
             }
             if(count($ubicacion_id)){
                 foreach($ubicacion_id as $ubicacion){
-                    //$ubicacion_id[] = ['id' => $ubicacion['id']];
+
                     $data = ERPService::findUbicacionData(['ubicacion_id' => $ubicacion['id']]);
                     $experiencias = $data['experiencias'];
                     $extras = $data['extras'];
@@ -72,6 +72,7 @@ class ERPGetData {
                     $promocions = $data['promocions'];
                     $galerias = [];
 
+                    // Tabla Tipologias
                     foreach($tipologias as $tipologia){
                         $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
                             ->where('type','=','erp')
@@ -90,8 +91,9 @@ class ERPGetData {
                         $tipologia_erp->descripcion_po = $tipologia['descripcion_po'];
 
                         $tipologia_erp->save();
-
                     }
+
+                    // Tabla Promociones
                     foreach($promocions as $promocion){
                         $promocion_erp = Promotion::where('promocion_id','=',$promocion['id'])
                             ->where('type','=','erp')
@@ -116,8 +118,9 @@ class ERPGetData {
                         $promocion_erp->release_hasta = $promocion['release_hasta'];
 
                         $promocion_erp->save();
-
                     }
+
+                    // Tabla cancelacion y politicas
                     foreach($politica_cancelacions as $politica_cancelacion){
                         $politica_cancelacions_erp = CancellationPolicy::where('politica_cancelacion_id','=',$politica_cancelacion['id'])
                             ->where('type','=','erp')
@@ -131,8 +134,9 @@ class ERPGetData {
                         $politica_cancelacions_erp->activo = $politica_cancelacion['activo'];
 
                         $politica_cancelacions_erp->save();
-
                     }
+
+                    // Tabla Extra
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
                             ->where('type','=','erp')
@@ -165,6 +169,8 @@ class ERPGetData {
 
                         $extra_erp->save();
                     }
+
+                    // Tabla Tarifa
                     foreach($packages as $package){
                         $package_erp = Package::where('tarifa_id','=',$package['id'])
                             ->where('type','=','erp')
@@ -181,6 +187,8 @@ class ERPGetData {
 
                         $package_erp->save();
                     }
+
+                    // Tabla Apartamento
                     foreach($apartamentos as $apartamento){
                         $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
                             ->where('type','=','erp')
@@ -202,6 +210,8 @@ class ERPGetData {
 
                         $apartment_erp->save();
                     }
+
+                    // Tabla Experiencia
                     foreach($experiencias as $experiencia){
                         $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
                         ->where('type','=','erp')
@@ -218,16 +228,20 @@ class ERPGetData {
                         $experiencia_erp->sabanas_cada_dias = $experiencia['sabanas_cada_dias'];
                         $experiencia_erp->upgrade_extra_id = $experiencia['upgrade_extra_id'];
 
+                        // Relacion muchos a muchos Experiencia-extras
                         $extraIds = [];
                         foreach ($experiencia['extras'] as $extra) {
                             $extraIds[] = Extra::where('extra_id', $extra['id'])->first()->id;
                         }
+
+                        // Relacion muchos a muchos Experiencia-apartamentos
                         $apartamentoIds = [];
                         foreach ($experiencia['apartamentos'] as $apartamento) {
                             $apartamentoIds[] = Apartment::where('apartamento_id', $apartamento['id'])->first()->id;
                         }
                         $experiencia_erp->save();
 
+                        // Extableciendo Relaciones
                         $experiencia_erp->extras()->sync($extraIds);  
                         $experiencia_erp->apartamentos()->sync($apartamentoIds);                     
                     }
