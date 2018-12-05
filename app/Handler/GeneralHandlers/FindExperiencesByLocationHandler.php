@@ -5,6 +5,7 @@ use App\Handler\BaseHandler;
 use App\Experience;
 use App\Galery;
 use App\Extra;
+use App\Photo;
 
 class FindExperiencesByLocationHandler extends BaseHandler {
 
@@ -62,21 +63,18 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             
             unset($webOrErp['galeria']);
             $webOrErp['galeria'] = $galeries;
-
-            //dump($webOrErp['galeria']->fotos);
+            
             $photos = [];
-            /*foreach ($webOrErp['galeria']->fotos as $fotosErp) {
-                //$aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
-            }*/
+            foreach ($expErp->galeria->fotos as $fotosErp) {
+                $photos[] = $fotosErp->child ? $fotosErp->child->toArray() : $fotosErp->toArray();
+            }
+
+            unset($webOrErp['galeria']['fotos']);
+            $webOrErp['galeria']['fotos'] = $photos;
 
             $experiences[] = $webOrErp;
         }
 
-
-/*
-        $experiencia['galeria'] = Galery::where('galeria_id','=',$experiencia['galeria_id'])->where('type','=','web')->get();*/
-        
-        
         $response['res'] = count($experiences);
         $response['msg'] = 'experiencias de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $experiences;

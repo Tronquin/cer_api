@@ -62,7 +62,33 @@ class ERPGetData {
                     $experiencias = $data['experiencias'];
                     $extras = $data['extras'];
                     $apartamentos = $data['apartamentos'];
+                    $tipologias = $data['tipologias'];
 
+                    $planes = $data['tarifas'];
+                    $politica_cancelacions = $data['politica_cancelacions'];
+                    $promocions = $data['promocions'];
+                    $galerias = [];
+
+                    foreach($tipologias as $tipologia){
+                        $tipologia_erp = Extra::where('extra_id','=',$tipologia['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['extra_id' => $tipologia['id'],'type' =>'erp']);
+
+                        $tipologia_erp->tipologia_id = $tipologia['id'];
+                        $tipologia_erp->ubicacion_id = $tipologia['ubicacion_id'];
+                        $tipologia_erp->nombre_manual = $tipologia['nombre_manual'];
+                        $tipologia_erp->status = $tipologia['status'];
+                        $tipologia_erp->max = $tipologia['max'];
+                        $tipologia_erp->min = $tipologia['min'];
+                        $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
+                        $tipologia_erp->descripcion_es = $tipologia['descripcion_es'];
+                        $tipologia_erp->descripcion_en = $tipologia['descripcion_en'];
+                        $tipologia_erp->descripcion_fr = $tipologia['descripcion_fr'];
+                        $tipologia_erp->descripcion_po = $tipologia['descripcion_po'];
+
+                        $tipologia_erp->save();
+
+                    }
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
                             ->where('type','=','erp')

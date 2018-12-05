@@ -22,7 +22,7 @@ class Galery extends Model
     // Obtiene las fotos de la galeria
     public function fotos()
     {
-        return $this->hasMany(Photo::class,'galeria_id');
+        return $this->hasMany(Photo::class,'galeria_id','galeria_id');
     }
 
     //Relacion con las Experiencias
@@ -42,7 +42,7 @@ class Galery extends Model
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
-    
+
     // Relacion para obtener la version web de la galeria
     public function child()
     {
