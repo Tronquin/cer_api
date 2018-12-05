@@ -7,6 +7,9 @@ use App\Extra;
 use App\Experience;
 use App\Apartment;
 use App\Typology;
+use App\package;
+use App\CancellationPolicy;
+use App\Promotion;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -64,16 +67,15 @@ class ERPGetData {
                     $extras = $data['extras'];
                     $apartamentos = $data['apartamentos'];
                     $tipologias = $data['tipologias'];
-
                     $packages = $data['tarifas'];
                     $politica_cancelacions = $data['politica_cancelacions'];
                     $promocions = $data['promocions'];
                     $galerias = [];
 
-                    /*foreach($tipologias as $tipologia){
-                        $tipologia_erp = Typology::where('extra_id','=',$tipologia['id'])
+                    foreach($tipologias as $tipologia){
+                        $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
                             ->where('type','=','erp')
-                            ->firstOrNew(['extra_id' => $tipologia['id'],'type' =>'erp']);
+                            ->firstOrNew(['tipologia_id' => $tipologia['id'],'type' =>'erp']);
 
                         $tipologia_erp->tipologia_id = $tipologia['id'];
                         $tipologia_erp->ubicacion_id = $tipologia['ubicacion_id'];
@@ -89,7 +91,48 @@ class ERPGetData {
 
                         $tipologia_erp->save();
 
-                    }*/
+                    }
+                    foreach($promocions as $promocion){
+                        $promocion_erp = Typology::where('promocion_id','=',$promocion['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['promocion_id' => $promocion['id'],'type' =>'erp']);
+
+                        $promocion_erp->promocion_id = $promocion['id'];
+                        $promocion_erp->ubicacion_id = $promocion['ubicacion_id'];
+                        $promocion_erp->para_web = $promocion['para_web'];
+                        $promocion_erp->nombre = $promocion['nombre'];
+                        $promocion_erp->incidencia_fijo = $promocion['incidencia_fijo'];
+                        $promocion_erp->incidencia_porcentaje = $promocion['incidencia_porcentaje'];
+                        $promocion_erp->incidencia_porcentaje = $promocion['incidencia_porcentaje'];
+                        $promocion_erp->orden_calculo = $promocion['orden_calculo'];
+                        $promocion_erp->activo = $promocion['activo'];
+                        $promocion_erp->publicado_desde = $promocion['publicado_desde'];
+                        $promocion_erp->publicado_hasta = $promocion['publicado_hasta'];
+                        $promocion_erp->alojado_desde = $promocion['alojado_desde'];
+                        $promocion_erp->alojado_hasta = $promocion['alojado_hasta'];
+                        $promocion_erp->min_noches = $promocion['min_noches'];
+                        $promocion_erp->max_noches = $promocion['max_noches'];
+                        $promocion_erp->release_desde = $promocion['release_desde'];
+                        $promocion_erp->release_hasta = $promocion['release_hasta'];
+
+                        $promocion_erp->save();
+
+                    }
+                    foreach($politica_cancelacions as $politica_cancelacion){
+                        $politica_cancelacions_erp = CancellationPolicy::where('politica_cancelacion_id','=',$politica_cancelacion['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['politica_cancelacions_id' => $politica_cancelacion['id'],'type' =>'erp']);
+
+                        $politica_cancelacions_erp->politica_cancelacion_id = $politica_cancelacion['id'];
+                        $politica_cancelacions_erp->ubicacion_id = $politica_cancelacion['ubicacion_id'];
+                        $politica_cancelacions_erp->nombre = $politica_cancelacion['nombre'];
+                        $politica_cancelacions_erp->nombre_cliente = $politica_cancelacion['nombre_cliente'];
+                        $politica_cancelacions_erp->incidencia_porcentaje = $politica_cancelacion['incidencia_porcentaje'];
+                        $politica_cancelacions_erp->activo = $politica_cancelacion['activo'];
+
+                        $politica_cancelacions_erp->save();
+
+                    }
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
                             ->where('type','=','erp')
@@ -121,6 +164,22 @@ class ERPGetData {
                         $extra_erp->cambia_hora_salida = $extra['cambia_hora_salida'];
 
                         $extra_erp->save();
+                    }
+                    foreach($packages as $package){
+                        $package_erp = Package::where('tarifa_id','=',$package['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['tarifa_id' => $package['id'],'type' =>'erp']);
+                        
+                        $package_erp->tarifa_id = $package['id'];
+                        $package_erp->ubicacion_id = $package['ubicacion_id'];
+                        $package_erp->nombre = $package['nombre'];
+                        $package_erp->incidencia_fijo = $package['incidencia_fijo'];
+                        $package_erp->incidencia_porcentaje = $package['incidencia_porcentaje'];
+                        $package_erp->extra_id = $package['extra_id'];
+                        $package_erp->activo = $package['activo'];
+                        $package_erp->orden_calculo = $package['orden_calculo'];
+
+                        $package_erp->save();
                     }
                     foreach($apartamentos as $apartamento){
                         $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
