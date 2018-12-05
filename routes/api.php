@@ -94,6 +94,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
+        // Registrar una reserva
+        Route::post('/reservation/create', 'ReservationController@createReservation');
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene las experiencias version erp

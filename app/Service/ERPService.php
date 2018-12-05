@@ -495,6 +495,19 @@ class ERPService {
 
         return $response;
     }
+
+    /**
+     * Crea una reserva
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function createReservation(array $data)
+    {
+        $response = self::send('reservas/crearReserva', $data);
+
+        return $response;
+    }
     
     /**
      * Envia un request al ERP
