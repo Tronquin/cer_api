@@ -7,7 +7,7 @@ use App\Extra;
 use App\Experience;
 use App\Apartment;
 use App\Typology;
-use App\package;
+use App\Package;
 use App\CancellationPolicy;
 use App\Promotion;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
@@ -93,7 +93,7 @@ class ERPGetData {
 
                     }
                     foreach($promocions as $promocion){
-                        $promocion_erp = Typology::where('promocion_id','=',$promocion['id'])
+                        $promocion_erp = Promotion::where('promocion_id','=',$promocion['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['promocion_id' => $promocion['id'],'type' =>'erp']);
 
@@ -121,7 +121,7 @@ class ERPGetData {
                     foreach($politica_cancelacions as $politica_cancelacion){
                         $politica_cancelacions_erp = CancellationPolicy::where('politica_cancelacion_id','=',$politica_cancelacion['id'])
                             ->where('type','=','erp')
-                            ->firstOrNew(['politica_cancelacions_id' => $politica_cancelacion['id'],'type' =>'erp']);
+                            ->firstOrNew(['politica_cancelacion_id' => $politica_cancelacion['id'],'type' =>'erp']);
 
                         $politica_cancelacions_erp->politica_cancelacion_id = $politica_cancelacion['id'];
                         $politica_cancelacions_erp->ubicacion_id = $politica_cancelacion['ubicacion_id'];

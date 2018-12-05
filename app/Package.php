@@ -4,19 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class package extends Model
+class Package extends Model
 {
     protected $table = 'packages';
 
     protected $fillable = [
-        'galeria_id',
+        'tarifa_id',
         'type',
         'parent_id',
+        'ubicacion_id',
         'nombre',
-        'nombre_en',
-        'nombre_fr',
-        'nombre_po',
-        'tipologia_id',
+        'incidencia_fijo',
+        'incidencia_porcentaje',
+        'extra_id',
+        'activo',
+        'orden_calculo',
     ];
 
 
