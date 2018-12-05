@@ -19,6 +19,7 @@ class CreateTableMachines extends Migration
             $table->string('description');
             $table->integer('machine_ubication_id')->unsigned();
             $table->foreign('machine_ubication_id')->references('id')->on('machine_ubications');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
