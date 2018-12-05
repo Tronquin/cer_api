@@ -6,6 +6,7 @@ use App\Location;
 use App\Extra;
 use App\Experience;
 use App\Apartment;
+use App\Typology;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -64,13 +65,13 @@ class ERPGetData {
                     $apartamentos = $data['apartamentos'];
                     $tipologias = $data['tipologias'];
 
-                    $planes = $data['tarifas'];
+                    $packages = $data['tarifas'];
                     $politica_cancelacions = $data['politica_cancelacions'];
                     $promocions = $data['promocions'];
                     $galerias = [];
 
-                    foreach($tipologias as $tipologia){
-                        $tipologia_erp = Extra::where('extra_id','=',$tipologia['id'])
+                    /*foreach($tipologias as $tipologia){
+                        $tipologia_erp = Typology::where('extra_id','=',$tipologia['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['extra_id' => $tipologia['id'],'type' =>'erp']);
 
@@ -88,7 +89,7 @@ class ERPGetData {
 
                         $tipologia_erp->save();
 
-                    }
+                    }*/
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
                             ->where('type','=','erp')
