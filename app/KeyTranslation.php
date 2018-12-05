@@ -23,4 +23,14 @@ class KeyTranslation extends Model
             ->withPivot(['translation'])
             ;
     }
+
+    /**
+     * Tipo de dispositivo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function deviceType()
+    {
+        return $this->belongsTo(DeviceType::class, 'device_type_id');
+    }
 }

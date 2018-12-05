@@ -19,11 +19,33 @@ class Galery extends Model
         'tipologia_id',
     ];
 
-    /**
-     * Session asociada al usuario
-     */
-    public function experiencies()
+    // Obtiene las fotos de la galeria
+    public function fotos()
     {
-        return $this->belongsTo(Experience::class, 'user_id');
+        return $this->hasMany(Photo::class,'galeria_id','galeria_id');
+    }
+
+    //Relacion con las Experiencias
+    public function experiencia()
+    {
+        return $this->hasMany(Experience::class,'galeria_id','galeria_id');
+    }
+
+    /*
+    public function tipologia()
+    {
+        return $this->belongsTo('App\Tipologia');
+    }*/
+
+    // Relacion para obtener la version web de la galeria
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    // Relacion para obtener la version web de la galeria
+    public function child()
+    {
+        return $this->hasOne(self::class, 'parent_id');
     }
 }

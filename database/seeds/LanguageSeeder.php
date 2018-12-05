@@ -17,7 +17,7 @@ class LanguageSeeder extends Seeder
         $language[0] = new \App\Language();
         $language[0]->name = 'Español';
         $language[0]->iso = 'es';
-        $language[0]->flag = '';
+        $language[0]->flag = 'https://picsum.photos/50';
         $language[0]->status = \App\Language::STATUS_ACTIVE;
         $language[0]->order = 1;
         $language[0]->save();
@@ -25,7 +25,7 @@ class LanguageSeeder extends Seeder
         $language[1] = new \App\Language();
         $language[1]->name = 'English';
         $language[1]->iso = 'en';
-        $language[1]->flag = '';
+        $language[1]->flag = 'https://picsum.photos/50';
         $language[1]->status = \App\Language::STATUS_ACTIVE;
         $language[1]->order = 2;
         $language[1]->save();

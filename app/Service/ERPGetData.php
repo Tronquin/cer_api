@@ -5,6 +5,11 @@ use App\Service\ERPService;
 use App\Location;
 use App\Extra;
 use App\Experience;
+use App\Apartment;
+use App\Typology;
+use App\Package;
+use App\CancellationPolicy;
+use App\Promotion;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -24,9 +29,11 @@ class ERPGetData {
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
-                //Guardamos los id de las ubicaciones para las siguientes consultas
+                // Guardamos los id de las ubicaciones para las siguientes consultas
                 $ubicacion_id[] = ['id' => $ubicacion['id']];
-                $ubicacion_erp = Location::firstOrCreate(['ubicacion_id' => $ubicacion['id'],'type' =>'erp']);
+                $ubicacion_erp = Location::where('ubicacion_id','=',$ubicacion['id'])
+                    ->where('type','=','erp')
+                    ->firstOrNew(['ubicacion_id' => $ubicacion['id'],'type' =>'erp']);
                 
                 $ubicacion_erp->ubicacion_id = $ubicacion['id'];
                 $ubicacion_erp->nombre = $ubicacion['nombre'];
@@ -50,16 +57,90 @@ class ERPGetData {
                 $ubicacion_erp->descripcion_po = $ubicacion['descripcion_po'];
                 
                 $response = $ubicacion_erp->save();
+                
             }
             if(count($ubicacion_id)){
                 foreach($ubicacion_id as $ubicacion){
-                    //$ubicacion_id[] = ['id' => $ubicacion['id']];
+
                     $data = ERPService::findUbicacionData(['ubicacion_id' => $ubicacion['id']]);
                     $experiencias = $data['experiencias'];
                     $extras = $data['extras'];
+                    $apartamentos = $data['apartamentos'];
+                    $tipologias = $data['tipologias'];
+                    $packages = $data['tarifas'];
+                    $politica_cancelacions = $data['politica_cancelacions'];
+                    $promocions = $data['promocions'];
+                    $galerias = [];
 
+                    // Tabla Tipologias
+                    foreach($tipologias as $tipologia){
+                        $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['tipologia_id' => $tipologia['id'],'type' =>'erp']);
+
+                        $tipologia_erp->tipologia_id = $tipologia['id'];
+                        $tipologia_erp->ubicacion_id = $tipologia['ubicacion_id'];
+                        $tipologia_erp->nombre_manual = $tipologia['nombre_manual'];
+                        $tipologia_erp->status = $tipologia['status'];
+                        $tipologia_erp->max = $tipologia['max'];
+                        $tipologia_erp->min = $tipologia['min'];
+                        $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
+                        $tipologia_erp->descripcion_es = $tipologia['descripcion_es'];
+                        $tipologia_erp->descripcion_en = $tipologia['descripcion_en'];
+                        $tipologia_erp->descripcion_fr = $tipologia['descripcion_fr'];
+                        $tipologia_erp->descripcion_po = $tipologia['descripcion_po'];
+
+                        $tipologia_erp->save();
+                    }
+
+                    // Tabla Promociones
+                    foreach($promocions as $promocion){
+                        $promocion_erp = Promotion::where('promocion_id','=',$promocion['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['promocion_id' => $promocion['id'],'type' =>'erp']);
+
+                        $promocion_erp->promocion_id = $promocion['id'];
+                        $promocion_erp->ubicacion_id = $promocion['ubicacion_id'];
+                        $promocion_erp->para_web = $promocion['para_web'];
+                        $promocion_erp->nombre = $promocion['nombre'];
+                        $promocion_erp->incidencia_fijo = $promocion['incidencia_fijo'];
+                        $promocion_erp->incidencia_porcentaje = $promocion['incidencia_porcentaje'];
+                        $promocion_erp->incidencia_porcentaje = $promocion['incidencia_porcentaje'];
+                        $promocion_erp->orden_calculo = $promocion['orden_calculo'];
+                        $promocion_erp->activo = $promocion['activo'];
+                        $promocion_erp->publicado_desde = $promocion['publicado_desde'];
+                        $promocion_erp->publicado_hasta = $promocion['publicado_hasta'];
+                        $promocion_erp->alojado_desde = $promocion['alojado_desde'];
+                        $promocion_erp->alojado_hasta = $promocion['alojado_hasta'];
+                        $promocion_erp->min_noches = $promocion['min_noches'];
+                        $promocion_erp->max_noches = $promocion['max_noches'];
+                        $promocion_erp->release_desde = $promocion['release_desde'];
+                        $promocion_erp->release_hasta = $promocion['release_hasta'];
+
+                        $promocion_erp->save();
+                    }
+
+                    // Tabla cancelacion y politicas
+                    foreach($politica_cancelacions as $politica_cancelacion){
+                        $politica_cancelacions_erp = CancellationPolicy::where('politica_cancelacion_id','=',$politica_cancelacion['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['politica_cancelacion_id' => $politica_cancelacion['id'],'type' =>'erp']);
+
+                        $politica_cancelacions_erp->politica_cancelacion_id = $politica_cancelacion['id'];
+                        $politica_cancelacions_erp->ubicacion_id = $politica_cancelacion['ubicacion_id'];
+                        $politica_cancelacions_erp->nombre = $politica_cancelacion['nombre'];
+                        $politica_cancelacions_erp->nombre_cliente = $politica_cancelacion['nombre_cliente'];
+                        $politica_cancelacions_erp->incidencia_porcentaje = $politica_cancelacion['incidencia_porcentaje'];
+                        $politica_cancelacions_erp->activo = $politica_cancelacion['activo'];
+
+                        $politica_cancelacions_erp->save();
+                    }
+
+                    // Tabla Extra
                     foreach($extras as $extra){
-                        $extra_erp = Extra::firstOrCreate(['extra_id' => $extra['id'],'type' =>'erp']);
+                        $extra_erp = Extra::where('extra_id','=',$extra['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['extra_id' => $extra['id'],'type' =>'erp']);
 
                         $extra_erp->extra_id = $extra['id'];
                         $extra_erp->ubicacion_id = $extra['ubicacion_id'];
@@ -88,8 +169,53 @@ class ERPGetData {
 
                         $extra_erp->save();
                     }
+
+                    // Tabla Tarifa
+                    foreach($packages as $package){
+                        $package_erp = Package::where('tarifa_id','=',$package['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['tarifa_id' => $package['id'],'type' =>'erp']);
+                        
+                        $package_erp->tarifa_id = $package['id'];
+                        $package_erp->ubicacion_id = $package['ubicacion_id'];
+                        $package_erp->nombre = $package['nombre'];
+                        $package_erp->incidencia_fijo = $package['incidencia_fijo'];
+                        $package_erp->incidencia_porcentaje = $package['incidencia_porcentaje'];
+                        $package_erp->extra_id = $package['extra_id'];
+                        $package_erp->activo = $package['activo'];
+                        $package_erp->orden_calculo = $package['orden_calculo'];
+
+                        $package_erp->save();
+                    }
+
+                    // Tabla Apartamento
+                    foreach($apartamentos as $apartamento){
+                        $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['apartamento_id' => $apartamento['id'],'type' =>'erp']);
+
+                        $apartment_erp->apartamento_id = $apartamento['id'];
+                        $apartment_erp->ubicacion_id = $apartamento['ubicacion_id'];
+                        $apartment_erp->nombre = $apartamento['nombre'];
+                        $apartment_erp->tipologia_id = $apartamento['tipologia_id'];
+                        $apartment_erp->status = $apartamento['status'];
+                        $apartment_erp->planta = $apartamento['planta'];
+                        $apartment_erp->puerta = $apartamento['puerta'];
+                        $apartment_erp->acceso_id = $apartamento['acceso_id'];
+                        $apartment_erp->altura = $apartamento['altura'];
+                        $apartment_erp->area = $apartamento['area'];
+                        $apartment_erp->orientacion = $apartamento['orientacion'];
+                        $apartment_erp->galeria_id = $apartamento['galeria_id'];
+                        $apartment_erp->pass_emergencia = $apartamento['pass_emergencia'];
+
+                        $apartment_erp->save();
+                    }
+
+                    // Tabla Experiencia
                     foreach($experiencias as $experiencia){
-                        $experiencia_erp = Experience::firstOrCreate(['experiencia_id' => $experiencia['id'],'type' =>'erp']);
+                        $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
+                        ->where('type','=','erp')
+                        ->firstOrNew([]);
 
                         $experiencia_erp->experiencia_id = $experiencia['id'];
                         $experiencia_erp->ubicacion_id = $experiencia['ubicacion_id'];
@@ -102,14 +228,22 @@ class ERPGetData {
                         $experiencia_erp->sabanas_cada_dias = $experiencia['sabanas_cada_dias'];
                         $experiencia_erp->upgrade_extra_id = $experiencia['upgrade_extra_id'];
 
+                        // Relacion muchos a muchos Experiencia-extras
                         $extraIds = [];
                         foreach ($experiencia['extras'] as $extra) {
                             $extraIds[] = Extra::where('extra_id', $extra['id'])->first()->id;
                         }
 
-                        $experiencia_erp->extras()->sync($extraIds);
-                    
+                        // Relacion muchos a muchos Experiencia-apartamentos
+                        $apartamentoIds = [];
+                        foreach ($experiencia['apartamentos'] as $apartamento) {
+                            $apartamentoIds[] = Apartment::where('apartamento_id', $apartamento['id'])->first()->id;
+                        }
                         $experiencia_erp->save();
+
+                        // Extableciendo Relaciones
+                        $experiencia_erp->extras()->sync($extraIds);  
+                        $experiencia_erp->apartamentos()->sync($apartamentoIds);                     
                     }
                 }
             }

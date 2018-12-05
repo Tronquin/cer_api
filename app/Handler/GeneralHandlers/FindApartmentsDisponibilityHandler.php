@@ -3,6 +3,8 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Service\ERPService;
+use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
+use App\Experience;
 
 class FindApartmentsDisponibilityHandler extends BaseHandler {
 
@@ -13,6 +15,13 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
     {
         $response = ERPService::findApartmentsDisponibility($this->params['data']);
 
+        foreach($response['data'] as &$data){
+            $experiences = new FindExperiencesByLocationHandler(['ubicacion_id' => $data['tipologia']['ubicacion_id']]);
+            $experiences->processHandler();
+            $experiencias = $experiences->getData();
+            $data['tipologia']['experiencias'] = $experiencias['data'];
+        }
+        
         return $response;
     }
 

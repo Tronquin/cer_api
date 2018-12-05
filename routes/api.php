@@ -94,6 +94,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
+        // Registrar una reserva
+        Route::post('/reservation/create', 'ReservationController@createReservation');
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene las experiencias version erp
@@ -104,6 +106,13 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
             // Administracion de maquinas
             Route::resource('/admin/machine', 'MachineController');
+            Route::get('/admin/machine/config/{publicId}', 'MachineController@config');
+            // Listado de idiomas con traducciones
+            Route::get('/admin/language/list', 'LanguageController@languageDevice');
+            // Actualizar ubicaciones
+            Route::put('/admin/location/{ubicationId}', 'LocationController@update');
+            // Actualizar experiencias
+            Route::put('/admin/experience/{experienceId}', 'ExperienceController@update');
         });
     });
 });

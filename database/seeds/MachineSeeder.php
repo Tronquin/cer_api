@@ -16,5 +16,11 @@ class MachineSeeder extends Seeder
         $machine->description = 'Maquina Sagrada Familia';
         $machine->machine_ubication_id = \App\MachineUbication::query()->first()->id;
         $machine->save();
+
+        $components = \App\Component::all();
+
+        foreach ($components as $component) {
+            $machine->components()->attach($component, ['active' => true]);
+        }
     }
 }
