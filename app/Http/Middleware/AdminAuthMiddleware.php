@@ -22,12 +22,14 @@ class AdminAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        //DB::enableQueryLog();
-       
-        $rol = Session::where('token','=',$request->headers->get('session'))->first()->user->rol->name;
+        $session = Session::where('token','=',$request->headers->get('session'))
+            ->with([
+                'user',
+                'user.rol'
+            ])
+            ->first();
 
-        //$queries = DB::getQueryLog();
-        if ($rol !== 'Admin') {
+        if (! $session || $session->user->rol->name !== 'Admin') {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Acceso Restringido']);
         }
 

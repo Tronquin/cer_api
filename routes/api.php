@@ -102,6 +102,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@findExtrasByLocation');
             //Guarda o Modifica los extras version web
             Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
+            // Administracion de maquinas
+            Route::resource('/admin/machine', 'MachineController');
         });
     });
 });
