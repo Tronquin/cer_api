@@ -33,7 +33,7 @@ class Location extends Model
 
     public function experiencias()
     {
-            return $this->hasMany(Experience::class, 'ubicacion_id');
+        return $this->hasMany(Experience::class, 'ubicacion_id');
     }
 
     /**

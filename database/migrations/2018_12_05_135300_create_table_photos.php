@@ -17,6 +17,7 @@ class CreateTablePhotos extends Migration
             $table->increments('id');
             $table->integer('foto_id');
             $table->enum('type',['web','erp'])->default('erp');
+            $table->integer('parent_id')->nullable();
             $table->integer('galeria_id');
             $table->string('archivo');
             $table->string('descripcion_es')->nullable();

@@ -58,15 +58,16 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
 
-            $galeries = [];
+            $galeries = $expErp->galeria->child ? $expErp->galeria->child->toArray() : $expErp->galeria->toArray();
             
-            foreach ($expErp->galeria as $galeriesErp) {
-                //$galeries[] = $galeriesErp->child ? $galeriesErp->child->toArray() : $galeriesErp->toArray();
-            }
+            unset($webOrErp['galeria']);
+            $webOrErp['galeria'] = $galeries;
 
-            //unset($webOrErp['galeria']);
-            //$webOrErp['galeria'] = $galeries;
-
+            //dump($webOrErp['galeria']->fotos);
+            $photos = [];
+            /*foreach ($webOrErp['galeria']->fotos as $fotosErp) {
+                //$aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
+            }*/
 
             $experiences[] = $webOrErp;
         }

@@ -44,7 +44,7 @@ class Experience extends Model
      */
     public function galeria()
     {
-        return $this->belongsTo(Galery::class,'galeria_id');
+        return $this->belongsTo(Galery::class,'galeria_id','galeria_id');
     }
 
     /*public function reservas()
