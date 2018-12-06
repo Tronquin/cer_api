@@ -113,6 +113,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::put('/admin/location/{ubicationId}', 'LocationController@update');
             // Actualizar experiencias
             Route::put('/admin/experience/{experienceId}', 'ExperienceController@update');
+            // Actualizar idiomas
+            Route::put('/admin/language/list', 'LanguageController@update');
         });
     });
 });
