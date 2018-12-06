@@ -12,7 +12,7 @@ class UpdateLocationHandler extends BaseHandler
      */
     protected function handle()
     {
-        $location = Location::where('ubication_id', $this->params['locationId'])->firstOrFail();
+        $location = Location::where('ubicacion_id', $this->params['locationId'])->firstOrFail();
 
         $location->description = $this->params['description'];
         $location->save();
