@@ -11,7 +11,7 @@ class FindLocationsHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $locations = Location::all();
+        $locations = Location::where('type','web');
 
         return $locations;
     }

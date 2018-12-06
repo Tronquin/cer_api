@@ -8,6 +8,8 @@ use App\Experience;
 use App\Apartment;
 use App\Typology;
 use App\Package;
+use App\Galery;
+use App\Photo;
 use App\CancellationPolicy;
 use App\Promotion;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
@@ -27,7 +29,6 @@ class ERPGetData {
          */
         $ubicaciones = ERPService::findLocations();
         $galerias = [];
-        $fotos = [];
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
@@ -72,10 +73,14 @@ class ERPGetData {
                     $packages = $data['tarifas'];
                     $politica_cancelacions = $data['politica_cancelacions'];
                     $promocions = $data['promocions'];
-                    $galerias = [];
 
                     // Tabla Tipologias
                     foreach($tipologias as $tipologia){
+
+                        foreach($tipologia['galerias'] as $tipologiaGalery){
+                            $galerias[] = $tipologiaGalery['id'];
+                        }
+                        
                         $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['tipologia_id' => $tipologia['id'],'type' =>'erp']);
@@ -218,7 +223,7 @@ class ERPGetData {
 
                     // Tabla Experiencia
                     foreach($experiencias as $experiencia){
-                        array_merge($galerias,$experiencia['galeria_id']);
+                        $galerias[] = $experiencia['galeria_id'];
 
                         $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
                         ->where('type','=','erp')
@@ -253,11 +258,51 @@ class ERPGetData {
                         $experiencia_erp->apartamentos()->sync($apartamentoIds);                     
                     }
                 }
+                $galerias = array_unique($galerias);
+                foreach($galerias as $galeria){
+                    $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
+                    dump($data_galeria[0]);
+                }
+                // Tabla Galeria
+                foreach($data_galeria as $galeria){
+                    
+                    $galeria_erp = Galery::where('galeria_id','=',$galeria['id'])
+                        ->where('type','=','erp')
+                        ->firstOrNew(['galeria_id' => $galeria['id'],'type' =>'erp']);
+
+                    $galeria_erp->galeria_id = $galeria['id'];
+                    $galeria_erp->nombre = $galeria['nombre'];
+                    $galeria_erp->nombre_en = $galeria['nombre_en'];
+                    $galeria_erp->nombre_fr = $galeria['nombre_fr'];
+                    $galeria_erp->nombre_po = $galeria['nombre_po'];
+                    $galeria_erp->tipologia_id = $galeria['tipologia_id'];
+
+                    $galeria_erp->save();
+                    
+                    foreach($galeria['fotos'] as $foto){
+
+                        $foto_erp = Photo::where('foto_id','=',$foto['id'])
+                            ->where('type','=','erp')
+                            ->firstOrNew(['foto_id' => $foto['id'],'type' =>'erp']);
+
+                            $foto_erp->foto_id = $foto['id'];
+                            $foto_erp->galeria_id = $foto['galeria_id'];
+                            $foto_erp->archivo = $foto['archivo'];
+                            $foto_erp->descripcion_es = $foto['descripcion_es'];
+                            $foto_erp->descripcion_en = $foto['descripcion_en'];
+                            $foto_erp->descripcion_fr = $foto['descripcion_fr'];
+                            $foto_erp->descripcion_zh = $foto['descripcion_zh'];
+                            $foto_erp->descripcion_ru = $foto['descripcion_ru'];
+                            $foto_erp->descripcion_po = $foto['descripcion_po'];
+
+                            $foto_erp->save();
+                    }
+                }
             }
         }else{
             $response = 'Locations Not Found';
         }
-dump($galerias);
+
         return $ubicacion_id;
     
     }
