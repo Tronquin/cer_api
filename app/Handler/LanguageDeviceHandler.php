@@ -33,7 +33,8 @@ class LanguageDeviceHandler extends BaseHandler
 
                 $temp['translations'][$keyTranslation->deviceType->code][] = [
                     'key' => $keyTranslation->key,
-                    'value' => $keyTranslation->pivot->translation
+                    'value' => $keyTranslation->pivot->translation,
+                    'keyId' => $keyTranslation->id,
                 ];
             }
 
