@@ -260,7 +260,11 @@ class ERPGetData {
                 }
                 $galerias = array_unique($galerias);
                 foreach($galerias as $galeria){
-                    $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
+                    try{
+                        $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
+                    }catch (\Exception $e){
+                        
+                    }
                 }
                 // Tabla Galeria
                 foreach($data_galeria as $galeria){
