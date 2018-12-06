@@ -26,6 +26,8 @@ class ERPGetData {
          * Llenamos la tabla locations
          */
         $ubicaciones = ERPService::findLocations();
+        $galerias = [];
+        $fotos = [];
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
@@ -190,6 +192,9 @@ class ERPGetData {
 
                     // Tabla Apartamento
                     foreach($apartamentos as $apartamento){
+
+                        $galerias[] = $apartamento['galeria_id'];
+
                         $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['apartamento_id' => $apartamento['id'],'type' =>'erp']);
@@ -213,6 +218,8 @@ class ERPGetData {
 
                     // Tabla Experiencia
                     foreach($experiencias as $experiencia){
+                        array_merge($galerias,$experiencia['galeria_id']);
+
                         $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
                         ->where('type','=','erp')
                         ->firstOrNew([]);
@@ -250,7 +257,7 @@ class ERPGetData {
         }else{
             $response = 'Locations Not Found';
         }
-
+dump($galerias);
         return $ubicacion_id;
     
     }
