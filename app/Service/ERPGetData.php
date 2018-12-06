@@ -261,41 +261,41 @@ class ERPGetData {
                 $galerias = array_unique($galerias);
                 foreach($galerias as $galeria){
                     $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
-                    dump($data_galeria[0]);
                 }
                 // Tabla Galeria
                 foreach($data_galeria as $galeria){
-                    
+
                     $galeria_erp = Galery::where('galeria_id','=',$galeria['id'])
                         ->where('type','=','erp')
                         ->firstOrNew(['galeria_id' => $galeria['id'],'type' =>'erp']);
 
                     $galeria_erp->galeria_id = $galeria['id'];
-                    $galeria_erp->nombre = $galeria['nombre'];
-                    $galeria_erp->nombre_en = $galeria['nombre_en'];
-                    $galeria_erp->nombre_fr = $galeria['nombre_fr'];
-                    $galeria_erp->nombre_po = $galeria['nombre_po'];
-                    $galeria_erp->tipologia_id = $galeria['tipologia_id'];
+                    $galeria_erp->nombre = isset($galeria['nombre']) ? $galeria['nombre'] : "";
+                    $galeria_erp->nombre_en = isset($galeria['nombre_en']) ? $galeria['nombre_en'] : "";
+                    $galeria_erp->nombre_fr = isset($galeria['nombre_fr']) ? $galeria['nombre_fr'] : "";
+                    $galeria_erp->nombre_po = isset($galeria['nombre_po']) ? $galeria['nombre_po'] : "";
+                    $galeria_erp->tipologia_id = isset($galeria['tipologia_id']) ? $galeria['tipologia_id'] : 0;
 
                     $galeria_erp->save();
-                    
-                    foreach($galeria['fotos'] as $foto){
+                    if(isset($galeria['fotos'])){
+                        foreach($galeria['fotos'] as $foto){
 
-                        $foto_erp = Photo::where('foto_id','=',$foto['id'])
-                            ->where('type','=','erp')
-                            ->firstOrNew(['foto_id' => $foto['id'],'type' =>'erp']);
+                            $foto_erp = Photo::where('foto_id','=',$foto['id'])
+                                ->where('type','=','erp')
+                                ->firstOrNew(['foto_id' => $foto['id'],'type' =>'erp']);
 
-                            $foto_erp->foto_id = $foto['id'];
-                            $foto_erp->galeria_id = $foto['galeria_id'];
-                            $foto_erp->archivo = $foto['archivo'];
-                            $foto_erp->descripcion_es = $foto['descripcion_es'];
-                            $foto_erp->descripcion_en = $foto['descripcion_en'];
-                            $foto_erp->descripcion_fr = $foto['descripcion_fr'];
-                            $foto_erp->descripcion_zh = $foto['descripcion_zh'];
-                            $foto_erp->descripcion_ru = $foto['descripcion_ru'];
-                            $foto_erp->descripcion_po = $foto['descripcion_po'];
+                                $foto_erp->foto_id = $foto['id'];
+                                $foto_erp->galeria_id = $foto['galeria_id'];
+                                $foto_erp->archivo = $foto['archivo'];
+                                $foto_erp->descripcion_es = $foto['descripcion_es'];
+                                $foto_erp->descripcion_en = $foto['descripcion_en'];
+                                $foto_erp->descripcion_fr = $foto['descripcion_fr'];
+                                $foto_erp->descripcion_zh = $foto['descripcion_zh'];
+                                $foto_erp->descripcion_ru = $foto['descripcion_ru'];
+                                $foto_erp->descripcion_po = $foto['descripcion_po'];
 
-                            $foto_erp->save();
+                                $foto_erp->save();
+                        }
                     }
                 }
             }
