@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Handler\LanguageDeviceHandler;
 use App\Handler\ListTranslationHandler;
+use App\Handler\UpdateLanguageHandler;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -36,6 +37,24 @@ class LanguageController extends Controller
     public function languageDevice()
     {
         $handler = new LanguageDeviceHandler();
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Actualiza idiomas, claves y traducciones
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $handler = new UpdateLanguageHandler($request->all());
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

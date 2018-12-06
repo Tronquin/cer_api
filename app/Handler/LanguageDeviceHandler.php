@@ -31,7 +31,11 @@ class LanguageDeviceHandler extends BaseHandler
 
             foreach ($keyTranslations as $keyTranslation) {
 
-                $temp['translations'][$keyTranslation->deviceType->code][$keyTranslation->key] = $keyTranslation->pivot->translation;
+                $temp['translations'][$keyTranslation->deviceType->code][] = [
+                    'key' => $keyTranslation->key,
+                    'value' => $keyTranslation->pivot->translation,
+                    'keyId' => $keyTranslation->id,
+                ];
             }
 
             $response[] = $temp;
