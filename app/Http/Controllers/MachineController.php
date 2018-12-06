@@ -8,6 +8,7 @@ use App\Handler\DeleteMachineHandler;
 use App\Handler\ListMachineHandler;
 use App\Handler\SaveMachineHandler;
 use App\Handler\UpdateMachineHandler;
+use App\Handler\EditMachineHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -84,7 +85,15 @@ class MachineController extends Controller
      */
     public function edit($id)
     {
-        //
+        $handler = new EditMachineHandler(['id'=>$id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+
     }
 
     /**
