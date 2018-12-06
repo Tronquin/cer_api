@@ -36,6 +36,16 @@ class Location extends Model
         return $this->hasMany(Experience::class, 'ubicacion_id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function child()
+    {
+        return $this->hasOne(self::class, 'parent_id');
+    }
+
     /**
      * Ubicacion::find($ubicacion_id)->extras;
      *

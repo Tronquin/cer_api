@@ -11,9 +11,16 @@ class FindLocationsHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $locations = Location::where('type','web')->get();
+        $locations = Location::where('type', 'erp')
+            ->with(['child'])
+            ->get();
+        
+        $LocationwebOrErp = [];
+        foreach ($locations as $locationErp) {
+            $LocationwebOrErp[] = $locationErp->child ? $locationErp->child->toArray() : $locationErp->toArray();
+        }
 
-        return $locations;
+        return $LocationwebOrErp;
     }
 
     /**

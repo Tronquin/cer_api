@@ -27,8 +27,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             ->with(['child'])
             ->limit(5)
             ->get();
-
-        $experiencia = [];
+            
         foreach ($experiencesCollection as $expErp) {
 
             $webOrErp = $expErp->child ? $expErp->child->toArray() : $expErp->toArray();
