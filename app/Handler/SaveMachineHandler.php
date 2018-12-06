@@ -43,7 +43,8 @@ class SaveMachineHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            //'data' => 'required'
+            'ubication' => 'required',
+            'components' => 'required'
         ];
     }
 

@@ -55,8 +55,7 @@ class MachineController extends Controller
      */
     public function store(Request $request)
     {
-        $request = $request->all();
-        $handler = new SaveMachineHandler($request);
+        $handler = new SaveMachineHandler(['data' => $request->all()]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -100,7 +99,7 @@ class MachineController extends Controller
         $request = $request->all();
         $request['id'] = $id;
 
-        $handler = new UpdateMachineHandler($request);
+        $handler = new UpdateMachineHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

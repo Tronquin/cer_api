@@ -12,11 +12,15 @@ class UpdateMachineHandler extends BaseHandler {
      * Proceso de este handler
      */
     protected function handle()
-    {
-        //$data = $this->params['data'];
+    {        
 
-        $machine = Machine::where('public_id','=',$this->params['id'])->firstOrFail();
+        $machine = Machine::where('public_id','=',$this->params['data']['id'])->firstOrFail();
         $now = new \DateTime();
+        $response = [];
+        $response['data'] = [];
+        $response['success'] = false;
+        $response['mesagge'] = '';
+
 
         if (! is_null($machine)) {
 
@@ -29,15 +33,17 @@ class UpdateMachineHandler extends BaseHandler {
             $componentArray = [];
             foreach ($this->params['data']['components'] as $key => $component) {
                 $machineComponent = Component::where('name', '=' , $component['name'])->first();
-                $componentArray['id'] = $machineComponent->id;
-                $componentArray['active'] = true;
+                $componentArray[$machineComponent->id]['active'] = true;
             }
 
             $machine->components()->sync($componentArray);
 
             $response['data'] = ['machine' => $machine->public_id];
-
+            $response['success'] = true;
+            $response['mesagge'] = 'machine updated';
         }
+
+        return $response;
     }
 
     /**
@@ -48,6 +54,7 @@ class UpdateMachineHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
+            'id' => 'required'
         ];
     }
 
