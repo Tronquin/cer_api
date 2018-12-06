@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Handler\GetMachineConfigHandler;
+use App\Handler\CreateMachineHandler;
+use App\Handler\DeleteMachineHandler;
 use App\Handler\ListMachineHandler;
+use App\Handler\SaveMachineHandler;
+use App\Handler\UpdateMachineHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -51,7 +55,14 @@ class MachineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $handler = new SaveMachineHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
     /**
@@ -85,7 +96,17 @@ class MachineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request = $request->all();
+        $request['id'] = $id;
+
+        $handler = new UpdateMachineHandler(['data' => $request]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
     /**
@@ -96,7 +117,15 @@ class MachineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $handler = new DeleteMachineHandler(['id'=>$id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+
     }
 
     /**
