@@ -115,6 +115,12 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::put('/admin/experience/{experienceId}', 'ExperienceController@update');
             // Actualizar idiomas
             Route::put('/admin/language/list', 'LanguageController@update');
+            // Crear galeria
+            Route::post('/galery/create', 'GaleryController@create');
+            // Obtener Imagenes de ERP
+            Route::get('/find/galery/erp', 'GaleryController@erpGalery');
+            // Obtener Imagenes de ERP
+            Route::post('/photo/create', 'PhotoController@create');
         });
     });
 });

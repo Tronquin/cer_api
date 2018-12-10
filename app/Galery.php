@@ -18,6 +18,7 @@ class Galery extends Model
         'nombre_fr',
         'nombre_po',
         'tipologia_id',
+        'ubicacion_id',
     ];
 
     // Obtiene las fotos de la galeria
@@ -30,6 +31,12 @@ class Galery extends Model
     public function experiencia()
     {
         return $this->hasMany(Experience::class,'galeria_id','galeria_id');
+    }
+
+    //Relacion con la Ubicacion
+    public function ubicacion()
+    {
+        return $this->belongsTo(Location::class,'id');
     }
 
     /*
