@@ -19,14 +19,14 @@ class UpdateLocationHandler extends BaseHandler
             // Imagen de portada
             $path = $this->uploadImage($this->params['front_page'], 'locations/' . $location->id . '/');
 
-            $location->front_page = 'storage/' . $path;
+            $location->front_page = $path;
         }
 
         if (isset($this->params['logo'])) {
             // Logo
             $path = $this->uploadImage($this->params['logo'], 'locations/' . $location->id . '/');
 
-            $location->logo = 'storage/' . $path;
+            $location->logo = $path;
         }
 
         $location->description = $this->params['description'];

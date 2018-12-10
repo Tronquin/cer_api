@@ -19,7 +19,7 @@ class UpdateExperienceHandler extends BaseHandler
             // Imagen
             $path = $this->uploadImage($this->params['front_page'], 'experiences/' . $experience->id . '/');
 
-            $experience->front_page = 'storage/' . $path;
+            $experience->front_page = $path;
         }
 
         $experience->description = $this->params['description'];

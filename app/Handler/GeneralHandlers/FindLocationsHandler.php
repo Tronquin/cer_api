@@ -17,7 +17,11 @@ class FindLocationsHandler extends BaseHandler {
         
         $LocationwebOrErp = [];
         foreach ($locations as $locationErp) {
-            $LocationwebOrErp[] = $locationErp->child ? $locationErp->child->toArray() : $locationErp->toArray();
+            $temp = $locationErp->child ? $locationErp->child->toArray() : $locationErp->toArray();
+            $temp['front_page'] = $this->generateImageUrl($temp['front_page']);
+            $temp['logo'] = $this->generateImageUrl($temp['logo']);
+
+            $LocationwebOrErp[] = $temp;
         }
 
         return $LocationwebOrErp;
@@ -35,4 +39,21 @@ class FindLocationsHandler extends BaseHandler {
         ];
     }
 
+    /**
+     * Genera la url hacia las imagenes
+     *
+     * @param string $path
+     * @return string
+     */
+    private function generateImageUrl($path)
+    {
+        if (! $path) {
+            return null;
+        }
+
+        $path = str_replace('/', '-', $path);
+        $path = route('storage.image', ['image' => $path]);
+
+        return $path ;
+    }
 }
