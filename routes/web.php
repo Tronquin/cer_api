@@ -11,4 +11,4 @@
 |
 */
 
-
+Route::get('storage/image/{image}', 'ImageController@getImage');
