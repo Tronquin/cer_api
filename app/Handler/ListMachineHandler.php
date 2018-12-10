@@ -26,9 +26,8 @@ class ListMachineHandler extends BaseHandler {
 
             $temp['components'] = [];
             foreach ($machine->components as $key => $component) {
-                if ($component->pivot->active) {
-                    $temp['components'][$key] = $component->name;
-                }
+                $temp['components'][$key]['name'] = $component->name;
+                $temp['components'][$key]['active'] = $component->pivot->active;
             }
 
             $response['data'][] = $temp;
