@@ -18,7 +18,7 @@ class ExperienceController extends Controller
     public function update(Request $request, $experienceId)
     {
         $data = $request->all();
-        $data['locationId'] = $experienceId;
+        $data['experienceId'] = $experienceId;
 
         $handler = new UpdateExperienceHandler($data);
         $handler->processHandler();

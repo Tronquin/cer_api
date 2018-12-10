@@ -28,6 +28,7 @@ class CreateTableExperiences extends Migration
             $table->integer('sabanas_cada_dias')->nullable();
             $table->integer('upgrade_extra_id')->nullable();
             $table->string('description')->nullable();
+            $table->string('front_page')->nullable();
             $table->timestamps();
         });
     }

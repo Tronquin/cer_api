@@ -480,7 +480,7 @@ class ERPService {
     public static function findGaleryById(array $data)
     {
         $response = self::send('web/get_galeria/'. $data['galeria_id'], [],self::METHOD_GET);
-
+        
         return $response;
     }
 
@@ -569,8 +569,8 @@ class ERPService {
         curl_close($ch);
 
         $response = json_decode($response, true);
-
-
+        
+        
         if (! $response) {
             // Si no retorna un Json dispara una exception
             throw new \Exception('Bad request to ERP');

@@ -8,8 +8,11 @@ use App\Experience;
 use App\Apartment;
 use App\Typology;
 use App\Package;
+use App\Galery;
+use App\Photo;
 use App\CancellationPolicy;
 use App\Promotion;
+use Illuminate\Support\Facades\Storage;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -26,6 +29,7 @@ class ERPGetData {
          * Llenamos la tabla locations
          */
         $ubicaciones = ERPService::findLocations();
+        $galerias = [];
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
@@ -70,10 +74,14 @@ class ERPGetData {
                     $packages = $data['tarifas'];
                     $politica_cancelacions = $data['politica_cancelacions'];
                     $promocions = $data['promocions'];
-                    $galerias = [];
 
                     // Tabla Tipologias
                     foreach($tipologias as $tipologia){
+
+                        foreach($tipologia['galerias'] as $tipologiaGalery){
+                            $galerias[] = $tipologiaGalery['id'];
+                        }
+                        
                         $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['tipologia_id' => $tipologia['id'],'type' =>'erp']);
@@ -190,6 +198,9 @@ class ERPGetData {
 
                     // Tabla Apartamento
                     foreach($apartamentos as $apartamento){
+
+                        $galerias[] = $apartamento['galeria_id'];
+
                         $apartment_erp = Apartment::where('apartamento_id','=',$apartamento['id'])
                             ->where('type','=','erp')
                             ->firstOrNew(['apartamento_id' => $apartamento['id'],'type' =>'erp']);
@@ -213,6 +224,8 @@ class ERPGetData {
 
                     // Tabla Experiencia
                     foreach($experiencias as $experiencia){
+                        $galerias[] = $experiencia['galeria_id'];
+
                         $experiencia_erp = Experience::where('experiencia_id','=',$experiencia['id'])
                         ->where('type','=','erp')
                         ->firstOrNew([]);
@@ -244,6 +257,62 @@ class ERPGetData {
                         // Extableciendo Relaciones
                         $experiencia_erp->extras()->sync($extraIds);  
                         $experiencia_erp->apartamentos()->sync($apartamentoIds);                     
+                    }
+                }
+                $galerias = array_unique($galerias);
+                foreach($galerias as $galeria){
+                    try{
+                        $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
+                    }catch (\Exception $e){
+
+                    }
+                }
+                // Tabla Galeria
+                foreach($data_galeria as $galeria){
+
+                    $galeria_erp = Galery::where('galeria_id','=',$galeria['id'])
+                        ->where('type','=','erp')
+                        ->firstOrNew(['galeria_id' => $galeria['id'],'type' =>'erp']);
+
+                    $galeria_erp->galeria_id = $galeria['id'];
+                    $galeria_erp->nombre = isset($galeria['nombre']) ? $galeria['nombre'] : "";
+                    $galeria_erp->nombre_en = isset($galeria['nombre_en']) ? $galeria['nombre_en'] : "";
+                    $galeria_erp->nombre_fr = isset($galeria['nombre_fr']) ? $galeria['nombre_fr'] : "";
+                    $galeria_erp->nombre_po = isset($galeria['nombre_po']) ? $galeria['nombre_po'] : "";
+                    $galeria_erp->tipologia_id = isset($galeria['tipologia_id']) ? $galeria['tipologia_id'] : 0;
+
+                    $galeria_erp->save();
+                    if(isset($galeria['fotos'])){
+                        foreach($galeria['fotos'] as $foto){
+
+                            $foto_erp = Photo::where('foto_id','=',$foto['id'])
+                                ->where('type','=','erp')
+                                ->firstOrNew(['foto_id' => $foto['id'],'type' =>'erp']);
+
+                                $foto_erp->foto_id = $foto['id'];
+                                $foto_erp->galeria_id = $foto['galeria_id'];
+                                $photoData = explode('.',$foto['archivo']);
+                                $photo = explode(" ",$photoData[0]);
+                                $photo = implode("%20",$photo);
+                                $photoName = str_slug($photo.'.'.$photoData[1]);
+                                try{
+                                    $imagen = file_get_contents("https://erp.castroexclusiveresidences.com/uploads/galerias/".$photo.'.'.$photoData[1]);
+                                    Storage::disk('public')->put('erpimages/'.$photoName, $imagen);
+
+                                }catch (\Exception $e){
+                                   
+                                }
+                                
+                                $foto_erp->archivo = str_slug($foto['archivo']);
+                                $foto_erp->descripcion_es = $foto['descripcion_es'];
+                                $foto_erp->descripcion_en = $foto['descripcion_en'];
+                                $foto_erp->descripcion_fr = $foto['descripcion_fr'];
+                                $foto_erp->descripcion_zh = $foto['descripcion_zh'];
+                                $foto_erp->descripcion_ru = $foto['descripcion_ru'];
+                                $foto_erp->descripcion_po = $foto['descripcion_po'];
+
+                                $foto_erp->save();
+                        }
                     }
                 }
             }

@@ -39,7 +39,10 @@ class ListTranslationHandler extends BaseHandler {
             $keyTranslations =  $lang->keyTranslations()->where('device_type_id', $deviceType->id)->get();
 
             foreach ($keyTranslations as $keyTranslation) {
-                $temp['translations'][$keyTranslation->key] = $keyTranslation->pivot->translation;
+                $temp['translations'][] = [
+                    'key' => $keyTranslation->key,
+                    'value' => $keyTranslation->pivot->translation
+                ];
             }
 
             $response[] = $temp;
