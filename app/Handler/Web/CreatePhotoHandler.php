@@ -25,12 +25,12 @@ class CreatePhotoHandler extends BaseHandler {
         $galeria->foto_id = 0;
         $galeria->type = 'web';
         $galeria->galleries_id = $this->params['data']['galeria_id'];
-        $galeria->descripcion_es = isset($this->params['data']['nombre_fr']) ? $this->params['data']['nombre_fr'] : null;
-        $galeria->descripcion_en = isset($this->params['data']['nombre_po']) ? $this->params['data']['nombre_po'] : null;
-        $galeria->descripcion_fr = isset($this->params['data']['nombre_po']) ? $this->params['data']['nombre_po'] : null;
-        $galeria->descripcion_zh = isset($this->params['data']['tipologia_id']) ? $this->params['data']['tipologia_id'] : null;
-        $galeria->descripcion_ru = isset($this->params['data']['tipologia_id']) ? $this->params['data']['tipologia_id'] : null;
-        $galeria->descripcion_po = isset($this->params['data']['tipologia_id']) ? $this->params['data']['tipologia_id'] : null;
+        $galeria->descripcion_es = isset($this->params['data']['descripcion_es']) ? $this->params['data']['descripcion_es'] : null;
+        $galeria->descripcion_en = isset($this->params['data']['descripcion_en']) ? $this->params['data']['descripcion_en'] : null;
+        $galeria->descripcion_fr = isset($this->params['data']['descripcion_fr']) ? $this->params['data']['descripcion_fr'] : null;
+        $galeria->descripcion_zh = isset($this->params['data']['descripcion_zh']) ? $this->params['data']['descripcion_zh'] : null;
+        $galeria->descripcion_ru = isset($this->params['data']['descripcion_ru']) ? $this->params['data']['descripcion_ru'] : null;
+        $galeria->descripcion_po = isset($this->params['data']['descripcion_po']) ? $this->params['data']['descripcion_po'] : null;
 
         $galeria->save();
 
