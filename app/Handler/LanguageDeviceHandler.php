@@ -23,7 +23,7 @@ class LanguageDeviceHandler extends BaseHandler
             $temp = [
                 'name' => $lang->name,
                 'iso' => $lang->iso,
-                'flag' => $lang->flag,
+                'flag' => route('storage.image', ['image' => str_replace('/', '-', $lang->flag)]),
                 'translations' => []
             ];
 
