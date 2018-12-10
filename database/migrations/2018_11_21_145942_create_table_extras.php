@@ -41,6 +41,9 @@ class CreateTableExtras extends Migration
             $table->integer('activo')->nullable();
             $table->integer('cambia_hora_entrada')->nullable()->default(0);
             $table->integer('cambia_hora_salida')->nullable()->default(0);
+            $table->string('front_image')->nullable();
+            $table->string('icon')->nullable();
+            $table->boolean('outstanding')->default(false);
             $table->timestamps();
         });
     }

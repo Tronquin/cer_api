@@ -16,6 +16,19 @@ class FindExtrasByLocationHandler extends BaseHandler {
         $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
         
         if(count($extrasErp)){
+
+            foreach ($extrasErp as $extra) {
+                $extra->front_image = $extra->front_image ?
+                    route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]) :
+                    null
+                ;
+
+                $extra->icon = $extra->icon ?
+                    route('storage.image', ['image' => str_replace('/', '-', $extra->icon)]) :
+                    null
+                ;
+            }
+
             $response['res'] = count($extrasErp);
             $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
             $response['data'] = $extrasErp;
