@@ -16,7 +16,7 @@ class LanguageSeeder extends Seeder
         $language = new \App\Language();
         $language->name = 'Español';
         $language->iso = 'es';
-        $language->flag = 'https://picsum.photos/50';
+        $language->flag = 'languages/spain.png';
         $language->status = \App\Language::STATUS_ACTIVE;
         $language->order = 1;
         $language->save();
@@ -39,7 +39,7 @@ class LanguageSeeder extends Seeder
         $language = new \App\Language();
         $language->name = 'English';
         $language->iso = 'en';
-        $language->flag = 'https://picsum.photos/50';
+        $language->flag = 'languages/uk.png';
         $language->status = \App\Language::STATUS_ACTIVE;
         $language->order = 2;
         $language->save();
@@ -66,7 +66,7 @@ class LanguageSeeder extends Seeder
         $language = new \App\Language();
         $language->name = 'Frances';
         $language->iso = 'fr';
-        $language->flag = 'https://picsum.photos/50';
+        $language->flag = 'languages/francia.png';
         $language->status = \App\Language::STATUS_ACTIVE;
         $language->order = 3;
         $language->save();
@@ -93,7 +93,7 @@ class LanguageSeeder extends Seeder
         $language = new \App\Language();
         $language->name = 'Aleman';
         $language->iso = 'al';
-        $language->flag = 'https://picsum.photos/50';
+        $language->flag = 'languages/alemania.png';
         $language->status = \App\Language::STATUS_ACTIVE;
         $language->order = 3;
         $language->save();

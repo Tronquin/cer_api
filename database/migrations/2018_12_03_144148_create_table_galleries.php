@@ -23,7 +23,8 @@ class CreateTableGalleries extends Migration
             $table->string('nombre_en')->nullable();
             $table->string('nombre_fr')->nullable();
             $table->string('nombre_po')->nullable();
-            $table->integer('tipologia_id');
+            $table->integer('tipologia_id')->nullable();
+            $table->integer('ubicacion_id')->nullable();
             $table->timestamps();
         });
     }
