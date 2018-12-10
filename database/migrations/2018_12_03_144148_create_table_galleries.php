@@ -17,7 +17,8 @@ class CreateTableGalleries extends Migration
             $table->increments('id');
             $table->integer('galeria_id');
             $table->enum('type',['web','erp'])->default('erp');
-            $table->integer('parent_id')->nullable();
+            $table->integer('parent_galleries_id')->nullable();
+            $table->integer('parent_galeria_id')->nullable();
             $table->string('nombre');
             $table->string('nombre_en')->nullable();
             $table->string('nombre_fr')->nullable();
