@@ -12,6 +12,7 @@ use App\Galery;
 use App\Photo;
 use App\CancellationPolicy;
 use App\Promotion;
+use Illuminate\Support\Facades\Storage;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
@@ -263,7 +264,7 @@ class ERPGetData {
                     try{
                         $data_galeria[] = ERPService::findGaleryById(['galeria_id' => $galeria]);
                     }catch (\Exception $e){
-                        
+
                     }
                 }
                 // Tabla Galeria
@@ -290,7 +291,19 @@ class ERPGetData {
 
                                 $foto_erp->foto_id = $foto['id'];
                                 $foto_erp->galeria_id = $foto['galeria_id'];
-                                $foto_erp->archivo = $foto['archivo'];
+                                $photoData = explode('.',$foto['archivo']);
+                                $photo = explode(" ",$photoData[0]);
+                                $photo = implode("%20",$photo);
+                                $photoName = str_slug($photo.'.'.$photoData[1]);
+                                try{
+                                    $imagen = file_get_contents("https://erp.castroexclusiveresidences.com/uploads/galerias/".$photo.'.'.$photoData[1]);
+                                    Storage::disk('public')->put('erpimages/'.$photoName, $imagen);
+
+                                }catch (\Exception $e){
+                                   
+                                }
+                                
+                                $foto_erp->archivo = str_slug($foto['archivo']);
                                 $foto_erp->descripcion_es = $foto['descripcion_es'];
                                 $foto_erp->descripcion_en = $foto['descripcion_en'];
                                 $foto_erp->descripcion_fr = $foto['descripcion_fr'];

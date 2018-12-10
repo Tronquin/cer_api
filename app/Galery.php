@@ -11,7 +11,8 @@ class Galery extends Model
     protected $fillable = [
         'galeria_id',
         'type',
-        'parent_id',
+        'parent_galeria_id',
+        'parent_galleries_id',
         'nombre',
         'nombre_en',
         'nombre_fr',
@@ -37,15 +38,27 @@ class Galery extends Model
         return $this->belongsTo('App\Tipologia');
     }*/
 
-    // Relacion para obtener la version web de la galeria
-    public function parent()
+    // Relacion para obtener la version web del registro erp de la galeria
+    public function parentErp()
     {
-        return $this->belongsTo(self::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_galeria_id');
     }
 
-    // Relacion para obtener la version web de la galeria
-    public function child()
+    // Relacion para obtener la version web del registro erp de la galeria
+    public function childErp()
     {
-        return $this->hasOne(self::class, 'parent_id');
+        return $this->hasOne(self::class, 'parent_galeria_id');
+    }
+
+    // Relacion para obtener las galerias padres creadas a traves del admin
+    public function parentWeb()
+    {
+        return $this->belongsTo(self::class, 'parent_galeria_id');
+    }
+
+    // Relacion para obtener las galerias hijos creadas a traves del admin
+    public function childWeb()
+    {
+        return $this->hasOne(self::class, 'parent_galeria_id');
     }
 }
