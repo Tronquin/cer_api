@@ -119,8 +119,12 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/galery/create', 'GaleryController@create');
             // Obtener Imagenes de ERP
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
-            // Obtener Imagenes de ERP
+            // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
+            // Obtener imagenes por galeria
+            Route::get('/photo/{galleryCode}', 'PhotoController@photos');
+            // Obtener imagenes por ubicacion
+            Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
         });
     });
 });
