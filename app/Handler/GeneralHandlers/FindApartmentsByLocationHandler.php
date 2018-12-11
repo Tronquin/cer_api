@@ -19,10 +19,13 @@ class FindApartmentsByLocationHandler extends BaseHandler {
             ->get();
 
         foreach ($apartmentsCollection as $aptErp) {
-            $webOrErp[] = $aptErp->child ? $aptErp->child->toArray() : $aptErp->toArray();
+            $webOrErp = $aptErp->child ? $aptErp->child->toArray() : $aptErp->toArray();
+
+            $apartamentos[] = $webOrErp;
         }
-    
-        $response['data'] = $webOrErp;
+        $response['res'] = count($apartamentos);
+        $response['msg'] = " Apartamentos de la ubicacion ".$this->params['ubicacion_id'];
+        $response['data'] = $apartamentos;
 
         return $response;
     }
