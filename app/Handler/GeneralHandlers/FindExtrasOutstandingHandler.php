@@ -13,16 +13,13 @@ class FindExtrasOutstandingHandler extends BaseHandler {
     {
         $response = [];
         $extrasCollection = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
-            ->where('type', 'erp')
+            ->where('type', 'web')
             ->where('outstanding', true)
-            ->with(['child'])
             ->get();
 
         $extras = [];
-        foreach ($extrasCollection as $extErp) {
-            $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
-
-            $extras[] = $webOrErp;
+        foreach ($extrasCollection as $extra) {
+            $extras[] = $extra->toArray();
         }
         
         foreach ($extras as &$extra) {
