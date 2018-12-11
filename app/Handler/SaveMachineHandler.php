@@ -24,9 +24,9 @@ class SaveMachineHandler extends BaseHandler {
 
         $machine->save();
 
-        foreach ($this->params['data']['components'] as $key => $component) {
-            $machineComponent = Component::where('name', '=' , $component['name'])->first();
-            $machine->components()->attach($machineComponent->id,['active' => true,
+        $components = Component::orderBy('name')->get(); 
+        foreach($components as $key => $component) {
+            $machine->components()->attach($component->id,['active' => true,
                 'created_at' => $now->format('Y-m-d H:i:s'), 'updated_at' => $now->format('Y-m-d H:i:s')]);
         }
 
@@ -44,6 +44,7 @@ class SaveMachineHandler extends BaseHandler {
     {
         return [
             'ubication' => 'required',
+            'description' => 'required',
             'components' => 'required'
         ];
     }
