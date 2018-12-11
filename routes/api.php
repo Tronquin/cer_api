@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/extrasByLocation/{ubicacion_id}', 'General\SearchdController@findExtrasByLocation');
     // Busca las tipologias por ubicacion
     Route::get('/find/typologyByLocation/{ubicacion_id}', 'General\SearchdController@findTypologyByLocation');
+    // Busca los extras destacados por ubicacion
+    Route::get('/find/extras/outstanding/{ubicacion_id}', 'General\SearchdController@findExtrasOutstanding');
     // Busca las ubicaciones
     Route::get('/find/Locations/', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
