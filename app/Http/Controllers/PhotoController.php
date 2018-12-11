@@ -12,11 +12,13 @@ class PhotoController extends Controller
      * Guarda una nueva foto
      *
      * @param Request $request
+     * @param string $galleryCode
      * @return JsonResponse
      */
-    public function create(Request $request)
+    public function create(Request $request, $galleryCode)
     {
         $data = $request->all();
+        $data['galleryCode'] = $galleryCode;
 
         $handler = new CreatePhotoHandler(['data' => $data]);
         $handler->processHandler();

@@ -15,7 +15,7 @@ class Galery extends Model
 
     public function photos()
     {
-        return $this->hasMany(Photo::class, 'galleries_id');
+        return $this->hasMany(Photo::class, 'gallery_id');
     }
 
     //Relacion con las Experiencias

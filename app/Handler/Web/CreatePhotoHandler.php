@@ -1,8 +1,8 @@
 <?php
 namespace App\Handler\Web;
 
+use App\Galery;
 use App\Handler\BaseHandler;
-use App\Service\ERPService;
 use App\Photo;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,30 +13,23 @@ class CreatePhotoHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $response = [];
-        $galeria = new Photo();
+        $gallery = Galery::where('code', $this->params['data']['galleryCode'])->firstOrFail();
 
-        if (isset($this->params['data']['archivo'])) {
-            // Imagen
-            $path = $this->uploadImage($this->params['data']['archivo'], 'locations/' . $this->params['data']['ubicacion_id'] . '/');
+        $response['data'] = [];
+        foreach ($this->params['data']['photos'] as $p) {
 
-            $galeria->archivo = $path;
+            $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
+
+            $photo = new Photo();
+            $photo->gallery_id = $gallery->id;
+            $photo->url = $path;
+            $photo->save();
+
+            $response['data'][] = $photo;
         }
-        $galeria->foto_id = 0;
-        $galeria->type = 'web';
-        $galeria->galleries_id = $this->params['data']['galeria_id'];
-        $galeria->descripcion_es = isset($this->params['data']['descripcion_es']) ? $this->params['data']['descripcion_es'] : null;
-        $galeria->descripcion_en = isset($this->params['data']['descripcion_en']) ? $this->params['data']['descripcion_en'] : null;
-        $galeria->descripcion_fr = isset($this->params['data']['descripcion_fr']) ? $this->params['data']['descripcion_fr'] : null;
-        $galeria->descripcion_zh = isset($this->params['data']['descripcion_zh']) ? $this->params['data']['descripcion_zh'] : null;
-        $galeria->descripcion_ru = isset($this->params['data']['descripcion_ru']) ? $this->params['data']['descripcion_ru'] : null;
-        $galeria->descripcion_po = isset($this->params['data']['descripcion_po']) ? $this->params['data']['descripcion_po'] : null;
-
-        $galeria->save();
 
         $response['res'] = '1';
         $response['msg'] = 'foto guardada exitosamente';
-        $response['data'] = $galeria;
 
         return $response;
     }
@@ -49,8 +42,8 @@ class CreatePhotoHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'nombre' => 'required',
-            'ubicacion_id' => 'required|numeric',
+            'galleryCode' => 'required',
+            'photos' => 'required'
         ];
     }
 

@@ -120,7 +120,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             // Obtener Imagenes de ERP
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Obtener Imagenes de ERP
-            Route::post('/photo/create', 'PhotoController@create');
+            Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
         });
     });
 });
