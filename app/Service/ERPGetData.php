@@ -37,8 +37,14 @@ class ERPGetData {
                 $ubicacion_id[] = ['id' => $ubicacion['id']];
                 $ubicacion_erp = Location::where('ubicacion_id','=',$ubicacion['id'])
                     ->where('type','=','erp')
-                    ->firstOrNew(['ubicacion_id' => $ubicacion['id'],'type' =>'erp']);
-                
+                    ->first();
+                $createGallery = false;
+
+                if (! $ubicacion_erp) {
+                    $ubicacion_erp = new Location();
+                    $createGallery = true;
+                }
+
                 $ubicacion_erp->ubicacion_id = $ubicacion['id'];
                 $ubicacion_erp->nombre = $ubicacion['nombre'];
                 $ubicacion_erp->minimo_noches = $ubicacion['minimo_noches'];
@@ -61,6 +67,10 @@ class ERPGetData {
                 $ubicacion_erp->descripcion_po = $ubicacion['descripcion_po'];
                 
                 $response = $ubicacion_erp->save();
+
+                if (! $createGallery) {
+                    continue;
+                }
 
                 $erpId = $ubicacion_erp->ubicacion_id;
 
