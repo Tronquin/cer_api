@@ -16,14 +16,14 @@ class CreateMachineHandler extends BaseHandler {
 
         $ubicationsArray = [];
         foreach($ubications as $key => $ubication) {
-            //$ubicationsArray[$key]['code'] = $ubication->id;
+            $ubicationsArray[$key]['id'] = $ubication->id;
             $ubicationsArray[$key]['name'] = $ubication->name;
         }
 
         $components = Component::orderBy('name')->get();
         $componentsArray = [];
         foreach($components as $key => $component) {
-            //$componentsArray[$key]['code'] = $component->id;
+            $componentsArray[$key]['id'] = $component->id;
             $componentsArray[$key]['name'] = $component->name;
         }
 
