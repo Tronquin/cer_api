@@ -100,7 +100,7 @@ class UserController extends Controller
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => $session->token]);
+        return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => ['session' => $session->token,'user_id' => $userExist['id']]]);
     }
 
     /**
