@@ -19,7 +19,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
         $experiencesCollection = Experience::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
-            ->with(['child', 'extras', 'apartamentos','galeria'])
+            ->with(['child', 'extras', 'apartamentos'])
             ->get();
 
         $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
@@ -57,19 +57,6 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
-
-            $galeries = $expErp->galeria->childErp ? $expErp->galeria->childErp->toArray() : $expErp->galeria->toArray();
-            
-            unset($webOrErp['galeria']);
-            $webOrErp['galeria'] = $galeries;
-            
-            $photos = [];
-            foreach ($expErp->galeria->fotos as $fotosErp) {
-                $photos[] = $fotosErp->child ? $fotosErp->child->toArray() : $fotosErp->toArray();
-            }
-
-            unset($webOrErp['galeria']['fotos']);
-            $webOrErp['galeria']['fotos'] = $photos;
 
             $experiences[] = $webOrErp;
         }
