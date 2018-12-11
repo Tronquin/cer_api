@@ -15,6 +15,12 @@ class FindExperiencesByLocationHandler extends BaseHandler {
         $data = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])
             ->where('type','=','erp')->get();
 
+        foreach ($data as $exp) {
+            if ($exp->front_page) {
+                $exp->front_page = route('storage.image', ['image' => str_replace('/', '-', $exp->front_page)]);
+            }
+        }
+
         $response['res'] = count($data);
         $response['msg'] = 'Experiencias de la ubicacion '.$this->params['ubicacion_id'];
         $response['data'] = $data;

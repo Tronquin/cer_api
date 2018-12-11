@@ -32,6 +32,10 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
             $webOrErp = $expErp->child ? $expErp->child->toArray() : $expErp->toArray();
 
+            if ($webOrErp['front_page']) {
+                $webOrErp['front_page'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_page'])]);
+            }
+
             $extraIds = [];
             $available = [];
             foreach ($expErp->extras as $extraErp) {
