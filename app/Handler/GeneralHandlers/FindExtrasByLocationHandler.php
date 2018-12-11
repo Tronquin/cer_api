@@ -37,6 +37,12 @@ class FindExtrasByLocationHandler extends BaseHandler {
             $extrasErpArray = [];
         }
         $extras = array_merge($extrasWebArray,$extrasErpArray);
+
+        foreach ($extras as &$extra) {
+            $extra['icon'] = route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
+            $extra['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
+        }
+
         $response['res'] = count($extras);
         $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $extras;
