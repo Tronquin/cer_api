@@ -24,12 +24,24 @@ class Typology extends Model
         'descripcion_po',
     ];
 
-    /**
-     * Session asociada al usuario
-     */
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function child()
+    {
+        return $this->hasOne(self::class, 'parent_id');
+    }
+
     public function apartamentos()
     {
-        return $this->hasMany('App\Apartamento');
+        return $this->hasMany(Apartment::class,'tipologia_id','tipologia_id');
+    }
+
+    public function galerias()
+    {
+        return $this->hasMany(Galery::class,'galeria_id','galeria_id');
     }
 
     public function cocinas()
@@ -61,8 +73,4 @@ class Typology extends Model
         return $this->belongsTo('App\Ubicacion');
     }
 
-    public function galerias()
-    {
-        return $this->hasMany('App\Galeria');
-    }
 }

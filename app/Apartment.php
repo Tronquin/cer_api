@@ -41,6 +41,10 @@ class Apartment extends Model
         return $this->hasOne(self::class, 'parent_id');
     }
 
+    public function tipologia(){
+        return $this->belongsTo(Typology::class,'tipologia_id','tipologia_id');
+    }
+
     /*public function reservas()
     {
         return $this->hasMany('App\Reserva');
@@ -67,9 +71,6 @@ class Apartment extends Model
         return $this->belongsTo('App\Galeria');
     }
 
-    public function tipologia(){
-        return $this->belongsTo('App\Tipologia');
-    }
 
 
     public function fondos()
