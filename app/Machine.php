@@ -38,4 +38,14 @@ class Machine extends Model
     {
         return $this->belongsTo(MachineUbication::class, 'machine_ubication_id');
     }
+
+    /**
+     * Errores de la maquina
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function machineComponentErrors()
+    {
+        return $this->hasMany(MachineComponentError::class, 'machine_id');
+    }
 }
