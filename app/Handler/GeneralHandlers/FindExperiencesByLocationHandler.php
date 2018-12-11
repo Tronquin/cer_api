@@ -39,14 +39,26 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             $extraIds = [];
             $available = [];
             foreach ($expErp->extras as $extraErp) {
-                $available[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+
+                $available[] = $temp;
                 $extraIds[] = $extraErp->id;
             }
 
             $noAvailable = [];
             foreach ($extras as $extraErp) {
                 if (! in_array($extraErp->id, $extraIds)) {
-                    $noAvailable[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                    $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                    $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                    $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+
+                    $noAvailable[] = $temp;
                 }
             }
 
