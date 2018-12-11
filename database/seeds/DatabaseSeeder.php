@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ComponentSeeder::class);
         $this->call(MachineUbicationSeeder::class);
         $this->call(MachineSeeder::class);
+        $this->call(GallerySeeder::class);
         Model::reguard();
     }
 }

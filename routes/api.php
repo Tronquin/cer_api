@@ -22,10 +22,16 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/extrasByLocation/{ubicacion_id}', 'General\SearchdController@findExtrasByLocation');
     // Busca las tipologias por ubicacion
     Route::get('/find/typologyByLocation/{ubicacion_id}', 'General\SearchdController@findTypologyByLocation');
+    // Busca los extras destacados por ubicacion
+    Route::get('/find/extras/outstanding/{ubicacion_id}', 'General\SearchdController@findExtrasOutstanding');
     // Busca las ubicaciones
     Route::get('/find/Locations/', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
     Route::get('language/list_translation/{device}', 'LanguageController@listTranslation');
+    // Indicar falla en un dispositivo
+    Route::post('/machine/device/fail/{device}/{machine}', 'MachineController@fail');
+    // Obtener configuracion de maquinas
+    Route::get('/machine/config/{publicId}', 'MachineController@config');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -96,6 +102,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
         // Registrar una reserva
         Route::post('/reservation/create', 'ReservationController@createReservation');
+        // Datos de un usuario
+        Route::get('user/{id}', 'UserController@find');
+        // Actualizar Usuario
+        Route::put('user/update/{user_id}', 'UserController@update');
+
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene las experiencias version erp
@@ -106,7 +117,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
             // Administracion de maquinas
             Route::resource('/admin/machine', 'MachineController');
-            Route::get('/admin/machine/config/{publicId}', 'MachineController@config');
             // Listado de idiomas con traducciones
             Route::get('/admin/language/list', 'LanguageController@languageDevice');
             // Actualizar ubicaciones
@@ -119,8 +129,12 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/galery/create', 'GaleryController@create');
             // Obtener Imagenes de ERP
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
-            // Obtener Imagenes de ERP
-            Route::post('/photo/create', 'PhotoController@create');
+            // Guardar imagenes en galeria
+            Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
+            // Obtener imagenes por galeria
+            Route::get('/photo/{galleryCode}', 'PhotoController@photos');
+            // Obtener imagenes por ubicacion
+            Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
         });
     });
 });

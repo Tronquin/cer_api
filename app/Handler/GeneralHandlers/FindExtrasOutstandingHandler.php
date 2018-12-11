@@ -3,9 +3,8 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Extra;
 use App\Handler\BaseHandler;
-use App\Service\ERPService;
 
-class FindExtrasByLocationHandler extends BaseHandler {
+class FindExtrasOutstandingHandler extends BaseHandler {
 
     /**
      * Proceso de este handler
@@ -14,14 +13,13 @@ class FindExtrasByLocationHandler extends BaseHandler {
     {
         $response = [];
         $extrasCollection = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
-            ->where('type', 'erp')
-            ->with(['child'])
+            ->where('type', 'web')
+            ->where('outstanding', true)
             ->get();
 
-        foreach ($extrasCollection as $extErp) {
-            $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
-
-            $extras[] = $webOrErp;
+        $extras = [];
+        foreach ($extrasCollection as $extra) {
+            $extras[] = $extra->toArray();
         }
         
         foreach ($extras as &$extra) {
@@ -30,7 +28,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
         }
 
         $response['res'] = count($extras);
-        $response['msg'] = 'extras de la ubicacion: '.$this->params['ubicacion_id'];
+        $response['msg'] = 'extras destacados de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $extras;
        
         return $response;

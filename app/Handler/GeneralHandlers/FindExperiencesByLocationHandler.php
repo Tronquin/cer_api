@@ -19,7 +19,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
         $experiencesCollection = Experience::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
-            ->with(['child', 'extras', 'apartamentos','galeria'])
+            ->with(['child', 'extras', 'apartamentos'])
             ->get();
 
         $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
@@ -32,17 +32,33 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
             $webOrErp = $expErp->child ? $expErp->child->toArray() : $expErp->toArray();
 
+            if ($webOrErp['front_page']) {
+                $webOrErp['front_page'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_page'])]);
+            }
+
             $extraIds = [];
             $available = [];
             foreach ($expErp->extras as $extraErp) {
-                $available[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+
+                $available[] = $temp;
                 $extraIds[] = $extraErp->id;
             }
 
             $noAvailable = [];
             foreach ($extras as $extraErp) {
                 if (! in_array($extraErp->id, $extraIds)) {
-                    $noAvailable[] = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                    $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                    $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                    $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+
+                    $noAvailable[] = $temp;
                 }
             }
 
@@ -57,19 +73,6 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
-
-            $galeries = $expErp->galeria->childErp ? $expErp->galeria->childErp->toArray() : $expErp->galeria->toArray();
-            
-            unset($webOrErp['galeria']);
-            $webOrErp['galeria'] = $galeries;
-            
-            $photos = [];
-            foreach ($expErp->galeria->fotos as $fotosErp) {
-                $photos[] = $fotosErp->child ? $fotosErp->child->toArray() : $fotosErp->toArray();
-            }
-
-            unset($webOrErp['galeria']['fotos']);
-            $webOrErp['galeria']['fotos'] = $photos;
 
             $experiences[] = $webOrErp;
         }

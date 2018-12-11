@@ -15,18 +15,9 @@ class CreateTablePhotos extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('foto_id');
-            $table->enum('type',['web','erp'])->default('erp');
-            $table->integer('parent_id')->nullable();
-            $table->integer('galeria_id')->nullable();
-            $table->integer('galleries_id')->nullable();
-            $table->string('archivo');
-            $table->string('descripcion_es')->nullable();
-            $table->string('descripcion_en')->nullable();
-            $table->string('descripcion_fr')->nullable();
-            $table->string('descripcion_zh')->nullable();
-            $table->string('descripcion_ru')->nullable();
-            $table->string('descripcion_po')->nullable();
+            $table->integer('gallery_id')->unsigned();
+            $table->foreign('gallery_id')->references('id')->on('galleries');
+            $table->string('url');
             $table->timestamps();
         });
     }

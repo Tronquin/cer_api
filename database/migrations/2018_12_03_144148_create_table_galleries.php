@@ -15,16 +15,11 @@ class CreateTableGalleries extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('galeria_id');
-            $table->enum('type',['web','erp'])->default('erp');
-            $table->integer('parent_galleries_id')->nullable();
-            $table->integer('parent_galeria_id')->nullable();
-            $table->string('nombre');
-            $table->string('nombre_en')->nullable();
-            $table->string('nombre_fr')->nullable();
-            $table->string('nombre_po')->nullable();
-            $table->integer('tipologia_id')->nullable();
-            $table->integer('ubicacion_id')->nullable();
+            $table->string('code', 50)->unique();
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->foreign('parent_id')->references('id')->on('galleries');
+            $table->integer('location_id')->unsigned()->nullable();
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
         });
     }

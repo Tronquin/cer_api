@@ -2,7 +2,7 @@
 namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
-use App\Service\ERPService;
+use App\Apartment;
 
 class FindApartmentsByLocationHandler extends BaseHandler {
 
@@ -12,13 +12,20 @@ class FindApartmentsByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $data = ERPService::findUbicacionData(['ubicacion_id' => $this->params['ubicacion_id']]);
-        $response['res'] = 1;
-        $response['msg'] = 'Apartamentos encontrados para la ubicacion '.$this->params['ubicacion_id'];
-        /*foreach($data['apartamentos'] as $key => $galeriaApartamento){
-            $data['apartamentos'][$key]['galeria'] = ERPService::findGaleryById(['galeria_id' => $galeriaApartamento['galeria_id']]);
-        }*/
-        $response['data'] = $data['apartamentos'];
+
+        $apartmentsCollection = Apartment::where('ubicacion_id', $this->params['ubicacion_id'])
+            ->where('type', 'erp')
+            ->with(['child'])
+            ->get();
+
+        foreach ($apartmentsCollection as $aptErp) {
+            $webOrErp = $aptErp->child ? $aptErp->child->toArray() : $aptErp->toArray();
+
+            $apartamentos[] = $webOrErp;
+        }
+        $response['res'] = count($apartamentos);
+        $response['msg'] = " Apartamentos de la ubicacion ".$this->params['ubicacion_id'];
+        $response['data'] = $apartamentos;
 
         return $response;
     }

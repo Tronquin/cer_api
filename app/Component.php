@@ -21,4 +21,14 @@ class Component extends Model
             ->withPivot(['active'])
             ;
     }
+
+    /**
+     * Errores del componente
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function machineComponentErrors()
+    {
+        return $this->hasMany(MachineComponentError::class, 'component_id');
+    }
 }

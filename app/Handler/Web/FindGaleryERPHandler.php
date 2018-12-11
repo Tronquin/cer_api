@@ -16,6 +16,11 @@ class FindGaleryERPHandler extends BaseHandler {
         $fotosERP = photo::where('type','erp')->get()->toArray();
        
         if ($fotosERP){
+
+            foreach ($fotosERP as &$photo) {
+                $photo['archivo'] = route('storage.image', ['image' => ('erpimages' . $photo['archivo']) ]);
+            }
+
             $response['res'] = count($fotosERP);
             $response['msg'] = 'imagenes de Erp';
             $response['data'] = $fotosERP;

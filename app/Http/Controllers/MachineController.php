@@ -7,6 +7,7 @@ use App\Handler\CreateMachineHandler;
 use App\Handler\DeleteMachineHandler;
 use App\Handler\ListMachineHandler;
 use App\Handler\SaveMachineHandler;
+use App\Handler\SetFailComponentHandler;
 use App\Handler\UpdateMachineHandler;
 use App\Handler\EditMachineHandler;
 use Illuminate\Http\JsonResponse;
@@ -146,6 +147,30 @@ class MachineController extends Controller
     public function config($publicId)
     {
         $handler = new GetMachineConfigHandler(compact('publicId'));
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $device
+     * @param  string  $machine
+     * @return JsonResponse
+     */
+    public function fail(Request $request, $device, $machine)
+    {
+        $request = $request->all();
+        $request['device'] = $device;
+        $request['machine'] = $machine;
+
+        $handler = new SetFailComponentHandler(['data' => $request]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

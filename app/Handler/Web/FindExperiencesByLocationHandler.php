@@ -2,7 +2,7 @@
 namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
-use App\Service\ERPService;
+use App\Experience;
 
 class FindExperiencesByLocationHandler extends BaseHandler {
 
@@ -12,14 +12,18 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $data = ERPService::findUbicacionData(['ubicacion_id' => $this->params['ubicacion_id']]);
+        $data = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])
+            ->where('type','=','erp')->get();
 
-        $response['res'] = '1';
-        $response['msg'] = 'Experiencias de la ubicacion '.$this->params['ubicacion_id'];
-        foreach($data['experiencias'] as $key => $galeriaExperiencia){
-            $data['experiencias'][$key]['galeria'] = ERPService::findGaleryById(['galeria_id' => $galeriaExperiencia['galeria_id']]);
+        foreach ($data as $exp) {
+            if ($exp->front_page) {
+                $exp->front_page = route('storage.image', ['image' => str_replace('/', '-', $exp->front_page)]);
+            }
         }
-        $response['data'] = $data['experiencias'];
+
+        $response['res'] = count($data);
+        $response['msg'] = 'Experiencias de la ubicacion '.$this->params['ubicacion_id'];
+        $response['data'] = $data;
 
         return $response;
     }
