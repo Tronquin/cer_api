@@ -19,6 +19,13 @@ class CreateTableUsers extends Migration
             $table->string('last_name');
             $table->string('password');
             $table->string('email');
+            $table->string('gender')->nullable();
+            $table->integer('pais')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('ciudad')->nullable();
+            $table->longText('direccion')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->date('birthday')->nullable();
             $table->timestamps();
         });
     }

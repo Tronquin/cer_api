@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Session;
+use App\Handler\Web\UpdateUserHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -100,6 +101,44 @@ class UserController extends Controller
         $session->save();
 
         return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => $session->token]);
+    }
+
+    /**
+     * Busca los datos de un usuario.
+     *
+     * @param  $id
+     * @return JsonResponse
+     */
+    protected function find($id)
+    {
+        $userExist = User::find($id);
+        if(!$userExist){
+            return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
+        }
+        unset($userExist['password']);
+        return new JsonResponse(['res' => 1, 'msg' => 'Datos del usuario', 'data' => $userExist]);
+    }
+
+    /**
+     * Busca los datos de un usuario.
+     *
+     * @param Request $request
+     * @param  $id
+     * @return JsonResponse
+     */
+    protected function update(Request $request,$user_id)
+    {
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+
+        $handler = new UpdateUserHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
 }

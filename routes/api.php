@@ -102,6 +102,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
         // Registrar una reserva
         Route::post('/reservation/create', 'ReservationController@createReservation');
+        // Datos de un usuario
+        Route::get('user/{id}', 'UserController@find');
+        // Actualizar Usuario
+        Route::put('user/update/{user_id}', 'UserController@update');
+
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene las experiencias version erp
