@@ -45,7 +45,7 @@ class CreateReservationHandler extends BaseHandler
             'zipCode' => 'required',
             'city' => 'required',
             'experience_id' => 'required|numeric',
-            'regime_id' => 'required|numeric',
+            'regimen_id' => 'required|numeric',
             'policy_id' => 'required|numeric',
             'promotion_id' => 'required|numeric',
             'adults' => 'required|numeric',

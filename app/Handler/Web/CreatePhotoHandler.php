@@ -16,17 +16,27 @@ class CreatePhotoHandler extends BaseHandler {
         $gallery = Galery::where('code', $this->params['data']['galleryCode'])->firstOrFail();
 
         $response['data'] = [];
+        $photoIds = [];
         foreach ($this->params['data']['photos'] as $p) {
 
-            $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
+            if (! isset($p['id'])) {
 
-            $photo = new Photo();
-            $photo->gallery_id = $gallery->id;
-            $photo->url = $path;
-            $photo->save();
+                $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
 
-            $response['data'][] = $photo;
+                $photo = new Photo();
+                $photo->gallery_id = $gallery->id;
+                $photo->url = $path;
+                $photo->save();
+
+                $response['data'][] = $photo;
+                $photoIds[] = $photo->id;
+            } else {
+                $photoIds[] = $p['id'];
+            }
         }
+
+        // Elimino las imagenes que no llegaron del front
+        Photo::query()->whereNotIn('id', $photoIds)->delete();
 
         $response['res'] = '1';
         $response['msg'] = 'foto guardada exitosamente';
