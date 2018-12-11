@@ -13,31 +13,17 @@ class FindExtrasByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $extrasWeb = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','web')->get();
+        $extrasCollection = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
+            ->where('type', 'erp')
+            ->with(['child'])
+            ->get();
+
+        foreach ($extrasCollection as $extErp) {
+            $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
+
+            $extras[] = $webOrErp;
+        }
         
-        if(count($extrasWeb)){
-            foreach($extrasWeb as $ew){
-                $extrasWebArray[] = $ew->getOriginal();
-                $dataEW[] = $ew->extra_id;
-            }
-        }else{
-            $extrasWebArray=[];
-        }
-
-        if(isset($dataEW)){
-            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->whereNotIn('extra_id',$dataEW)->get();
-        }else{
-            $extrasErp = Extra::where('ubicacion_id','=',$this->params['ubicacion_id'])->where('type','=','erp')->get();
-        }
-        if(count($extrasErp)){
-            foreach($extrasErp as $ee){
-                $extrasErpArray[] = $ee->getOriginal();
-            }
-        }else{
-            $extrasErpArray = [];
-        }
-        $extras = array_merge($extrasWebArray,$extrasErpArray);
-
         foreach ($extras as &$extra) {
             $extra['icon'] = route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);

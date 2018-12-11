@@ -39,11 +39,6 @@ class Typology extends Model
         return $this->hasMany(Apartment::class,'tipologia_id','tipologia_id');
     }
 
-    public function galerias()
-    {
-        return $this->hasMany(Galery::class,'galeria_id','galeria_id');
-    }
-
     public function cocinas()
     {
         return $this->hasMany('App\Cocina');
