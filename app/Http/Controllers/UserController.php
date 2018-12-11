@@ -102,4 +102,20 @@ class UserController extends Controller
         return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => $session->token]);
     }
 
+    /**
+     * Busca los datos de un usuario.
+     *
+     * @param  $id
+     * @return JsonResponse
+     */
+    protected function findUser($id)
+    {
+        $userExist = User::find($id);
+        if(!$userExist){
+            return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
+        }
+        unset($userExist['password']);
+        return new JsonResponse(['res' => 1, 'msg' => 'Datos del usuario', 'data' => $userExist]);
+    }
+
 }

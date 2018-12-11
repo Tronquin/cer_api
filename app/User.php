@@ -13,7 +13,14 @@ class User extends Model
         'last_name',
         'email',
         'password',
-        'rol_id'
+        'rol_id',
+        'gender',
+        'pais',
+        'phone',
+        'ciudad',
+        'direccion',
+        'postal_code',
+        'birthday',
     ];
 
     /**
