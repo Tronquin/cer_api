@@ -26,6 +26,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/Locations/', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
     Route::get('language/list_translation/{device}', 'LanguageController@listTranslation');
+    // Indicar falla en un dispositivo
+    Route::post('/machine/device/fail/{device}/{machine}', 'MachineController@fail');
+    // Obtener configuracion de maquinas
+    Route::get('/machine/config/{publicId}', 'MachineController@config');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -106,7 +110,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
             // Administracion de maquinas
             Route::resource('/admin/machine', 'MachineController');
-            Route::get('/admin/machine/config/{publicId}', 'MachineController@config');
             // Listado de idiomas con traducciones
             Route::get('/admin/language/list', 'LanguageController@languageDevice');
             // Actualizar ubicaciones
