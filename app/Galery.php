@@ -39,11 +39,11 @@ class Galery extends Model
         return $this->belongsTo(Location::class,'id');
     }
 
-    /*
+    
     public function tipologia()
     {
-        return $this->belongsTo('App\Tipologia');
-    }*/
+        return $this->belongsTo(Typology::class,'tipologia_id','tipologia_id');
+    }
 
     // Relacion para obtener la version web del registro erp de la galeria
     public function parentErp()
