@@ -51,6 +51,12 @@ class Location extends Model
         return $this->hasOne(self::class, 'parent_id');
     }
 
+    public function tarifas()
+    {
+        return $this->hasMany(Package::class,'tarifa_id','tarifa_id');
+
+    }
+
     /**
      * Ubicacion::find($ubicacion_id)->extras;
      *
@@ -105,11 +111,6 @@ class Location extends Model
         return $this->hasMany('App\Tipologia');
     }
 
-    public function tarifas()
-    {
-        return $this->hasMany('App\Tarifa');
-
-    }
 
     public function masters()
     {
