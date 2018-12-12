@@ -33,6 +33,8 @@ class UpdateMachineHandler extends BaseHandler {
 
             $machine->save();
 
+            /** no se modifican los componentes **/
+            /*
             $componentArray = [];
             if (isset($this->params['data']['components'])) {
                 foreach ($this->params['data']['components'] as $key => $component) {
@@ -40,7 +42,8 @@ class UpdateMachineHandler extends BaseHandler {
                     $componentArray[$machineComponent->id]['active'] = true;
                 }
                 $machine->components()->sync($componentArray);                
-            }            
+            }
+            */            
 
             $response['data'] = ['machine' => $machine->public_id];
             $response['success'] = true;
