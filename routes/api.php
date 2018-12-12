@@ -32,6 +32,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/machine/device/fail/{device}/{machine}', 'MachineController@fail');
     // Obtener configuracion de maquinas
     Route::get('/machine/config/{publicId}', 'MachineController@config');
+    // Obtener extras no-disponibles de una experiencia
+    Route::get('/find/extrasForPurchase/{experience_id}/{ubicacion_id}', 'General\SearchdController@findExtrasForPurchase');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
