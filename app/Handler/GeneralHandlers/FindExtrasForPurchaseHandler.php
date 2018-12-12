@@ -1,0 +1,74 @@
+<?php
+namespace App\Handler\GeneralHandlers;
+
+use App\Handler\BaseHandler;
+use App\Experience;
+use App\Galery;
+use App\Extra;
+use App\Photo;
+
+class FindExtrasForPurchaseHandler extends BaseHandler {
+
+    /**
+     * Proceso de este handler
+     */
+    protected function handle()
+    {
+        $response = [];
+        $experiences = [];
+        $webOrErp = [];
+
+        $experienceCollection = Experience::where('experiencia_id',$this->params['experiencia_id'])
+            ->where('type', 'erp')
+            ->with(['child', 'extras'])
+            ->get();
+            
+        $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
+            ->where('type', 'erp')    
+            ->with(['child'])
+            ->get();
+            
+        foreach($experienceCollection as $expErp){
+            
+            $extraIds = [];
+            $available = [];
+            foreach ($expErp->extras as $extraErp) {
+
+                $extraIds[] = $extraErp->id;
+            }
+
+            $noAvailable = [];
+            foreach ($extras as $extraErp) {
+                if (! in_array($extraErp->id, $extraIds)) {
+
+                    $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
+
+                    $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                    $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+
+                    $webOrErp[] = $temp;
+                }
+            }
+        
+        }
+        
+        $response['res'] = count($webOrErp);
+        $response['msg'] = 'extras para contratar';
+        $response['data'] = $webOrErp;
+       
+        return $response;
+    }
+
+    /**
+     * Reglas de validacion
+     *
+     * @return array
+     */
+    protected function validationRules()
+    {
+        return [
+            'ubicacion_id' => 'required|numeric',
+        ];
+    }
+
+}

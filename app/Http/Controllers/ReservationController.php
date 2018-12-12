@@ -15,6 +15,7 @@ use App\Handler\AvailabilityRoomHandler;
 use App\Handler\AvailabilityPlanHandler;
 use App\Handler\AvailabilityExperienceHandler;
 use App\Handler\AvailabilityServiceHandler;
+use App\Handler\ReservationHistoryHandler;
 use App\Handler\ReservationPaymentHandler;
 use App\Handler\ReservationPersistenceHandler;
 use App\Handler\ReservationGuestPersistenceHandler;
@@ -727,6 +728,24 @@ class ReservationController extends Controller
     public function createReservation(Request $request)
     {
         $handler = new CreateReservationHandler($request->all());
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene el historial de reserva de un usuario
+     *
+     * @param string $email
+     * @return JsonResponse
+     */
+    public function reservationHistory($email)
+    {
+        $handler = new ReservationHistoryHandler(compact('email'));
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

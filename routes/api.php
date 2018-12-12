@@ -32,6 +32,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/machine/device/fail/{device}/{machine}', 'MachineController@fail');
     // Obtener configuracion de maquinas
     Route::get('/machine/config/{publicId}', 'MachineController@config');
+    // Obtener extras no-disponibles de una experiencia
+    Route::get('/find/extrasForPurchase/{experience_id}/{ubicacion_id}', 'General\SearchdController@findExtrasForPurchase');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -106,6 +108,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('user/{id}', 'UserController@find');
         // Actualizar Usuario
         Route::put('user/update/{user_id}', 'UserController@update');
+        // Historial de reservas
+        Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
 
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
