@@ -36,7 +36,7 @@ class CreatePhotoHandler extends BaseHandler {
         }
 
         // Elimino las imagenes que no llegaron del front
-        Photo::query()->whereNotIn('id', $photoIds)->delete();
+        Photo::query()->where('gallery_id', $gallery->id)->whereNotIn('id', $photoIds)->delete();
 
         $response['res'] = '1';
         $response['msg'] = 'foto guardada exitosamente';
