@@ -11,6 +11,7 @@ use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
 use App\Handler\GeneralHandlers\FindExtrasByLocationHandler;
 use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
+use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -172,6 +173,28 @@ class SearchdController extends Controller
     public function findLocations(){
 
         $handler = new FindLocationsHandler();
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Busca los extras for purchase
+     * @param $experiencia_id
+     * @param $ubicacion_id
+     * @return JsonResponse
+     */
+    public function findExtrasForPurchase($experiencia_id,$ubicacion_id){
+        
+        $data = [];
+        $data['experiencia_id'] = $experiencia_id;
+        $data['ubicacion_id'] = $ubicacion_id;
+
+        $handler = new FindExtrasForPurchaseHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
