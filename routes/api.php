@@ -34,6 +34,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/machine/config/{publicId}', 'MachineController@config');
     // Obtener extras no-disponibles de una experiencia
     Route::get('/find/extrasForPurchase/{experience_id}/{ubicacion_id}', 'General\SearchdController@findExtrasForPurchase');
+    // Obtener imagenes por galeria
+    Route::get('/photo/{galleryCode}', 'PhotoController@photos');
+    // Obtener imagenes por ubicacion
+    Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -135,10 +139,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
-            // Obtener imagenes por galeria
-            Route::get('/photo/{galleryCode}', 'PhotoController@photos');
-            // Obtener imagenes por ubicacion
-            Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
         });
     });
 });
