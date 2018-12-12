@@ -16,6 +16,7 @@ class FindExtrasForPurchaseHandler extends BaseHandler {
     {
         $response = [];
         $experiences = [];
+        $webOrErp = [];
 
         $experienceCollection = Experience::where('experiencia_id',$this->params['experiencia_id'])
             ->where('type', 'erp')
@@ -25,6 +26,7 @@ class FindExtrasForPurchaseHandler extends BaseHandler {
         $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')    
             ->with(['child'])
+            ->limit(10)
             ->get();
             
         foreach($experienceCollection as $expErp){
