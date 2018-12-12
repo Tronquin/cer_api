@@ -16,6 +16,7 @@ class FindExtrasForPurchaseHandler extends BaseHandler {
     {
         $response = [];
         $experiences = [];
+        $webOrErp = [];
 
         $experienceCollection = Experience::where('experiencia_id',$this->params['experiencia_id'])
             ->where('type', 'erp')
