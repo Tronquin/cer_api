@@ -93,8 +93,8 @@ abstract class BaseHandler {
 
             try {
 
-                // Inicia el handler
                 $this->data = $this->handle();
+                // Inicia el handler
                 $this->audit();
 
             } catch (\Exception $ex) {
