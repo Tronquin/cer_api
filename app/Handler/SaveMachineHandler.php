@@ -19,6 +19,9 @@ class SaveMachineHandler extends BaseHandler {
 
         $machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
         $machine->description = $this->params['data']['description'];
+        $machine->api_url = $this->params['data']['api_url'];
+        $machine->device_url = $this->params['data']['device_url'];
+        $machine->phone = $this->params['data']['phone'];
         $machine->machine_ubication_id = $machineUbication->id;
         $machine->public_id = uniqid('MAC-');
 
@@ -45,7 +48,9 @@ class SaveMachineHandler extends BaseHandler {
         return [
             'ubication' => 'required',
             'description' => 'required',
-            'components' => 'required'
+            'api_url' => 'required',
+            'device_url' => 'required',
+            'phone' => 'required'
         ];
     }
 

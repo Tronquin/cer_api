@@ -26,17 +26,21 @@ class UpdateMachineHandler extends BaseHandler {
 
             $machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
             $machine->description = $this->params['data']['description'];
+            $machine->api_url = $this->params['data']['api_url'];
+            $machine->device_url = $this->params['data']['device_url'];
+            $machine->phone = $this->params['data']['phone'];
             $machine->machine_ubication_id = $machineUbication->id;
 
             $machine->save();
 
             $componentArray = [];
-            foreach ($this->params['data']['components'] as $key => $component) {
-                $machineComponent = Component::where('name', '=' , $component['name'])->first();
-                $componentArray[$machineComponent->id]['active'] = true;
-            }
-
-            $machine->components()->sync($componentArray);
+            if (isset($this->params['data']['components'])) {
+                foreach ($this->params['data']['components'] as $key => $component) {
+                    $machineComponent = Component::where('name', '=' , $component['name'])->first();
+                    $componentArray[$machineComponent->id]['active'] = true;
+                }
+                $machine->components()->sync($componentArray);                
+            }            
 
             $response['data'] = ['machine' => $machine->public_id];
             $response['success'] = true;
@@ -54,7 +58,11 @@ class UpdateMachineHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'id' => 'required'
+            'id' => 'required',
+            'description' => 'required',
+            'phone' => 'required',
+            'api_url' =>'required',
+            'device_url' => 'required'
         ];
     }
 
