@@ -24,12 +24,12 @@ class UpdateMachineHandler extends BaseHandler {
 
         if (! is_null($machine)) {
 
-            $machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
+            //$machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
             $machine->description = $this->params['data']['description'];
             $machine->api_url = $this->params['data']['api_url'];
             $machine->device_url = $this->params['data']['device_url'];
             $machine->phone = $this->params['data']['phone'];
-            $machine->machine_ubication_id = $machineUbication->id;
+            $machine->machine_ubication_id = (int)$this->params['data']['ubication'];
 
             $machine->save();
 
@@ -63,6 +63,7 @@ class UpdateMachineHandler extends BaseHandler {
         return [
             'id' => 'required',
             'description' => 'required',
+            'ubication' => 'required',
             'phone' => 'required',
             'api_url' =>'required',
             'device_url' => 'required'
