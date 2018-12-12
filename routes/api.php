@@ -135,6 +135,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/photo/{galleryCode}', 'PhotoController@photos');
             // Obtener imagenes por ubicacion
             Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
+            // Historial de reservas
+            Route::get('/admin/reservation/history/{email}', 'ReservationController@reservationHistory');
         });
     });
 });
