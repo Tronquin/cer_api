@@ -508,6 +508,19 @@ class ERPService {
 
         return $response;
     }
+
+    /**
+     * Realiza el pago de una reserva por TDC
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function processPayment(array $data)
+    {
+        $response = self::send('reservas/cobrarPago', $data);
+
+        return $response;
+    }
     
     /**
      * Envia un request al ERP

@@ -2,7 +2,7 @@
 namespace App\Handler\PaymentGateway;
 
 use App\Handler\BaseHandler;
-use App\Service\PaymentGatewayService;
+use App\Service\ERPService;
 use Request;
 
 class ReservationProcessPaymentHandler extends BaseHandler{
@@ -12,12 +12,21 @@ class ReservationProcessPaymentHandler extends BaseHandler{
      */
     protected function handle()
     {
-        $paymentGateway = PaymentGatewayService::getPaymentGateway($this->params['data']['payment_type']);
-        $paymentGateway->setCurrency('EUR');
-        $this->params['data']['ip'] = Request::ip();
-        $payments = $paymentGateway->processPayment($this->params['data']);
+        $cc = $this->params['data']['creditCard'];
+        $name = str_replace(' ', '_', $this->params['data']['holderName']);
+        $date = $this->params['data']['date'];
+        $cvv = $this->params['data']['cvv'];
 
-        return $payments;
+        $ccString = "{$cc}/{$name}/{$date}/{$cvv}";
+        $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5('$4a$'), $ccString, MCRYPT_MODE_CBC, md5(md5('$4a$'))));
+
+        $response = ERPService::processPayment([
+            'pago_id' => $this->params['data']['payment_id'],
+            'nombre' => $this->params['data']['holderName'],
+            'enc' => $encrypted
+        ]);
+
+        return $response;
     }
 
     /**
@@ -28,7 +37,12 @@ class ReservationProcessPaymentHandler extends BaseHandler{
     protected function validationRules()
     {
         return [
-           
+            'payment_id' => 'required|numeric',
+            'creditCard' => 'required',
+            'holderName' => 'required',
+            'holderId' => 'required',
+            'date' => 'required|regex:/^[0-9]{2}-[0-9]{4}$/',
+            'cvv' => 'required'
         ];
     }
 
