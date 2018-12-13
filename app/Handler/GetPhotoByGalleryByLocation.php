@@ -26,6 +26,12 @@ class GetPhotoByGalleryByLocation extends BaseHandler
             foreach ($gallery->photos as $photo) {
                 $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
             }
+
+            if (count($gallery->photos) === 0) {
+                $gallery->photos[] = [
+                    'url' => 'https://via.placeholder.com/150x150'
+                ];
+            }
         }
 
         $response['res'] = count($galleries);

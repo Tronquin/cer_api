@@ -25,6 +25,12 @@ class GetPhotoByGallery extends BaseHandler
             $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
         }
 
+        if (count($photos) === 0) {
+            $photos[] = [
+                'url' => 'https://via.placeholder.com/150x150'
+            ];
+        }
+
         $response['res'] = count($photos);
         $response['msg'] = 'Fotos de la galeria ' . $gallery->code;
         $response['data'] = $photos;
