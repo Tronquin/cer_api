@@ -733,12 +733,17 @@ class ReservationController extends Controller
 
         if (!$handler->isSuccess()) 
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-        
+
         $reserva = $handler->getData();
 
-        $request['description'] = "pago de la reserva N°".$reserva['data']['reserva']['id']." a nombre de ".$request['holder'];
+        $data['paymentId'] = $reserva['data']['reserva']['pagos'][0]['id'];
+        $data['creditCard'] = $request['number'];
+        $data['holder'] = $request['holder'];
+        $data['date'] = $request['expirationMonth'] . '-' . $request['expirationYear'];
+        $data['cvc'] = $request['cvc'];
+
         // Se efectua el proceso de cobro por tarjeta de credito a traves del paymentGateway
-        $handler = new ReservationProcessPaymentHandler(['data' => $request]);
+        $handler = new ReservationProcessPaymentHandler(compact('data'));
         $handler->processHandler();
 
         if (!$handler->isSuccess()) 

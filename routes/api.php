@@ -38,6 +38,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/photo/{galleryCode}', 'PhotoController@photos');
     // Obtener imagenes por ubicacion
     Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
+    // Registrar una reserva
+    Route::post('/reservation/create', 'ReservationController@createReservation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -106,8 +108,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/hascheckinmovil', 'ReservationController@hasCheckinMovil');
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
-        // Registrar una reserva
-        Route::post('/reservation/create', 'ReservationController@createReservation');
         // Datos de un usuario
         Route::get('user/{id}', 'UserController@find');
         // Actualizar Usuario
