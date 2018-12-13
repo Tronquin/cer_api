@@ -8,6 +8,8 @@ class Reservation extends Model
 {
     protected $table = 'reservation';
 
+    protected $dates = ['checkin', 'checkout'];
+
     /**
      * Tipologia
      */

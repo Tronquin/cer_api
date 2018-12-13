@@ -25,6 +25,11 @@ class ReservationHistoryHandler extends BaseHandler
             ->get()
         ;
 
+        foreach ($reservations as $reservation) {
+            $reservation->checkinWeekDay = $reservation->checkin->format('l');
+            $reservation->checkoutWeekDay = $reservation->checkout->format('l');
+        }
+
         return [
             'res' => count($reservations),
             'msg' => 'Historial de reservas usuario: ' . $user->email,
