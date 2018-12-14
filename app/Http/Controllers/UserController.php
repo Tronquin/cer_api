@@ -13,6 +13,32 @@ class UserController extends Controller
 {
 
     /**
+     * Indica si una session esta activa
+     *
+     * @param string $token
+     * @return JsonResponse
+     */
+    public function isAuth($token)
+    {
+        $now = new \DateTime();
+        $session = Session::query()
+            ->where('token', $token)
+            ->where('expired_at', '>', $now)
+            ->with(['user'])
+            ->first();
+
+        return new JsonResponse([
+            'res' => $session ? 1 : 0,
+            'msg' => $session ? 'Usuario autenticado' : 'Session not found',
+            'data' => [
+                'isAuth' => !is_null($session),
+                'token' => $token,
+                'email' => $session ? $session->user->email : null
+            ]
+        ]);
+    }
+
+    /**
      * Create a new user instance after a valid registration.
      *
      * @param  Request $request
@@ -101,7 +127,7 @@ class UserController extends Controller
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => ['session' => $session->token,'user_id' => $userExist['id']]]);
+        return new JsonResponse(['res' => 1, 'msg' => 'Loggin Exitoso', 'data' => ['session' => $session->token]]);
     }
 
     /**
@@ -141,5 +167,4 @@ class UserController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
-
 }

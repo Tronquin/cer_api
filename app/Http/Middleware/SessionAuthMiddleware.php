@@ -26,20 +26,20 @@ class SessionAuthMiddleware
         }
 
         if (! $request->headers->has('session')) {
-            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session is required']);
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session is required'], 403);
         }
 
         $session = Session::query()->where('token', $request->headers->get('session'))->first();
 
         if (! $session) {
-            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session not found']);
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session not found'], 403);
         }
 
         $now = new \DateTime();
         $expiredAt = $session->expired_at;
 
         if ($now > $expiredAt) {
-            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session expired']);
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'session expired'], 403);
         }
 
         $clientIp = $request->ip();

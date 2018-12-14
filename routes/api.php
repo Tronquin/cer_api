@@ -7,6 +7,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
+    Route::post('/is-auth/{token}', 'UserController@isAuth');
 
     // obtiene los apartamentos de una ubicacion
     Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
