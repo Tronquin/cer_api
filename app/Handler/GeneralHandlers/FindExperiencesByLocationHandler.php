@@ -20,6 +20,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
         $experiencesCollection = Experience::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
             ->with(['child', 'extras', 'apartamentos'])
+            ->orderBy('experiencia_id')
             ->get();
 
         $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
