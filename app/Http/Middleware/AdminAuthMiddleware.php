@@ -3,13 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Session;
-use App\OAuth2Client;
 use Closure;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
-use App\Http\Middleware\Oauth2Middleware;
-use App\Http\Middleware\SessionAuthMiddleware;
 
 class AdminAuthMiddleware
 {
@@ -30,7 +25,7 @@ class AdminAuthMiddleware
             ->first();
 
         if (! $session || $session->user->rol->name !== 'Admin') {
-            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Acceso Restringido']);
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Acceso Restringido'], 403);
         }
 
         return $next($request);
