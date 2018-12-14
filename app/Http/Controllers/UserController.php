@@ -131,6 +131,20 @@ class UserController extends Controller
     }
 
     /**
+     * Cierra la sesion
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    protected function logout(Request $request)
+    {
+        $token = $request->headers->get('session');
+        Session::query()->where('token', $token)->delete();
+
+        return new JsonResponse(['res' => 1, 'msg' => 'Logout Exitoso', 'data' => ['session' => $token]]);
+    }
+
+    /**
      * Busca los datos de un usuario.
      *
      * @param  $id

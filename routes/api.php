@@ -43,6 +43,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/reservation/create', 'ReservationController@createReservation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
+        // Cerrar sesion
+        Route::post('/logout', 'UserController@logout');
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // Find all Reservation to checkin by date
