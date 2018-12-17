@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Handler\GetPhotoByGallery;
 use App\Handler\GetPhotoByGalleryByLocation;
+use App\Handler\Web\FindGaleryERPHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Handler\Web\CreatePhotoHandler;
