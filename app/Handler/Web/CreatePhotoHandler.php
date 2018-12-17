@@ -21,7 +21,11 @@ class CreatePhotoHandler extends BaseHandler {
 
             if (! isset($p['id'])) {
 
-                $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
+                if ($p['isErp']) {
+                    $path = $p['photo'];
+                }else {
+                    $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
+                }
 
                 $photo = new Photo();
                 $photo->gallery_id = $gallery->id;

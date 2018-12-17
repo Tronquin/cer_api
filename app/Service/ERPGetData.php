@@ -348,7 +348,7 @@ class ERPGetData {
 
                                 }catch (\Exception $e){}
 
-                                $foto_erp->url = str_slug($photoData['0'], '_') . '.' .$photoData[1];
+                                $foto_erp->url = 'erpimages/' . str_slug($photoData['0'], '_') . '.' .$photoData[1];
                                 $foto_erp->save();
                             }
                         }

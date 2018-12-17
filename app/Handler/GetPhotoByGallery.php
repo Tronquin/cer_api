@@ -1,5 +1,6 @@
 <?php
 namespace App\Handler;
+use App\ERPImage;
 use App\Galery;
 
 /**
@@ -31,9 +32,17 @@ class GetPhotoByGallery extends BaseHandler
             ];
         }
 
+        $erpImages = ERPImage::all();
+        foreach ($erpImages as $erpImage) {
+            $erpImage->completeUrl = route('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
+        }
+
         $response['res'] = count($photos);
         $response['msg'] = 'Fotos de la galeria ' . $gallery->code;
-        $response['data'] = $photos;
+        $response['data'] = [
+            'photos' => $photos,
+            'erpImages' => $erpImages
+        ];
 
         return $response;
     }
