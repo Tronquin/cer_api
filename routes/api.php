@@ -27,7 +27,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Busca los extras destacados por ubicacion
     Route::get('/find/extras/outstanding/{ubicacion_id}', 'General\SearchdController@findExtrasOutstanding');
     // Busca las ubicaciones
-    Route::get('/find/Locations/', 'General\SearchdController@findLocations');
+    Route::get('/find/Locations', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
     Route::get('language/list_translation/{device}', 'LanguageController@listTranslation');
     // Indicar falla en un dispositivo
@@ -124,7 +124,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             //Obtiene los extras version erp
             Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@findExtrasByLocation');
             //Guarda o Modifica los extras version web
-            Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
+            Route::post('/admin/extras', 'Admin\HomeController@saveExtras');
             // Administracion de maquinas
             Route::resource('/admin/machine', 'MachineController');
             // Listado de idiomas con traducciones
