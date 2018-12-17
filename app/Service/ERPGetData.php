@@ -341,15 +341,16 @@ class ERPGetData {
                                 $photo = explode(" ", $photoData[0]);
                                 $photo = implode("%20", $photo);
                                 $photoName = str_slug($photoData[0], '_');
+                                $photoPath = 'erpimages/'. $photoName . '.' . $photoData[1];
 
                                 try{
                                     $imagen = file_get_contents("https://erp.castroexclusiveresidences.com/uploads/galerias/".$photo.'.'.$photoData[1]);
-                                    Storage::disk('public')->put('erpimages/'.$photoName.'.'.$photoData[1], $imagen);
+                                    Storage::disk('public')->put($photoPath, $imagen);
+
+                                    $foto_erp->url = $photoPath;
+                                    $foto_erp->save();
 
                                 }catch (\Exception $e){}
-
-                                $foto_erp->url = 'erpimages/' . str_slug($photoData['0'], '_') . '.' .$photoData[1];
-                                $foto_erp->save();
                             }
                         }
                     }
