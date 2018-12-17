@@ -1,10 +1,13 @@
 <?php
 namespace App;
 
+use App\TraitDefinition\FieldTranslationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Extra extends Model
 {
+    use FieldTranslationTrait;
+
     protected $table = 'extras';
 
     protected $fillable = [
