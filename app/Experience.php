@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\TraitDefinition\FieldTranslationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Experience extends Model
 {
+    use FieldTranslationTrait;
+
     protected $table = 'experiences';
 
     protected $fillable = [

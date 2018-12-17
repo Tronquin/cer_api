@@ -29,4 +29,12 @@ class Language extends Model
             ->withPivot(['translation'])
             ;
     }
+
+    /**
+     * Traducciones para campos dinamicos
+     */
+    public function fieldTranslations()
+    {
+        return $this->hasMany(FieldTranslation::class, 'language_id');
+    }
 }
