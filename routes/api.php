@@ -8,6 +8,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
+    Route::post('/logout', 'UserController@logout');
 
     // obtiene los apartamentos de una ubicacion
     Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
@@ -43,8 +44,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/reservation/create', 'ReservationController@createReservation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
-        // Cerrar sesion
-        Route::post('/logout', 'UserController@logout');
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // Find all Reservation to checkin by date
