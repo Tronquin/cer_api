@@ -1,19 +1,16 @@
 <?php
 namespace App\Service;
 
-use App\Service\ERPService;
+use App\ERPImage;
 use App\Location;
 use App\Extra;
 use App\Experience;
 use App\Apartment;
 use App\Typology;
 use App\Package;
-use App\Galery;
-use App\Photo;
 use App\CancellationPolicy;
 use App\Promotion;
 use Illuminate\Support\Facades\Storage;
-use App\Handler\GeneralHandlers\FindLocationsHandler;
 
 class ERPGetData {
 
@@ -329,53 +326,34 @@ class ERPGetData {
                 }
                 // Tabla Galeria
 
-//                foreach($data_galeria as $galeria){
-//
-//                    $galeria_erp = Galery::where('galeria_id','=',$galeria['id'])
-//                        ->where('type','=','erp')
-//                        ->firstOrNew(['galeria_id' => $galeria['id'],'type' =>'erp']);
-//
-//                    $galeria_erp->galeria_id = $galeria['id'];
-//                    $galeria_erp->nombre = isset($galeria['nombre']) ? $galeria['nombre'] : "";
-//                    $galeria_erp->nombre_en = isset($galeria['nombre_en']) ? $galeria['nombre_en'] : "";
-//                    $galeria_erp->nombre_fr = isset($galeria['nombre_fr']) ? $galeria['nombre_fr'] : "";
-//                    $galeria_erp->nombre_po = isset($galeria['nombre_po']) ? $galeria['nombre_po'] : "";
-//                    $galeria_erp->tipologia_id = isset($galeria['tipologia_id']) ? $galeria['tipologia_id'] : 0;
-//
-//                    $galeria_erp->save();
-//                    if(isset($galeria['fotos'])){
-//                        foreach($galeria['fotos'] as $foto){
-//
-//                            $foto_erp = Photo::where('foto_id','=',$foto['id'])
-//                                ->where('type','=','erp')
-//                                ->firstOrNew(['foto_id' => $foto['id'],'type' =>'erp']);
-//
-//                                $foto_erp->foto_id = $foto['id'];
-//                                $foto_erp->galeria_id = $foto['galeria_id'];
-//                                $photoData = explode('.',$foto['archivo']);
-//                                $photo = explode(" ",$photoData[0]);
-//                                $photo = implode("%20",$photo);
-//                                $photoName = str_slug($photoData[0],'_');
-//                                try{
-//                                    $imagen = file_get_contents("https://erp.castroexclusiveresidences.com/uploads/galerias/".$photo.'.'.$photoData[1]);
-//                                    Storage::disk('public')->put('erpimages/'.$photoName.'.'.$photoData[1], $imagen);
-//
-//                                }catch (\Exception $e){
-//
-//                                }
-//
-//                                $foto_erp->archivo = str_slug($photoData['0'],'_').'.'.$photoData[1];
-//                                $foto_erp->descripcion_es = $foto['descripcion_es'];
-//                                $foto_erp->descripcion_en = $foto['descripcion_en'];
-//                                $foto_erp->descripcion_fr = $foto['descripcion_fr'];
-//                                $foto_erp->descripcion_zh = $foto['descripcion_zh'];
-//                                $foto_erp->descripcion_ru = $foto['descripcion_ru'];
-//                                $foto_erp->descripcion_po = $foto['descripcion_po'];
-//
-//                                $foto_erp->save();
-//                        }
-//                    }
-//                }
+                foreach($data_galeria as $galeria){
+
+                    if(isset($galeria['fotos'])){
+                        foreach($galeria['fotos'] as $foto){
+
+                            $foto_erp = ERPImage::where('erp_photo_id', $foto['id'])->first();
+
+                            if (! $foto_erp) {
+
+                                $foto_erp = new ERPImage();
+                                $foto_erp->erp_photo_id = $foto['id'];
+                                $photoData = explode('.', $foto['archivo']);
+                                $photo = explode(" ", $photoData[0]);
+                                $photo = implode("%20", $photo);
+                                $photoName = str_slug($photoData[0], '_');
+
+                                try{
+                                    $imagen = file_get_contents("https://erp.castroexclusiveresidences.com/uploads/galerias/".$photo.'.'.$photoData[1]);
+                                    Storage::disk('public')->put('erpimages/'.$photoName.'.'.$photoData[1], $imagen);
+
+                                }catch (\Exception $e){}
+
+                                $foto_erp->url = str_slug($photoData['0'], '_') . '.' .$photoData[1];
+                                $foto_erp->save();
+                            }
+                        }
+                    }
+                }
             }
         }else{
             $response = 'Locations Not Found';
