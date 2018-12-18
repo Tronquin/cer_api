@@ -32,32 +32,7 @@ class UpdateLocationHandler extends BaseHandler
             $location->logo = $path;
         }
         
-        foreach($languages as $language){
-            foreach($this->params['fieldTranslations'] as $field){
-                
-                if($field['iso'] == $language->iso){
-                    foreach($field['fields'] as $fieldTranslation){
-
-                        if (! in_array($fieldTranslation['field'], $location->fieldsToTranslate())) {
-                            continue;
-                        }
-
-                        $translation = FieldTranslation::where('content_id',$location->id)
-                                ->where('content_type','App\Location')
-                                ->where('field',$fieldTranslation['field'])
-                                ->firstOrNew([]);
-    
-                                $translation->content_id = $location->id;
-                                $translation->content_type = "App\Location";
-                                $translation->language_id = $language->id;
-                                $translation->field = $fieldTranslation['field'];
-                                $translation->translation = $fieldTranslation['translation'];
-    
-                                $translation->save();
-                    }
-                }
-            }
-        }
+        $location->updateFieldTranslations($this->params['fieldTranslations']);
 
         $location->save();
 

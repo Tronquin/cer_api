@@ -57,4 +57,39 @@ trait FieldTranslationTrait
      * @return array
      */
     abstract public function fieldsToTranslate();
+
+
+    public function updateFieldTranslations(array $fieldTranslations){
+        
+        $languages = Language::all();
+
+        foreach($languages as $language){
+            foreach($fieldTranslations as $field){
+                
+                if($field['iso'] == $language->iso){
+                    foreach($field['fields'] as $fieldTranslation){
+
+                        if (! in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
+                            continue;
+                        }
+
+                        $translation = FieldTranslation::where('content_id',$this->id)
+                                ->where('content_type',self::class)
+                                ->where('field',$fieldTranslation['field'])
+                                ->where('language_id',$language->id)
+                                ->firstOrNew([]);
+    
+                                $translation->content_id = $this->id;
+                                $translation->content_type = self::class;
+                                $translation->language_id = $language->id;
+                                $translation->field = $fieldTranslation['field'];
+                                $translation->translation = $fieldTranslation['translation'];
+    
+                                $translation->save();
+                    }
+                }
+            }
+        }
+
+    }
 }

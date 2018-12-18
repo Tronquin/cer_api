@@ -2,6 +2,8 @@
 namespace App\Handler;
 
 use App\Experience;
+use App\Language;
+use App\FieldTranslation;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateExperienceHandler extends BaseHandler
@@ -14,6 +16,7 @@ class UpdateExperienceHandler extends BaseHandler
     protected function handle()
     {
         $experience = Experience::where('experiencia_id', $this->params['experienceId'])->firstOrFail();
+        $languages = Language::all();
 
         if (isset($this->params['front_page'])) {
             // Imagen
@@ -22,7 +25,8 @@ class UpdateExperienceHandler extends BaseHandler
             $experience->front_page = $path;
         }
 
-        $experience->description = $this->params['description'];
+        $experience->updateFieldTranslations($this->params['fieldTranslations']);
+
         $experience->save();
 
         $response = [
@@ -45,7 +49,7 @@ class UpdateExperienceHandler extends BaseHandler
     {
         return [
             'experienceId' => 'required|numeric',
-            'description' => 'required'
+            'fieldTranslations' => 'required'
         ];
     }
 
