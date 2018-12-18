@@ -75,7 +75,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
 
-            $webOrErp['fieldTranslations'] = $expErp->fieldTranslations();
+            $webOrErp['fieldTranslations'] = $expErp->child ? $expErp->child->fieldTranslations() : $expErp->fieldTranslations();
 
             $experiences[] = $webOrErp;
         }
