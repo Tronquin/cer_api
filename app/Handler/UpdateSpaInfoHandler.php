@@ -19,7 +19,7 @@ class UpdateSpaInfoHandler extends BaseHandler
 
         $spaInfo->description = '';
         $spaInfo->photo = '';
-        
+
         if (isset($this->params['photo'])) {
             // Imagen
             $path = $this->uploadImage($this->params['photo'], 'spa/');
