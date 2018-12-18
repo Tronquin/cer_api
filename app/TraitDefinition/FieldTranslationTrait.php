@@ -83,8 +83,8 @@ trait FieldTranslationTrait
                                 $translation->content_type = self::class;
                                 $translation->language_id = $language->id;
                                 $translation->field = $fieldTranslation['field'];
-                                $translation->translation = $fieldTranslation['translation'];
-    
+                                $translation->translation = $fieldTranslation['translation'] ?? '';
+                                
                                 $translation->save();
                     }
                 }
