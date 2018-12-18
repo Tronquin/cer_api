@@ -141,6 +141,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
+            // Obtener informacion del spa
+            Route::get('/admin/sagrada_familia/spa', 'SpaController@info');
+            // Actualizar informacion del spa
+            Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
         });
     });
 });
