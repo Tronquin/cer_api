@@ -33,26 +33,32 @@ class UpdateLocationHandler extends BaseHandler
         }
         
         foreach($languages as $language){
-            foreach($this->params['fieldTranslation'] as $field){
+            foreach($this->params['fieldTranslations'] as $field){
                 
                 if($field['iso'] == $language->iso){
-                    $translation = FieldTranslation::where('content_id',$field['content_id'])
-                            ->where('content_type',$field['content_type'])
-                            ->where('field',$field['field'])
-                            ->firstOrNew([]);
+                    foreach($field['fields'] as $fieldTranslation){
 
-                            $translation->content_id = $location->id;
-                            $translation->content_type = "App\Location";
-                            $translation->language_id = $language->id;
-                            $translation->field = $field['field'];
-                            $translation->translation = $field['translation'];
+                        if (! in_array($fieldTranslation['field'], $location->fieldsToTranslate())) {
+                            continue;
+                        }
 
-                            $translation->save();
+                        $translation = FieldTranslation::where('content_id',$location->id)
+                                ->where('content_type','App\Location')
+                                ->where('field',$fieldTranslation['field'])
+                                ->firstOrNew([]);
+    
+                                $translation->content_id = $location->id;
+                                $translation->content_type = "App\Location";
+                                $translation->language_id = $language->id;
+                                $translation->field = $fieldTranslation['field'];
+                                $translation->translation = $fieldTranslation['translation'];
+    
+                                $translation->save();
+                    }
                 }
             }
         }
 
-        $location->description = $this->params['description'];
         $location->save();
 
         $response = [
@@ -75,7 +81,7 @@ class UpdateLocationHandler extends BaseHandler
     {
         return [
             'locationId' => 'required|numeric',
-            'description' => 'required',
+            'fieldTranslations' => 'required'
         ];
     }
 
