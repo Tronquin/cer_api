@@ -69,6 +69,6 @@ class Extra extends Model
      */
     public function fieldsToTranslate()
     {
-        return [];
+        return ['description','nombre'];
     }
 }

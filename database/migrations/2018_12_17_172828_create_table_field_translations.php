@@ -19,7 +19,7 @@ class CreateTableFieldTranslations extends Migration
             $table->integer('language_id')->unsigned();
             $table->foreign('language_id')->references('id')->on('languages');
             $table->string('field');
-            $table->longText('translation');
+            $table->longText('translation')->nullable();
             $table->timestamps();
         });
     }
