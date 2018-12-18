@@ -3,6 +3,7 @@ namespace App\Handler;
 
 use App\SpaInfo;
 use App\SpaSection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateSpaInfoHandler extends BaseHandler
@@ -31,7 +32,8 @@ class UpdateSpaInfoHandler extends BaseHandler
 
             $id = $spaInfo['id'] ?? 0;
 
-            $section = SpaSection::query()->findOrNew($id, []);
+            $section = SpaSection::query()->findOrNew($id);
+            $section->spa_info_id = $spaInfo->id;
             $section->name = $spaSection['name'];
             $section->description = $spaSection['description'];
 
@@ -42,11 +44,11 @@ class UpdateSpaInfoHandler extends BaseHandler
                 $section->photo = $path;
             }
 
-            if (isset($spaSection['icon'])) {
+            if (isset($spaSection['ico'])) {
                 // Icon
-                $path = $this->uploadImage($spaSection['icon'], 'spa/');
+                $path = $this->uploadImage($spaSection['ico'], 'spa/');
 
-                $spaInfo->icon = $path;
+                $section->ico = $path;
             }
 
             $section->save();

@@ -12,7 +12,7 @@ class SpaSection extends Model
         'spa_info_id',
         'name',
         'description',
-        'icon',
+        'ico',
         'photo'
     ];
 
