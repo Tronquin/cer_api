@@ -8,6 +8,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
+    Route::post('/logout', 'UserController@logout');
 
     // obtiene los apartamentos de una ubicacion
     Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
@@ -26,7 +27,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Busca los extras destacados por ubicacion
     Route::get('/find/extras/outstanding/{ubicacion_id}', 'General\SearchdController@findExtrasOutstanding');
     // Busca las ubicaciones
-    Route::get('/find/Locations/', 'General\SearchdController@findLocations');
+    Route::get('/find/Locations', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
     Route::get('language/list_translation/{device}', 'LanguageController@listTranslation');
     // Indicar falla en un dispositivo
@@ -43,8 +44,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/reservation/create', 'ReservationController@createReservation');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
-        // Cerrar sesion
-        Route::post('/logout', 'UserController@logout');
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // Find all Reservation to checkin by date
@@ -125,7 +124,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             //Obtiene los extras version erp
             Route::get('/admin/extras/{ubicacion_id}', 'Admin\HomeController@findExtrasByLocation');
             //Guarda o Modifica los extras version web
-            Route::post('/admin/extras/', 'Admin\HomeController@saveExtras');
+            Route::post('/admin/extras', 'Admin\HomeController@saveExtras');
             // Administracion de maquinas
             Route::resource('/admin/machine', 'MachineController');
             // Listado de idiomas con traducciones
@@ -142,6 +141,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
+            // Obtener informacion del spa
+            Route::get('/admin/sagrada_familia/spa', 'SpaController@info');
+            // Actualizar informacion del spa
+            Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
         });
     });
 });
