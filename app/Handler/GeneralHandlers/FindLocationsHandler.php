@@ -19,6 +19,7 @@ class FindLocationsHandler extends BaseHandler {
         foreach ($locations as $locationErp) {
             $temp = $locationErp->child ? $locationErp->child->toArray() : $locationErp->toArray();
             $temp['front_page'] = $this->generateImageUrl($temp['front_page']);
+            $temp['fieldTranslations'] = $locationErp->fieldTranslations();
             $temp['logo'] = $this->generateImageUrl($temp['logo']);
 
             $LocationwebOrErp[] = $temp;

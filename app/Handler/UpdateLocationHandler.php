@@ -2,6 +2,8 @@
 namespace App\Handler;
 
 use App\Location;
+use App\Language;
+use App\FieldTranslation;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateLocationHandler extends BaseHandler
@@ -14,6 +16,7 @@ class UpdateLocationHandler extends BaseHandler
     protected function handle()
     {
         $location = Location::where('ubicacion_id', $this->params['locationId'])->firstOrFail();
+        $languages = Language::get(['iso','name']);
 
         if (isset($this->params['front_page'])) {
             // Imagen de portada
@@ -27,6 +30,26 @@ class UpdateLocationHandler extends BaseHandler
             $path = $this->uploadImage($this->params['logo'], 'locations/' . $location->id . '/');
 
             $location->logo = $path;
+        }
+        
+        foreach($languages as $language){
+            /*foreach($this->params['fieldTranslation'] as $field){
+                
+                if($field['iso'] == $languaje->iso){
+                    $translation = FieldTranslation::where('content_id',$field['content_id'])
+                            ->where('content_type',$field['content_type'])
+                            ->where('field',$field['field'])
+                            ->firstOrNew([]);
+
+                            $translation->content_id = $field['content_id'];
+                            $translation->incidencia_porcentaje = $field['content_type'];
+                            $translation->descripcion_es = $language['id'];
+                            $translation->descripcion_en = $key;
+                            $translation->descripcion_fr = $field['translation'];
+
+                            $translation->save();
+                }
+            }*/
         }
 
         $location->description = $this->params['description'];

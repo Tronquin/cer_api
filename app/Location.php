@@ -2,9 +2,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\TraitDefinition\FieldTranslationTrait;
 
 class Location extends Model
 {
+    use FieldTranslationTrait;
     protected $table = 'locations';
 
     protected $fillable = [

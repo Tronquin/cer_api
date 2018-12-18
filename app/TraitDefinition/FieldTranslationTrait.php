@@ -2,6 +2,7 @@
 namespace App\TraitDefinition;
 
 use App\FieldTranslation;
+use App\Language;
 
 trait FieldTranslationTrait
 {
@@ -13,6 +14,7 @@ trait FieldTranslationTrait
             ->with(['language'])
             ->get()
         ;
+        $languages = Language::get(['iso','name']);
 
         $response = [];
         foreach ($translations as $translation) {
@@ -22,6 +24,9 @@ trait FieldTranslationTrait
             ];
         }
 
-        return $response;
+        return $response = [
+            'fieldTranslations' => $response,
+            'languages' => $languages
+        ];
     }
 }
