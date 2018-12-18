@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\TraitDefinition\FieldTranslationTrait;
 
 class SpaSection extends Model
 {
+    use FieldTranslationTrait;
+
     protected $table = 'spa_sections';
 
     protected $fillable = [
@@ -23,4 +26,15 @@ class SpaSection extends Model
     {
         return $this->belongsTo(SpaInfo::class, 'spa_info_id');
     }
+
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return ['description'];
+    }
+    
 }

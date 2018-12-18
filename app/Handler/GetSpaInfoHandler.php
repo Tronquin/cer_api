@@ -25,6 +25,8 @@ class GetSpaInfoHandler extends BaseHandler
         if ($spaInfo->photo) {
             $spaInfo->photo = route('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
         }
+            
+            $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
 
         foreach ($spaInfo->spaSections as $spaSection) {
 
@@ -35,6 +37,8 @@ class GetSpaInfoHandler extends BaseHandler
             if ($spaSection->ico) {
                 $spaSection->ico = route('storage.image', ['image' => str_replace('/', '-', $spaSection->ico)]);
             }
+
+            $spaSection->fieldTranslations = $spaSection->fieldTranslations();
         }
 
         $response = [

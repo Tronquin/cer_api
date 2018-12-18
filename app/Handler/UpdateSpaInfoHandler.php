@@ -16,17 +16,20 @@ class UpdateSpaInfoHandler extends BaseHandler
     protected function handle()
     {
         $spaInfo = SpaInfo::query()->firstOrNew([]);
-        $spaInfo->description = $this->params['description'];
 
+        $spaInfo->description = '';
+        $spaInfo->photo = '';
+        
         if (isset($this->params['photo'])) {
             // Imagen
             $path = $this->uploadImage($this->params['photo'], 'spa/');
 
             $spaInfo->photo = $path;
         }
-
+        
         $spaInfo->save();
-
+        $spaInfo->updateFieldTranslations($this->params['fieldTranslations']);
+        
         $sectionIds = [];
         foreach ($this->params['spaSections'] as $spaSection) {
 
@@ -35,7 +38,10 @@ class UpdateSpaInfoHandler extends BaseHandler
             $section = SpaSection::query()->findOrNew($id);
             $section->spa_info_id = $spaInfo->id;
             $section->name = $spaSection['name'];
-            $section->description = $spaSection['description'];
+
+            $section->description = '';
+            $section->ico = '';
+            $section->photo = '';
 
             if (isset($spaSection['photo'])) {
                 // Imagen
@@ -52,6 +58,8 @@ class UpdateSpaInfoHandler extends BaseHandler
             }
 
             $section->save();
+            
+            $section->updateFieldTranslations($this->params['fieldTranslations']);
             $sectionIds[] = $section->id;
         }
 
@@ -77,7 +85,6 @@ class UpdateSpaInfoHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'description' => 'required',
             'spaSections' => 'required'
         ];
     }
