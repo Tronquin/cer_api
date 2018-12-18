@@ -32,8 +32,8 @@ class GetSpaInfoHandler extends BaseHandler
                 $spaSection->photo = route('storage.image', ['image' => str_replace('/', '-', $spaSection->photo)]);
             }
 
-            if ($spaSection->icon) {
-                $spaSection->icon = route('storage.image', ['image' => str_replace('/', '-', $spaSection->icon)]);
+            if ($spaSection->ico) {
+                $spaSection->ico = route('storage.image', ['image' => str_replace('/', '-', $spaSection->ico)]);
             }
         }
 
