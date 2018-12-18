@@ -175,4 +175,13 @@ class Location extends Model
     {
         return $this->hasMany('App\Categoria');
     }*/
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return ['description'];
+    }
 }
