@@ -16,7 +16,7 @@ class UpdateLocationHandler extends BaseHandler
     protected function handle()
     {
         $location = Location::where('ubicacion_id', $this->params['locationId'])->firstOrFail();
-        $languages = Language::get(['iso','name']);
+        $languages = Language::all();
 
         if (isset($this->params['front_page'])) {
             // Imagen de portada
@@ -33,23 +33,23 @@ class UpdateLocationHandler extends BaseHandler
         }
         
         foreach($languages as $language){
-            /*foreach($this->params['fieldTranslation'] as $field){
+            foreach($this->params['fieldTranslation'] as $field){
                 
-                if($field['iso'] == $languaje->iso){
+                if($field['iso'] == $language->iso){
                     $translation = FieldTranslation::where('content_id',$field['content_id'])
                             ->where('content_type',$field['content_type'])
                             ->where('field',$field['field'])
                             ->firstOrNew([]);
 
-                            $translation->content_id = $field['content_id'];
-                            $translation->incidencia_porcentaje = $field['content_type'];
-                            $translation->descripcion_es = $language['id'];
-                            $translation->descripcion_en = $key;
-                            $translation->descripcion_fr = $field['translation'];
+                            $translation->content_id = $location->id;
+                            $translation->content_type = "App\Location";
+                            $translation->language_id = $language->id;
+                            $translation->field = $field['field'];
+                            $translation->translation = $field['translation'];
 
                             $translation->save();
                 }
-            }*/
+            }
         }
 
         $location->description = $this->params['description'];
