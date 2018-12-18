@@ -61,4 +61,14 @@ class Extra extends Model
     {
         return $this->hasOne(self::class, 'parent_id');
     }
+
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return [];
+    }
 }
