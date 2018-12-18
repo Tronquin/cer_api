@@ -13,11 +13,14 @@ class GetSpaInfoHandler extends BaseHandler
      */
     protected function handle()
     {
-        $spaInfo = SpaInfo::query()->with(['spaSections'])->firstOrNew([
-            'description' => null,
-            'photo' => null,
-            'spaSections' => []
-        ]);
+        $spaInfo = SpaInfo::query()->with(['spaSections'])->first();
+
+        if (! $spaInfo) {
+            $spaInfo = new SpaInfo();
+            $spaInfo->description = null;
+            $spaInfo->photo = null;
+            $spaInfo->spaSections = [];
+        }
 
         if ($spaInfo->photo) {
             $spaInfo->photo = route('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
