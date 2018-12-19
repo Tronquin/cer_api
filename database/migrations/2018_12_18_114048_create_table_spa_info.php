@@ -15,7 +15,6 @@ class CreateTableSpaInfo extends Migration
     {
         Schema::create('spa_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('description');
             $table->string('photo');
             $table->timestamps();
         });
