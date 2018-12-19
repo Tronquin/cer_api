@@ -17,7 +17,6 @@ class GetSpaInfoHandler extends BaseHandler
 
         if (! $spaInfo) {
             $spaInfo = new SpaInfo();
-            $spaInfo->description = null;
             $spaInfo->photo = null;
             $spaInfo->spaSections = [];
         }

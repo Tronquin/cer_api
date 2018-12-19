@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\KeyTranslationExport;
 use App\Imports\KeyTranslationImport;
+use App\KeyTranslation;
 use App\Language;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,19 +38,22 @@ class DefaultController extends Controller
         $language->flag = $this->uploadImage($request->flag, 'languages/', str_slug($request->iso));
         $language->save();
 
+        $base64 = $request->file;
+        $base64 = str_replace('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,', '', $base64);
+
         $path = 'test/' . uniqid() . '.xlsx';
-        Storage::disk('public')->put($path, base64_decode($request->file));
+        Storage::disk('public')->put($path, base64_decode($base64));
 
         $data = Excel::toArray(new KeyTranslationImport, $path, 'public');
 
         foreach ($data as $keys) {
             foreach ($keys as $keyAndTranslation) {
 
-                $keyInstance = $language->keyTranslations()->where('key', $keyAndTranslation[0])->first();
+                $keyInstance = KeyTranslation::query()->where('key', $keyAndTranslation[0])->first();
 
                 if ($keyInstance && isset($keyAndTranslation[1])) {
-                    $keyInstance->pivot->translation = $keyAndTranslation[1];
-                    $keyInstance->pivot->save();
+
+                    $language->keyTranslations()->attach($keyInstance->id, ['translation' => $keyAndTranslation[1]]);
                 }
             }
         }

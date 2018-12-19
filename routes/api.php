@@ -145,6 +145,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/admin/sagrada_familia/spa', 'SpaController@info');
             // Actualizar informacion del spa
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
+            // Agregar idiomas
+            Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
         });
     });
 });
