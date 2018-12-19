@@ -18,7 +18,6 @@ class CreateTableSpaSections extends Migration
             $table->integer('spa_info_id')->unsigned();
             $table->foreign('spa_info_id')->references('id')->on('spa_info');
             $table->string('name');
-            $table->longText('description');
             $table->string('ico');
             $table->string('photo');
             $table->timestamps();

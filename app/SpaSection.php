@@ -14,7 +14,6 @@ class SpaSection extends Model
     protected $fillable = [
         'spa_info_id',
         'name',
-        'description',
         'ico',
         'photo'
     ];

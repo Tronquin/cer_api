@@ -3,7 +3,6 @@ namespace App\Handler;
 
 use App\SpaInfo;
 use App\SpaSection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateSpaInfoHandler extends BaseHandler

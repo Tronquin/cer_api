@@ -111,7 +111,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         // desactiva las llaves de una reserva
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
         // Datos de un usuario
-        Route::get('user/{id}', 'UserController@find');
+        Route::get('user/{email}', 'UserController@find');
         // Actualizar Usuario
         Route::put('user/update/{user_id}', 'UserController@update');
         // Historial de reservas

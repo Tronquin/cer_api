@@ -147,12 +147,12 @@ class UserController extends Controller
     /**
      * Busca los datos de un usuario.
      *
-     * @param  $id
+     * @param string $email
      * @return JsonResponse
      */
-    protected function find($id)
+    protected function find($email)
     {
-        $userExist = User::find($id);
+        $userExist = User::where('email', $email)->first();
         if(!$userExist){
             return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
         }

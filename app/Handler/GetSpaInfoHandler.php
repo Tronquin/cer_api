@@ -18,14 +18,14 @@ class GetSpaInfoHandler extends BaseHandler
         if (! $spaInfo) {
             $spaInfo = new SpaInfo();
             $spaInfo->photo = null;
-            $spaInfo->spaSections = [];
+            $spaInfo->spa_sections = [];
         }
 
         if ($spaInfo->photo) {
             $spaInfo->photo = route('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
         }
             
-            $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
+        $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
 
         foreach ($spaInfo->spaSections as $spaSection) {
 
