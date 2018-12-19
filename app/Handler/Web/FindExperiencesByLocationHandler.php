@@ -13,7 +13,9 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     {
         $response = [];
         $data = Experience::where('ubicacion_id','=',$this->params['ubicacion_id'])
-            ->where('type','=','erp')->get();
+            ->where('type','=','erp')
+            ->orderBy('experiencia_id')
+            ->get();
 
         foreach ($data as $exp) {
             if ($exp->front_page) {
