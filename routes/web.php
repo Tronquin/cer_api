@@ -13,3 +13,4 @@
 
 Route::get('storage/image/{image}', 'ImageController@getImage')->name('storage.image');
 Route::get('translation/excel', 'DefaultController@excel');
+Route::post('translation/excel', 'DefaultController@importTranslation');

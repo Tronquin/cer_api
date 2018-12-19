@@ -16,9 +16,7 @@ class UpdateSpaInfoHandler extends BaseHandler
     protected function handle()
     {
         $spaInfo = SpaInfo::query()->firstOrNew([]);
-
-        $spaInfo->description = '';
-        $spaInfo->photo = '';
+        $spaInfo->description = $this->params['description'];
 
         if (isset($this->params['photo'])) {
             // Imagen
@@ -38,10 +36,7 @@ class UpdateSpaInfoHandler extends BaseHandler
             $section = SpaSection::query()->findOrNew($id);
             $section->spa_info_id = $spaInfo->id;
             $section->name = $spaSection['name'];
-
-            $section->description = '';
-            $section->ico = '';
-            $section->photo = '';
+            $section->description = $spaSection['description'];
 
             if (isset($spaSection['photo'])) {
                 // Imagen
