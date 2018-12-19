@@ -45,6 +45,8 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
                 $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
                 $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+                
+                $temp['fieldTranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
 
                 $available[] = $temp;
                 $extraIds[] = $extraErp->id;
@@ -58,6 +60,8 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
                     $temp['front_image'] = $temp['front_image'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
                     $temp['icon'] = $temp['icon'] ? route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
+                    
+                    $temp['fieldTranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
 
                     $noAvailable[] = $temp;
                 }
