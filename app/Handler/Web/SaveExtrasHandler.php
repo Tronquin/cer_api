@@ -59,9 +59,9 @@ class SaveExtrasHandler extends BaseHandler {
             $extra->icon = $path;
         }
 
-        $extra->updateFieldTranslations($this->params['data']['fieldTranslations']);
-
         $response = $extra->save();
+        
+        $extra->updateFieldTranslations($this->params['data']['fieldTranslations']);
        
         return $response;
     }
