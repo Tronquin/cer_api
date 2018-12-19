@@ -51,7 +51,7 @@ class UpdateSpaInfoHandler extends BaseHandler
 
             $section->save();
             
-            $section->updateFieldTranslations($this->params['fieldTranslations']);
+            $section->updateFieldTranslations($spaSection['fieldTranslations']);
             $sectionIds[] = $section->id;
         }
 
