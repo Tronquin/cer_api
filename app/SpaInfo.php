@@ -12,7 +12,6 @@ class SpaInfo extends Model
     protected $table = 'spa_info';
 
     protected $fillable = [
-        'description',
         'photo'
     ];
 
