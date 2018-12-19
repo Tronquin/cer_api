@@ -29,7 +29,7 @@ class UpdateSpaInfoHandler extends BaseHandler
         $sectionIds = [];
         foreach ($this->params['spaSections'] as $spaSection) {
 
-            $id = $spaInfo['id'] ?? 0;
+            $id = $spaSection['id'];
 
             $section = SpaSection::query()->findOrNew($id);
             $section->spa_info_id = $spaInfo->id;
