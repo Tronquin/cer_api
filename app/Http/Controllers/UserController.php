@@ -61,7 +61,18 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => $user->email]);
+        $clientIp = $request->ip();
+        $minutes = config('oauth2.time_expire');
+        $token = base64_encode(Hash::make($userExist['id'] . md5('Castro_Proyect') . $clientIp));
+
+        $session = new Session();
+        $session->user_id = $user->id;
+        $session->token = $token;
+        $session->remember_me = false;
+        $session->expired_at = new \DateTime("+{$minutes} minutes");
+        $session->save();
+
+        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }
 
     /**
