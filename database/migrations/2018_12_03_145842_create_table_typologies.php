@@ -24,10 +24,6 @@ class CreateTableTypologies extends Migration
             $table->integer('max')->nullable();
             $table->integer('min')->nullable();
             $table->float('incidencia_porcentaje');
-            $table->string('descripcion_es')->nullable();
-            $table->string('descripcion_en')->nullable();
-            $table->string('descripcion_fr')->nullable();
-            $table->string('descripcion_po')->nullable();
             $table->timestamps();
         });
     }

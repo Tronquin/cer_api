@@ -11,6 +11,3198 @@ class LanguageSeeder extends Seeder
      */
     public function run()
     {
+        $this->machineTranslations();
+        $this->webTranslations();
+    }
+
+    private function webTranslations()
+    {
+        $device = \App\DeviceType::where('code', 'web')->first();
+        $languages = \App\Language::all();
+
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.whatsreserve	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Por qué <span class='highligth'>reservar</span> aquí?               ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.doubts	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Dudas?") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.emaicastro	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("welcome@castroexclusiveresidences.com    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.expience	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Experiencias") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.sant	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Sant Pau") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.checkin	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Máquina Check-in") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.spa	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SPA Sagrada Familia  ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.exxp	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check-in Express") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.knock	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Knock Knock") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.name	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tu nombre") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.email	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tu correo*") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.message	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mensaje") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.send	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Enviar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.footer.copyright	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Copyright 2018 castro Exclusive Residences - All rights reserved") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.home	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Home ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.apartament	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Apartament") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.sagrada	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SPA Sagrada Familia") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.pau	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("San Pau") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.gracia	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Gracia") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.tecnology	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Technology") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.blog	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Blog") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.guide	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Guía de la ciudad") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.register	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Registrarme") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.ingresar	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ingresar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.email	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Correo electrónico") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.password	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Contraseña") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.navbar.forgot	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Olvidastes tu contraseña?") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.wrapSearch.barce	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Your serviced apartments in <b>Barcelona</b> ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.wrapSearch.servApto	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Serviced Apartments") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.wrapSearch.spa	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SPA Sagrada Familia") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.toReturnTo	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("volver a") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.addServices	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("añadir servicios") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.credito	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tarjeta de crédito") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.int	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Introduce los datos de tu tarjeta de crédito para realizar el pago") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.fieldRequired	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Este campo es requerido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.14digits	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Minimo 14 digitos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.placeCardNumber	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Número de tarjeta") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.placeCardName	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre completo") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.3digits	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Minimo 3 digitos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.placeCardExpiry	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mes/Año de expiracion") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.invalidFormat	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Formato no válido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.placeCardCode	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Código CVC") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.placeAmount	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Monto a pagar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.ofertCastro	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Deseo recibir las ofertas de Castro Exclusive Residences Sant Pau") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.termins	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("He leído y acepto las condiciones de reserva, cancelación y la<br>información sobre la privacidad") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.pay	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("pagar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.payment.extraServices	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("servicios extra") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.bestPrice	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Mejor precio garantizado y servicios extra gratis!") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.titleSearch	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Realiza aquí tu búsqueda") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.hasCode	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Tengo un código!") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.checkAvailability	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Comprobar disponibilidad") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.nadults	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("{n} adultos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.nkids	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("{n} niños") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.all	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Todos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.nochesSelected	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("NOCHES SELECCIONADAS") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.searchd.nApartments	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("N° apartamentos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.loginIndex.header.start	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Inicio") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.loginIndex.header.reservations	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Reservaciones") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.loginIndex.header.addServices	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Añadir Servicios") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.loginIndex.header.frequentQuestions	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Preguntas Frecuentes") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.loginIndex.header.userData	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Datos de Usuario") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.modals.isUser.exists	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("El Usuario ya existe") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.modals.isUser.ok	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("OK") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.modals.loading.pay	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Procesando el pago") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.serApto	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Serviced Apartments") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.welcome	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Bienvenida") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.exServices	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Servicios Exclusivos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.experience	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Experiencia") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.spaGym	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Metropolitan SPA & Gym") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("components.sagradaFamilia.header.more	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Fotos y más") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.toda	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Toda la familia bajo el mismo techo o un grupo de amigos compartiendo apartamento hace que, además de tener un viaje más interesante se pueda destinar mayor parte del presupuesto a conocer Barcelona</p><p>Una ciudad con una oferta gastronómica única, eso sí, al tener cocina en “casa” puedes hacer ese plato que se te resiste y ahorrar algún euro") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.whats	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Por qué un apartamento es mejor que un hotel?") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.vivir	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Que experiencia quieres vivir?") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.conoces	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Conoce los apartamentos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.servpto	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Serviced Apartments") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.mas	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ver más") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.guessOp	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Que opinan nuestros huéspedes?") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.SasOp	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Basado en opiniones de") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.vol	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("VOLVERÍAN") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.lee	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Leer otras") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.opine	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("opiniones verificadas") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.ubica	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ubicación") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.wifi	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Wifi") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.calid	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Calidad de sueño") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.person	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Personal") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.clean	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Limpieza") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.precio	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Calidad/Precio") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.home.look	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mira dónde estamos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.name	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.last	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Apellido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.email	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Correo electrónico") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.phone	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Teléfono") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.password	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Contraseña") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.repassword	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Confirmar contraseña") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.sendregister	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Registrame!") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.facebook	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ingresar con facebook") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.register.google	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ingresar con Google") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.results	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Disponible {n} resultado para tu búsqueda") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.modify	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Modificar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.apartir	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("A partir de") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.pord	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("por<span> 1 </span>noche") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.aptohab	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("APARTAMENTO HABITACIÓN") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.rooms	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Dormitorios") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.bathrooms	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Baños") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.guests	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Huéspedes") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.detail	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Detalles y reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.regimen	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("RÉGIMEN Y POLÍTICA DE CANCELACIÓN") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.experiencie	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("EXPERIENCIA") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.add	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("A partir de") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.por	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("por") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.night	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("noche") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.select	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Seleccionar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.cantd	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("CANTIDAD DE APARTAMENTOS") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.politicac	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Política de cancelación") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.searchResult.reserve	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.destc	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Servicios destacados") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.contra	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Contrata el servicio o los productos que desees cuando tu quieras!<br>Puedes hacerlo <span>antes o durante</span> tu estadía") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.contra_mobile	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Contrata el servicio o los productos que desees cuando tu quieras! Puedes hacerlo <span>antes o durante</span> tu estadía") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.llave	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("por llave") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.intro	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Introduce tus datos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.register	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Regístrese con su cuenta social para hacer la reserva rápidamente") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.facebook	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ingresar con facebook") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.google	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ingresar con Google") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.dateif	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("INTRODUCE TUS DATOS") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.name	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.last	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Apellido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.email	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Email") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.phone	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Teléfono") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.user	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Para poder concretarse si fuese necesario, usaremos los datos de la reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.required	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Este campo es requerido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.min	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Minimo 3 caracteres") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.min14	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Minimo 14 caracteres") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.invalid	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Formato no válido") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.tarifa	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Estás reservando a la mejor tarifa disponible y con las mejores condiciones") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.ventaja	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ventajas de la reserva directa") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.carg	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("sin cargos por reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.ofertEx	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ofertas y beneficios exclusivos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.garantiza	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mejor precio garantizado") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.Exc	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ofertas y beneficios exclusivos") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.credito	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tarjeta de crédito") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.int	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Introduce los datos de tu tarjeta de crédito para realizar el pago") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.placeCardNumber	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Número de tarjeta") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.placeCardName	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre completo") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.placeCardExpiry	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mes/Año de expiracion") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.placeCardCode	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Código CVC") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.placeAmount	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Monto a pagar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.solicitud	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Solicitudes especiales") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.send	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Enviar") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.ofertCastro	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Deseo recibir las ofertas de Castro Exclusive Residences Sant Pau") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.termins	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("He leído y acepto las condiciones de reserva, cancelación y la<br>información sobre la privacidad") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.termins_mobile	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("He leído y acepto las condiciones de <strong>reserva, cancelación</strong> y la <strong>información sobre la privacidad</strong>") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.terminsError	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Debe aceptar los terminos y condiciones de la reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.sendComision	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Reservar<span> de forma segura y sin comisiones</span>") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.tu	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tu reserva") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.checkin	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check - in") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.checkout	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check - out") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.concept	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("CONCEPTO") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.import	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("IMPORTE") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.tax	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("City tax") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.tasa	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tasa turística de la <br>ciudad de Barcelona") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradeApt	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mejora tipo de apartamento") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradeAptText	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("3 DORMITORIOS, 2 BAÑOS") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradePlan	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mejora Plan de apartamento") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradePlanText	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("DESAYUNO INCLUIDO") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradeExperience	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mejora Experiencia") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.upgradeExperienceText	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("EXCLUSIVE") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.servics	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Servicios") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.free	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("GRATIS") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.total	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Total") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.othor	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Añadir otro apartamento") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.prot	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Toda la información está protegida medtante el") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("pages.payment.cifra	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("cifrado de datos con tecnología SSL a 2048 bit") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.experiencias.question  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Porqué te proponemos {n} <span>experiencias?</span>             ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.experiencias.answer    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("La experiencia castro Exclusive Residences consiste en llenar los 80 metros cuadrados de tu apartamento de vivencias y recuerdos donde tú eliges qué herramientas usar para ello             ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.servicedApartments     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Serviced Apartments         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.apartament       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Apartamento         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.general          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("General     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.roomDouble       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Habitación doble         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.room             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Habitación ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.bathroom         	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Baño     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.bathrooms        	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Baños         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.people           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Personas     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.kitchen          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Cocina     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.livingroom       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Salón         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.drawingRoom      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Sala de estar         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.terrace          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Terraza     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.balcony          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Fachada     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.suite            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Suite     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.featuredServices 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Servicios Destacados             ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.msg1             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Un viaje al centro del ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.msg2             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("triángulo modernista ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.bedroom          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Dormitorio     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.spa              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SPA ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.gym              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Gimnasio ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.wellness         	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Wellness     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.extras.msg1      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Un viztazo a Barcelona         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.extras.msg2      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("y Castro Exclusive desde el aire         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.label.notsopporthtml   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Su navegador no soporta video HTML5             ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.castroservices 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("CASTRO SERVICES             ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.previous       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Previous         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.next           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Next     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.spa            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SPA     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.city           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("DESCUBRE LA CIUDAD     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.contract       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Contrata el servicio o los productos que desees cuando tu quieras!          ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.can            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Puedes hacerlo     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.before         	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("antes o durante     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.service        	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Contrata el servicio o los productos que desees cuando tu quieras! Puedes hacerlo         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.stay           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("tu estadía     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.travel         	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Un viaje al centro del     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.triangle       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("triángulo modernista         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.holidays       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("8.000m de SPA, unas vacaciones         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.body           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("EN CUERPO Y ALMA     ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("message.spg.discover       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Descubre más         ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.modifyYourData           	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¿Quieres modificar tus datos?                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.beginNow                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("¡Empieza ahora!        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.registerDate             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Fecha de registro            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.woman                    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Mujer        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.men                      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Hombre    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.save                     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Guardar    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.name                     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.lastName                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Apellido        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.email                    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("email        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.phone                    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Teléfono        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.address                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Dirección        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.postalCode               	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Código postal            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.userData.birthday                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Fecha de nacimiento        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.firstCollapse                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.firstCollapseDescription      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.secondCollapse                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.secondCollapseDescription     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.thirdCollapse                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.thirdCollapseDescription      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.fourthCollapse                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.fourthCollapseDescription     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.fiveCollapse                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.fiveCollapseDescription       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.sixCollapse                   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.faq.sixCollapseDescription        	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet consectetur adipiscing elit lectus pharetra quisque sociis mollis, eleifend porttitor habitant consequat hac blandit vivamus mi mattis molestie. Interdum penatibus volutpat velit montes sollicitudin et at vel suscipit, posuere sapien felis nullam morbi libero fames sed ultricies cum, luctus tristique imperdiet tempus augue tempor ligula potenti. Nunc rhoncus iaculis nec sociosqu duis, dictum posuere senectus lobortis dui ultricies, non vitae hendrerit suspendisse.                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.checkinExpress              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check-in express            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.checkinExpressDescription   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolo                        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.bookingDetails              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("View your booking details            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.bookingDetailsDescription   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolo                        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.addServices                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Add services to your reservation        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.index.addServicesDescription      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolo                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.details               	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Detalles            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.checkin               	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check In            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.checkout              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Check Out            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.servicesAndAdds       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Servicios y/o extras contratados                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.portableInternet      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Internet portable                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.tablet                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tablet            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.spaAccess             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Acceso al spa            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.keys                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Llaves x2        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.bluRay                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Blu-Ray            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.name                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.city                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Ciudad        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.country               	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("País            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.experience            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Experiencia                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.postalCode            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Código postal                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.phone                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Teléfono        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.amount                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Importe            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.email                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Correo        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.id                    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("ID        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.date                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("FECHA        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.ota                   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("OTA        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.service               	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SERVICIO            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.quantity              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("CANTIDAD            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.amount                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Importe            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.estate                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("ESTADO            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.edit                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("EDITAR        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.reservaId             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("ID RESERVA            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.nameAndLastName       	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Nombre y Apellido                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.tipology              	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Tipología            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.experience            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Experiencia                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.adults                	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Adultos            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.withoutReservation   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Sin Reservas                        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.reservation.ReservationResume     	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("RESUMEN DE LA RESERVA                    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.selected                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SELECCIONADO        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.select                   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SELECCIONAR        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.saveSuitcases            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Si te vas tarde puedes guardar las maletas con nosotros por sólo 10€                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.loadServices             	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("cargar todos los servicios            ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.pendingPayments          	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Pagos pendientes                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.concept                  	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("CONCEPTO        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.amount                   	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("IMPORTE        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.customizeStay            	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("PERSONALIZA TU ESTANCIA                ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.subtotal                 	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("SUBTOTAL        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.iva                      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("IVA    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.total                    	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("TOTAL        ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layout.loginIndex.services.pay                      	");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Pagar    ") : ""
+            ]);
+        }
+
+        $key = new App\KeyTranslation();
+        $key->key = trim("layouts.default.btnreserve");
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? trim("Reservar") : ""
+            ]);
+        }
+    }
+
+    private function machineTranslations()
+    {
         $deviceType = \App\DeviceType::where('code', 'machine')->first();
 
         $language = new \App\Language();

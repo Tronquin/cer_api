@@ -33,11 +33,6 @@ class CreateTableLocations extends Migration
             $table->integer('knock')->nullable();
             $table->string('ip_ubicacion')->nullable();
             $table->float('iva_reservas')->nullable();
-            $table->longText('descripcion_es')->nullable();
-            $table->longText('descripcion_en')->nullable();
-            $table->longText('descripcion_fr')->nullable();
-            $table->longText('descripcion_po')->nullable();
-            $table->longText('description')->nullable();
             $table->string('front_page')->nullable();
             $table->string('logo')->nullable();
             $table->timestamps();

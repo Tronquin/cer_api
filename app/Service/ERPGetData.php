@@ -2,6 +2,8 @@
 namespace App\Service;
 
 use App\ERPImage;
+use App\FieldTranslation;
+use App\Language;
 use App\Location;
 use App\Extra;
 use App\Experience;
@@ -58,10 +60,6 @@ class ERPGetData {
                 $ubicacion_erp->knock = $ubicacion['knock'];
                 $ubicacion_erp->ip_ubicacion = $ubicacion['ip_ubicacion'];
                 $ubicacion_erp->iva_reservas = $ubicacion['iva_reservas'];
-                $ubicacion_erp->descripcion_es = $ubicacion['descripcion_es'];
-                $ubicacion_erp->descripcion_en = $ubicacion['descripcion_en'];
-                $ubicacion_erp->descripcion_fr = $ubicacion['descripcion_fr'];
-                $ubicacion_erp->descripcion_po = $ubicacion['descripcion_po'];
                 
                 $response = $ubicacion_erp->save();
 
@@ -111,6 +109,11 @@ class ERPGetData {
                 $gallery->location_id = $ubicacion_erp->id;
                 $gallery->save();
 
+                $gallery = new \App\Galery();
+                $gallery->code = 'location-' . $erpId . '-header';
+                $gallery->location_id = $ubicacion_erp->id;
+                $gallery->save();
+
                 if ($erpId === 1) {
 
                     $gallery = new \App\Galery();
@@ -150,10 +153,6 @@ class ERPGetData {
                         $tipologia_erp->max = $tipologia['max'];
                         $tipologia_erp->min = $tipologia['min'];
                         $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
-                        $tipologia_erp->descripcion_es = $tipologia['descripcion_es'];
-                        $tipologia_erp->descripcion_en = $tipologia['descripcion_en'];
-                        $tipologia_erp->descripcion_fr = $tipologia['descripcion_fr'];
-                        $tipologia_erp->descripcion_po = $tipologia['descripcion_po'];
 
                         $tipologia_erp->save();
                     }
@@ -209,19 +208,6 @@ class ERPGetData {
 
                         $extra_erp->extra_id = $extra['id'];
                         $extra_erp->ubicacion_id = $extra['ubicacion_id'];
-                        $extra_erp->nombre = $extra['nombre'];
-                        $extra_erp->nombre_es = $extra['nombre_es'];
-                        $extra_erp->nombre_en = $extra['nombre_en'];
-                        $extra_erp->nombre_fr = $extra['nombre_fr'];
-                        $extra_erp->nombre_zh = $extra['nombre_zh'];
-                        $extra_erp->nombre_ru = $extra['nombre_ru'];
-                        $extra_erp->nombre_po = $extra['nombre_po'];
-                        $extra_erp->descripcion_es = $extra['descripcion_es'];
-                        $extra_erp->descripcion_en = $extra['descripcion_en'];
-                        $extra_erp->descripcion_fr = $extra['descripcion_fr'];
-                        $extra_erp->descripcion_zh = $extra['descripcion_zh'];
-                        $extra_erp->descripcion_ru = $extra['descripcion_ru'];
-                        $extra_erp->descripcion_po = $extra['descripcion_po'];
                         $extra_erp->coste = $extra['coste'];
                         $extra_erp->base_imponible = $extra['base_imponible'];
                         $extra_erp->iva_tipo = $extra['iva_tipo'];
@@ -233,6 +219,16 @@ class ERPGetData {
                         $extra_erp->cambia_hora_salida = $extra['cambia_hora_salida'];
 
                         $extra_erp->save();
+
+                        $translation = new FieldTranslation();
+
+                        $translation->content_id = $extra_erp->id;
+                        $translation->content_type = Extra::class;
+                        $translation->language_id = Language::query()->where('iso', 'es')->first()->id;
+                        $translation->field = 'nombre';
+                        $translation->translation = $extra['nombre_es'];
+
+                        $translation->save();
                     }
 
                     // Tabla Tarifa
