@@ -25,7 +25,6 @@ class CreateTableReservation extends Migration
             $table->integer('regimen_id')->unsigned();
             $table->integer('policy_id');
             $table->integer('promotion_id');
-            $table->integer('payment_id');
             $table->integer('adults');
             $table->integer('kids');
             $table->float('amount');

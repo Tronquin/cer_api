@@ -38,6 +38,7 @@ use App\Handler\ReservationEditMailHandler;
 use App\Handler\PaymentGateway\ReservationProcessPaymentHandler;
 use App\Handler\ReservationHasCheckinMovilHandler;
 use App\Handler\DeactivateKeyHandler;
+use App\Handler\Web\ReservationActiveHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -797,4 +798,23 @@ class ReservationController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
+
+    /**
+     * Obtiene el historial de reserva de un usuario
+     *
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function reservationActiveByUser($user_id)
+    {
+        $handler = new ReservationActiveHandler(['user_id' => $user_id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
 }
