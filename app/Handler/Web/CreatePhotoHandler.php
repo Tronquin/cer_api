@@ -30,6 +30,7 @@ class CreatePhotoHandler extends BaseHandler {
                 $photo = new Photo();
                 $photo->gallery_id = $gallery->id;
                 $photo->url = $path;
+                $photo->type = $p['type'];
                 $photo->save();
 
                 $response['data'][] = $photo;
