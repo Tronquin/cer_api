@@ -149,6 +149,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
             // Agregar idiomas
             Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
+            // Agregar cards en inicio admin
+            Route::get('/admin/cardinfo/', 'Admin\CardInfoController@getCardInfo');
+            // Actualizar cards en inicio admin
+            Route::post('/admin/cardinfo/', 'Admin\CardInfoController@updateCardInfo');
         });
     });
 });
