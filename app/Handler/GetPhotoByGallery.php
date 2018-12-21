@@ -24,6 +24,7 @@ class GetPhotoByGallery extends BaseHandler
 
         foreach ($photos as $photo) {
             $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+            $photo->type = $photo->type ?? '';
         }
 
         if (count($photos) === 0) {
