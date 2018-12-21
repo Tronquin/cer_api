@@ -752,7 +752,7 @@ class ReservationController extends Controller
         
         $payment = [];
         $payment['payment'] = $handler->getData();
-        $payment['reserva'] = $reserva;
+        $payment['reserva_id'] = $reserva['data']['reserva']['id'];
         // Se guardan los datos del pago y la reserva en BD reservation_payment_persistence
         $handler = new ReservationPaymentPersistenceHandler(['data' => $payment]);
         $handler->processHandler();

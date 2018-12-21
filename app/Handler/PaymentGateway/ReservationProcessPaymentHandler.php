@@ -17,7 +17,7 @@ class ReservationProcessPaymentHandler extends BaseHandler{
         $date = $this->params['data']['date'];
         $cvc = $this->params['data']['cvc'];
 
-        $ccString = "{$cc}/{$name}/{$date}/{$cvc}";
+        $ccString = "{$cc}/{$date}/{$cvc}";
         $encrypted = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5('$4a$'), $ccString, MCRYPT_MODE_CBC, md5(md5('$4a$'))));
 
         $response = ERPService::processPayment([
