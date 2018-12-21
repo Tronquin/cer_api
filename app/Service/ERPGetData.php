@@ -2,6 +2,8 @@
 namespace App\Service;
 
 use App\ERPImage;
+use App\FieldTranslation;
+use App\Language;
 use App\Location;
 use App\Extra;
 use App\Experience;
@@ -238,6 +240,16 @@ class ERPGetData {
                         $extra_erp->cambia_hora_salida = $extra['cambia_hora_salida'];
 
                         $extra_erp->save();
+
+                        $translation = new FieldTranslation();
+
+                        $translation->content_id = $extra_erp->id;
+                        $translation->content_type = Extra::class;
+                        $translation->language_id = Language::query()->where('iso', 'es')->first()->id;
+                        $translation->field = 'nombre';
+                        $translation->translation = $extra['nombre_es'];
+
+                        $translation->save();
                     }
 
                     // Tabla Tarifa
