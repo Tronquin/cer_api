@@ -111,6 +111,11 @@ class ERPGetData {
                 $gallery->location_id = $ubicacion_erp->id;
                 $gallery->save();
 
+                $gallery = new \App\Galery();
+                $gallery->code = 'location-' . $erpId . '-header';
+                $gallery->location_id = $ubicacion_erp->id;
+                $gallery->save();
+
                 if ($erpId === 1) {
 
                     $gallery = new \App\Galery();

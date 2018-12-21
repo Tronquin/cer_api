@@ -42,6 +42,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
     // Registrar una reserva
     Route::post('/reservation/create', 'ReservationController@createReservation');
+    // Obtener informacion del spa
+    Route::get('/location/sagrada_familia/spa', 'SpaController@info');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -141,8 +143,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
-            // Obtener informacion del spa
-            Route::get('/admin/sagrada_familia/spa', 'SpaController@info');
             // Actualizar informacion del spa
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
             // Agregar idiomas

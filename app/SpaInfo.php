@@ -30,6 +30,10 @@ class SpaInfo extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description'];
+        return [
+            'description',
+            'title',
+            'subtitle'
+        ];
     }
 }
