@@ -1,7 +1,6 @@
 <?php
 namespace App\Handler\Web;
 
-use App\User;
 use App\Handler\BaseHandler;
 use App\CardInfo;
 use Illuminate\Support\Facades\Storage;
