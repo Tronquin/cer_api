@@ -14,27 +14,31 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
      */
     protected function handle()
     {
-        if(isset($this->params['id'])){
-            $frequentQuestions = FrequentQuestion::where('id',$this->params['id'])->first();
-            $frequentQuestions->order = isset($this->params['order']) ? $this->params['order'] : null;
-            $frequentQuestions->active = isset($this->params['active']) ? $this->params['order'] : 0;
-        }else{
-            $frequentQuestions = new FrequentQuestion();
-            $frequentQuestions->order = isset($this->params['order']) ? $this->params['order'] : null;
-            $frequentQuestions->active = isset($this->params['active']) ? $this->params['order'] : 0;
-            $frequentQuestions->save();
-        }
-        if (isset($this->params['fieldTranslations'])){
-            $frequentQuestions->updateFieldTranslations($this->params['fieldTranslations']);
-        }
-        $frequentQuestions->save();
+        $data = [];
+        foreach($this->params['questions'] as $question){
 
-        $frequentQuestions['fieldTranslations'] = $frequentQuestions->fieldTranslations();
+            $id = $question['id'];
 
+            $Question = FrequentQuestion::query()->findOrNew($id);
+            $Question->order = isset($question['order']) ? $question['order'] : null;
+            $Question->active = isset($question['active']) ? $question['order'] : 0;
+
+            $data['fieldTranslations'] = $Question->fieldTranslations();
+            
+            $Question->save();
+            $Question->updateFieldTranslations($question['fieldTranslations']);
+            $Question['fieldTranslations'] = $Question->fieldTranslations();
+            $data['questions'][] = $Question;
+            $sectionIds[] = $Question->id;
+        }
+
+        // Elimino todas las secciones que no llegaron de front
+        FrequentQuestion::query()->whereNotIn('id', $sectionIds)->delete();
+            
         $response = [
             'res' => 1,
             'msg' => "Operación exitosa",
-            'data' => $frequentQuestions,
+            'data' => $data,
         ];
 
         return $response;

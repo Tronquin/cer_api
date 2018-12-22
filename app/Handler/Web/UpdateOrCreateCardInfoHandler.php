@@ -20,7 +20,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
             $id = $card['id'];
 
             $cardInfo = CardInfo::query()->findOrNew($id);
-            $cardInfo->order = isset($card) ? $card['order'] : null;
+            $cardInfo->order = isset($card['order']) ? $card['order'] : null;
             $cardInfo->active = isset($card['active']) ? $card['order'] : 0;
 
             if (isset($card['front_image'])) {
@@ -33,8 +33,9 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
             $data['fieldTranslations'] = $cardInfo->fieldTranslations();
             $cardInfo->save();
             $cardInfo->front_image = route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
-            $data['cards'][] = $cardInfo;
             $cardInfo->updateFieldTranslations($card['fieldTranslations']);
+            $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
+            $data['cards'][] = $cardInfo;
             $sectionIds[] = $cardInfo->id;
         }
 
