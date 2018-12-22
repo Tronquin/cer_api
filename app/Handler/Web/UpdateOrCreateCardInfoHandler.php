@@ -23,6 +23,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
             $cardInfo = CardInfo::query()->findOrNew($id);
             $cardInfo->order = isset($card['order']) ? $card['order'] : null;
             $cardInfo->active = isset($card['active']) ? $card['order'] : 0;
+            $cardInfo->url = isset($card['url']) ? $card['url'] : null;
 
             if (isset($card['front_image'])) {
                 // Imagen
