@@ -15,7 +15,7 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
     protected function handle()
     {
         $data = [];
-        $sectionIds = [];
+        $questionsIds = [];
         foreach($this->params['questions'] as $question){
 
             $id = $question['id'];
@@ -30,11 +30,11 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
             $Question->updateFieldTranslations($question['fieldTranslations']);
             $Question['fieldTranslations'] = $Question->fieldTranslations();
             $data['questions'][] = $Question;
-            $sectionIds[] = $Question->id;
+            $questionsIds[] = $Question->id;
         }
 
         // Elimino todas las secciones que no llegaron de front
-        FrequentQuestion::query()->whereNotIn('id', $sectionIds)->delete();
+        FrequentQuestion::query()->whereNotIn('id', $questionsIds)->delete();
             
         $response = [
             'res' => 1,

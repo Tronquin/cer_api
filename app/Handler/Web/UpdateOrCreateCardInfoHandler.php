@@ -15,7 +15,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
     protected function handle()
     {
         $data = [];
-        $sectionIds = [];
+        $cardsIds = [];
         foreach($this->params['cards'] as $card){
 
             $id = $card['id'];
@@ -37,11 +37,11 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
             $cardInfo->updateFieldTranslations($card['fieldTranslations']);
             $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
             $data['cards'][] = $cardInfo;
-            $sectionIds[] = $cardInfo->id;
+            $cardsIds[] = $cardInfo->id;
         }
 
         // Elimino todas las secciones que no llegaron de front
-        CardInfo::query()->whereNotIn('id', $sectionIds)->delete();
+        CardInfo::query()->whereNotIn('id', $cardsIds)->delete();
             
         $response = [
             'res' => 1,
