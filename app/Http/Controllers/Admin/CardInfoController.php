@@ -18,25 +18,35 @@ class CardInfoController extends Controller
     */
     public function getCardInfo(){
 
+        $data = [];
+        $Translation = new CardInfo();
+        $Translation->fieldTranslation = $Translation->fieldTranslations();
+        
         $cardInfo = CardInfo::all();
         foreach ($cardInfo as &$card){
             $card->front_image = route('storage.image', ['image' => str_replace('/', '-', $card['front_page'])]);
             $card['fieldTranslations'] = $card->fieldTranslations();
         }
 
-        $response = [
-            'res' => 0,
-            'msg' => "Informacion no encontrada",
-            'data' => [],
-        ];
         if(count($cardInfo)){
+            $data['cards'] = $cardInfo;
+            $data['fieldTranslations'] = $Translation->fieldTranslation;
+
             $response = [
                 'res' => count($cardInfo),
                 'msg' => "Informacion encontrada",
-                'data' => $cardInfo,
+                'data' => $data,
+            ];
+        }else{
+            $data['cards'] = [];
+            $data['fieldTranslations'] = $Translation->fieldTranslation;
+
+            $response = [
+                'res' => 0,
+                'msg' => "Informacion no encontrada",
+                'data' => $data,
             ];
         }   
-
         return new JsonResponse($response);
     }
     
