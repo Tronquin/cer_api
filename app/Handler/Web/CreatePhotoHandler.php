@@ -36,6 +36,11 @@ class CreatePhotoHandler extends BaseHandler {
                 $response['data'][] = $photo;
                 $photoIds[] = $photo->id;
             } else {
+
+                $photo = Photo::find($p['id']);
+                $photo->type = $p['type'] ?? null;
+                $photo->save();
+
                 $photoIds[] = $p['id'];
             }
         }
