@@ -15,6 +15,7 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
     protected function handle()
     {
         $data = [];
+        $sectionIds = [];
         foreach($this->params['questions'] as $question){
 
             $id = $question['id'];

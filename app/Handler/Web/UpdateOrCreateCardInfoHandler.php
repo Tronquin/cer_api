@@ -15,6 +15,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
     protected function handle()
     {
         $data = [];
+        $sectionIds = [];
         foreach($this->params['cards'] as $card){
 
             $id = $card['id'];
