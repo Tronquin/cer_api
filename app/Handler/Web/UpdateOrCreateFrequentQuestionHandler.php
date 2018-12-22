@@ -22,7 +22,7 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
 
             $Question = FrequentQuestion::query()->findOrNew($id);
             $Question->order = isset($question['order']) ? $question['order'] : null;
-            $Question->active = isset($question['active']) ? $question['order'] : 0;
+            $Question->active = isset($question['active']) ? $question['active'] : 0;
 
             $data['fieldTranslations'] = $Question->fieldTranslations();
             
