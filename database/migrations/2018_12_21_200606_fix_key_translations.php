@@ -113,6 +113,50 @@ class FixKeyTranslations extends Migration
             ]);
         }
 
+        $key = new \App\KeyTranslation();
+        $key->key = 'layouts.navbar.field.error.email.required';
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? 'Correo electrónico obligatorio' : ''
+            ]);
+        }
+
+        $key = new \App\KeyTranslation();
+        $key->key = 'layouts.navbar.field.error.email.format';
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? 'Formato invalido' : ''
+            ]);
+        }
+
+        $key = new \App\KeyTranslation();
+        $key->key = 'layouts.navbar.field.error.password.required';
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? 'Contraseña obligatoria' : ''
+            ]);
+        }
+
+        $key = new \App\KeyTranslation();
+        $key->key = 'layouts.navbar.loginFail';
+        $key->device_type_id = $device->id;
+        $key->save();
+
+        foreach ($languages as $language) {
+            $key->languages()->attach($language->id, [
+                'translation' => $language->iso === 'es' ? 'Usuario o contraseña incorrecta' : ''
+            ]);
+        }
+
     }
 
     /**
