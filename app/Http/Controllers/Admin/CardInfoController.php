@@ -24,7 +24,7 @@ class CardInfoController extends Controller
         
         $cardInfo = CardInfo::all();
         foreach ($cardInfo as &$card){
-            $card->front_image = route('storage.image', ['image' => str_replace('/', '-', $card['front_page'])]);
+            $card->front_image = route('storage.image', ['image' => str_replace('/', '-', $card['front_image'])]);
             $card['fieldTranslations'] = $card->fieldTranslations();
         }
 
