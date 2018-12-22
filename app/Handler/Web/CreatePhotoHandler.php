@@ -62,8 +62,7 @@ class CreatePhotoHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'galleryCode' => 'required',
-            'photos' => 'required'
+            'galleryCode' => 'required'
         ];
     }
 

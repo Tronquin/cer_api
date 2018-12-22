@@ -77,7 +77,6 @@ class UpdateSpaInfoHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'spaSections' => 'required'
         ];
     }
 
