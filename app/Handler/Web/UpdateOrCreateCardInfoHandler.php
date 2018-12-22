@@ -14,36 +14,37 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
      */
     protected function handle()
     {
-        if(isset($this->params['id'])){
-            $cardInfo = CardInfo::where('id',$this->params['id'])->first();
-            $cardInfo->front_image = '';
-            $cardInfo->order = isset($this->params['order']) ? $this->params['order'] : null;
-            $cardInfo->active = isset($this->params['active']) ? $this->params['order'] : 0;
-            $cardInfo->url = isset($this->params['url']) ? $this->params['url'] : null;
-        }else{
-            $cardInfo = new CardInfo();
-            $cardInfo->front_image = '';
-            $cardInfo->order = isset($this->params['order']) ? $this->params['order'] : null;
-            $cardInfo->active = isset($this->params['active']) ? $this->params['order'] : 0;
-            $cardInfo->url = isset($this->params['url']) ? $this->params['url'] : null;
+        $data = [];
+        foreach($this->params['cards'] as $card){
+
+            $id = $card['id'];
+
+            $cardInfo = CardInfo::query()->findOrNew($id);
+            $cardInfo->order = isset($card) ? $card['order'] : null;
+            $cardInfo->active = isset($card['active']) ? $card['order'] : 0;
+
+            if (isset($card['front_image'])) {
+                // Imagen
+                $path = $this->uploadImage($card['front_image'], 'cardinfo/');
+
+                $cardInfo->front_image = $path;
+            }
+
+            $data['fieldTranslations'] = $cardInfo->fieldTranslations();
             $cardInfo->save();
+            $cardInfo->front_image = route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
+            $data['cards'][] = $cardInfo;
+            $cardInfo->updateFieldTranslations($card['fieldTranslations']);
+            $sectionIds[] = $cardInfo->id;
         }
-        if (isset($this->params['front_image'])) {
-            $path = $this->uploadImage($this->params['front_image'], 'cardinfo/' . $cardInfo->id . '/');
-            $cardInfo->front_image = $path;
-        }
-        if (isset($this->params['fieldTranslations'])){
-            $cardInfo->updateFieldTranslations($this->params['fieldTranslations']);
-        }
-        $cardInfo->save();
 
-        $cardInfo->front_image = route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
-        $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
-
+        // Elimino todas las secciones que no llegaron de front
+        CardInfo::query()->whereNotIn('id', $sectionIds)->delete();
+            
         $response = [
             'res' => 1,
             'msg' => "Operación exitosa",
-            'data' => $cardInfo,
+            'data' => $data,
         ];
 
         return $response;
