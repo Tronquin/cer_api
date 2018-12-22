@@ -152,7 +152,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             // Agregar cards en inicio admin
             Route::get('/admin/cardinfo/', 'Admin\CardInfoController@getCardInfo');
             // Actualizar cards en inicio admin
-            Route::post('/admin/cardinfo/', 'Admin\CardInfoController@updateCardInfo');
+            Route::post('/admin/cardinfo/', 'Admin\CardInfoController@updateOrCreateCardInfo');
         });
     });
 });

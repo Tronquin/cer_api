@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
-use App\Handler\Web\UpdateCardInfoHandler;
+use App\Handler\Web\UpdateOrCreateCardInfoHandler;
 use Illuminate\Http\Request;
 use App\CardInfo;
 
@@ -21,6 +21,7 @@ class CardInfoController extends Controller
         $cardInfo = CardInfo::all();
         foreach ($cardInfo as &$card){
             $card->front_image = route('storage.image', ['image' => str_replace('/', '-', $card['front_page'])]);
+            $card['fieldTranslations'] = $card->fieldTranslations();
         }
 
         $response = [
@@ -44,10 +45,10 @@ class CardInfoController extends Controller
     * @param Request $request 
     * @return mixed
     */
-    public function updateCardInfo(Request $request){
+    public function updateOrCreateCardInfo(Request $request){
 
         $data = $request->all();
-        $handler = new UpdateCardInfoHandler($data);
+        $handler = new UpdateOrCreateCardInfoHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

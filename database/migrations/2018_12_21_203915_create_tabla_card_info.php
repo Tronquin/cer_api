@@ -15,10 +15,10 @@ class CreateTablaCardInfo extends Migration
     {
         Schema::create('card_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre');
-            $table->longText('description');
+            $table->string('url')->nullable();
             $table->string('front_image')->nullable();
             $table->integer('active')->default(0);
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }
