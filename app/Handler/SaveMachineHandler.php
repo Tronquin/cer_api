@@ -17,9 +17,9 @@ class SaveMachineHandler extends BaseHandler {
         $machine = new Machine();
         $response = [];
 
-        $machineUbication = Location::where('name','=',$this->params['data']['ubication'])->first();
+        $machineUbication = Location::where('nombre','=',$this->params['data']['ubication'])->first();
         $machine->description = $this->params['data']['description'];
-        $machine->api_url = $this->params['data']['api_url'];
+        $machine->time_repose = $this->params['data']['time_repose'];
         $machine->device_url = $this->params['data']['device_url'];
         $machine->phone = $this->params['data']['phone'];
         $machine->location_id = $machineUbication->id;
