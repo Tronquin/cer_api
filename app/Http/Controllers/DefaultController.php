@@ -18,9 +18,9 @@ class DefaultController extends Controller
     /**
      * Obtiene el csv para las traducciones
      */
-    public function excel()
+    public function excel($device = null)
     {
-        return Excel::download(new KeyTranslationExport, 'translations.xlsx');
+        return Excel::download(new KeyTranslationExport($device), 'translations.xlsx');
     }
 
     /**
