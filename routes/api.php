@@ -151,8 +151,9 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
             // Actualizar informacion del spa
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
-            // Agregar idiomas
+            // Agregar / Actualizar idiomas
             Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
+            Route::put('/admin/translation/excel', 'DefaultController@updateTranslation');
             // Actualizar card
             Route::post('/admin/cardinfo/', 'Admin\CardInfoController@updateOrCreateCardInfo');
             // Actualizar las pregunta frecuente

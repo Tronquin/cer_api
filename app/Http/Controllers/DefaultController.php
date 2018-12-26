@@ -41,7 +41,7 @@ class DefaultController extends Controller
         $base64 = $request->file;
         $base64 = str_replace('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,', '', $base64);
 
-        $path = 'test/' . uniqid() . '.xlsx';
+        $path = 'import/' . uniqid() . '.xlsx';
         Storage::disk('public')->put($path, base64_decode($base64));
 
         $data = Excel::toArray(new KeyTranslationImport, $path, 'public');
@@ -54,6 +54,54 @@ class DefaultController extends Controller
                 if ($keyInstance && isset($keyAndTranslation[1])) {
 
                     $language->keyTranslations()->attach($keyInstance->id, ['translation' => $keyAndTranslation[1]]);
+                }
+            }
+        }
+
+        DB::commit();
+
+        return new JsonResponse(['res' => 1, 'msg' => 'Idioma Cargado', 'data' => $language]);
+    }
+
+    /**
+     * Actualizar traducciones
+     */
+    public function updateTranslation(Request $request)
+    {
+        DB::beginTransaction();
+
+        /** @var Language $language */
+        $language = Language::query()->where('iso', $request->iso)->firstOrFail();
+        $language->save();
+
+        $base64 = $request->file;
+        $base64 = str_replace('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,', '', $base64);
+
+        $path = 'import/' . uniqid() . '.xlsx';
+        Storage::disk('public')->put($path, base64_decode($base64));
+
+        $data = Excel::toArray(new KeyTranslationImport, $path, 'public');
+
+        foreach ($data as $keys) {
+            foreach ($keys as $keyAndTranslation) {
+
+                $keyInstance = KeyTranslation::query()->where('key', $keyAndTranslation[0])->first();
+
+                if ($keyInstance && isset($keyAndTranslation[1])) {
+
+                    $exists = DB::table('language_translation')
+                        ->where('language_id', $language->id)
+                        ->where('key_translation_id', $keyInstance->id)
+                        ->count() > 0
+                    ;
+
+                    if ($exists) {
+                        $keyTranslation = $language->keyTranslations()->find($keyInstance->id);
+                        $keyTranslation->pivot->translation = $keyAndTranslation[1];
+                        $keyTranslation->pivot->save();
+                    } else {
+                        $language->keyTranslations()->attach($keyInstance->id, ['translation' => $keyAndTranslation[1]]);
+                    }
                 }
             }
         }
