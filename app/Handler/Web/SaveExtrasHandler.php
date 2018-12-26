@@ -23,19 +23,6 @@ class SaveExtrasHandler extends BaseHandler {
         $extra->type = 'web';
         $extra->parent_id = $extra_erp->id;
         $extra->ubicacion_id = $this->params['data']['ubicacion_id'];
-        $extra->nombre = $this->params['data']['nombre'];
-        $extra->nombre_es = $this->params['data']['nombre_es'];
-        $extra->nombre_en = $this->params['data']['nombre_en'];
-        $extra->nombre_fr = $this->params['data']['nombre_fr'];
-        $extra->nombre_zh = $this->params['data']['nombre_zh'];
-        $extra->nombre_ru = $this->params['data']['nombre_ru'];
-        $extra->nombre_po = $this->params['data']['nombre_po'];
-        $extra->descripcion_es = $this->params['data']['descripcion_es'];
-        $extra->descripcion_en = $this->params['data']['descripcion_en'];
-        $extra->descripcion_fr = $this->params['data']['descripcion_fr'];
-        $extra->descripcion_zh = $this->params['data']['descripcion_zh'];
-        $extra->descripcion_ru = $this->params['data']['descripcion_ru'];
-        $extra->descripcion_po = $this->params['data']['descripcion_po'];
         $extra->coste = $this->params['data']['coste'];
         $extra->base_imponible = $this->params['data']['base_imponible'];
         $extra->iva_tipo = $this->params['data']['iva_tipo'];
@@ -76,7 +63,6 @@ class SaveExtrasHandler extends BaseHandler {
         return [
             'extra_id' => 'required|numeric',
             'ubicacion_id' => 'required|numeric',
-            'nombre' => 'required',
             "destacado" => 'required|numeric',
             "activo" => 'required|numeric',
         ];
