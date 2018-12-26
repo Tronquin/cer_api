@@ -27,7 +27,7 @@ class EditMachineHandler extends BaseHandler {
             $ubicationsArray = [];
             foreach($ubications as $key => $ubication) {
                 $ubicationsArray[$key]['id'] = $ubication->id;
-                $ubicationsArray[$key]['name'] = $ubication->name;
+                $ubicationsArray[$key]['name'] = $ubication->nombre;
             }
 
             $components = Component::orderBy('name')->get();
