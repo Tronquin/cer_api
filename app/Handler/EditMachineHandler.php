@@ -1,7 +1,7 @@
 <?php
 namespace App\Handler;
 
-use App\MachineUbication;
+use App\Location;
 use App\Component;
 use App\Machine;
 
@@ -22,7 +22,7 @@ class EditMachineHandler extends BaseHandler {
 
         if (! is_null($machine)) {
 
-            $ubications = MachineUbication::orderBy('name')->get();
+            $ubications = Location::orderBy('nombre')->get();
 
             $ubicationsArray = [];
             foreach($ubications as $key => $ubication) {

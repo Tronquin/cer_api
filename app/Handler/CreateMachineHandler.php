@@ -1,7 +1,7 @@
 <?php
 namespace App\Handler;
 
-use App\MachineUbication;
+use App\Location;
 use App\Component;
 
 class CreateMachineHandler extends BaseHandler {
@@ -12,7 +12,7 @@ class CreateMachineHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $ubications = MachineUbication::orderBy('name')->get();
+        $ubications = Location::orderBy('nombre')->get();
 
         $ubicationsArray = [];
         foreach($ubications as $key => $ubication) {
