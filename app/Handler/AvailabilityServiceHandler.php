@@ -18,6 +18,7 @@ class AvailabilityServiceHandler extends BaseHandler {
         ];
         $response = ERPService::availabilityService($dataService);
         $serviciosContratados['extras_disponibles'] = [];
+        $serviciosContratados['extras'] = $response['data']['list'];
 
         $service_persistence = ReservationServicePersistence::where('reserva_id', '=', $this->params['reserva_id'])->where('status_id','=',1)->get();
 

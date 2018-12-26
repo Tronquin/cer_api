@@ -2,6 +2,7 @@
 namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
+use App\Handler\AvailabilityServiceHandler;
 use App\Reservation;
 use App\Experience;
 use App\User;
@@ -28,6 +29,14 @@ class ReservationActiveHandler extends BaseHandler {
             foreach ($data as &$dato){ 
                 $dato['experiencia'] = Reservation::find($dato['id'])->experience;
                 $dato['user'] = Reservation::find($dato['id'])->user;
+
+                $handler = new AvailabilityServiceHandler(['reserva_id' => $dato['reserva_id_erp'],'funcion' => 'checkin']);
+                $handler->processHandler();
+
+                if ($handler->isSuccess()) {
+                    $extras_contratados = $handler->getData();
+                    $dato['extras_contratados'] = $extras_contratados['data']['list']['extras']['extras_contratados'];
+                }
             }
             $response['res'] = count($data);
             $response['msg'] = 'Reservas activas';
