@@ -1,10 +1,8 @@
 <?php
 namespace App\Handler;
 
-
 use App\Component;
 use App\Machine;
-use App\MachineUbication;
 
 class UpdateMachineHandler extends BaseHandler {
 
