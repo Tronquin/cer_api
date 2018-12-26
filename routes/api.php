@@ -43,9 +43,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Obtener informacion del spa
     Route::get('/location/sagrada_familia/spa', 'SpaController@info');
     // Obtener cards
-    Route::get('/find/cardinfo/', 'Admin\CardInfoController@getCardInfo');
+    Route::get('/find/cardinfo', 'Admin\CardInfoController@getCardInfo');
     // Obtener frequent questions
-    Route::get('/find/frequentquestion/', 'Admin\FrequentQuestionController@getFrequentquestions');
+    Route::get('/find/frequentquestion', 'Admin\FrequentQuestionController@getFrequentquestions');
+    // Obtener fotos y mas
+    Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
     
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Registrar una reserva
@@ -155,9 +157,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
             Route::put('/admin/translation/excel', 'DefaultController@updateTranslation');
             // Actualizar card
-            Route::post('/admin/cardinfo/', 'Admin\CardInfoController@updateOrCreateCardInfo');
+            Route::post('/admin/cardinfo', 'Admin\CardInfoController@updateOrCreateCardInfo');
             // Actualizar las pregunta frecuente
-            Route::post('/admin/frequentquestion/', 'Admin\FrequentQuestionController@updateOrCreateFrequentQuestion');
+            Route::post('/admin/frequentquestion', 'Admin\FrequentQuestionController@updateOrCreateFrequentQuestion');
+            // Gestion de fotos y mas
+            Route::post('/admin/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@store');
         });
     });
 });

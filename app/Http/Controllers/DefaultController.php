@@ -108,7 +108,7 @@ class DefaultController extends Controller
 
         DB::commit();
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Idioma Cargado', 'data' => $language]);
+        return new JsonResponse(['res' => 1, 'msg' => 'Idioma Actualizado', 'data' => $language]);
     }
 
     /**
