@@ -26,8 +26,8 @@ class ReservationActiveHandler extends BaseHandler {
         
         if(count($data)){
             foreach ($data as &$dato){ 
-                $dato['experiencia'] = Experience::find($dato['experience_id']);
-                $dato['user'] = User::find($dato['user_id']);
+                $dato['experiencia'] = Reservation::find($dato['id'])->experience;
+                $dato['user'] = Reservation::find($dato['id'])->user;
             }
             $response['res'] = count($data);
             $response['msg'] = 'Reservas activas';
