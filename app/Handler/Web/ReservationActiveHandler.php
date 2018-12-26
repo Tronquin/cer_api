@@ -3,6 +3,8 @@ namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
 use App\Reservation;
+use App\Experience;
+use App\User;
 
 class ReservationActiveHandler extends BaseHandler {
 
@@ -19,6 +21,10 @@ class ReservationActiveHandler extends BaseHandler {
         $data = Reservation::where('user_id',$this->params['user_id'])->get();
         
         if(count($data)){
+            foreach ($data as &$dato){ 
+                $dato['experiencia'] = Experience::find($dato['experience_id']);
+                $dato['user'] = User::find($dato['user_id']);
+            }
             $response['res'] = count($data);
             $response['msg'] = 'Reservas activas';
             $response['data'] = $data;

@@ -23,11 +23,11 @@ class CreateReservationHandler extends BaseHandler
     protected function handle()
     {
         $response = ERPService::createReservation($this->params);
-        
+
         $reservation = new Reservation();
         $checkin = date("Y-m-d",strtotime($response['data']['reserva']['fecha_entrada']));
         $checkout = date("Y-m-d",strtotime($response['data']['reserva']['fecha_salida']));
-        //dump($response);
+
         $tipologia_id = Typology::where('tipologia_id',$response['data']['reserva']['tipologia_id'])
                                     ->where('type','erp')
                                     ->first()->id;
@@ -44,6 +44,8 @@ class CreateReservationHandler extends BaseHandler
         ->where('type','erp')
         ->first()->id;             
 
+        $reservation->reserva_id_erp = $response['data']['reserva']['id'];
+        $reservation->localizador_erp = $response['data']['reserva']['localizador'];
         $reservation->ubicacion_id = $response['data']['reserva']['ubicacion_id'];
         $reservation->checkin = $checkin;
         $reservation->checkout = $checkout;
