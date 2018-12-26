@@ -14,8 +14,15 @@ class Machine extends Model
     protected $fillable = [
         'public_id',
         'description',
-        'machine_ubication'
     ];
+
+    /**
+     * Location
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id');
+    }
 
     /**
      * Todos los componentes que posee la maquina
@@ -27,16 +34,6 @@ class Machine extends Model
         return $this->belongsToMany(Component::class, 'machine_component', 'machine_id', 'component_id')
             ->withPivot(['active'])
         ;
-    }
-
-    /**
-     * Ubicacion configurada en esta maquina
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo;
-     */
-    public function machineUbication()
-    {
-        return $this->belongsTo(MachineUbication::class, 'machine_ubication_id');
     }
 
     /**
