@@ -2,8 +2,8 @@
 namespace App\Handler;
 
 use App\Component;
+use App\Location;
 use App\Machine;
-use App\MachineUbication;
 
 class SaveMachineHandler extends BaseHandler {
 
@@ -17,12 +17,12 @@ class SaveMachineHandler extends BaseHandler {
         $machine = new Machine();
         $response = [];
 
-        $machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
+        $machineUbication = Location::where('name','=',$this->params['data']['ubication'])->first();
         $machine->description = $this->params['data']['description'];
         $machine->api_url = $this->params['data']['api_url'];
         $machine->device_url = $this->params['data']['device_url'];
         $machine->phone = $this->params['data']['phone'];
-        $machine->machine_ubication_id = $machineUbication->id;
+        $machine->location_id = $machineUbication->id;
         $machine->public_id = uniqid('MAC-');
 
         $machine->save();

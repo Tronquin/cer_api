@@ -17,6 +17,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
 
         $photoAndMore = PhotoAndMore::query()->with(['sections'])->where('location_id', $location->id)->firstOrNew([]);
         $photoAndMore->video = $this->params['video'];
+        $photoAndMore->location_id = $location->id;
         $photoAndMore->save();
 
         $photoAndMore->updateFieldTranslations($this->params['fieldTranslations']);
