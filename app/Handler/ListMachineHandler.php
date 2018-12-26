@@ -13,14 +13,14 @@ class ListMachineHandler extends BaseHandler {
     {
         $response = [];
 
-        $machines= Machine::with('components')->with('machineUbication')->orderBy('description', 'asc')->get();
+        $machines= Machine::with('components')->with('location')->orderBy('description', 'asc')->get();
 
         foreach ($machines as $machine) {
 
             $temp = [
                 'id' => $machine->public_id,
                 'description' => $machine->description,
-                'ubication' => $machine->machineUbication->name,
+                'ubication' => $machine->location->name,
                 'created_at' => $machine->created_at
             ];
 
