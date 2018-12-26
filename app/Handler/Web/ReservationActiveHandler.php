@@ -18,7 +18,11 @@ class ReservationActiveHandler extends BaseHandler {
         $response['msg'] = 'No se encontraron reservas activas';
         $response['data'] = [];
 
-        $data = Reservation::where('user_id',$this->params['user_id'])->get();
+        $user = User::where('email',$this->params['email'])->first();
+        if(!$user)
+        return 'user not found';
+
+        $data = Reservation::where('user_id',$user->id)->get();
         
         if(count($data)){
             foreach ($data as &$dato){ 
@@ -41,7 +45,7 @@ class ReservationActiveHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'user_id' => 'required|numeric',
+            'email' => 'required',
         ];
     }
 

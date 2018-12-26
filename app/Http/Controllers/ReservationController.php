@@ -802,12 +802,12 @@ class ReservationController extends Controller
     /**
      * Obtiene el historial de reserva de un usuario
      *
-     * @param $user_id
+     * @param $email
      * @return JsonResponse
      */
-    public function reservationActiveByUser($user_id)
+    public function reservationActiveByUser($email)
     {
-        $handler = new ReservationActiveHandler(['user_id' => $user_id]);
+        $handler = new ReservationActiveHandler(['email' => $email]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

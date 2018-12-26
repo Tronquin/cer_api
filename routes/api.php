@@ -125,7 +125,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         // Historial de reservas
         Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
         // Obtener Reservas activas
-        Route::get('/find/reservation/actives/{user_id}', 'ReservationController@reservationActiveByUser');
+        Route::get('/find/reservation/actives/{email}', 'ReservationController@reservationActiveByUser');
 
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
