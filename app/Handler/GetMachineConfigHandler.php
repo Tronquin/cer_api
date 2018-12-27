@@ -21,7 +21,10 @@ class GetMachineConfigHandler extends BaseHandler
 
         $response = [
             'public_id' => $machine->public_id,
-            'ubication' => $machine->machineUbication->erp_ubication,
+            'ubication' => $machine->location->ubicacion_id,
+            'phone' => $machine->phone,
+            'device_url' => $machine->device_url,
+            'time_repose' => $machine->time_repose,
             'components' => []
         ];
 
