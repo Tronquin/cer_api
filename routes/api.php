@@ -46,6 +46,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/cardinfo', 'Admin\CardInfoController@getCardInfo');
     // Obtener frequent questions
     Route::get('/find/frequentquestion', 'Admin\FrequentQuestionController@getFrequentquestions');
+    // Obtener Section Apartment
+    Route::get('/find/sectionapartment/{ubicacion_id}', 'Admin\SectionApartmentController@getSectionApartment');
     // Obtener fotos y mas
     Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
     
@@ -160,6 +162,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/cardinfo', 'Admin\CardInfoController@updateOrCreateCardInfo');
             // Actualizar las pregunta frecuente
             Route::post('/admin/frequentquestion', 'Admin\FrequentQuestionController@updateOrCreateFrequentQuestion');
+            // Actualizar las secciones de apartamentos
+            Route::post('/admin/sectionapartment/{ubicacion_id}', 'Admin\SectionApartmentController@updateOrCreateSectionApartment');
             // Gestion de fotos y mas
             Route::post('/admin/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@store');
         });

@@ -4,6 +4,7 @@ namespace App\Handler;
 
 use App\Service\ERPService;
 use App\ReservationServicePersistence;
+use App\Extra;
 
 class AvailabilityServiceHandler extends BaseHandler {
 
@@ -18,6 +19,7 @@ class AvailabilityServiceHandler extends BaseHandler {
         ];
         $response = ERPService::availabilityService($dataService);
         $serviciosContratados['extras_disponibles'] = [];
+
         $serviciosContratados['extras'] = $response['data']['list'];
 
         $service_persistence = ReservationServicePersistence::where('reserva_id', '=', $this->params['reserva_id'])->where('status_id','=',1)->get();
@@ -50,6 +52,9 @@ class AvailabilityServiceHandler extends BaseHandler {
             }
         // Ordenamos con los destacados == 1 de primero
         $serviciosContratados['extras_disponibles'] = $this->order($serviciosContratados['extras_disponibles'], 'destacado',SORT_DESC);
+        /*foreach ($serviciosContratados['extras_disponibles'] as $extrasERP){
+            $serviciosContratados['extras']['extras_disponibles'][] = Extra::find($extrasERP->id);
+        }*/
 
         $response = [
             'res' => $response['res'],
