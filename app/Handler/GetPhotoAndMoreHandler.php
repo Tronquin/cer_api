@@ -23,8 +23,9 @@ class GetPhotoAndMoreHandler extends BaseHandler {
             $photoAndMore->video = '';
             $photoAndMore->location_id = null;
             $photoAndMore->sections = [];
-            $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
         }
+
+        $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
 
         foreach ($photoAndMore->sections as $section) {
             $section->fieldTranslations = $section->fieldTranslations();
