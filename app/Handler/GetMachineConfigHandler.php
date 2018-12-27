@@ -16,7 +16,7 @@ class GetMachineConfigHandler extends BaseHandler
     {
         $machine = Machine::query()
             ->where('public_id', $this->params['publicId'])
-            ->with(['machineUbication', 'components'])
+            ->with(['location', 'components'])
             ->firstOrFail();
 
         $response = [
