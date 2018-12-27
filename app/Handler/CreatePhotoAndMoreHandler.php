@@ -36,6 +36,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
                 $sectionInstance->gallery_id = $gallery->id;
             }
 
+            $sectionInstance->section_apartment_id = $section['section_apartment_id'];
             $sectionInstance->photo_and_more_id = $photoAndMore->id;
             $sectionInstance->video = $section['video'];
             $sectionInstance->save();

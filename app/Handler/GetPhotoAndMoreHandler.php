@@ -14,7 +14,7 @@ class GetPhotoAndMoreHandler extends BaseHandler {
         $location = Location::query()->where('ubicacion_id', $this->params['ubicacionId'])->firstOrFail();
 
         $photoAndMore = PhotoAndMore::query()
-            ->with(['sections.gallery.photos'])
+            ->with(['sections.gallery.photos', 'sections.sectionApartment'])
             ->where('location_id', $location->id)
             ->first();
 
@@ -27,9 +27,24 @@ class GetPhotoAndMoreHandler extends BaseHandler {
 
         $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
 
+        $originalSections = [];
+        $apartmentSections = [];
         foreach ($photoAndMore->sections as $section) {
             $section->fieldTranslations = $section->fieldTranslations();
+
+            foreach ($section->gallery->photos as $photo) {
+                $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+            }
+
+            if ($section->sectionApartment) {
+                $apartmentSections[] = $section;
+            } else {
+                $originalSections[] = $section;
+            }
         }
+
+        $photoAndMore->originalSections = $originalSections;
+        $photoAndMore->apartmentSections = $apartmentSections;
 
         return [
             'res' => 1,
