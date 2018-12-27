@@ -48,7 +48,6 @@ class SaveMachineHandler extends BaseHandler {
         return [
             'ubication' => 'required',
             'description' => 'required',
-            'api_url' => 'required',
             'device_url' => 'required',
             'phone' => 'required'
         ];

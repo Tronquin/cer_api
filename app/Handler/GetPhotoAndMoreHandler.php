@@ -13,15 +13,19 @@ class GetPhotoAndMoreHandler extends BaseHandler {
     {
         $location = Location::query()->where('ubicacion_id', $this->params['ubicacionId'])->firstOrFail();
 
-        $photoAndMore = PhotoAndMore::query()->with(['sections'])->where('location_id', $location)->first();
+        $photoAndMore = PhotoAndMore::query()
+            ->with(['sections.gallery'])
+            ->where('location_id', $location->id)
+            ->first();
 
         if (! $photoAndMore) {
             $photoAndMore = new PhotoAndMore();
             $photoAndMore->video = '';
             $photoAndMore->location_id = null;
             $photoAndMore->sections = [];
-            $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
         }
+
+        $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
 
         foreach ($photoAndMore->sections as $section) {
             $section->fieldTranslations = $section->fieldTranslations();

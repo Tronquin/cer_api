@@ -36,6 +36,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
                 $sectionInstance->gallery_id = $gallery->id;
             }
 
+            $sectionInstance->photo_and_more_id = $photoAndMore->id;
             $sectionInstance->video = $section['video'];
             $sectionInstance->save();
 
@@ -64,7 +65,6 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
     {
         return [
             'video' => 'required',
-            'location_id' => 'required',
             'fieldTranslations' => 'required',
             'ubicacionId' => 'required'
         ];
