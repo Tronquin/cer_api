@@ -37,6 +37,9 @@ class GetPhotoAndMoreHandler extends BaseHandler {
             }
 
             if ($section->sectionApartment) {
+
+                $section->sectionApartment->photo = route('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
+
                 $apartmentSections[] = $section;
             } else {
                 $originalSections[] = $section;
