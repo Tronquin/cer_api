@@ -38,4 +38,12 @@ class PhotoAndMoreSection extends Model
     {
         return ['name', 'title_video', 'title_gallery', 'description_gallery'];
     }
+
+    /**
+     * Seccion de apartamento
+     */
+    public function sectionApartment()
+    {
+        return $this->belongsTo(SectionApartment::class, 'section_apartment_id');
+    }
 }
