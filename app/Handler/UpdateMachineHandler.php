@@ -24,10 +24,10 @@ class UpdateMachineHandler extends BaseHandler {
 
             //$machineUbication = MachineUbication::where('name','=',$this->params['data']['ubication'])->first();
             $machine->description = $this->params['data']['description'];
-            //$machine->api_url = $this->params['data']['api_url'];
+            $machine->time_repose = $this->params['data']['time_repose'];
             $machine->device_url = $this->params['data']['device_url'];
             $machine->phone = $this->params['data']['phone'];
-            $machine->machine_ubication_id = (int)$this->params['data']['ubication'];
+            $machine->location_id = (int)$this->params['data']['ubication'];
 
             $machine->save();
 

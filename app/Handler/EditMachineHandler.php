@@ -41,8 +41,8 @@ class EditMachineHandler extends BaseHandler {
             $temp['machine'] = [
                 'id' => $machine->public_id,
                 'description' => $machine->description,
-                'ubication' => $machine->machineUbication->id,
-                'api_url' => $machine->api_url,
+                'ubication' => $machine->location->id,
+                'time_repose' => $machine->time_repose,
                 'device_url' => $machine->device_url,
                 'phone' => $machine->phone
             ];

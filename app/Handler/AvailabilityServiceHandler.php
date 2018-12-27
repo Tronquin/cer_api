@@ -19,7 +19,8 @@ class AvailabilityServiceHandler extends BaseHandler {
         ];
         $response = ERPService::availabilityService($dataService);
         $serviciosContratados['extras_disponibles'] = [];
-
+        $extras = [];
+        $extrasContratados = [];
         $serviciosContratados['extras'] = $response['data']['list'];
 
         $service_persistence = ReservationServicePersistence::where('reserva_id', '=', $this->params['reserva_id'])->where('status_id','=',1)->get();
@@ -52,9 +53,39 @@ class AvailabilityServiceHandler extends BaseHandler {
             }
         // Ordenamos con los destacados == 1 de primero
         $serviciosContratados['extras_disponibles'] = $this->order($serviciosContratados['extras_disponibles'], 'destacado',SORT_DESC);
-        /*foreach ($serviciosContratados['extras_disponibles'] as $extrasERP){
-            $serviciosContratados['extras']['extras_disponibles'][] = Extra::find($extrasERP->id);
-        }*/
+        
+        // Aqui buscamos los extras en cer-api para la respuesta usada en la web
+        foreach ($serviciosContratados['extras']['extras_contratados'] as $extcERP){
+            $contratados = Extra::where('extra_id',$extcERP['id'])
+                                    ->where('type','erp')
+                                    ->with(['child'])
+                                    ->get();
+                foreach ($contratados as $contratado) {
+                    $webOrErp = $contratado->child ? $contratado->child->toArray() : $contratado->toArray();
+                    $webOrErp['fieldTranslations'] = $contratado->child ? $contratado->child->fieldTranslations() : $contratado->fieldTranslations();
+                    $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
+                    $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
+        
+                    $extrasContratados[] = $webOrErp;
+                }
+        }
+        foreach ($serviciosContratados['extras_disponibles'] as $extrasERP){
+            $serviciosContratados['extras']['extras_disponibles'] = Extra::where('extra_id',$extrasERP['id'])
+                                                                            ->where('type','erp')
+                                                                            ->with(['child'])
+                                                                            ->get();
+                foreach ($serviciosContratados['extras']['extras_disponibles'] as $extErp) {
+                    $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
+                    $webOrErp['fieldTranslations'] = $extErp->child ? $extErp->child->fieldTranslations() : $extErp->fieldTranslations();
+                    $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
+                    $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
+        
+                    $extras[] = $webOrErp;
+                }
+        }
+        $serviciosContratados['extras']['extras_disponibles'] = $extras;
+        $serviciosContratados['extras']['extras_contratados'] = $extrasContratados;
+        // Fin asisgnacion web
 
         $response = [
             'res' => $response['res'],

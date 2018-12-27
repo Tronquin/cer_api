@@ -14,6 +14,11 @@ class Machine extends Model
     protected $fillable = [
         'public_id',
         'description',
+        'device_url',
+        'phone',
+        'location_id',
+        'time_repose',
+        'machine_ubication_id',
     ];
 
     /**
