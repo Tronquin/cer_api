@@ -20,7 +20,10 @@ class ListMachineHandler extends BaseHandler {
             $temp = [
                 'id' => $machine->public_id,
                 'description' => $machine->description,
-                'ubication' => $machine->location->name,
+                'ubication' => $machine->location->ubicacion_id,
+                'phone' => $machine->phone,
+                'device_url' => $machine->device_url,
+                'time_repose' => $machine->time_repose,
                 'created_at' => $machine->created_at
             ];
 
