@@ -15,7 +15,7 @@ class CreateTableSectionApartments extends Migration
     {
         Schema::create('section_apartments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ubicacion_id');
+            $table->integer('ubicacion_id')->unsigned();
             $table->foreign('ubicacion_id')->references('id')->on('locations');
             $table->string('photo')->nullable();
             $table->integer('order')->nullable();
