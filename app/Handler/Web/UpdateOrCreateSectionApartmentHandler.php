@@ -22,7 +22,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $id = $sectionApartment['id'];
 
             $section = SectionApartment::query()->findOrNew($id);
-            $section->ubicacion_id = $sectionApartment['ubicacion_id'];
+            $section->ubicacion_id = $this->params['ubicacion_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
             if(isset($sectionApartment['photo'])){
                 $path = $this->uploadImage($sectionApartment['photo'], 'sectionApartment/');
