@@ -2,6 +2,7 @@
 namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
+use App\PhotoAndMoreSection;
 use App\SectionApartment;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,6 +41,10 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
         }
 
         // Elimino todas las secciones que no llegaron de front
+        PhotoAndMoreSection::query()
+            ->whereNotIn('section_apartment_id', $sectionApartmentIds)
+            ->whereNotNull('section_apartment_id')
+            ->delete();
         SectionApartment::query()->whereNotIn('id', $sectionApartmentIds)->delete();
             
         $response = [
