@@ -28,7 +28,9 @@ class ERPGetData {
          * Llenamos la tabla locations
          */
         $ubicaciones = ERPService::findLocations();
+        $languages = Language::all();
         $galerias = [];
+        $ubicacion_lang = [];
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
@@ -61,7 +63,44 @@ class ERPGetData {
                 $ubicacion_erp->ip_ubicacion = $ubicacion['ip_ubicacion'];
                 $ubicacion_erp->iva_reservas = $ubicacion['iva_reservas'];
                 
+                $ubicacion_lang['es'] = [
+                    'descripcion' => $ubicacion['descripcion_es']
+                ];
+                $ubicacion_lang['en'] = [
+                    'descripcion' => $ubicacion['descripcion_en']
+                ];
+                $ubicacion_lang['fr'] = [
+                    'descripcion' => $ubicacion['descripcion_fr']
+                ];
+                $ubicacion_lang['po'] = [
+                    'descripcion' => $ubicacion['descripcion_po']
+                ];
                 $response = $ubicacion_erp->save();
+
+                foreach($languages as $language){
+                    foreach($ubicacion_lang as $key => $lang){
+                        
+                        if($language['iso'] == $key){
+    
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','description')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'description';
+                                $translation->translation = $lang['descripcion'];
+        
+                                $translation->save();
+                            }
+                        }
+                    }
+                }
 
                 if (! $createGallery) {
                     continue;
@@ -136,6 +175,7 @@ class ERPGetData {
                     $promocions = $data['promocions'];
 
                     // Tabla Tipologias
+                    $tipologia_lang = [];
                     foreach($tipologias as $tipologia){
 
                         foreach($tipologia['galerias'] as $tipologiaGalery){
@@ -154,6 +194,43 @@ class ERPGetData {
                         $tipologia_erp->min = $tipologia['min'];
                         $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
 
+                        $tipologia_lang['es'] = [
+                            'descripcion' => $tipologia['descripcion_es']
+                        ];
+                        $tipologia_lang['en'] = [
+                            'descripcion' => $tipologia['descripcion_en']
+                        ];
+                        $tipologia_lang['fr'] = [
+                            'descripcion' => $tipologia['descripcion_fr']
+                        ];
+                        $tipologia_lang['po'] = [
+                            'descripcion' => $tipologia['descripcion_po']
+                        ];
+                        $response = $ubicacion_erp->save();
+        
+                        foreach($languages as $language){
+                            foreach($tipologia_lang as $key => $lang){
+                                
+                                if($language['iso'] == $key){
+            
+                                    $translation = FieldTranslation::where('content_id',$tipologia_erp->id)
+                                                    ->where('field','description')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Typology::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $tipologia_erp->id;
+                                        $translation->content_type = Typology::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'description';
+                                        $translation->translation = $lang['descripcion'];
+                
+                                        $translation->save();
+                                    }
+                                }
+                            }
+                        }
                         $tipologia_erp->save();
                     }
 
@@ -201,6 +278,7 @@ class ERPGetData {
                     }
 
                     // Tabla Extra
+                    $extra_lang = [];
                     foreach($extras as $extra){
                         $extra_erp = Extra::where('extra_id','=',$extra['id'])
                             ->where('type','=','erp')
@@ -218,17 +296,69 @@ class ERPGetData {
                         $extra_erp->cambia_hora_entrada = $extra['cambia_hora_entrada'];
                         $extra_erp->cambia_hora_salida = $extra['cambia_hora_salida'];
 
+                        $extra_lang['es'] = [
+                            'nombre' => $extra['nombre_es'],
+                            'descripcion' => $extra['descripcion_es']
+                        ];
+                        $extra_lang['en'] = [
+                            'nombre' => $extra['nombre_en'],
+                            'descripcion' => $extra['descripcion_en']
+                        ];
+                        $extra_lang['fr'] = [
+                            'nombre' => $extra['nombre_fr'],
+                            'descripcion' => $extra['descripcion_fr']
+                        ];
+                        $extra_lang['zh'] = [
+                            'nombre' => $extra['nombre_zh'],
+                            'descripcion' => $extra['descripcion_zh']
+                        ];
+                        $extra_lang['ru'] = [
+                            'nombre' => $extra['nombre_ru'],
+                            'descripcion' => $extra['descripcion_ru']
+                        ];
+                        $extra_lang['po'] = [
+                            'nombre' => $extra['nombre_po'],
+                            'descripcion' => $extra['descripcion_po']
+                        ];
                         $extra_erp->save();
-
-                        $translation = new FieldTranslation();
-
-                        $translation->content_id = $extra_erp->id;
-                        $translation->content_type = Extra::class;
-                        $translation->language_id = Language::query()->where('iso', 'es')->first()->id;
-                        $translation->field = 'nombre';
-                        $translation->translation = $extra['nombre_es'];
-
-                        $translation->save();
+                        
+                        foreach($languages as $language){
+                            foreach($extra_lang as $key => $lang){
+                                
+                                if($language['iso'] == $key){
+                                    $translation = FieldTranslation::where('content_id',$extra_erp->id)
+                                                    ->where('field','nombre')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Extra::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $extra_erp->id;
+                                        $translation->content_type = Extra::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre';
+                                        $translation->translation = $lang['nombre'];
+                                        $translation->save();
+                                    }
+            
+                                    $translation = FieldTranslation::where('content_id',$extra_erp->id)
+                                                    ->where('field','description')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Extra::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $extra_erp->id;
+                                        $translation->content_type = Extra::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'description';
+                                        $translation->translation = $lang['descripcion'];
+                
+                                        $translation->save();
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Tabla Tarifa
