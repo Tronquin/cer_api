@@ -38,6 +38,13 @@ class GetSpaInfoHandler extends BaseHandler
             }
 
             $spaSection->fieldTranslations = $spaSection->fieldTranslations();
+
+            foreach($spaSection->icons as $icon){
+                if ($spaSection->ico) {
+                    $spaSection->ico = route('storage.image', ['image' => str_replace('/', '-', $spaSection->ico)]);
+                }
+                $icon->fieldTranslations = $icon->fieldTranslations();
+            }
         }
 
         $response = [

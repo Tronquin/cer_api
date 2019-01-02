@@ -27,6 +27,14 @@ class SpaSection extends Model
     }
 
     /**
+     * Todos los iconos de la seccion
+     */
+    public function icons()
+    {
+        return $this->hasMany(Icon::class, 'spa_section_id');
+    }
+
+    /**
      * Campos que se pueden almacenar en field_translations
      *
      * @return array

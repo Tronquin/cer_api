@@ -53,6 +53,28 @@ class UpdateSpaInfoHandler extends BaseHandler
             
             $section->updateFieldTranslations($spaSection['fieldTranslations']);
             $sectionIds[] = $section->id;
+
+            $iconIds = [];
+            foreach($this->params['spaSections']['icons'] as $icon){
+
+                $id = $icon['id'];
+
+                $icon = Icon::query()->findOrNew($id);
+                $icon->section_id = $section->id;
+
+                if (isset($icon['ico'])) {
+                    // Icon
+                    $path = $this->uploadImage($icon['ico'], 'spa/icons/');
+    
+                    $section->ico = $path;
+                }
+                $icon->save();
+            
+                $icon->updateFieldTranslations($icon['fieldTranslations']);
+                $iconIds[] = $icon->id;
+            }
+            // Elimino todos los iconos que no llegaron de front
+            Icon::query()->whereNotIn('id', $iconIds)->delete();
         }
 
         // Elimino todas las secciones que no llegaron de front
