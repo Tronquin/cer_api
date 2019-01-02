@@ -65,7 +65,8 @@ class AvailabilityServiceHandler extends BaseHandler {
                     $webOrErp['fieldTranslations'] = $contratado->child ? $contratado->child->fieldTranslations() : $contratado->fieldTranslations();
                     $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
                     $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
-        
+                    $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
+                    
                     $extrasContratados[] = $webOrErp;
                 }
         }
@@ -79,7 +80,8 @@ class AvailabilityServiceHandler extends BaseHandler {
                     $webOrErp['fieldTranslations'] = $extErp->child ? $extErp->child->fieldTranslations() : $extErp->fieldTranslations();
                     $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
                     $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
-        
+                    $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
+
                     $extras[] = $webOrErp;
                 }
         }

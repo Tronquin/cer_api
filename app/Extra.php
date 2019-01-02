@@ -36,7 +36,35 @@ class Extra extends Model
         'activo',
     ];
 
-    
+    /**
+     * Enviamos base imponible y porcentaje de iva a cobrar y nos retorna los calculos hechos
+     *
+     * @param $base_imponible
+     * @param $iva
+     * @return array
+     */
+    public static function calcularIva($base_imponible,$iva){
+
+        //        $iva = $iva/100 * round($base_imponible,2);
+        //        //$total = round($iva + $base_imponible,2);
+        //        $total = round($iva,2) + round($base_imponible,2);
+        //        return [
+        //            'base_imponible' => round($base_imponible,2),
+        //            'monto_iva' => round($iva,2),
+        //            'total' => round($total,2)
+        //        ];
+        
+                $iva = $iva/100 * $base_imponible;
+                //$total = round($iva + $base_imponible,2);
+                $total = $iva + $base_imponible;
+                return [
+                    'base_imponible' => $base_imponible,
+                    'monto_iva' => $iva,
+                    'total' => $total
+                ];
+        
+    }
+
     public function experiences()
     {
         return $this->belongsToMany(Experience::class, 'experiences_extras', 'extra_id', 'experience_id');
