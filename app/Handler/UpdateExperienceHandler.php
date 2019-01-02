@@ -2,9 +2,7 @@
 namespace App\Handler;
 
 use App\Experience;
-use App\Language;
-use App\FieldTranslation;
-use Illuminate\Support\Facades\Storage;
+use App\Service\UploadImage;
 
 class UpdateExperienceHandler extends BaseHandler
 {
@@ -16,11 +14,10 @@ class UpdateExperienceHandler extends BaseHandler
     protected function handle()
     {
         $experience = Experience::where('experiencia_id', $this->params['experienceId'])->firstOrFail();
-        $languages = Language::all();
 
         if (isset($this->params['front_page'])) {
             // Imagen
-            $path = $this->uploadImage($this->params['front_page'], 'experiences/' . $experience->id . '/');
+            $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/');
 
             $experience->front_page = $path;
         }
@@ -51,25 +48,5 @@ class UpdateExperienceHandler extends BaseHandler
             'experienceId' => 'required|numeric',
             'fieldTranslations' => 'required'
         ];
-    }
-
-    /**
-     * Carga una imagen
-     *
-     * @param string $base64
-     * @param string $folder
-     * @return string
-     */
-    private function uploadImage($base64, $folder)
-    {
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-        $extension = str_replace('image/png', '', $base64[0]) !== $base64[0] ? '.png' : '.jpg';
-        $filename = uniqid() . $extension;
-        $path = $folder . $filename;
-
-        Storage::disk('public')->put($path, $upload);
-
-        return $path;
     }
 }

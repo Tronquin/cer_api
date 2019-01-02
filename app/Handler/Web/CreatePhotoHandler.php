@@ -4,7 +4,7 @@ namespace App\Handler\Web;
 use App\Galery;
 use App\Handler\BaseHandler;
 use App\Photo;
-use Illuminate\Support\Facades\Storage;
+use App\Service\UploadImage;
 
 class CreatePhotoHandler extends BaseHandler {
 
@@ -24,7 +24,7 @@ class CreatePhotoHandler extends BaseHandler {
                 if ($p['isErp']) {
                     $path = $p['photo'];
                 }else {
-                    $path = $this->uploadImage($p['photo'], 'galleries/' . $gallery->id . '/');
+                    $path = UploadImage::upload($p['photo'], 'galleries/' . $gallery->id . '/');
                 }
 
                 $photo = new Photo();
@@ -65,25 +65,4 @@ class CreatePhotoHandler extends BaseHandler {
             'galleryCode' => 'required'
         ];
     }
-
-    /**
-     * Carga una imagen
-     *
-     * @param string $base64
-     * @param string $folder
-     * @return string
-     */
-    private function uploadImage($base64, $folder)
-    {
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-        $extension = str_replace('image/png', '', $base64[0]) !== $base64[0] ? '.png' : '.jpg';
-        $filename = uniqid() . $extension;
-        $path = $folder . $filename;
-
-        Storage::disk('public')->put($path, $upload);
-
-        return $path;
-    }
-
 }

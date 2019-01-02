@@ -3,7 +3,7 @@ namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
 use App\CardInfo;
-use Illuminate\Support\Facades\Storage;
+use App\Service\UploadImage;
 
 class UpdateOrCreateCardInfoHandler extends BaseHandler
 {
@@ -27,7 +27,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
 
             if (isset($card['front_image'])) {
                 // Imagen
-                $path = $this->uploadImage($card['front_image'], 'cardinfo/');
+                $path = UploadImage::upload($card['front_image'], 'cardinfo/');
 
                 $cardInfo->front_image = $path;
             }
@@ -51,26 +51,6 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
         ];
 
         return $response;
-    }
-
-    /**
-     * Carga una imagen
-     *
-     * @param string $base64
-     * @param string $folder
-     * @return string
-     */
-    private function uploadImage($base64, $folder)
-    {
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-        $extension = str_replace('image/png', '', $base64[0]) !== $base64[0] ? '.png' : '.jpg';
-        $filename = uniqid() . $extension;
-        $path = $folder . $filename;
-
-        Storage::disk('public')->put($path, $upload);
-
-        return $path;
     }
 
     /**
