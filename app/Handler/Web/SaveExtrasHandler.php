@@ -3,7 +3,7 @@ namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
 use App\Extra;
-use Illuminate\Support\Facades\Storage;
+use App\Service\UploadImage;
 
 class SaveExtrasHandler extends BaseHandler {
 
@@ -34,14 +34,14 @@ class SaveExtrasHandler extends BaseHandler {
 
         if (isset($this->params['data']['front_image'])) {
             // Imagen
-            $path = $this->uploadImage($this->params['data']['front_image'], 'extras/' . $extra->id . '/');
+            $path = UploadImage::upload($this->params['data']['front_image'], 'extras/' . $extra->id . '/');
 
             $extra->front_image = $path;
         }
 
         if (isset($this->params['data']['icon'])) {
             // Icono
-            $path = $this->uploadImage($this->params['data']['icon'], 'extras/' . $extra->id . '/');
+            $path = UploadImage::upload($this->params['data']['icon'], 'extras/' . $extra->id . '/');
 
             $extra->icon = $path;
         }
@@ -66,25 +66,5 @@ class SaveExtrasHandler extends BaseHandler {
             "destacado" => 'required|numeric',
             "activo" => 'required|numeric',
         ];
-    }
-
-    /**
-     * Carga una imagen
-     *
-     * @param string $base64
-     * @param string $folder
-     * @return string
-     */
-    private function uploadImage($base64, $folder)
-    {
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-        $extension = str_replace('image/png', '', $base64[0]) !== $base64[0] ? '.png' : '.jpg';
-        $filename = uniqid() . $extension;
-        $path = $folder . $filename;
-
-        Storage::disk('public')->put($path, $upload);
-
-        return $path;
     }
 }

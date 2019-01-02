@@ -1,10 +1,10 @@
 <?php
 namespace App\Handler;
 
+use App\Service\UploadImage;
 use App\SpaInfo;
 use App\SpaSection;
 use App\SpaIcon;
-use Illuminate\Support\Facades\Storage;
 
 class UpdateSpaInfoHandler extends BaseHandler
 {
@@ -19,7 +19,7 @@ class UpdateSpaInfoHandler extends BaseHandler
 
         if (isset($this->params['photo'])) {
             // Imagen
-            $path = $this->uploadImage($this->params['photo'], 'spa/');
+            $path = UploadImage::upload($this->params['photo'], 'spa/');
 
             $spaInfo->photo = $path;
         }
@@ -38,14 +38,14 @@ class UpdateSpaInfoHandler extends BaseHandler
 
             if (isset($spaSection['photo'])) {
                 // Imagen
-                $path = $this->uploadImage($spaSection['photo'], 'spa/');
+                $path = UploadImage::upload($spaSection['photo'], 'spa/');
 
                 $section->photo = $path;
             }
 
             if (isset($spaSection['ico'])) {
                 // Icon
-                $path = $this->uploadImage($spaSection['ico'], 'spa/');
+                $path = UploadImage::upload($spaSection['ico'], 'spa/');
 
                 $section->ico = $path;
             }
@@ -65,7 +65,7 @@ class UpdateSpaInfoHandler extends BaseHandler
 
                 if (isset($icono['icon'])) {
                     // Icon
-                    $path = $this->uploadImage($icono['icon'], 'spa/icons/');
+                    $path = UploadImage::upload($icono['icon'], 'spa/icons/');
     
                     $icon->ico = $path;
                 }
@@ -100,25 +100,5 @@ class UpdateSpaInfoHandler extends BaseHandler
     {
         return [
         ];
-    }
-
-    /**
-     * Carga una imagen
-     *
-     * @param string $base64
-     * @param string $folder
-     * @return string
-     */
-    private function uploadImage($base64, $folder)
-    {
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-        $extension = str_replace('image/png', '', $base64[0]) !== $base64[0] ? '.png' : '.jpg';
-        $filename = uniqid() . $extension;
-        $path = $folder . $filename;
-
-        Storage::disk('public')->put($path, $upload);
-
-        return $path;
     }
 }
