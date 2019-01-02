@@ -60,7 +60,7 @@ class UpdateSpaInfoHandler extends BaseHandler
                 $id = $icon['id'];
 
                 $icon = Icon::query()->findOrNew($id);
-                $icon->section_id = $section->id;
+                $icon->spa_section_id = $section->id;
 
                 if (isset($icon['ico'])) {
                     // Icon
