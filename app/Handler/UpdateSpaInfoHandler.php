@@ -3,6 +3,7 @@ namespace App\Handler;
 
 use App\SpaInfo;
 use App\SpaSection;
+use App\SpaIcon;
 use Illuminate\Support\Facades\Storage;
 
 class UpdateSpaInfoHandler extends BaseHandler
@@ -55,26 +56,25 @@ class UpdateSpaInfoHandler extends BaseHandler
             $sectionIds[] = $section->id;
 
             $iconIds = [];
-            foreach($this->params['spaSections']['icons'] as $icon){
+            foreach($spaSection['icons'] as $icono){
 
-                $id = $icon['id'];
+                $id = $icono['id'];
 
-                $icon = Icon::query()->findOrNew($id);
+                $icon = SpaIcon::query()->findOrNew($id);
                 $icon->spa_section_id = $section->id;
 
-                if (isset($icon['ico'])) {
+                if (isset($icono['icon'])) {
                     // Icon
-                    $path = $this->uploadImage($icon['ico'], 'spa/icons/');
+                    $path = $this->uploadImage($icono['icon'], 'spa/icons/');
     
-                    $section->ico = $path;
+                    $icon->ico = $path;
                 }
                 $icon->save();
-            
-                $icon->updateFieldTranslations($icon['fieldTranslations']);
+                $icon->updateFieldTranslations($icono['fieldTranslations']);
                 $iconIds[] = $icon->id;
             }
             // Elimino todos los iconos que no llegaron de front
-            Icon::query()->whereNotIn('id', $iconIds)->delete();
+            SpaIcon::query()->whereNotIn('id', $iconIds)->delete();
         }
 
         // Elimino todas las secciones que no llegaron de front

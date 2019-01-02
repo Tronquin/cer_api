@@ -2,14 +2,14 @@
 
 namespace App;
 
-use App\TraitDefinition\FieldTranslationTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\TraitDefinition\FieldTranslationTrait;
 
-class Icon extends Model
+class SpaIcon extends Model
 {
     use FieldTranslationTrait;
 
-    protected $table = 'icons';
+    protected $table = 'spa_icons';
 
     protected $fillable = [
         'spa_section_id',

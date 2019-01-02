@@ -31,7 +31,7 @@ class SpaSection extends Model
      */
     public function icons()
     {
-        return $this->hasMany(Icon::class, 'spa_section_id');
+        return $this->hasMany(SpaIcon::class, 'spa_section_id');
     }
 
     /**

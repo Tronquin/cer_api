@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableIcons extends Migration
+class CreateTableSpaIcons extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableIcons extends Migration
      */
     public function up()
     {
-        Schema::create('icons', function (Blueprint $table) {
+        Schema::create('spa_icons', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('spa_section_id')->unsigned();
             $table->foreign('spa_section_id')->references('id')->on('spa_sections');
@@ -29,6 +29,6 @@ class CreateTableIcons extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('icons');
+        Schema::dropIfExists('spa_icons');
     }
 }
