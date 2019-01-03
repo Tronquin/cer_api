@@ -57,16 +57,16 @@ class UpdateSpaInfoHandler extends BaseHandler
 
             $iconIds = [];
             foreach($spaSection['icons'] as $icono){
-
+                
                 $id = $icono['id'];
-
+                
                 $icon = SpaIcon::query()->findOrNew($id);
                 $icon->spa_section_id = $section->id;
-
+                
                 if (isset($icono['icon'])) {
                     // Icon
                     $path = UploadImage::upload($icono['icon'], 'spa/icons/');
-    
+                    
                     $icon->ico = $path;
                 }
                 $icon->save();
@@ -74,9 +74,9 @@ class UpdateSpaInfoHandler extends BaseHandler
                 $iconIds[] = $icon->id;
             }
             // Elimino todos los iconos que no llegaron de front
-            SpaIcon::query()->whereNotIn('id', $iconIds)->delete();
+            SpaIcon::where('spa_section_id',$section->id)->whereNotIn('id', $iconIds)->delete();
         }
-
+        
         // Elimino todas las secciones que no llegaron de front
         SpaSection::query()->whereNotIn('id', $sectionIds)->delete();
 
