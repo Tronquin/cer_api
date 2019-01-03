@@ -41,4 +41,20 @@ class Reservation extends Model
     {
         return $this->belongsTo(Package::class, 'regimen_id');
     }
+
+    /**
+     * cancelation_policy
+     */
+    public function cancelation_policy()
+    {
+        return $this->belongsTo(CancellationPolicy::class, 'policy_id');
+    }
+
+    /**
+     * promotion
+     */
+    public function promotion()
+    {
+        return $this->belongsTo(Promotion::class, 'promotion_id');
+    }
 }

@@ -27,8 +27,15 @@ class ReservationActiveHandler extends BaseHandler {
         
         if(count($data)){
             foreach ($data as &$dato){ 
-                $dato['experiencia'] = Reservation::find($dato['id'])->experience;
+                $dato['experiencia'] = Experience::where('id',$dato['experience_id'])->with(['extras'])->first();
+                $dato['experiencia']['fieldTranslations'] = $dato['experiencia']->fieldTranslations();
+                foreach($dato['experiencia']['extras'] as &$extra){
+                    $extra['fieldTranslations'] = $extra->fieldTranslations();
+                }
                 $dato['user'] = Reservation::find($dato['id'])->user;
+                $dato['cancelation_policy'] = Reservation::find($dato['id'])->cancelation_policy;
+                $dato['packages'] = Reservation::find($dato['id'])->package;
+                $dato['promotion'] = Reservation::find($dato['id'])->promotion;
 
                 $handler = new AvailabilityServiceHandler(['reserva_id' => $dato['reserva_id_erp'],'funcion' => 'checkin']);
                 $handler->processHandler();
