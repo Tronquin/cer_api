@@ -36,6 +36,8 @@ class ReservationActiveHandler extends BaseHandler {
                 $dato['cancelation_policy'] = Reservation::find($dato['id'])->cancelation_policy;
                 $dato['packages'] = Reservation::find($dato['id'])->package;
                 $dato['promotion'] = Reservation::find($dato['id'])->promotion;
+                $dato['apartment'] = Reservation::find($dato['id'])->apartment;
+                $dato['identificador'] = $dato['localizador_erp'].'-Apt: '.$dato['apartment']['nombre'];
 
                 $handler = new AvailabilityServiceHandler(['reserva_id' => $dato['reserva_id_erp'],'funcion' => 'checkin']);
                 $handler->processHandler();

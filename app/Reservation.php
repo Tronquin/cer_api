@@ -57,4 +57,12 @@ class Reservation extends Model
     {
         return $this->belongsTo(Promotion::class, 'promotion_id');
     }
+
+    /**
+     * Apartment
+     */
+    public function apartment()
+    {
+        return $this->belongsTo(Apartment::class, 'apartment_id');
+    }
 }
