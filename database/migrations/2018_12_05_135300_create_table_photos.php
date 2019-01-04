@@ -18,7 +18,6 @@ class CreateTablePhotos extends Migration
             $table->integer('gallery_id')->unsigned();
             $table->foreign('gallery_id')->references('id')->on('galleries');
             $table->string('url');
-            $table->string('type')->nullable();
             $table->timestamps();
         });
     }

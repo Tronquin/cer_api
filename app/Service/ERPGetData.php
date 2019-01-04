@@ -75,7 +75,7 @@ class ERPGetData {
                 $ubicacion_lang['po'] = [
                     'descripcion' => $ubicacion['descripcion_po']
                 ];
-                $response = $ubicacion_erp->save();
+                $ubicacion_erp->save();
 
                 foreach($languages as $language){
                     foreach($ubicacion_lang as $key => $lang){
@@ -206,7 +206,8 @@ class ERPGetData {
                         $tipologia_lang['po'] = [
                             'descripcion' => $tipologia['descripcion_po']
                         ];
-                        $response = $ubicacion_erp->save();
+
+                        $tipologia_erp->save();
         
                         foreach($languages as $language){
                             foreach($tipologia_lang as $key => $lang){
@@ -231,7 +232,6 @@ class ERPGetData {
                                 }
                             }
                         }
-                        $tipologia_erp->save();
                     }
 
                     // Tabla Promociones
