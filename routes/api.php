@@ -52,6 +52,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
     // Obtener extras Oustanding
     Route::get('/find/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@getExtras');
+    // Datos del usuario
+    Route::get('/find/user/{email}', 'UserController@find');
     
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Registrar una reserva
