@@ -47,6 +47,8 @@ class GetPhotoAndMoreHandler extends BaseHandler {
             }
         }
 
+        $apartmentSections = $this->orderArray($apartmentSections);
+
         $photoAndMore->originalSections = $originalSections;
         $photoAndMore->apartmentSections = $apartmentSections;
 
@@ -69,4 +71,26 @@ class GetPhotoAndMoreHandler extends BaseHandler {
         return [];
     }
 
+    /**
+     * Ordena por seccion de apartamento
+     *
+     * @param array $array
+     * @return array
+     */
+    private function orderArray($array)
+    {
+        for ($x = 0; $x <= count($array) - 2; $x++) {
+            for ($y = ($x +1); $y <= count($array) - 1; $y++) {
+
+                if ($array[$x]->sectionApartment->order > $array[$y]->sectionApartment->order) {
+
+                    $temp = $array[$x];
+                    $array[$x] = $array[$y];
+                    $array[$y] = $temp;
+                }
+            }
+        }
+
+        return $array;
+    }
 }
