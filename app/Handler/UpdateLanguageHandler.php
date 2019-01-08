@@ -24,12 +24,15 @@ class UpdateLanguageHandler extends BaseHandler
         foreach ($data['translations'] as $device) {
             foreach ($device as $translation) {
 
-                $keyTranslation = $language->keyTranslations()->find($translation['keyId']);
-                $keyTranslation->key = $translation['key'];
-                $keyTranslation->save();
+                if (! empty($translation['key']) && ! empty($translation['value'])) {
 
-                $keyTranslation->pivot->translation = empty($translation['value']) ? '' : $translation['value'];
-                $keyTranslation->pivot->save();
+                    $keyTranslation = $language->keyTranslations()->find($translation['keyId']);
+                    $keyTranslation->key = $translation['key'];
+                    $keyTranslation->save();
+
+                    $keyTranslation->pivot->translation = empty($translation['value']) ? '' : $translation['value'];
+                    $keyTranslation->pivot->save();
+                }
             }
         }
 
