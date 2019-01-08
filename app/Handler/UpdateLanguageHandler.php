@@ -28,7 +28,7 @@ class UpdateLanguageHandler extends BaseHandler
                 $keyTranslation->key = $translation['key'];
                 $keyTranslation->save();
 
-                $keyTranslation->pivot->translation = $translation['value'];
+                $keyTranslation->pivot->translation = empty($translation['value']) ? '' : $translation['value'];
                 $keyTranslation->pivot->save();
             }
         }
