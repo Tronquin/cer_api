@@ -16,7 +16,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
         $location = Location::query()->where('ubicacion_id', $this->params['ubicacionId'])->firstOrFail();
 
         $photoAndMore = PhotoAndMore::query()->with(['sections'])->where('location_id', $location->id)->firstOrNew([]);
-        $photoAndMore->video = $this->params['video'];
+        $photoAndMore->video = ! empty($this->params['video']) ? $this->params['video'] : '';
         $photoAndMore->location_id = $location->id;
         $photoAndMore->save();
 
@@ -38,7 +38,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
 
             $sectionInstance->section_apartment_id = $section['section_apartment_id'];
             $sectionInstance->photo_and_more_id = $photoAndMore->id;
-            $sectionInstance->video = $section['video'];
+            $sectionInstance->video = ! empty($section['video']) ? $section['video'] : '';
             $sectionInstance->save();
 
             $sectionInstance->updateFieldTranslations($section['fieldTranslations']);
