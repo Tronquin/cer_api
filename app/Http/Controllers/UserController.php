@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\EmailService;
 use App\User;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
@@ -71,6 +72,8 @@ class UserController extends Controller
         $session->remember_me = false;
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
+
+        EmailService::send('email.registerUser', [$user->email], compact('user'));
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }

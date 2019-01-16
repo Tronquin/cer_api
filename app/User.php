@@ -23,6 +23,8 @@ class User extends Model
         'birthday',
     ];
 
+    protected $hidden = ['password'];
+
     /**
      * session activa de este usuario
      */
