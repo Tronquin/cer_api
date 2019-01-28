@@ -97,6 +97,6 @@ class Extra extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description','nombre'];
+        return ['description','nombre', 'alt_image', 'alt_icon'];
     }
 }

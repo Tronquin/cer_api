@@ -25,6 +25,6 @@ class CardInfo extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['name','description'];
+        return ['name','description', 'alt_image'];
     }
 }

@@ -3,9 +3,17 @@ namespace App\TraitDefinition;
 
 use App\FieldTranslation;
 use App\Language;
+use App\Service\TranslationService;
 
 trait FieldTranslationTrait
 {
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    abstract public function fieldsToTranslate();
+
     /**
      * Traducciones para los campos
      *
@@ -52,44 +60,112 @@ trait FieldTranslationTrait
     }
 
     /**
-     * Campos que se pueden almacenar en field_translations
+     * Actualiza las traducciones para un registro
      *
-     * @return array
+     * @param array $fieldTranslations
      */
-    abstract public function fieldsToTranslate();
+    public function updateFieldTranslations(array $fieldTranslations)
+    {
+        $language = Language::query()->where('iso', 'es')->first();
 
+        foreach ($fieldTranslations as $field) {
+            if ($field['iso'] == $language->iso) {
+                // Si los textos en español son distintos a los almacenados, se cargan el resto de las traducciones
+                // desde la api, sino se actualizan todas las traducciones con lo que llega del front
 
-    public function updateFieldTranslations(array $fieldTranslations){
-        
+                foreach ($field['fields'] as $fieldTranslation) {
+
+                    if (! in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
+                        continue;
+                    }
+
+                    $translation = FieldTranslation::where('content_id',$this->id)
+                        ->where('content_type', self::class)
+                        ->where('field', $fieldTranslation['field'])
+                        ->where('language_id', $language->id)
+                        ->first();
+
+                    if (
+                        ! $translation ||
+                        ($translation && $translation->translation !== $fieldTranslation['translation'])
+                    ) {
+                        // No existe la traduccion || Existe y es distinta a la cargada
+                        $this->translateFromApi($fieldTranslation['translation'] ?? '', $fieldTranslation['field']);
+                    } else {
+                        // Se asume ajustes menores an alguna traduccion, se guarda lo que llega del front
+                        $this->saveTranslations($fieldTranslations);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Actualiza un campo en multiple idioma obteniendo traducciones desde una API
+     *
+     * @param string $transText
+     * @param string $field
+     */
+    private function translateFromApi(string $transText, string $field)
+    {
         $languages = Language::all();
+        foreach ($languages as $language) {
 
-        foreach($languages as $language){
-            foreach($fieldTranslations as $field){
-                
-                if($field['iso'] == $language->iso){
-                    foreach($field['fields'] as $fieldTranslation){
+            $translation = FieldTranslation::where('content_id', $this->id)
+                ->where('content_type', self::class)
+                ->where('field', $field)
+                ->where('language_id', $language->id)
+                ->firstOrNew([]);
+
+            $trans = '';
+            if ($language->iso === 'es') {
+                $trans = $transText;
+            } elseif (! empty($transText)) {
+                $trans = TranslationService::trans($transText, 'es', $language->iso)['text'][0];
+            }
+
+            $translation->content_id = $this->id;
+            $translation->content_type = self::class;
+            $translation->language_id = $language->id;
+            $translation->field = $field;
+            $translation->translation = $trans;
+            $translation->save();
+        }
+    }
+
+    /**
+     * Actualiza todas las traducciones normalmente
+     *
+     * @param array $fieldTranslations
+     */
+    private function saveTranslations(array $fieldTranslations)
+    {
+        $languages = Language::all();
+        foreach ($languages as $language) {
+            foreach ($fieldTranslations as $field) {
+
+                if ($field['iso'] == $language->iso) {
+                    foreach ($field['fields'] as $fieldTranslation) {
 
                         if (! in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
                             continue;
                         }
 
                         $translation = FieldTranslation::where('content_id',$this->id)
-                                ->where('content_type',self::class)
-                                ->where('field',$fieldTranslation['field'])
-                                ->where('language_id',$language->id)
-                                ->firstOrNew([]);
-    
-                                $translation->content_id = $this->id;
-                                $translation->content_type = self::class;
-                                $translation->language_id = $language->id;
-                                $translation->field = $fieldTranslation['field'];
-                                $translation->translation = $fieldTranslation['translation'] ?? '';
-                                
-                                $translation->save();
+                            ->where('content_type', self::class)
+                            ->where('field', $fieldTranslation['field'])
+                            ->where('language_id', $language->id)
+                            ->firstOrNew([]);
+
+                        $translation->content_id = $this->id;
+                        $translation->content_type = self::class;
+                        $translation->language_id = $language->id;
+                        $translation->field = $fieldTranslation['field'];
+                        $translation->translation = $fieldTranslation['translation'] ?? '';
+                        $translation->save();
                     }
                 }
             }
         }
-
     }
 }

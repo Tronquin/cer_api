@@ -33,7 +33,8 @@ class SpaInfo extends Model
         return [
             'description',
             'title',
-            'subtitle'
+            'subtitle',
+            'alt_image'
         ];
     }
 }

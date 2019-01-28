@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\TraitDefinition\FieldTranslationTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Galery extends Model
 {
+    use FieldTranslationTrait;
+
     protected $table = 'galleries';
 
     protected $fillable = [
@@ -53,4 +56,16 @@ class Galery extends Model
     {
         return $this->hasMany(self::class, 'parent_id');
     }
+
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return ['alt_image'];
+    }
+
+
 }

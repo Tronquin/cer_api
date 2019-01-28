@@ -23,6 +23,6 @@ class SectionApartment extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['name'];
+        return ['name', 'alt_image'];
     }
 }
