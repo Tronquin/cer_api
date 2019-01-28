@@ -35,6 +35,6 @@ class ExtraOustanding extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description','name'];
+        return ['description','name', 'alt_icon', 'alt_image'];
     }
 }

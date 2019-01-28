@@ -25,6 +25,7 @@ class GetPhotoByGallery extends BaseHandler
         foreach ($photos as $photo) {
             $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
             $photo->type = $photo->type ?? '';
+            $photo->fieldTranslations = $photo->fieldTranslations();
         }
 
         if (count($photos) === 0) {
@@ -37,6 +38,7 @@ class GetPhotoByGallery extends BaseHandler
         $erpImages = ERPImage::all();
         foreach ($erpImages as $erpImage) {
             $erpImage->completeUrl = route('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
+            $erpImage->fieldTranslations = $erpImage->fieldTranslations();
         }
 
         $response['res'] = count($photos);

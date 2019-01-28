@@ -93,7 +93,7 @@ trait FieldTranslationTrait
                         $this->translateFromApi($fieldTranslation['translation'] ?? '', $fieldTranslation['field']);
                     } else {
                         // Se asume ajustes menores an alguna traduccion, se guarda lo que llega del front
-                        $this->saveTranslations($fieldTranslations);
+                        $this->saveTranslations($fieldTranslations, $fieldTranslation['field']);
                     }
                 }
             }
@@ -137,8 +137,9 @@ trait FieldTranslationTrait
      * Actualiza todas las traducciones normalmente
      *
      * @param array $fieldTranslations
+     * @param string $fieldToSave
      */
-    private function saveTranslations(array $fieldTranslations)
+    private function saveTranslations(array $fieldTranslations, string $fieldToSave)
     {
         $languages = Language::all();
         foreach ($languages as $language) {
@@ -147,7 +148,10 @@ trait FieldTranslationTrait
                 if ($field['iso'] == $language->iso) {
                     foreach ($field['fields'] as $fieldTranslation) {
 
-                        if (! in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
+                        if (
+                            ! in_array($fieldTranslation['field'], $this->fieldsToTranslate()) ||
+                            $fieldTranslation['field'] !== $fieldToSave
+                        ) {
                             continue;
                         }
 
