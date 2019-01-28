@@ -62,7 +62,7 @@ class TranslationService {
         $response = curl_exec($ch);
         curl_close($ch);
         $response = json_decode($response, true);
-        dump($url, $response, $params);
+
         if (! $response) {
             // Si no retorna un Json dispara una exception
             throw new \Exception('Bad request to API');
