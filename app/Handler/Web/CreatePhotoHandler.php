@@ -43,6 +43,10 @@ class CreatePhotoHandler extends BaseHandler {
 
                 $photoIds[] = $p['id'];
             }
+
+            if (isset($p['fieldTranslations'])) {
+                $photo->updateFieldTranslations($p['fieldTranslations']);
+            }
         }
 
         // Elimino las imagenes que no llegaron del front

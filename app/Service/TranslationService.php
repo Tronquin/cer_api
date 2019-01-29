@@ -25,7 +25,7 @@ class TranslationService {
             'https://translate.yandex.net/api/v1.5/tr.json/translate', [
                 'key' => 'trnsl.1.1.20190122T181209Z.b03cc69ca79ebfaf.c214bffe6085613809d5bb2d384f42ffe905cf09',
                 'lang' => "{$isoFrom}-{$isoTo}",
-                'text' => $text
+                'text' => str_replace(';', 'punto_y_coma', $text)
             ]
         );
     }
@@ -61,6 +61,7 @@ class TranslationService {
 
         $response = curl_exec($ch);
         curl_close($ch);
+        $response = str_replace('punto_y_coma', ';', $response);
         $response = json_decode($response, true);
 
         if (! $response) {

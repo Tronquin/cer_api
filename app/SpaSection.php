@@ -41,7 +41,7 @@ class SpaSection extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description'];
+        return ['description', 'alt_icon', 'alt_image'];
     }
     
 }
