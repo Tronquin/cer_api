@@ -27,7 +27,7 @@ trait FieldTranslationTrait
             ->with(['language'])
             ->get()
         ;
-        $languages = Language::get(['iso','name', 'id']);
+        $languages = Language::query()->orderBy('main', 'DESC')->orderBy('id')->get(['iso', 'name', 'id']);
 
         $response = [];
         foreach ($languages as $language) {
@@ -66,11 +66,11 @@ trait FieldTranslationTrait
      */
     public function updateFieldTranslations(array $fieldTranslations)
     {
-        $language = Language::query()->where('iso', 'es')->first();
+        $language = Language::query()->where('iso', 'en')->first();
 
         foreach ($fieldTranslations as $field) {
             if ($field['iso'] == $language->iso) {
-                // Si los textos en español son distintos a los almacenados, se cargan el resto de las traducciones
+                // Si los textos en ingles son distintos a los almacenados, se cargan el resto de las traducciones
                 // desde la api, sino se actualizan todas las traducciones con lo que llega del front
 
                 foreach ($field['fields'] as $fieldTranslation) {
@@ -118,10 +118,10 @@ trait FieldTranslationTrait
                 ->firstOrNew([]);
 
             $trans = '';
-            if ($language->iso === 'es') {
+            if ($language->iso === 'en') {
                 $trans = $transText;
             } elseif (! empty($transText)) {
-                $trans = TranslationService::trans($transText, 'es', $language->iso)['text'][0];
+                $trans = TranslationService::trans($transText, 'en', $language->iso)['text'][0];
             }
 
             $translation->content_id = $this->id;
