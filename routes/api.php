@@ -10,6 +10,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
 
+    // Obtiene historial de busquedas
+    Route::get('find/search_history', 'General\SearchdController@findSearchFavorite');
     // obtiene los apartamentos de una ubicacion
     Route::get('/find/apartments/{ubicacion_id}', 'General\SearchdController@findApartmentsByLocation');
     // Busca la disponibilidad de los apartamentos por fechas y personas

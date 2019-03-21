@@ -2,10 +2,9 @@
 namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
+use App\Location;
+use App\SearchHistory;
 use App\Service\ERPService;
-use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
-use App\Handler\GeneralHandlers\FindPackagesByLocationHandler;
-use App\Experience;
 
 class FindApartmentsDisponibilityHandler extends BaseHandler {
 
@@ -14,6 +13,20 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
      */
     protected function handle()
     {
+        $data = $this->params['data'];
+
+        // Guardo historial de busqueda
+        $location = Location::query()->where('ubicacion_id', $data['ubicacion_id'])->first();
+
+        $searchHistory = new SearchHistory();
+        $searchHistory->start_date = new \DateTime($data['desde']);
+        $searchHistory->end_date = new \DateTime($data['hasta']);
+        $searchHistory->location_id = $location->id;
+        $searchHistory->adults = $data['adults'];
+        $searchHistory->kids = $data['kids'];
+        $searchHistory->apartments = $data['apartments'];
+        $searchHistory->save();
+
         $response = ERPService::findApartmentsDisponibility($this->params['data']);
         
         foreach($response['data'] as &$data){
@@ -48,6 +61,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
             'ubicacion_id' => 'required|numeric',
             'adults' => 'required|numeric',
             'kids' => 'required|numeric',
+            'apartments' => 'required|numeric',
         ];
     }
 

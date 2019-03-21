@@ -9,6 +9,7 @@ use App\Handler\GeneralHandlers\FindPriceByNightHandler;
 use App\Handler\GeneralHandlers\FindPOIByLocationHandler;
 use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
 use App\Handler\GeneralHandlers\FindExtrasByLocationHandler;
+use App\Handler\GeneralHandlers\FindSearchFavoriteHandler;
 use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
@@ -204,4 +205,22 @@ class SearchdController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+     * Obtiene la busqueda que los usuario realizan con
+     * mayor frecuencia
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function findSearchFavorite(Request $request)
+    {
+        $handler = new FindSearchFavoriteHandler($request->all());
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
 }

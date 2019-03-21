@@ -60,6 +60,14 @@ class Location extends Model
     }
 
     /**
+     * Historial de busqueda para esta ubicacion
+     */
+    public function searchHistory()
+    {
+        return $this->hasMany(SearchHistory::class, 'location_id');
+    }
+
+    /**
      * Ubicacion::find($ubicacion_id)->extras;
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
