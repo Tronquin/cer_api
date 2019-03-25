@@ -91,6 +91,14 @@ class Extra extends Model
     }
 
     /**
+     * Tags asociados a este extra
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'extra_tag', 'extra_id', 'tag_id');
+    }
+
+    /**
      * Campos que se pueden almacenar en field_translations
      *
      * @return array
