@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\General;
 
+use App\Handler\FindExtraByTagHandler;
 use App\Handler\GeneralHandlers\FindApartmentsByLocationHandler;
 use App\Handler\GeneralHandlers\FindApartmentsDisponibilityHandler;
 use App\Handler\GeneralHandlers\FindExtrasOutstandingHandler;
@@ -9,13 +10,14 @@ use App\Handler\GeneralHandlers\FindPriceByNightHandler;
 use App\Handler\GeneralHandlers\FindPOIByLocationHandler;
 use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
 use App\Handler\GeneralHandlers\FindExtrasByLocationHandler;
+use App\Handler\GeneralHandlers\FindSearchFavoriteHandler;
 use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-    
+
 class SearchdController extends Controller
 {
 
@@ -204,4 +206,40 @@ class SearchdController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+     * Obtiene la busqueda que los usuario realizan con
+     * mayor frecuencia
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function findSearchFavorite(Request $request)
+    {
+        $handler = new FindSearchFavoriteHandler($request->all());
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene extras para cada tag
+     *
+     * @param string $tag
+     * @return JsonResponse
+     */
+    public function findExtraByTag($tag)
+    {
+        $handler = new FindExtraByTagHandler(compact('tag'));
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
 }
