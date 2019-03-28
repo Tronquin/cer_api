@@ -728,20 +728,21 @@ class ReservationController extends Controller
      */
     public function createReservation(Request $request)
     {
-        $request = $request->all();
-        $handler = new CreateReservationHandler($request);
+        $params = $request->all();
+        $params['ip'] = $request->ip();
+        $handler = new CreateReservationHandler($params);
         $handler->processHandler();
-
+        
         if (!$handler->isSuccess()) 
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+        
         $reserva = $handler->getData();
-
+        
         $data['paymentId'] = $reserva['data']['reserva']['pagos'][0]['id'];
-        $data['creditCard'] = $request['number'];
-        $data['holder'] = $request['holder'];
-        $data['date'] = $request['expirationMonth'] . '-' . $request['expirationYear'];
-        $data['cvc'] = $request['cvc'];
+        $data['creditCard'] = $params['number'];
+        $data['holder'] = $params['holder'];
+        $data['date'] = $params['expirationMonth'] . '-' . $params['expirationYear'];
+        $data['cvc'] = $params['cvc'];
 
         // Se efectua el proceso de cobro por tarjeta de credito a traves del paymentGateway
         $handler = new ReservationProcessPaymentHandler(compact('data'));
@@ -749,9 +750,11 @@ class ReservationController extends Controller
 
         if (!$handler->isSuccess()) 
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-        
+       
         $payment = [];
         $payment['payment'] = $handler->getData();
+        if(isset($reserva['session']))
+        $payment['session'] = $reserva['session'];
         $payment['reserva_id'] = $reserva['data']['reserva']['id'];
         // Se guardan los datos del pago y la reserva en BD reservation_payment_persistence
         $handler = new ReservationPaymentPersistenceHandler(['data' => $payment]);
@@ -760,25 +763,7 @@ class ReservationController extends Controller
         if (!$handler->isSuccess()) 
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
             
-        // Se arma la data con valores -1 en los id para que no modifique, solo se envia 1 en pago_realizado
-        // para actualizar los pagos pendientes de la reserva
-        $data = [
-            'reserva_id' =>  $reserva['data']['reserva']['id'],
-            'plan_id' =>  -1,
-            'apartamento_id' =>  -1,
-            'experience_id' =>  -1,
-            'adults' =>  -1,
-            'kids' =>  -1,
-            'total' => 1,
-            'ha_seleccionado_apartamento' => -1
-        ]; 
-        $handler = new ReservationPaymentHandler(['data' => $data]);
-        $handler->processHandler();
-
-        if (!$handler->isSuccess()) 
-            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-
-        return new JsonResponse($handler->getData());
+        return new JsonResponse($payment);
     }
 
     /**

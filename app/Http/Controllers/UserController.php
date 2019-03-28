@@ -64,7 +64,7 @@ class UserController extends Controller
 
         $clientIp = $request->ip();
         $minutes = config('oauth2.time_expire');
-        $token = base64_encode(Hash::make($userExist['id'] . md5('Castro_Proyect') . $clientIp));
+        $token = base64_encode(Hash::make($user['id'] . md5('Castro_Proyect') . $clientIp));
 
         $session = new Session();
         $session->user_id = $user->id;
