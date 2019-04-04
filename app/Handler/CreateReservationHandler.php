@@ -56,49 +56,72 @@ class CreateReservationHandler extends BaseHandler
             EmailService::send('email.registerUser', [$user->email], compact('user'));
         }
 
-        $response = ERPService::createReservation($this->params);
         
-        if(isset($token))
-        $response['session'] = $token;
+            $response = ERPService::createReservation($this->params);
+            
+            if(isset($token))
+            $response['session'] = $token;
 
-        $reservation = new Reservation();
-        $checkin = date("Y-m-d",strtotime($response['data']['reserva']['fecha_entrada']));
-        $checkout = date("Y-m-d",strtotime($response['data']['reserva']['fecha_salida']));
+            $reservation = new Reservation();
+            $checkin = date("Y-m-d",strtotime($response['data']['reserva']['fecha_entrada']));
+            $checkout = date("Y-m-d",strtotime($response['data']['reserva']['fecha_salida']));
 
-        $tipologia_id = Typology::where('tipologia_id',$response['data']['reserva']['tipologia_id'])
-                                    ->where('type','erp')
-                                    ->first()->id;
+            $tipologia_id = Typology::where('tipologia_id',$response['data']['reserva']['tipologia_id'])
+                                        ->where('type','erp')
+                                        ->first()->id;
 
-        $apartamento_id = Apartment::where('apartamento_id',$response['data']['reserva']['ventas'][0]['concepto_id'])
-        ->where('type','erp')
-        ->first()->id;
+            $apartamento_id = Apartment::where('apartamento_id',$response['data']['reserva']['ventas'][0]['concepto_id'])
+            ->where('type','erp')
+            ->first()->id;
 
-        $experiencia_id = Experience::where('experiencia_id',$response['data']['reserva']['experiencia_id'])
-        ->where('type','erp')
-        ->first()->id;
+            $experiencia_id = Experience::where('experiencia_id',$response['data']['reserva']['experiencia_id'])
+            ->where('type','erp')
+            ->first()->id;
 
-        $package_id = Package::where('tarifa_id',$response['data']['reserva']['tarifa_id'])
-        ->where('type','erp')
-        ->first()->id;             
+            $package_id = Package::where('tarifa_id',$response['data']['reserva']['tarifa_id'])
+            ->where('type','erp')
+            ->first()->id;             
 
-        $reservation->reserva_id_erp = $response['data']['reserva']['id'];
-        $reservation->localizador_erp = $response['data']['reserva']['localizador'];
-        $reservation->ubicacion_id = $response['data']['reserva']['ubicacion_id'];
-        $reservation->checkin = $checkin;
-        $reservation->checkout = $checkout;
-        $reservation->apartment_id = $apartamento_id;
-        $reservation->typology_id = $tipologia_id;
-        $reservation->user_id = $user_id;
-        $reservation->experience_id = $experiencia_id;
-        $reservation->regimen_id = $package_id;
-        $reservation->policy_id = $response['data']['reserva']['politica_cancelacion']['id'];
-        $reservation->promotion_id = $response['data']['reserva']['promocion_id'];
-        $reservation->adults = $response['data']['reserva']['adultos'];
-        $reservation->kids = $response['data']['reserva']['ninos'];
-        $reservation->amount = $response['data']['reserva']['total_reserva'];
-        $reservation->payment_id = $response['data']['payment_id'];
-        $reservation->save();
+            $reservation->reserva_id_erp = $response['data']['reserva']['id'];
+            $reservation->localizador_erp = $response['data']['reserva']['localizador'];
+            $reservation->ubicacion_id = $response['data']['reserva']['ubicacion_id'];
+            $reservation->checkin = $checkin;
+            $reservation->checkout = $checkout;
+            $reservation->apartment_id = $apartamento_id;
+            $reservation->typology_id = $tipologia_id;
+            $reservation->user_id = $user_id;
+            $reservation->experience_id = $experiencia_id;
+            $reservation->regimen_id = $package_id;
+            $reservation->policy_id = $response['data']['reserva']['politica_cancelacion']['id'];
+            $reservation->promotion_id = $response['data']['reserva']['promocion_id'];
+            $reservation->adults = $response['data']['reserva']['adultos'];
+            $reservation->kids = $response['data']['reserva']['ninos'];
+            $reservation->amount = $response['data']['reserva']['total_reserva'];
+            $reservation->payment_id = $response['data']['payment_id'];
+            $reservation->save();
 
+            $dato = Reservation::where('id',$reservation->id)->first()->toArray();
+            $dato['experiencia'] = Experience::where('id',$dato['experience_id'])->with(['extras'])->first();
+            $dato['experiencia']['fieldTranslations'] = $dato['experiencia']->fieldTranslations();
+            foreach($dato['experiencia']['extras'] as &$extra){
+                $extra['fieldTranslations'] = $extra->fieldTranslations();
+            }
+            $dato['user'] = Reservation::find($dato['id'])->user;
+            $dato['cancelation_policy'] = Reservation::find($dato['id'])->cancelation_policy;
+            $dato['packages'] = Reservation::find($dato['id'])->package;
+            $dato['promotion'] = Reservation::find($dato['id'])->promotion;
+            $dato['apartment'] = Reservation::find($dato['id'])->apartment;
+            $dato['identificador'] = $dato['localizador_erp'].'-Apt: '.$dato['apartment']['nombre'];
+            
+            $handler = new AvailabilityServiceHandler(['reserva_id' => $dato['reserva_id_erp'],'funcion' => 'checkin']);
+            $handler->processHandler();
+            
+            if ($handler->isSuccess()) {
+                $extras_contratados = $handler->getData();
+                $dato['extras_contratados'] = $extras_contratados['data']['list']['extras']['extras_contratados'];
+            }
+            $response['reservas'] = $dato;
+            
         return $response;
     }
 

@@ -58,10 +58,10 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@getExtras');
     // Datos del usuario
     Route::get('/find/user/{email}', 'UserController@find');
+    // Registrar una reserva
+    Route::post('/reservation/create', 'ReservationController@createReservation');
     
     Route::group(['middleware' => 'sessionAuth'], function () {
-        // Registrar una reserva
-        Route::post('/reservation/create', 'ReservationController@createReservation');
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // Find all Reservation to checkin by date

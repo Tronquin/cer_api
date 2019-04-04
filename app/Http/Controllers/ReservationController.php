@@ -753,6 +753,7 @@ class ReservationController extends Controller
        
         $payment = [];
         $payment['payment'] = $handler->getData();
+        $payment['reservas'] = $reserva['reservas'];
         if(isset($reserva['session']))
         $payment['session'] = $reserva['session'];
         $payment['reserva_id'] = $reserva['data']['reserva']['id'];
@@ -762,7 +763,7 @@ class ReservationController extends Controller
 
         if (!$handler->isSuccess()) 
             return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-            
+        unset($payment['reserva_id']);    
         return new JsonResponse($payment);
     }
 

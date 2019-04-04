@@ -14,37 +14,59 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
     protected function handle()
     {
         $data = $this->params['data'];
-
         // Guardo historial de busqueda
-        $location = Location::query()->where('ubicacion_id', $data['ubicacion_id'])->first();
-
-        $searchHistory = new SearchHistory();
-        $searchHistory->start_date = new \DateTime($data['desde']);
-        $searchHistory->end_date = new \DateTime($data['hasta']);
-        $searchHistory->location_id = $location->id;
-        $searchHistory->adults = $data['adults'];
-        $searchHistory->kids = $data['kids'];
-        $searchHistory->apartments = $data['apartments'];
-        $searchHistory->save();
+        if(intval($data['ubicacion_id']) !== 0){
+            $location = Location::query()->where('ubicacion_id', $data['ubicacion_id'])->first()->toArray();
+    
+            $searchHistory = new SearchHistory();
+            $searchHistory->start_date = new \DateTime($data['desde']);
+            $searchHistory->end_date = new \DateTime($data['hasta']);
+            $searchHistory->location_id = $location['id'];
+            $searchHistory->adults = $data['adults'];
+            $searchHistory->kids = $data['kids'];
+            $searchHistory->apartments = $data['apartments'];
+            $searchHistory->save();
+        }
 
         $response = ERPService::findApartmentsDisponibility($this->params['data']);
-        
-        foreach($response['data'] as &$data){
-            $experiences = new FindExperiencesByLocationHandler(['ubicacion_id' => $data['tipologia']['ubicacion_id']]);
-            $experiences->processHandler();
-            $experiencias = $experiences->getData();
-            $data['tipologia']['experiencias'] = $experiencias['data'];
+        //dump($response);
+        if($response['data'] !== ''){
+            foreach ($response['data'] as $key => &$ubication){
+                foreach ($ubication['disponibility']['tipologias'] as &$tipologia){
+                    $experiences = new FindExperiencesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
+                    $experiences->processHandler();
+                    $experiencias = $experiences->getData();
+                    $tipologia['experiencias'] = $experiencias['data'];
+                    foreach ($tipologia['experiencias'] as &$experiencia){
+                        foreach($ubication['disponibility']['experiencias'] as $exp){
+                            if($experiencia['experiencia_id'] === $exp['id']){
+                                $experiencia['precio_upgrade'] = $exp['precio_upgrade'];
+                            }
+                        }
+                    }
+    
+                    $packages = new FindPackagesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
+                    $packages->processHandler();
+                    $packs = $packages->getData();
+                    $tipologia['packages'] = $packs['data'];
+                    foreach ($tipologia['packages'] as &$pack){
+                        foreach($ubication['disponibility']['tarifas'] as $tarifa){
+                            if($pack['tarifa_id'] === $tarifa['id']){
+                                $pack['precio_upgrade'] = $tarifa['precio_upgrade'];
+                            }
+                        }
+                    }
 
-            $packages = new FindPackagesByLocationHandler(['ubicacion_id' => $data['tipologia']['ubicacion_id']]);
-            $packages->processHandler();
-            $packs = $packages->getData();
-            $data['tipologia']['packages'] = $packs['data'];
+                    $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $tipologia['ubicacion_id']]);
+                    //$tipologia['politica_cancelacions'] = $ubicaciones['politica_cancelacions'];
+                    $tipologia['politica_cancelacions'] = $ubication['disponibility']['politicas'];
+                    $tipologia['promocions'] = $ubicaciones['promocions'];
 
-            $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $data['tipologia']['ubicacion_id']]);
-            $data['tipologia']['politica_cancelacions'] = $ubicaciones['politica_cancelacions'];
-            $data['tipologia']['promocions'] = $ubicaciones['promocions'];
+                }
+                $ubication['tipologias'] = $ubication['disponibility']['tipologias'];
+                unset($response['data'][$key]['disponibility']);
+            }
         }
-        
         return $response;
     }
 
