@@ -26,6 +26,6 @@ class Photo extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['alt_image', 'description'];
+        return ['alt_image'];
     }
 }
