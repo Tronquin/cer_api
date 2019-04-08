@@ -15,6 +15,7 @@ class AddColumnTypePhotos extends Migration
     {
         Schema::table('photos', function (Blueprint $table) {
             $table->string('type')->nullable();
+            $table->string('description', 50)->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnTypePhotos extends Migration
     {
         Schema::table('photos', function (Blueprint $table) {
             $table->dropColumn('type');
+            $table->dropColumn('description', 50);
         });
     }
 }
