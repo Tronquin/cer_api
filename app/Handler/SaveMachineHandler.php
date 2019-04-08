@@ -4,6 +4,7 @@ namespace App\Handler;
 use App\Component;
 use App\Location;
 use App\Machine;
+use App\OAuth2Client;
 
 class SaveMachineHandler extends BaseHandler {
 
@@ -32,6 +33,13 @@ class SaveMachineHandler extends BaseHandler {
             $machine->components()->attach($component->id,['active' => true,
                 'created_at' => $now->format('Y-m-d H:i:s'), 'updated_at' => $now->format('Y-m-d H:i:s')]);
         }
+
+        $device = \App\DeviceType::query()->where('code', 'machine')->first();
+        $client = new OAuth2Client();
+        $client->description = 'Maquina, ' . $machine->description;
+        $client->token = md5('Machine_' . $machine->description . '_' . time());
+        $client->device_type_id = $device->id;
+        $client->save();
 
         $response['data'] = ['machine' => $machine->public_id];
 

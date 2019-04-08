@@ -1,7 +1,9 @@
 <?php
 namespace App\Handler;
 
+use App\Reservation;
 use App\ReservationKey;
+use App\Service\MachineLogService;
 
 class ReservationKeyReceivedHandler extends BaseHandler {
 
@@ -25,6 +27,12 @@ class ReservationKeyReceivedHandler extends BaseHandler {
 
             $response = $key_delivered->save();
         }
+
+        $reservation = $this->params['data']['reserva_id'];
+
+        MachineLogService::log($this->oAuth2Client->machine->id,
+            "Recibidas {$key_delivered->keys_received} llaves en la reserva en la reserva '{$reservation}'"
+            );
 
         return $response;
     }

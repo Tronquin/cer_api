@@ -228,7 +228,7 @@ abstract class BaseHandler {
     private function getTokenInfo()
     {
         $token = Request::header('token');
-        $client = OAuth2Client::query()->where('token', $token)->with(['deviceType'])->first();
+        $client = OAuth2Client::query()->where('token', $token)->with(['deviceType', 'machine'])->first();
         $this->oAuth2Client = $client;
     }
 }
