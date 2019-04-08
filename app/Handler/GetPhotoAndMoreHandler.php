@@ -4,7 +4,8 @@ namespace App\Handler;
 use App\Location;
 use App\PhotoAndMore;
 
-class GetPhotoAndMoreHandler extends BaseHandler {
+class GetPhotoAndMoreHandler extends BaseHandler
+{
 
     /**
      * Proceso de este handler
@@ -39,7 +40,6 @@ class GetPhotoAndMoreHandler extends BaseHandler {
             }
 
             if ($section->sectionApartment) {
-
                 if (! in_array($section->sectionApartment->id, $sectionApartmentIds)) {
                     // Evito hacer este proceso dos veces para una misma seccion del apto
                     $section->sectionApartment->photo = route('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
@@ -87,9 +87,7 @@ class GetPhotoAndMoreHandler extends BaseHandler {
     {
         for ($x = 0; $x <= count($array) - 2; $x++) {
             for ($y = ($x +1); $y <= count($array) - 1; $y++) {
-
                 if ($array[$x]->sectionApartment->order > $array[$y]->sectionApartment->order) {
-
                     $temp = $array[$x];
                     $array[$x] = $array[$y];
                     $array[$y] = $temp;
