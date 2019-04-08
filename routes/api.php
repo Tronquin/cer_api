@@ -10,6 +10,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
 
+    // Busca logs de la maquina
+    Route::get('find/machine/logs/{limit?}', 'General\SearchdController@machineLogs');
     // Obtiene tags
     Route::get('find/extra_tags/{tag}', 'General\SearchdController@findExtraByTag');
     // Obtiene historial de busquedas
