@@ -48,4 +48,12 @@ class OAuth2Client extends Model
     {
         return $this->belongsTo(DeviceType::class, 'device_type_id');
     }
+
+    /**
+     * Maquina
+     */
+    public function machine()
+    {
+        return $this->hasOne(Machine::class, 'oauth2_client_id');
+    }
 }

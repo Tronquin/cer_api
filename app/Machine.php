@@ -61,4 +61,12 @@ class Machine extends Model
     {
         return $this->hasMany(MachineLog::class, 'machine_id');
     }
+
+    /**
+     * Cliente api asociado a la maquina
+     */
+    public function oAuth2Client()
+    {
+        return $this->belongsTo(OAuth2Client::class, 'oauth2_client_id');
+    }
 }
