@@ -19,6 +19,7 @@ class Machine extends Model
         'location_id',
         'time_repose',
         'machine_ubication_id',
+        'oauth2_client_id'
     ];
 
     /**
@@ -49,5 +50,15 @@ class Machine extends Model
     public function machineComponentErrors()
     {
         return $this->hasMany(MachineComponentError::class, 'machine_id');
+    }
+
+    /**
+     * Logs de la maquina
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany(MachineLog::class, 'machine_id');
     }
 }
