@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Handler;
+
 use App\Machine;
 use App\MachineLog;
+use Carbon\Carbon;
 
 /**
  * Obtiene los logs de las maquinas
@@ -18,6 +20,7 @@ class FindMachineLogHandler extends BaseHandler {
     {
         $response = [];
         $machines = Machine::query()->with(['location'])->get();
+        $now = Carbon::now();
 
         foreach ($machines as $machine) {
 
@@ -29,6 +32,15 @@ class FindMachineLogHandler extends BaseHandler {
                 ->get()
                 ->toArray()
             ;
+
+            $tempResponse['logs'] = array_map(function ($log) use ($now) {
+
+                $dateLog = Carbon::parse($log['created_at']);
+                $log['time'] = $dateLog->diffForHumans($now);
+
+                return $log;
+
+            }, $tempResponse['logs']);
 
             $response[] = $tempResponse;
         }
