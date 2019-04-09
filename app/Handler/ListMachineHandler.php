@@ -13,7 +13,7 @@ class ListMachineHandler extends BaseHandler {
     {
         $response = [];
 
-        $machines= Machine::with('components')->with('location')->orderBy('description', 'asc')->get();
+        $machines= Machine::with(['components', 'location', 'oAuth2Client'])->orderBy('description', 'asc')->get();
 
         foreach ($machines as $machine) {
 
@@ -24,7 +24,8 @@ class ListMachineHandler extends BaseHandler {
                 'phone' => $machine->phone,
                 'device_url' => $machine->device_url,
                 'time_repose' => $machine->time_repose,
-                'created_at' => $machine->created_at
+                'created_at' => $machine->created_at,
+                'token' => $machine->oAuth2Client->token
             ];
 
             $temp['components'] = [];
