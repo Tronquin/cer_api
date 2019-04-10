@@ -5,6 +5,7 @@ use App\Component;
 use App\Location;
 use App\Machine;
 use App\OAuth2Client;
+use Illuminate\Support\Facades\DB;
 
 class SaveMachineHandler extends BaseHandler {
 
@@ -14,6 +15,8 @@ class SaveMachineHandler extends BaseHandler {
      */
     protected function handle()
     {
+        DB::beginTransaction();
+
         $now = new \DateTime();
         $machine = new Machine();
         $response = [];
@@ -26,20 +29,23 @@ class SaveMachineHandler extends BaseHandler {
         $machine->location_id = $machineUbication->id;
         $machine->public_id = uniqid('MAC-');
 
-        $machine->save();
-
-        $components = Component::orderBy('name')->get(); 
-        foreach($components as $key => $component) {
-            $machine->components()->attach($component->id,['active' => true,
-                'created_at' => $now->format('Y-m-d H:i:s'), 'updated_at' => $now->format('Y-m-d H:i:s')]);
-        }
-
         $device = \App\DeviceType::query()->where('code', 'machine')->first();
         $client = new OAuth2Client();
         $client->description = 'Maquina, ' . $machine->description;
         $client->token = md5('Machine_' . $machine->description . '_' . time());
         $client->device_type_id = $device->id;
         $client->save();
+
+        $machine->oauth2_client_id = $client->id;
+        $machine->save();
+
+        $components = Component::orderBy('name')->get();
+        foreach($components as $key => $component) {
+            $machine->components()->attach($component->id,['active' => true,
+                'created_at' => $now->format('Y-m-d H:i:s'), 'updated_at' => $now->format('Y-m-d H:i:s')]);
+        }
+
+        DB::commit();
 
         $response['data'] = ['machine' => $machine->public_id];
 
