@@ -30,7 +30,7 @@ class CreatePhotoHandler extends BaseHandler
                 $photo->gallery_id = $gallery->id;
                 $photo->url = $path;
                 $photo->type = $p['type'] ?? null;
-                $photo->description = $p['description'];
+                // $photo->description = $p['description'];
                 $photo->save();
 
                 $response['data'][] = $photo;
@@ -38,7 +38,7 @@ class CreatePhotoHandler extends BaseHandler
             } else {
                 $photo = Photo::find($p['id']);
                 $photo->type = $p['type'] ?? null;
-                $photo->description = $p['description'];
+                // $photo->description = $p['description'];
                 $photo->save();
 
                 $photoIds[] = $p['id'];
