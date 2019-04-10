@@ -59,6 +59,13 @@ abstract class BaseHandler {
     private $statusCode;
 
     /**
+     * Cliente que llama al servicio
+     *
+     * @var OAuth2Client
+     */
+    protected $oAuth2Client;
+
+    /**
      * Proceso de este handler
      *
      * @return array
@@ -82,6 +89,7 @@ abstract class BaseHandler {
         $this->params = $parameters;
         $this->rules = $this->validationRules();
         $this->statusCode = self::HTTP_CODE_SUCCESS;
+        $this->getTokenInfo();
     }
 
     /**
@@ -211,5 +219,16 @@ abstract class BaseHandler {
         $audit->version = $config->version;
 
         $audit->save();
+    }
+
+    /**
+     * Extrae informacion del token para utilizar
+     * en los servicios
+     */
+    private function getTokenInfo()
+    {
+        $token = Request::header('token');
+        $client = OAuth2Client::query()->where('token', $token)->with(['deviceType', 'machine'])->first();
+        $this->oAuth2Client = $client;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\General;
 
 use App\Handler\FindExtraByTagHandler;
+use App\Handler\FindMachineLogHandler;
 use App\Handler\GeneralHandlers\FindApartmentsByLocationHandler;
 use App\Handler\GeneralHandlers\FindApartmentsDisponibilityHandler;
 use App\Handler\GeneralHandlers\FindExtrasOutstandingHandler;
@@ -254,6 +255,24 @@ class SearchdController extends Controller
     public function findExtraByLocationTag($type,$ubicacion_id)
     {
         $handler = new FindExtraByLocationTagHandler(['ubicacion_id' => $ubicacion_id,'type' => $type]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene logs de la maquina
+     *
+     * @param int $limit
+     * @return JsonResponse
+     */
+    public function machineLogs($limit = 10)
+    {
+        $handler = new FindMachineLogHandler(compact('limit'));
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

@@ -36,7 +36,7 @@ class PhotoAndMoreSection extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['name', 'title_video', 'title_gallery', 'description_gallery'];
+        return ['name', 'title_video', 'title_gallery', 'description_gallery', 'image_description'];
     }
 
     /**

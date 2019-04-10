@@ -6,7 +6,8 @@ use App\Handler\BaseHandler;
 use App\Photo;
 use App\Service\UploadImage;
 
-class CreatePhotoHandler extends BaseHandler {
+class CreatePhotoHandler extends BaseHandler
+{
 
     /**
      * Proceso de este handler
@@ -18,12 +19,10 @@ class CreatePhotoHandler extends BaseHandler {
         $response['data'] = [];
         $photoIds = [];
         foreach ($this->params['data']['photos'] as $p) {
-
             if (! isset($p['id'])) {
-
                 if ($p['isErp']) {
                     $path = $p['photo'];
-                }else {
+                } else {
                     $path = UploadImage::upload($p['photo'], 'galleries/' . $gallery->id . '/');
                 }
 
@@ -31,14 +30,15 @@ class CreatePhotoHandler extends BaseHandler {
                 $photo->gallery_id = $gallery->id;
                 $photo->url = $path;
                 $photo->type = $p['type'] ?? null;
+                // $photo->description = $p['description'];
                 $photo->save();
 
                 $response['data'][] = $photo;
                 $photoIds[] = $photo->id;
             } else {
-
                 $photo = Photo::find($p['id']);
                 $photo->type = $p['type'] ?? null;
+                // $photo->description = $p['description'];
                 $photo->save();
 
                 $photoIds[] = $p['id'];

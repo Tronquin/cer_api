@@ -3,6 +3,7 @@ namespace App\Handler;
 
 use App\ReservationPersistence;
 use App\Service\ERPService;
+use App\Service\MachineLogService;
 
 class FindReservationHandler extends BaseHandler {
 
@@ -17,6 +18,13 @@ class FindReservationHandler extends BaseHandler {
         if($reservation_persistence){
             $response['data']['list'][0]['hasCheckinMovil'] = $reservation_persistence->has_checkin_movil;
         }
+
+        $param = $this->params['numberCodeOrName'];
+        $count = $response['res'];
+        MachineLogService::log($this->oAuth2Client->machine->id,
+            "Busqueda de reserva para '{$param}', {$count} resultados obtenidos"
+        );
+
         return $response;
     }
 

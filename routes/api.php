@@ -11,6 +11,9 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/logout', 'UserController@logout');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
+
+    // Busca logs de la maquina
+    Route::get('find/machine/logs/{limit?}', 'General\SearchdController@machineLogs');
     // Obtiene historial de busquedas
     Route::get('find/search_history', 'General\SearchdController@findSearchFavorite');
     // obtiene los apartamentos de una ubicacion
