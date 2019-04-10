@@ -3,6 +3,7 @@ namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
 use App\Extra;
+use App\Tag;
 use App\Service\UploadImage;
 
 class SaveExtrasHandler extends BaseHandler {
@@ -12,8 +13,8 @@ class SaveExtrasHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $extra_erp = Extra::where('extra_id','=',$this->params['data']['extra_id'])->where('type','=','erp')->first();
-        $extra = Extra::where('extra_id','=',$this->params['data']['extra_id'])->where('type','=','web')->first();
+        $extra_erp = Extra::where('extra_id','=',$this->params['data']['extra_id'])->with('tags')->where('type','=','erp')->first();
+        $extra = Extra::where('extra_id','=',$this->params['data']['extra_id'])->with('tags')->where('type','=','web')->first();
 
         if(! $extra){
             $extra = new Extra();
@@ -45,8 +46,22 @@ class SaveExtrasHandler extends BaseHandler {
 
             $extra->icon = $path;
         }
-
+        
         $response = $extra->save();
+
+        $arrayTags = [];
+        foreach ($this->params['data']['tags'] as $tagsParents){
+            foreach ($tagsParents as $tags){
+                $idTags[] = Tag::where('description', $tags['text'])->first()->toArray();
+            }
+        }
+        $ids = [];
+        if(isset($idTags)){
+            foreach($idTags as $key => $tag) {
+                $ids[] = $tag['id'];
+            }
+        }
+        $extra->tags()->sync($ids);
         
         $extra->updateFieldTranslations($this->params['data']['fieldTranslations']);
        

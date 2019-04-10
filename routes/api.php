@@ -9,9 +9,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
-
-    // Obtiene tags
-    Route::get('find/extra_tags/{tag}', 'General\SearchdController@findExtraByTag');
+    // Obtiene extras por ubicacion y tag al que pertenecen
+    Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
     // Obtiene historial de busquedas
     Route::get('find/search_history', 'General\SearchdController@findSearchFavorite');
     // obtiene los apartamentos de una ubicacion
@@ -136,9 +135,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
         // Obtener Reservas activas
         Route::get('/find/reservation/actives/{email}', 'ReservationController@reservationActiveByUser');
-
+        
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
+            // Obtiene tags
+            Route::get('find/extra_tags', 'General\SearchdController@findExtraByTag');
             // Obtiene las experiencias version erp
             Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@findExperiencesByLocation');
             //Obtiene los extras version erp

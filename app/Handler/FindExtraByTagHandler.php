@@ -16,26 +16,32 @@ class FindExtraByTagHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $tagParent = Tag::query()
+        $tagParents = Tag::query()
             ->with(['children.extras'])
             ->whereNull('parent_id')
-            ->where('description', strtoupper($this->params['tag']))
-            ->firstOrFail()
-        ;
+            ->get();
 
         $response = [];
-        foreach ($tagParent->children as $tag) {
-            $extras = [];
-            foreach ($tag->extras as $extra) {
-                $extras[] = [
-                    'type' => $extra->type,
-                    'fieldTranslations' => $extra->fieldTranslations()
+        foreach($tagParents as $tagParent){
+            $childrens = [];
+            foreach ($tagParent->children as $tag) {
+                $extras = [];
+                foreach ($tag->extras as $extra) {
+                    $extras[] = [
+                        'id' => $extra->id,
+                        'type' => $extra->type,
+                        'fieldTranslations' => $extra->fieldTranslations()
+                    ];
+                }
+
+                $childrens[] =  [
+                    'tagName' => $tag->description,
+                    'extras' => $extras
                 ];
             }
-
-            $response[] = [
-                'tag' => $tag->description,
-                'extras' => $extras
+            $response [] = [
+                'tagParent' => $tagParent->description,
+                'tagsChildrens' => $childrens,
             ];
         }
 
@@ -53,7 +59,7 @@ class FindExtraByTagHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-           'tag' => 'required'
+           
         ];
     }
 
