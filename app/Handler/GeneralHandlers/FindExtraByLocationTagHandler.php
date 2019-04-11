@@ -29,6 +29,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                         $extras[] = [
                             'id' => $extra->id,
                             'type' => $extra->type,
+                            'coste' => $extra->coste,
                             'fieldTranslations' => $extra->fieldTranslations(),
                             'front_image' => route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
                         ];
