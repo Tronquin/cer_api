@@ -171,7 +171,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             //Guarda Documentos
             Route::post('/document', 'DocumentController@store');
             //Eliminar Documentos
-            //Route::delete('/document/{document}', 'DocumentController@destroy');
+            Route::delete('/document/{documentId}', 'DocumentController@destroy');
 
             // Actualizar informacion del spa
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');

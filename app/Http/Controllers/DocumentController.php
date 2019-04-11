@@ -5,13 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Handler\StoreDocumentHandler;
-use App\Handler\DestroyDocumentHandler;
-use App\Service\UploadDocument;
-use Illuminate\Support\Facades\File;
-use App\Document;
-use App\Location;
-use App\ExtraOustanding;
-use Illuminate\Support\Facades\DB;
+use App\Handler\DeleteDocumentHandler;
+use App\Handler\ListDocumentHandler;
 
 /**
  * This Controller Will be Refactor after testing
@@ -22,51 +17,44 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        return Document::latest()->paginate(10);
+        $handler = new ListDocumentHandler();
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    public function destroy(Request $request)
+    {
+        $data = $request->all();
+
+        $handler = new DeleteDocumentHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
     public function store(Request $request)
     {
-        $response = [];
+        $data = $request->all();
 
-        DB::beginTransaction();
+        $handler = new StoreDocumentHandler($data);
+        $handler->processHandler();
 
-        $uploadedFile = $request->file('document');
-        $filename = time().$uploadedFile->getClientOriginalName();
-        $document = new Document();
-        $document->name = $filename;
-        $document->url = 'document/'.$filename;
-        $document->extension = $request->file('document')->extension();
-        $document->Locations()->associate(Location::class);
-        $document->extraOutstandings()->associate(ExtraOustanding::class);
-        $document->save();
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
 
-        DB::commit();
-
-        $response['data'] = $document;
-
-        return $response;
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    public function upload(Request $request)
-    {
-        $response = [];
-
-        $uploadedFile = $request->file('document');
-        $filename = time().$uploadedFile->getClientOriginalName();
-        $this->validate($request, [
-            'url' => 'required',
-            'name' => 'required',
-            'extension' => 'required'
-        ]);
-
-        $response['data'] = $uploadedFile;
-
-        UploadDocument::upload($uploadedFile, 'document/', $filename);
-
-        return $response;
-    }
-    
     public function getDocument($document)
     {
         $path = str_replace('-', '/', $document);
