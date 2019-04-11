@@ -27,6 +27,11 @@ class ExtraOustanding extends Model
         return $this->belongsTo(Location::class, 'location_id');
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
 
     /**
      * Campos que se pueden almacenar en field_translations

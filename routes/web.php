@@ -12,4 +12,5 @@
 */
 
 Route::get('storage/image/{image}', 'ImageController@getImage')->name('storage.image');
+Route::get('storage/document/{document}', 'DocumentController@getDocument')->name('storage.document');
 Route::get('translation/excel/{device?}', 'DefaultController@excel');

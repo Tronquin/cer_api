@@ -163,6 +163,14 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
+            
+            //Obtener Documentos
+            Route::get('/document', 'DocumentController@index');
+            //Guarda Documentos
+            Route::post('/document', 'DocumentController@store');
+            //Eliminar Documentos
+            //Route::delete('/document/{document}', 'DocumentController@destroy');
+
             // Actualizar informacion del spa
             Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
             // Agregar / Actualizar idiomas
