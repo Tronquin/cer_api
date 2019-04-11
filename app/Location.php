@@ -76,12 +76,12 @@ class Location extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    /*public function extras()
+    public function extras()
     {
-            return $this->hasMany(Extra::class, 'ubicacion_id');
+        return $this->hasMany(Extra::class, 'ubicacion_id');
     }
 
-    public function dispensers()
+    /*public function dispensers()
     {
         return $this->hasMany('App\Dispenser');
 

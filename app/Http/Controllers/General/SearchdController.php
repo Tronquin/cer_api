@@ -15,6 +15,7 @@ use App\Handler\GeneralHandlers\FindSearchFavoriteHandler;
 use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
+use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -229,12 +230,31 @@ class SearchdController extends Controller
     /**
      * Obtiene extras para cada tag
      *
-     * @param string $tag
      * @return JsonResponse
      */
-    public function findExtraByTag($tag)
+    public function findExtraByTag()
     {
-        $handler = new FindExtraByTagHandler(compact('tag'));
+        $handler = new FindExtraByTagHandler();
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+    
+    /**
+     * Obtiene extras para cada ubicacion segun el findExtraByLocationTag
+     * al que pertenecen
+     *
+     * @param $ubicacion_id
+     * @param $type
+     * @return JsonResponse
+     */
+    public function findExtraByLocationTag($type,$ubicacion_id)
+    {
+        $handler = new FindExtraByLocationTagHandler(['ubicacion_id' => $ubicacion_id,'type' => $type]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
