@@ -22,7 +22,7 @@ class CreateTableDocuments extends Migration
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('locations');
             $table->integer('extra_outstandings_id')->unsigned();
-            $table->foreign('extra_outstandings_id')->referebces('id')->on('extra_outstandings');
+            $table->foreign('extra_outstandings_id')->references('id')->on('extras_outstandings');
             $table->timestamps();
         });
     }
