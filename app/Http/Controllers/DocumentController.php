@@ -15,9 +15,10 @@ use App\Handler\ListDocumentHandler;
 
 class DocumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $handler = new ListDocumentHandler();
+        $data = $request->all();
+        $handler = new ListDocumentHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

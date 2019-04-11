@@ -14,9 +14,9 @@ class StoreDocumentHandler extends BaseHandler
         //New Document Model Instance
         $model = new Document();
         //new Location Model Instance + Query for Correct Location of Document
-        $location = Location::query()->where('ubicacion_id', $this->params['location_id'])->firstOrFail();
+        $location = Location::query()->where('id', $this->params['location_id'])->firstOrFail();
         //new extra outstanding instance + Query for correct Extra Outstanding of document
-        $extraOutstanding = ExtraOustanding::query()->where('ubicacion_id', $this->params['extra_outstandings_id']);
+        $extraOutstanding = ExtraOustanding::query()->where('id', $this->params['extra_outstandings_id']);
 
         //Table Data Gathering
         $document = $data->file('document');
@@ -29,7 +29,7 @@ class StoreDocumentHandler extends BaseHandler
 
 
         //Database Transaction & Save
-        DB::beginTransaction();
+        //DB::beginTransaction();
 
         $document->url = $url;
         $document->description = $description;
@@ -39,7 +39,7 @@ class StoreDocumentHandler extends BaseHandler
         $document->extra_outstandings_id = $documentExtraOutstanding;
         $document->save();
 
-        DB::commit();
+        //DB::commit();
 
         //Saves file to Storage Folder
         UploadDocument::upload($document, $url, $name);

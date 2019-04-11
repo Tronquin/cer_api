@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
-    use FieldTranslationTrait;
-
     protected $table = 'documents';
 
     protected $fillable = [
