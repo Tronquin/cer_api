@@ -7,9 +7,7 @@ class ListDocumentHandler extends BaseHandler
 {
     public function handle()
     {
-        $document = Document::query()->where('id', $this->params['id'])->get();
-        
-        return compact('document', 'id');
+        return Document::latest()->paginate(10);
     }
 
     public function validationRules()

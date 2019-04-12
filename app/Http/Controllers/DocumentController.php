@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Handler\StoreDocumentHandler;
 use App\Handler\DeleteDocumentHandler;
 use App\Handler\ListDocumentHandler;
+use Psy\Util\Json;
 
 /**
  * This Controller Will be Refactor after testing
@@ -58,17 +59,23 @@ class DocumentController extends Controller
 
     public function getDocument($document)
     {
+        //Gets Aproppiate Storage Document Path
         $path = str_replace('-', '/', $document);
         $path = storage_path('app/public') . '/' . $path;
 
+        //If Path(Document) Doesn't exist, throw 404 error
         if (! file_exists($path)) {
             abort(404);
         }
-
+        
+        //Get Document and File type
         $file = File::get($path);
         $type = File::mimeType($path);
 
+        //Make a response and add a custom header to it
         $response = Response::make($file, 200);
         $response->header('Content-Type', $type);
+
+        return new JsonResponse($response);
     }
 }

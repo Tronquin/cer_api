@@ -27,9 +27,7 @@ class StoreDocumentHandler extends BaseHandler
         $documentLocation = $location->id;
         $documentExtraOutstanding = $extraOutstanding->id;
 
-
-        //Database Transaction & Save
-        //DB::beginTransaction();
+        //Database Save
 
         $document->url = $url;
         $document->description = $description;
@@ -38,8 +36,6 @@ class StoreDocumentHandler extends BaseHandler
         $document->location_id = $documentLocation;
         $document->extra_outstandings_id = $documentExtraOutstanding;
         $document->save();
-
-        //DB::commit();
 
         //Saves file to Storage Folder
         UploadDocument::upload($document, $url, $name);
