@@ -28,7 +28,11 @@ class UpdateLocationHandler extends BaseHandler
 
             $location->logo = $path;
         }
-        
+
+        $domain = str_replace('http://', '', $this->params['domain']);
+        $domain = str_replace('https://', '', $domain);
+
+        $location->domain = $domain;
         $location->updateFieldTranslations($this->params['fieldTranslations']);
 
         $location->save();
@@ -53,7 +57,8 @@ class UpdateLocationHandler extends BaseHandler
     {
         return [
             'locationId' => 'required|numeric',
-            'fieldTranslations' => 'required'
+            'fieldTranslations' => 'required',
+            'domain' => 'required'
         ];
     }
 }
