@@ -41,6 +41,7 @@ class FindExtraByTagHandler extends BaseHandler {
             }
             $response [] = [
                 'tagParent' => $tagParent->description,
+                'tagParentId' => $tagParent->id,
                 'tagsChildrens' => $childrens,
             ];
         }
