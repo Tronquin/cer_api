@@ -55,8 +55,12 @@ class Location extends Model
 
     public function tarifas()
     {
-        return $this->hasMany(Package::class,'tarifa_id','tarifa_id');
+        return $this->hasMany(Package::class, 'tarifa_id', 'tarifa_id');
+    }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 
     /**
@@ -82,7 +86,7 @@ class Location extends Model
         return $this->hasMany('App\Dispenser');
 
     }
-    
+
 
     public function apartamentos()
     {
