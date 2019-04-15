@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\ExtraOustanding;
 use App\Handler\Web\UpdateOrCreateExtraOustandingHandler;
+use App\Handler\DestroyDocumentHandler;
 
 class ExtrasOustandingController extends Controller
 {
