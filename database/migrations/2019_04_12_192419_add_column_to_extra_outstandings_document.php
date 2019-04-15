@@ -13,7 +13,7 @@ class AddColumnToExtraOutstandingsDocument extends Migration
      */
     public function up()
     {
-        Schema::create('extras_outstandings', function (Blueprint $table) {
+        Schema::table('extras_outstandings', function (Blueprint $table) {
             $table->string('document')->nullable();
         });
     }

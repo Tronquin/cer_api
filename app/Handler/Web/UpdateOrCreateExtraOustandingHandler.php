@@ -4,6 +4,8 @@ namespace App\Handler\Web;
 use App\Handler\BaseHandler;
 use App\ExtraOustanding;
 use App\Service\UploadImage;
+use App\Document;
+use App\Service\UploadDocument;
 
 class UpdateOrCreateExtraOustandingHandler extends BaseHandler
 {
@@ -16,8 +18,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
     {
         $data = [];
         $oustandingsIds = [];
-        foreach($this->params['oustandings'] as $extra){
-
+        foreach ($this->params['oustandings'] as $extra) {
             $id = $extra['id'];
 
             $oustanding = ExtraOustanding::query()->findOrNew($id);
@@ -37,10 +38,17 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
                 $oustanding->icon = $path;
             }
 
+            if (isset($extra['document'])) {
+                $path = UploadDocument::upload($extra['document'], 'extras/oustandings/document/');
+
+                $oustanding->document = $path;
+            }
+
             $data['fieldTranslations'] = $oustanding->fieldTranslations();
             $oustanding->save();
             $oustanding->photo = route('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]);
             $oustanding->icon = route('storage.image', ['image' => str_replace('/', '-', $oustanding->icon)]);
+            $oustanding->document = route('storage.document', ['document' => str_replace('/', '-', $oustanding->document)]);
             $oustanding->updateFieldTranslations($extra['fieldTranslations']);
             $oustanding['fieldTranslations'] = $oustanding->fieldTranslations();
             $data['oustanding'][] = $oustanding;
@@ -48,7 +56,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
         }
 
         // Elimino todas las secciones que no llegaron de front
-        ExtraOustanding::query()->where('location_id',$this->params['location_id'])->whereNotIn('id', $oustandingsIds)->delete();
+        ExtraOustanding::query()->where('location_id', $this->params['location_id'])->whereNotIn('id', $oustandingsIds)->delete();
             
         $response = [
             'res' => 1,
@@ -70,5 +78,4 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
             
         ];
     }
-
 }
