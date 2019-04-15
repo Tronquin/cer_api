@@ -42,15 +42,15 @@ class UploadDocument
     {
         $base64 = explode(',', $base64);
 
-        if (str_replace('document/pdf', '', $base64[0]) !== $base64[0]) {
+        if (str_replace('application/pdf', '', $base64[0]) !== $base64[0]) {
             return '.pdf';
         }
 
-        if (str_replace('document/docx', '', $base64[0]) !== $base64[0]) {
+        if (str_replace('application/docx', '', $base64[0]) !== $base64[0]) {
             return '.docx';
         }
 
-        if (str_replace('document/doc', '', $base64[0]) !== $base64[0]) {
+        if (str_replace('application/doc', '', $base64[0]) !== $base64[0]) {
             return '.doc';
         }
 
