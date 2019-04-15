@@ -189,7 +189,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             // Crea o Actualiza extras Oustanding
             Route::put('/admin/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@updateOrCreateExtras');
             // Elimina Documento de extra Outstanding
-            Route::delete('/admin/extraoustanding/{documentId}', 'ExtraOustandingController@destroyDocument');
+            Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
         });
     });
 });

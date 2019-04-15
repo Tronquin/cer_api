@@ -73,10 +73,15 @@ class ExtrasOustandingController extends Controller
 
     public function destroyDocument(Request $request, $document_id)
     {
-        $document = ExtraOustanding::query()->where('id', '=', $document)->get();
-        $document->document = "";
-        $document->document_name = "";
+        $data = $request->all();
+        $data['id'] = $document_id;
+        $handler = new DestroyDocumentHandler($data);
+        $handler->processHandler();
 
-        return ['response' => 'Documento Eliminado'];
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 }
