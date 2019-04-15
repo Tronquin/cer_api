@@ -16,20 +16,20 @@ class ExtrasOustandingController extends Controller
     * @param $location_id
     * @return mixed
     */
-    public function getExtras($location_id){
-
+    public function getExtras($location_id)
+    {
         $data = [];
         $Translation = new ExtraOustanding();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
         
-        $extras = ExtraOustanding::where('location_id',$location_id)->get();
-        foreach ($extras as &$extra){
+        $extras = ExtraOustanding::where('location_id', $location_id)->get();
+        foreach ($extras as &$extra) {
             $extra->photo = route('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]);
             $extra->icon = route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra['fieldTranslations'] = $extra->fieldTranslations();
         }
 
-        if(count($extras)){
+        if (count($extras)) {
             $data['oustandings'] = $extras;
             $data['fieldTranslations'] = $Translation->fieldTranslation;
 
@@ -38,7 +38,7 @@ class ExtrasOustandingController extends Controller
                 'msg' => "Informacion encontrada",
                 'data' => $data,
             ];
-        }else{
+        } else {
             $data['oustandings'] = [];
             $data['fieldTranslations'] = $Translation->fieldTranslation;
 
@@ -47,18 +47,18 @@ class ExtrasOustandingController extends Controller
                 'msg' => "Informacion no encontrada",
                 'data' => $data,
             ];
-        }   
+        }
         return new JsonResponse($response);
     }
     
     /**
     * Actualiza los Extras Oustandings
-    * @param Request $request 
+    * @param Request $request
     * @param $location_id
     * @return mixed
     */
-    public function updateOrCreateExtras(Request $request, $location_id){
-
+    public function updateOrCreateExtras(Request $request, $location_id)
+    {
         $data = $request->all();
         $data['location_id'] = $location_id;
         $handler = new UpdateOrCreateExtraOustandingHandler($data);
@@ -69,5 +69,14 @@ class ExtrasOustandingController extends Controller
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    public function destroyDocument(Request $request, $document_id)
+    {
+        $document = ExtraOustanding::where('id', '=', $document);
+        $document->document = "";
+        $document->document_name = "";
+
+        return ['response' => 'Documento Eliminado'];
     }
 }

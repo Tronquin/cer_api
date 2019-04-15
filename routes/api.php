@@ -188,6 +188,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::post('/admin/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@store');
             // Crea o Actualiza extras Oustanding
             Route::put('/admin/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@updateOrCreateExtras');
+            // Elimina Documento de extra Outstanding
+            Route::delete('/admin/extraoustanding/{documentId}', 'ExtraOustandingController@destroyDocument');
         });
     });
 });
