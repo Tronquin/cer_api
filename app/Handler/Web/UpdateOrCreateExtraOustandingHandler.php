@@ -45,7 +45,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
             }
 
             if (isset($extra['documentName'])) {
-                $documentName = $this->params['documentName'];
+                $documentName = $extra['documentName'];
 
                 $oustanding->document_name = $documentName;
             }
