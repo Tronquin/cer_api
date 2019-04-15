@@ -23,7 +23,7 @@ class UploadDocument
             $filename = uniqid();
         }
 
-        $filename = 'document-upload-' . time() . '.' . $extension;
+        $filename = 'document-upload-' . time() . $extension;
         $path = $folder . $filename;
 
         Storage::disk('public')->put($path, $upload);
