@@ -13,7 +13,9 @@ class DestroyDocumentHandler extends BaseHandler
     protected function handle()
     {
         if (ExtraOustanding::where('id', '=', $this->params['id'])->delete()) {
-            Storage::delete($this->params['document']);
+            if (isset($this->params['document'])) {
+                Storage::delete($this->params['document']);
+            }
             return ['data' => ['deleted' => true]];
         }
 
