@@ -13,6 +13,7 @@ class FindLocationsHandler extends BaseHandler {
     {
         $locations = Location::where('type', 'erp')
             ->with(['child'])
+            ->orderBy('id')
             ->get();
         
         $LocationwebOrErp = [];
@@ -21,6 +22,7 @@ class FindLocationsHandler extends BaseHandler {
             $temp['front_page'] = $this->generateImageUrl($temp['front_page']);
             $temp['fieldTranslations'] = $locationErp->fieldTranslations();
             $temp['logo'] = $this->generateImageUrl($temp['logo']);
+            $temp['slug'] = str_slug($locationErp->nombre);
 
             $LocationwebOrErp[] = $temp;
         }
