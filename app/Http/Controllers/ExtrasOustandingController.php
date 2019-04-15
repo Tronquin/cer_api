@@ -73,7 +73,7 @@ class ExtrasOustandingController extends Controller
 
     public function destroyDocument(Request $request, $document_id)
     {
-        $document = ExtraOustanding::where('id', '=', $document);
+        $document = ExtraOustanding::query()->where('id', '=', $document)->get();
         $document->document = "";
         $document->document_name = "";
 
