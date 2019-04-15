@@ -5,7 +5,7 @@ use App\Machine;
 use App\ExtraOustanding;
 use Illuminate\Support\Facades\Storage;
 
-class DeleteMachineHandler extends BaseHandler
+class DestroyDocumentHandler extends BaseHandler
 {
 
     /**
