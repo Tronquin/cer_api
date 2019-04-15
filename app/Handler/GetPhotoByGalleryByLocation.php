@@ -31,7 +31,8 @@ class GetPhotoByGalleryByLocation extends BaseHandler
             if (count($gallery->photos) === 0) {
                 $gallery->photos[] = [
                     'url' => 'https://via.placeholder.com/150x150',
-                    'type' => ''
+                    'type' => '',
+                    'fieldTranslations' => []
                 ];
             }
         }
