@@ -44,12 +44,17 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
                 $oustanding->document = $path;
             }
 
+            if (isset($extra['documentName'])) {
+                $documentName = $this->params['documentName'];
+
+                $oustanding->document_name = $documentName;
+            }
+
             $data['fieldTranslations'] = $oustanding->fieldTranslations();
             $oustanding->save();
             $oustanding->photo = route('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]);
             $oustanding->icon = route('storage.image', ['image' => str_replace('/', '-', $oustanding->icon)]);
             $oustanding->document = route('storage.document', ['document' => str_replace('/', '-', $oustanding->document)]);
-            $oustanding->document_name = $extra['documentName'];
             $oustanding->updateFieldTranslations($extra['fieldTranslations']);
             $oustanding['fieldTranslations'] = $oustanding->fieldTranslations();
             $data['oustanding'][] = $oustanding;
