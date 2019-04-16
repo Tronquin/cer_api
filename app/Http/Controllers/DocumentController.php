@@ -9,6 +9,7 @@ use App\Handler\DeleteDocumentHandler;
 use App\Handler\ListDocumentHandler;
 use Psy\Util\Json;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 /**
  * This Controller Will be Refactor after testing
