@@ -63,10 +63,16 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     $tipologia['promocions'] = $ubicaciones['promocions'];
 
                 }
-                $ubication['tipologias'] = $ubication['disponibility']['tipologias'];
+
+                $ubication['tipologias'] = [];
+                foreach ($ubication['disponibility']['tipologias'] as $tipologia) {
+                    $ubication['tipologias'][] = $tipologia;
+                }
+
                 unset($response['data'][$key]['disponibility']);
             }
         }
+
         return $response;
     }
 
