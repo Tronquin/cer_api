@@ -17,7 +17,7 @@ class SetDefaultExperienceHandler extends BaseHandler {
     {
         Location::query()->update(['default_experience' => false]);
 
-        $location = Location::query()->where('location_id', $this->params['ubicacion_id'])->firstOrFail();
+        $location = Location::query()->where('ubicacion_id', $this->params['ubicacion_id'])->firstOrFail();
         $location->default_experience = true;
         $location->save();
 
