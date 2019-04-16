@@ -192,6 +192,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
             // Configura experiencia predeterminada del home
             Route::put('/admin/home/default_experience/{ubicacion_id}', 'Admin\HomeController@setDefaultExperience');
+            // Configura caracteristicas
+            Route::resource('/admin/master/characteristic', 'Admin\CharacteristicController');
         });
     });
 });

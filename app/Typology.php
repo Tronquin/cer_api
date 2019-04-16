@@ -24,6 +24,14 @@ class Typology extends Model
         'descripcion_po',
     ];
 
+    /**
+     * Caracteristicas que contiene esta tipologia
+     */
+    public function characteristics()
+    {
+        return $this->belongsToMany(Typology::class, 'typology_characteristic', 'typology_id', 'characteristic_id');
+    }
+
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id');
