@@ -27,6 +27,7 @@ class ExtrasOustandingController extends Controller
         foreach ($extras as &$extra) {
             $extra->photo = route('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]);
             $extra->icon = route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
+            $extra->document = route('storage.document', ['document' => str_replace('/', '-', $extra['document'])]);
             $extra['fieldTranslations'] = $extra->fieldTranslations();
         }
 

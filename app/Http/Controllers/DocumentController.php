@@ -16,47 +16,6 @@ use Psy\Util\Json;
 
 class DocumentController extends Controller
 {
-    public function index(Request $request)
-    {
-        $data = $request->all();
-        $handler = new ListDocumentHandler($data);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }
-
-    public function destroy(Request $request)
-    {
-        $data = $request->all();
-
-        $handler = new DeleteDocumentHandler($data);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->all();
-
-        $handler = new StoreDocumentHandler($data);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }
-
     public function getDocument($document)
     {
         //Gets Aproppiate Storage Document Path
@@ -78,4 +37,45 @@ class DocumentController extends Controller
 
         return new JsonResponse($response);
     }
+    
+    // public function index(Request $request)
+    // {
+    //     $data = $request->all();
+    //     $handler = new ListDocumentHandler($data);
+    //     $handler->processHandler();
+
+    //     if ($handler->isSuccess()) {
+    //         return new JsonResponse($handler->getData());
+    //     }
+
+    //     return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    // }
+
+    // public function destroy(Request $request)
+    // {
+    //     $data = $request->all();
+
+    //     $handler = new DeleteDocumentHandler($data);
+    //     $handler->processHandler();
+
+    //     if ($handler->isSuccess()) {
+    //         return new JsonResponse($handler->getData());
+    //     }
+
+    //     return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    // }
+
+    // public function store(Request $request)
+    // {
+    //     $data = $request->all();
+
+    //     $handler = new StoreDocumentHandler($data);
+    //     $handler->processHandler();
+
+    //     if ($handler->isSuccess()) {
+    //         return new JsonResponse($handler->getData());
+    //     }
+
+    //     return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    // }
 }

@@ -14,7 +14,7 @@ class DestroyDocumentHandler extends BaseHandler
     {
         $extraOutstanding = ExtraOustanding::where('id', '=', $this->params['id'])->get();
 
-        if (isset($this->params['document'])) {
+        if (isset($this->params['document']) && isset($this->params['document_name'])) {
             $extraOutstanding->document = "";
             $extraOutstanding->document_name = "";
             $extraOutstanding->save();
