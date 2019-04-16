@@ -5,6 +5,7 @@ use App\Handler\BaseHandler;
 use App\Experience;
 use App\Galery;
 use App\Extra;
+use App\Location;
 use App\Photo;
 
 class FindExperiencesByLocationHandler extends BaseHandler {
@@ -16,14 +17,21 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     {
         $response = [];
         $experiences = [];
+        $ubicacionId = $this->params['ubicacion_id'];
 
-        $experiencesCollection = Experience::where('ubicacion_id', $this->params['ubicacion_id'])
+        if (is_null($ubicacionId)) {
+            // Obtengo las experiencias de la ubicacion predeterminada
+            $location = Location::query()->whereRaw('default_experience = true')->first();
+            $ubicacionId = $location->ubicacion_id;
+        }
+
+        $experiencesCollection = Experience::where('ubicacion_id', $ubicacionId)
             ->where('type', 'erp')
             ->with(['child', 'extras', 'apartamentos'])
             ->orderBy('experiencia_id')
             ->get();
 
-        $extras = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
+        $extras = Extra::where('ubicacion_id', $ubicacionId)
             ->where('type', 'erp')    
             ->with(['child'])
             ->limit(5)
@@ -85,7 +93,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
         }
 
         $response['res'] = count($experiences);
-        $response['msg'] = 'experiencias de la ubicacion: '.$this->params['ubicacion_id'];
+        $response['msg'] = 'experiencias de la ubicacion: '.$ubicacionId;
         $response['data'] = $experiences;
        
         return $response;
@@ -99,7 +107,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'ubicacion_id' => 'required|numeric',
+
         ];
     }
 

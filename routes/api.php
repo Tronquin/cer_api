@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Busca los POI por ubicacion
     Route::get('/find/poiByLocation/{ubicacion_id}', 'General\SearchdController@findPOIByLocation');
     // Busca las experiencias por ubicacion
-    Route::get('/find/experiencesByLocation/{ubicacion_id}', 'General\SearchdController@findExperiencesByLocation');
+    Route::get('/find/experiencesByLocation/{ubicacion_id?}', 'General\SearchdController@findExperiencesByLocation');
     // Busca los extras por ubicacion
     Route::get('/find/extrasByLocation/{ubicacion_id}', 'General\SearchdController@findExtrasByLocation');
     // Busca las tipologias por ubicacion
@@ -190,6 +190,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::put('/admin/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@updateOrCreateExtras');
             // Elimina Documento de extra Outstanding
             Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
+            // Configura experiencia predeterminada del home
+            Route::put('/admin/home/default_experience/{ubicacion_id}', 'HomeController@setDefaultExperience');
         });
     });
 });

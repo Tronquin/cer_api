@@ -31,7 +31,8 @@ class Location extends Model
         'descripcion_en',
         'descripcion_fr',
         'descripcion_po',
-        'domain'
+        'domain',
+        'default_experience'
     ];
 
     public function experiencias()

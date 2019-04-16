@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Handler\SetDefaultExperienceHandler;
 use App\Handler\Web\SaveExtrasHandler;
 use App\Handler\Web\FindExtrasByLocationHandler;
 use App\Handler\Web\FindExperiencesByLocationHandler;
@@ -60,6 +61,24 @@ class HomeController extends Controller
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
-    }    
+    }
+
+    /**
+     * Configura las experiencias predeterminadas del home
+     *
+     * @param int $ubicacion_id
+     * @return JsonResponse
+     */
+    public function setDefaultExperience($ubicacion_id)
+    {
+        $handler = new SetDefaultExperienceHandler(compact('ubicacion_id'));
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
 
 }
