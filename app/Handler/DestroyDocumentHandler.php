@@ -12,9 +12,9 @@ class DestroyDocumentHandler extends BaseHandler
      */
     protected function handle()
     {
-        $extraOutstanding = ExtraOustanding::query()->where('id', '=', $this->params['id'])->get();
+        $extraOutstanding = ExtraOustanding::query()->where('id', '=', $this->params['id'])->first();
 
-        Storage::delete($extraOutstanding->document);
+        Storage::disk('public')->delete($extraOutstanding->document);
     
         $extraOutstanding->document = "";
         $extraOutstanding->document_name = "";
