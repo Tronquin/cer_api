@@ -103,7 +103,7 @@ class SearchdController extends Controller
      * @param $ubicacion_id
      * @return JsonResponse
      */
-    public function findExperiencesByLocation($ubicacion_id){
+    public function findExperiencesByLocation($ubicacion_id = null){
 
         $handler = new FindExperiencesByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
