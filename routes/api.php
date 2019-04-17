@@ -9,6 +9,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
 
