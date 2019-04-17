@@ -68,16 +68,18 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                 $tipology->processHandler();
                 $tipologia = $tipology->getData();
                 $ubication['tipologias'] = [];
+                $validTipologia = [];
                 foreach ($tipologia['data'] as $tkey => $tip) {
                     foreach ($ubication['disponibility']['tipologias'] as $t){
                         if($tip['tipologia_id'] === $t['id']){
                             $tip['dormitorios'] = $t['dormitorios'];
                             $tip['lavabos'] = $t['lavabos'];
                             $tip['precio_upgrade'] = $t['precio_upgrade'];
+                            $validTipologia[] = $tip;
                         }
                     }
-                    $ubication['tipologias'][$tkey] = $tip;
                 }
+                $ubication['tipologias'] = $validTipologia;
                 unset($response['data'][$key]['disponibility']);
             }
         }
