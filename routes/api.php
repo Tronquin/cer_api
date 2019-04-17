@@ -143,6 +143,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene tags
             Route::get('find/extra_tags', 'General\SearchdController@findExtraByTag');
+            // massive extra by tags save
+            Route::post('/admin/save/extra_tags', 'General\SearchdController@saveMasiveExtraTags');
             // Obtiene las experiencias version erp
             Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@findExperiencesByLocation');
             //Obtiene los extras version erp

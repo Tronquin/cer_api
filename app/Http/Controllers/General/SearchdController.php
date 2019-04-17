@@ -16,6 +16,7 @@ use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
+use App\Handler\GeneralHandlers\SaveMasiveExtraTagsHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -255,6 +256,25 @@ class SearchdController extends Controller
     public function findExtraByLocationTag($type,$ubicacion_id)
     {
         $handler = new FindExtraByLocationTagHandler(['ubicacion_id' => $ubicacion_id,'type' => $type]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Guarda los extras de forma masiva en los tags especificados
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function saveMasiveExtraTags(Request $request)
+    {
+        $data = $request->all();
+        $handler = new SaveMasiveExtraTagsHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
