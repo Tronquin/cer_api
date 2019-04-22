@@ -64,7 +64,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-           // 'order' => 'required'
+            'sectionApartments' => 'required'
         ];
     }
 }
