@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Characteristict\Handler\SaveCharacteristicHandler;
 use App\Characteristict\Handler\UpdateCharacteristicHandler;
 use App\Handler\Characteristic\GetCharacteristicHandler;
+use App\Handler\Characteristic\SaveCharacteristicHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
