@@ -18,14 +18,14 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
         $data = [];
         $sectionApartmentIds = [];
         
-        foreach($this->params['sectionApartments'] as $sectionApartment){
-
+        foreach ($this->params['sectionApartments'] as $sectionApartment) {
             $id = $sectionApartment['id'];
 
             $section = SectionApartment::query()->findOrNew($id);
             $section->ubicacion_id = $this->params['ubicacion_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
-            if(isset($sectionApartment['photo'])){
+
+            if (isset($sectionApartment['photo']) && $section->photo->wasChanged()) {
                 $path = UploadImage::upload($sectionApartment['photo'], 'sectionApartment/');
                 $section->photo =  $path;
             }
@@ -64,8 +64,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            
+            'order' => 'required'
         ];
     }
-
 }
