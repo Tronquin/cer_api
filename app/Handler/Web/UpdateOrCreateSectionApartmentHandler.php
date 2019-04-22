@@ -25,7 +25,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $section->ubicacion_id = $this->params['ubicacion_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
 
-            if (isset($sectionApartment['photo']) && $section->photo->wasChanged()) {
+            if (isset($sectionApartment['photo']) && $section->wasChanged('photo')) {
                 $path = UploadImage::upload($sectionApartment['photo'], 'sectionApartment/');
                 $section->photo =  $path;
             }
@@ -64,7 +64,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'order' => 'required'
+           // 'order' => 'required'
         ];
     }
 }

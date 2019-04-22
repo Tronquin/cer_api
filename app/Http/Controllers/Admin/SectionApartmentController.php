@@ -23,32 +23,28 @@ class SectionApartmentController extends Controller
         $Translation = new SectionApartment();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
         
-        $sectionApartments = SectionApartment::where('ubicacion_id',$ubicacion_id)->get();
+        $sectionApartments = SectionApartment::where('ubicacion_id',$ubicacion_id)->orderBy('order')->get();
         foreach ($sectionApartments as &$sectionApartment){
             $sectionApartment['photo'] = route('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]);
             $sectionApartment['fieldTranslations'] = $sectionApartment->fieldTranslations();
         }
 
-        if(count($sectionApartments)){
-            $data['sectionApartments'] = $sectionApartments;
-            $data['fieldTranslations'] = $Translation->fieldTranslation;
+        $data['fieldTranslations'] = $Translation->fieldTranslation;
 
-            $response = [
-                'res' => count($sectionApartments),
-                'msg' => "Secciones encontradas para la ubicacion",
-                'data' => $data,
-            ];
-        }else{
+        if(! count($sectionApartments)){
+
             $data['sectionApartments'] = [];
-            $data['fieldTranslations'] = $Translation->fieldTranslation;
 
-            $response = [
-                'res' => 0,
-                'msg' => "Informacion no encontrada",
-                'data' => $data,
-            ];
-        }   
-        return new JsonResponse($response);
+            return new JsonResponse(['res' => 0, 'msg' => "Informacion no encontrada", 'data' => $data]);
+        }
+
+        $data['sectionApartments'] = $sectionApartments;
+
+        return new JsonResponse([
+            'res' => count($sectionApartments),
+            'msg' => "Secciones encontradas para la ubicacion",
+            'data' => $data,
+        ]);
     }
     
     /**
