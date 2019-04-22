@@ -32,12 +32,13 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
         //dump($response);
         if($response['data'] !== ''){
             foreach ($response['data'] as $key => &$ubication){
-                foreach ($ubication['disponibility']['tipologias'] as &$tipologia){
+                $tipologiaW = [];
+                foreach ($ubication['disponibility']['tipologias'] as $tipologia){
                     $experiences = new FindExperiencesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     $experiences->processHandler();
                     $experiencias = $experiences->getData();
-                    $tipologia['experiencias'] = $experiencias['data'];
-                    foreach ($tipologia['experiencias'] as &$experiencia){
+                    $ubication['experiencias'] = $experiencias['data'];
+                    foreach ($ubication['experiencias'] as &$experiencia){
                         foreach($ubication['disponibility']['experiencias'] as $exp){
                             if($experiencia['experiencia_id'] === $exp['id']){
                                 $experiencia['precio_upgrade'] = $exp['precio_upgrade'];
@@ -48,8 +49,8 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     $packages = new FindPackagesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     $packages->processHandler();
                     $packs = $packages->getData();
-                    $tipologia['packages'] = $packs['data'];
-                    foreach ($tipologia['packages'] as &$pack){
+                    $ubication['packages'] = $packs['data'];
+                    foreach ($ubication['packages'] as &$pack){
                         foreach($ubication['disponibility']['tarifas'] as $tarifa){
                             if($pack['tarifa_id'] === $tarifa['id']){
                                 $pack['precio_upgrade'] = $tarifa['precio_upgrade'];
@@ -59,16 +60,26 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
 
                     $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     //$tipologia['politica_cancelacions'] = $ubicaciones['politica_cancelacions'];
-                    $tipologia['politica_cancelacions'] = $ubication['disponibility']['politicas'];
-                    $tipologia['promocions'] = $ubicaciones['promocions'];
-
+                    $ubication['politica_cancelacions'] = $ubication['disponibility']['politicas'];
+                    $ubication['promocions'] = $ubicaciones['promocions'];            
                 }
-
+                $tipologia = [];
+                $tipology = new FindTypologyByLocationHandler(['ubicacion_id' => $ubication['id']]);
+                $tipology->processHandler();
+                $tipologia = $tipology->getData();
                 $ubication['tipologias'] = [];
-                foreach ($ubication['disponibility']['tipologias'] as $tipologia) {
-                    $ubication['tipologias'][] = $tipologia;
+                $validTipologia = [];
+                foreach ($tipologia['data'] as $tkey => $tip) {
+                    foreach ($ubication['disponibility']['tipologias'] as $t){
+                        if($tip['tipologia_id'] === $t['id']){
+                            $tip['dormitorios'] = $t['dormitorios'];
+                            $tip['lavabos'] = $t['lavabos'];
+                            $tip['precio_upgrade'] = $t['precio_upgrade'];
+                            $validTipologia[] = $tip;
+                        }
+                    }
                 }
-
+                $ubication['tipologias'] = $validTipologia;
                 unset($response['data'][$key]['disponibility']);
             }
         }

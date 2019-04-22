@@ -184,7 +184,13 @@ class ERPGetData {
                         
                         $tipologia_erp = Typology::where('tipologia_id','=',$tipologia['id'])
                             ->where('type','=','erp')
-                            ->firstOrNew(['tipologia_id' => $tipologia['id'],'type' =>'erp']);
+                            ->first();
+
+                        $isNewTypology = false;
+                        if (! $tipologia_erp) {
+                            $tipologia_erp = new Typology();
+                            $isNewTypology = true;
+                        }
 
                         $tipologia_erp->tipologia_id = $tipologia['id'];
                         $tipologia_erp->ubicacion_id = $tipologia['ubicacion_id'];
@@ -208,6 +214,12 @@ class ERPGetData {
                         ];
 
                         $tipologia_erp->save();
+
+                        if ($isNewTypology) {
+                            $gallery = new \App\Galery();
+                            $gallery->code = 'location-typology-' . $tipologia_erp->id . '-main-gallery';
+                            $gallery->save();
+                        }
         
                         foreach($languages as $language){
                             foreach($tipologia_lang as $key => $lang){

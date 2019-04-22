@@ -16,6 +16,8 @@ use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
+use App\Handler\GeneralHandlers\SaveMasiveExtraTagsHandler;
+use App\Handler\SiteMapHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -265,6 +267,25 @@ class SearchdController extends Controller
     }
 
     /**
+     * Guarda los extras de forma masiva en los tags especificados
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function saveMasiveExtraTags(Request $request)
+    {
+        $data = $request->all();
+        $handler = new SaveMasiveExtraTagsHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
      * Obtiene logs de la maquina
      *
      * @param int $limit
@@ -273,6 +294,23 @@ class SearchdController extends Controller
     public function machineLogs($limit = 10)
     {
         $handler = new FindMachineLogHandler(compact('limit'));
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene la informacion necesario para armar el sitemap
+     *
+     * @return JsonResponse
+     */
+    public function siteMap()
+    {
+        $handler = new SiteMapHandler();
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

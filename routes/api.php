@@ -9,6 +9,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
 
@@ -143,6 +144,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene tags
             Route::get('find/extra_tags', 'General\SearchdController@findExtraByTag');
+            // massive extra by tags save
+            Route::post('/admin/save/extra_tags', 'General\SearchdController@saveMasiveExtraTags');
             // Obtiene las experiencias version erp
             Route::get('/admin/experiences/{ubicacion_id}', 'Admin\HomeController@findExperiencesByLocation');
             //Obtiene los extras version erp
@@ -192,6 +195,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
             // Configura experiencia predeterminada del home
             Route::put('/admin/home/default_experience/{ubicacion_id}', 'Admin\HomeController@setDefaultExperience');
+            // Configura caracteristicas
+            Route::resource('/admin/master/characteristic', 'Admin\CharacteristicController');
         });
     });
 });
