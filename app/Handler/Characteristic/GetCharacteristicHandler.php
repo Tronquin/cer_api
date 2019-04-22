@@ -29,7 +29,7 @@ class GetCharacteristicHandler extends BaseHandler {
 
         return [
             'res' => count($characteristics),
-            'data' => compact('characteristic', 'fieldTranslations')
+            'data' => compact('characteristics', 'fieldTranslations')
         ];
     }
 
