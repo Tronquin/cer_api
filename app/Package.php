@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\TraitDefinition\FieldTranslationTrait;
 
 class Package extends Model
 {
+    use FieldTranslationTrait;
     protected $table = 'packages';
 
     protected $fillable = [
@@ -35,6 +37,16 @@ class Package extends Model
     public function child()
     {
         return $this->hasOne(self::class, 'parent_id');
+    }
+
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return ['description', 'alt_logo'];
     }
 
 

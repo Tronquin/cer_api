@@ -29,8 +29,12 @@ class FindPackagesByLocationHandler extends BaseHandler {
                 unset($webOrErp['extras']);
                 $webOrErp['extras'] = $extras;
             }
-
+            $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
             $packages[] = $webOrErp;
+        }
+
+        foreach ($packages as &$package) {
+            $package['icon'] = route('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
         }
 
         $response['res'] = count($packages);
