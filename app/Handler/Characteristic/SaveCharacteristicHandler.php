@@ -1,5 +1,5 @@
 <?php
-namespace App\Characteristict\Handler;
+namespace App\Handler\Characteristic;
 
 use App\Characteristic;
 use App\Handler\BaseHandler;
