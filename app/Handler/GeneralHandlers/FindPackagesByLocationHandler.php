@@ -35,6 +35,7 @@ class FindPackagesByLocationHandler extends BaseHandler {
 
         foreach ($packages as &$package) {
             $package['icon'] = route('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
+            $package['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]);
         }
 
         $response['res'] = count($packages);

@@ -30,6 +30,13 @@ class UpdateOrCreatePackageHandler extends BaseHandler {
         $pack->activo = $this->params['data']['activo'];
         $pack->orden_calculo = $this->params['data']['orden_calculo'];
 
+        if (isset($this->params['data']['front_image'])) {
+            // Imagen
+            $path = UploadImage::upload($this->params['data']['front_image'], 'packages/' . $pack->id . '/');
+
+            $pack->front_image = $path;
+        }
+
         if (isset($this->params['data']['icon'])) {
             // Imagen
             $path = UploadImage::upload($this->params['data']['icon'], 'packages/' . $pack->id . '/');

@@ -15,6 +15,7 @@ class AddColumnToPackagesIcon extends Migration
     {
         Schema::table('packages', function (Blueprint $table) {
             $table->string('icon')->nullable()->after('orden_calculo');
+            $table->string('front_image')->nullable()->after('icon');
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnToPackagesIcon extends Migration
     {
         Schema::table('packages', function (Blueprint $table) {
             $table->dropColumn('icon');
+            $table->dropColumn('front_image');
         });
     }
 }

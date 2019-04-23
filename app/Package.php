@@ -46,7 +46,7 @@ class Package extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description', 'alt_logo'];
+        return ['description','nombre', 'alt_image', 'alt_icon'];
     }
 
 
