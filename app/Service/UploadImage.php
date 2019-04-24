@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use Illuminate\Support\Facades\Storage;
+use App\Imagen;
 
 class UploadImage
 {
@@ -18,17 +19,29 @@ class UploadImage
         $extension = self::getImageType($base64);
         $base64 = explode(',', $base64);
         $upload = base64_decode($base64[1]);
-
+        $name = '';
         if (! $filename) {
-            $filename = uniqid();
+            $uniq = uniqid();
+            $name = $uniq;
+        }else{
+            $filename = strtolower(str_replace(' ','_',$filename));
+            $uniq = uniqid();
+            $name = $filename;
         }
-
-        $filename = $filename . $extension;
+        $filename = $uniq . $extension;
         $path = $folder . $filename;
-
         Storage::disk('public')->put($path, $upload);
+        $size = str_replace('/', '-', $path);
 
-        return $path;
+        $tamaño = getimagesize(env('APP_URL').'storage/image/size/'.$size);
+        $name = $name.'_'.$tamaño[0].'x'.$tamaño[1].'-'.$uniq;
+        
+        $imagen = new Imagen();
+        $imagen->slug = $name;
+        $imagen->url = $path;
+        $imagen->save();
+
+        return $name;
     }
 
     /**

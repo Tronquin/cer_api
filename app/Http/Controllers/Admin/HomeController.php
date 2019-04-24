@@ -22,6 +22,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function saveExtras(Request $request){
+        
         $handler = new SaveExtrasHandler(['data' => $request->all()]);
         $handler->processHandler();
 
@@ -38,6 +39,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function findExtrasByLocation($ubicacion_id){
+
         $handler = new FindExtrasByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
@@ -54,6 +56,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function findExperiencesByLocation($ubicacion_id){
+
         $handler = new FindExperiencesByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
@@ -88,7 +91,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function savePacks(Request $request){
-        
+
         $handler = new UpdateOrCreatePackageHandler(['data' => $request->all()]);
         $handler->processHandler();
 

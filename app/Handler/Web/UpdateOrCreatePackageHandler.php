@@ -4,6 +4,7 @@ namespace App\Handler\Web;
 use App\Handler\BaseHandler;
 use App\Service\UploadImage;
 use App\Package;
+use App\Location;
 
 class UpdateOrCreatePackageHandler extends BaseHandler {
 
@@ -12,6 +13,8 @@ class UpdateOrCreatePackageHandler extends BaseHandler {
      */
     protected function handle()
     {
+        $location = Location::where('ubicacion_id',$this->params['data']['ubicacion_id'])->firstOrFail();
+
         $pack_erp = Package::where('tarifa_id','=',$this->params['data']['tarifa_id'])->where('type','=','erp')->first();
         $pack = Package::where('tarifa_id','=',$this->params['data']['tarifa_id'])->where('type','=','web')->first();
 
@@ -30,16 +33,19 @@ class UpdateOrCreatePackageHandler extends BaseHandler {
         $pack->activo = $this->params['data']['activo'];
         $pack->orden_calculo = $this->params['data']['orden_calculo'];
 
+        $front_image_name = $location->pais.'_'.$location->ciudad.'_package_img_'.$this->params['data']['nombre'];
+        $icon = $location->pais.'_'.$location->ciudad.'_package_icon_'.$this->params['data']['nombre'];
+
         if (isset($this->params['data']['front_image'])) {
             // Imagen
-            $path = UploadImage::upload($this->params['data']['front_image'], 'packages/' . $pack->id . '/');
+            $path = UploadImage::upload($this->params['data']['front_image'], 'packages/' . $pack->id . '/',$front_image_name);
 
             $pack->front_image = $path;
         }
 
         if (isset($this->params['data']['icon'])) {
             // Imagen
-            $path = UploadImage::upload($this->params['data']['icon'], 'packages/' . $pack->id . '/');
+            $path = UploadImage::upload($this->params['data']['icon'], 'packages/' . $pack->id . '/',$icon);
 
             $pack->icon = $path;
         }
