@@ -388,7 +388,54 @@ class ERPGetData {
                         $package_erp->activo = $package['activo'];
                         $package_erp->orden_calculo = $package['orden_calculo'];
 
+                        $package_lang['es'] = [
+                            'nombre' => '',
+                            'descripcion' => ''
+                        ];
+                        $package_lang['en'] = [
+                            'nombre' => $package['nombre'],
+                            'descripcion' => ''
+                        ];
+                        $package_lang['fr'] = [
+                            'nombre' => '',
+                            'descripcion' => ''
+                        ];
+                        $package_lang['zh'] = [
+                            'nombre' => '',
+                            'descripcion' => ''
+                        ];
+                        $package_lang['ru'] = [
+                            'nombre' => '',
+                            'descripcion' => ''
+                        ];
+                        $package_lang['po'] = [
+                            'nombre' => '',
+                            'descripcion' => ''
+                        ];
+                        
                         $package_erp->save();
+
+                        foreach($languages as $language){
+                            foreach($package_lang as $key => $lang){
+                                
+                                if($language['iso'] == $key){
+                                    $translation = FieldTranslation::where('content_id',$package_erp->id)
+                                                    ->where('field','nombre')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Package::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $package_erp->id;
+                                        $translation->content_type = Package::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre';
+                                        $translation->translation = $lang['nombre'];
+                                        $translation->save();
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Tabla Apartamento

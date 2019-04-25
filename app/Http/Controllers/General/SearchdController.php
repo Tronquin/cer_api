@@ -13,6 +13,7 @@ use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
 use App\Handler\GeneralHandlers\FindExtrasByLocationHandler;
 use App\Handler\GeneralHandlers\FindSearchFavoriteHandler;
 use App\Handler\GeneralHandlers\FindTypologyByLocationHandler;
+use App\Handler\GeneralHandlers\FindPackagesByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
@@ -154,6 +155,24 @@ class SearchdController extends Controller
     }
 
     /**
+     * Busca los packs por ubicacion
+     *
+     * @param $ubicacion_id
+     * @return JsonResponse
+     */
+    public function findPackagesByLocation($ubicacion_id){
+
+        $handler = new FindPackagesByLocationHandler(['ubicacion_id' => $ubicacion_id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
      * Busca los extras por ubicacion
      *
      * @param $ubicacion_id
@@ -284,7 +303,6 @@ class SearchdController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
-
     /**
      * Obtiene logs de la maquina
      *
