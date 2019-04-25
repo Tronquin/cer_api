@@ -2,6 +2,7 @@
 namespace App\Handler;
 use App\ERPImage;
 use App\Galery;
+use App\Service\UrlGenerator;
 
 /**
  * Obtiene todas las imagenes de una galeria
@@ -23,7 +24,7 @@ class GetPhotoByGallery extends BaseHandler
         $photos = $gallery->photos;
 
         foreach ($photos as $photo) {
-            $photo->url = urldecode(route('storage.image', ['image' => str_replace('/', '-', $photo->url)]));
+            $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
             $photo->type = $photo->type ?? '';
             $photo->fieldTranslations = $photo->fieldTranslations();
         }
@@ -38,7 +39,7 @@ class GetPhotoByGallery extends BaseHandler
 
         $erpImages = ERPImage::all();
         foreach ($erpImages as $erpImage) {
-            $erpImage->completeUrl = urldecode(route('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]));
+            $erpImage->completeUrl = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
             $erpImage->fieldTranslations = $erpImage->fieldTranslations();
         }
 

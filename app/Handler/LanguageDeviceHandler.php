@@ -3,6 +3,7 @@ namespace App\Handler;
 
 
 use App\Language;
+use App\Service\UrlGenerator;
 
 class LanguageDeviceHandler extends BaseHandler
 {
@@ -23,7 +24,7 @@ class LanguageDeviceHandler extends BaseHandler
             $temp = [
                 'name' => $lang->name,
                 'iso' => $lang->iso,
-                'flag' => urldecode(route('storage.image', ['image' => str_replace('/', '-', $lang->flag)])),
+                'flag' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $lang->flag)]),
                 'translations' => []
             ];
 

@@ -3,6 +3,7 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Location;
+use App\Service\UrlGenerator;
 
 class FindLocationsHandler extends BaseHandler {
 
@@ -55,7 +56,7 @@ class FindLocationsHandler extends BaseHandler {
         }
 
         $path = str_replace('/', '-', $path);
-        $path = route('storage.image', ['image' => $path]);
+        $path = UrlGenerator::generate('storage.image', ['image' => $path]);
 
         return $path ;
     }
