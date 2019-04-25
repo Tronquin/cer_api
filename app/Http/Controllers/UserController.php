@@ -213,9 +213,11 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function sendResetLinkEmail(Request $request)
+    protected function sendResetLinkEmail(Request $request, $user_id, $token)
     {
         $data = $request->all();
+        $data['user_id'] = $user_id;
+        $data['token'] = $token;
 
         $handler = new sendResetPasswordLinkHandler($data);
         $handler->processHandler();

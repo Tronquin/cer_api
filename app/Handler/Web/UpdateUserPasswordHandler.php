@@ -4,7 +4,7 @@ namespace App\Handler\Web;
 use App\User;
 use App\Handler\BaseHandler;
 
-class UpdateUserHandler extends BaseHandler
+class UpdateUserPasswordHandler extends BaseHandler
 {
     /**
      * Proceso de este handler

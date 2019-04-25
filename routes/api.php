@@ -10,7 +10,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
     // Envia Link al usuario para resetear contraseña
-    Route::post('user/password/reset/{token}', 'UserController@sendResetLinkEmail');
+    Route::post('user/password/reset/{token}/{userId}', 'UserController@sendResetLinkEmail');
     // Actualizar Contraseña
     Route::post('user/password/update/{userId}', 'UserController@updatePassword');
     

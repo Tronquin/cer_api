@@ -10,13 +10,15 @@
     "require": {
         "php": ">=7.0.0",
         "barryvdh/laravel-cors": "^0.11.2",
+        "coconutcraig/laravel-postmark": "^2.4",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "maatwebsite/excel": "^3.1",
         "stripe/stripe-php": "^6.19",
-        "symfony/console": "^3.4.24"
+        "symfony/console": "^3.4.24",
+        "wildbit/swiftmailer-postmark": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
