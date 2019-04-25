@@ -23,7 +23,7 @@ class GetPhotoByGallery extends BaseHandler
         $photos = $gallery->photos;
 
         foreach ($photos as $photo) {
-            $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+            $photo->url = urldecode(route('storage.image', ['image' => str_replace('/', '-', $photo->url)]));
             $photo->type = $photo->type ?? '';
             $photo->fieldTranslations = $photo->fieldTranslations();
         }
@@ -38,7 +38,7 @@ class GetPhotoByGallery extends BaseHandler
 
         $erpImages = ERPImage::all();
         foreach ($erpImages as $erpImage) {
-            $erpImage->completeUrl = route('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
+            $erpImage->completeUrl = urldecode(route('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]));
             $erpImage->fieldTranslations = $erpImage->fieldTranslations();
         }
 

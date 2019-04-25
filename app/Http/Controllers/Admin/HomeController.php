@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Handler\SetDefaultExperienceHandler;
 use App\Handler\Web\SaveExtrasHandler;
+use App\Handler\Web\UpdateOrCreatePackageHandler;
 use App\Handler\Web\FindExtrasByLocationHandler;
 use App\Handler\Web\FindExperiencesByLocationHandler;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function saveExtras(Request $request){
+        
         $handler = new SaveExtrasHandler(['data' => $request->all()]);
         $handler->processHandler();
 
@@ -37,6 +39,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function findExtrasByLocation($ubicacion_id){
+
         $handler = new FindExtrasByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
@@ -53,6 +56,7 @@ class HomeController extends Controller
     * @return mixed
     */
     public function findExperiencesByLocation($ubicacion_id){
+
         $handler = new FindExperiencesByLocationHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
@@ -81,4 +85,21 @@ class HomeController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    /**
+    * guarda los cambios de los packs de una Ubicacion
+    * @param Request $request
+    * @return mixed
+    */
+    public function savePacks(Request $request){
+
+        $handler = new UpdateOrCreatePackageHandler(['data' => $request->all()]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+             return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+    
 }

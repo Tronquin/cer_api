@@ -24,9 +24,11 @@ class UpdateCharacteristicHandler extends BaseHandler {
         $characteristic->updateFieldTranslations($this->params['fieldTranslations']);
         $characteristic->save();
 
+        $icon = 'characteristics_icon_';
+
         if (isset($this->params['icon'])) {
 
-            $path = UploadImage::upload($this->params['icon'], 'characteristics/' . $characteristic->id . '/');
+            $path = UploadImage::upload($this->params['icon'], 'characteristics/' . $characteristic->id . '/',$icon);
             $characteristic->icon = $path;
             $characteristic->save();
         }

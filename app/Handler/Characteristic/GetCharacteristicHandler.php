@@ -21,7 +21,7 @@ class GetCharacteristicHandler extends BaseHandler {
             $characteristic->fieldTranslations = $characteristic->fieldTranslations();
 
             if (! empty($characteristic->icon)) {
-                $characteristic->icon = route('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
+                $characteristic->icon = urldecode(route('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]));
             }
         }
 

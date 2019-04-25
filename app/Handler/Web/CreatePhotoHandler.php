@@ -23,7 +23,8 @@ class CreatePhotoHandler extends BaseHandler
                 if ($p['isErp']) {
                     $path = $p['photo'];
                 } else {
-                    $path = UploadImage::upload($p['photo'], 'galleries/' . $gallery->id . '/');
+                    $gallery_photo = 'gallery_photo_';
+                    $path = UploadImage::upload($p['photo'], 'galleries/' . $gallery->id . '/',$gallery_photo);
                 }
 
                 $photo = new Photo();

@@ -35,14 +35,14 @@ class GetPhotoAndMoreHandler extends BaseHandler
             $section->fieldTranslations = $section->fieldTranslations();
 
             foreach ($section->gallery->photos as $photo) {
-                $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+                $photo->url = urldecode(route('storage.image', ['image' => str_replace('/', '-', $photo->url)]));
                 $photo->fieldTranslations = $photo->fieldTranslations();
             }
 
             if ($section->sectionApartment) {
                 if (! in_array($section->sectionApartment->id, $sectionApartmentIds)) {
                     // Evito hacer este proceso dos veces para una misma seccion del apto
-                    $section->sectionApartment->photo = route('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
+                    $section->sectionApartment->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]));
                     $section->sectionApartment->fieldTranslations = $section->sectionApartment->fieldTranslations();
                     $sectionApartmentIds[] = $section->sectionApartment->id;
                 }

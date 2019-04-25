@@ -19,7 +19,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
         foreach ($data as $exp) {
             if ($exp->front_page) {
-                $exp->front_page = route('storage.image', ['image' => str_replace('/', '-', $exp->front_page)]);
+                $exp->front_page = urldecode(route('storage.image', ['image' => str_replace('/', '-', $exp->front_page)]));
             }
         }
 
