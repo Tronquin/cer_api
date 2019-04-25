@@ -6,7 +6,7 @@ use App\Service\EmailService;
 use App\User;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
-use App\Handler\Web\sendResetPasswordEmail;
+use App\Handler\Web\SendResetPasswordEmailHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -220,7 +220,7 @@ class UserController extends Controller
         $data['user_id'] = $user_id;
         $data['token'] = $token;
 
-        $handler = new sendResetPasswordEmailHandler($data);
+        $handler = new SendResetPasswordEmailHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
