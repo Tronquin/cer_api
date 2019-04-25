@@ -3,6 +3,7 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Package;
+use App\Service\UrlGenerator;
 
 class FindPackagesByLocationHandler extends BaseHandler {
 
@@ -34,8 +35,8 @@ class FindPackagesByLocationHandler extends BaseHandler {
             }
 
             foreach ($packages as &$package) {
-                $package['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $package['icon'])]));
-                $package['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]));
+                $package['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
+                $package['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]);
             }
 
         $response['res'] = count($packages);

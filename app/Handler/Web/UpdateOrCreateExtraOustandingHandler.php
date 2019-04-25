@@ -7,6 +7,7 @@ use App\Service\UploadImage;
 use App\Document;
 use App\Location;
 use App\Service\UploadDocument;
+use App\Service\UrlGenerator;
 
 class UpdateOrCreateExtraOustandingHandler extends BaseHandler
 {
@@ -67,9 +68,9 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
 
             $data['fieldTranslations'] = $oustanding->fieldTranslations();
             $oustanding->save();
-            $oustanding->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]));
-            $oustanding->icon = urldecode(route('storage.image', ['image' => str_replace('/', '-', $oustanding->icon)]));
-            $oustanding->document = route('storage.document', ['document' => str_replace('/', '-', $oustanding->document)]);
+            $oustanding->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]);
+            $oustanding->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $oustanding->icon)]);
+            $oustanding->document = UrlGenerator::generate('storage.document', ['document' => str_replace('/', '-', $oustanding->document)]);
             $oustanding->updateFieldTranslations($extra['fieldTranslations']);
             $oustanding['fieldTranslations'] = $oustanding->fieldTranslations();
             $data['oustanding'][] = $oustanding;

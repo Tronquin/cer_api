@@ -2,6 +2,7 @@
 namespace App\Handler;
 use App\Galery;
 use App\Location;
+use App\Service\UrlGenerator;
 
 /**
  * Obtiene todas las imagenes de todas las galerias por ubicacion
@@ -24,7 +25,7 @@ class GetPhotoByGalleryByLocation extends BaseHandler
         foreach ($galleries as $gallery) {
 
             foreach ($gallery->photos as $photo) {
-                $photo->url = urldecode(route('storage.image', ['image' => str_replace('/', '-', $photo->url)]));
+                $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
                 $photo->fieldTranslations = $photo->fieldTranslations();
             }
 

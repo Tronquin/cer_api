@@ -2,6 +2,7 @@
 namespace App\Handler\GeneralHandlers;
 
 use App\Extra;
+use App\Service\UrlGenerator;
 use App\Tag;
 use App\Location;
 use App\Handler\BaseHandler;
@@ -31,7 +32,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                             'type' => $extra->type,
                             'coste' => $extra->coste,
                             'fieldTranslations' => $extra->fieldTranslations(),
-                            'front_image' => urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]))
+                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
                         ];
                     }
                 }

@@ -4,6 +4,7 @@ namespace App\Handler\Web;
 use App\Handler\BaseHandler;
 use App\CardInfo;
 use App\Service\UploadImage;
+use App\Service\UrlGenerator;
 
 class UpdateOrCreateCardInfoHandler extends BaseHandler
 {
@@ -46,7 +47,7 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
 
             $data['fieldTranslations'] = $cardInfo->fieldTranslations();
             $cardInfo->save();
-            $cardInfo->front_image = urldecode(route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]));
+            $cardInfo->front_image = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
             $cardInfo->updateFieldTranslations($card['fieldTranslations']);
             $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
             $data['cards'][] = $cardInfo;

@@ -1,6 +1,7 @@
 <?php
 namespace App\Handler;
 
+use App\Service\UrlGenerator;
 use App\SpaInfo;
 
 class GetSpaInfoHandler extends BaseHandler
@@ -22,7 +23,7 @@ class GetSpaInfoHandler extends BaseHandler
         }
 
         if ($spaInfo->photo) {
-            $spaInfo->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]));
+            $spaInfo->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
         }
             
         $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
@@ -30,18 +31,18 @@ class GetSpaInfoHandler extends BaseHandler
         foreach ($spaInfo->spaSections as $spaSection) {
 
             if ($spaSection->photo) {
-                $spaSection->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $spaSection->photo)]));
+                $spaSection->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $spaSection->photo)]);
             }
 
             if ($spaSection->ico) {
-                $spaSection->ico = urldecode(route('storage.image', ['image' => str_replace('/', '-', $spaSection->ico)]));
+                $spaSection->ico = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $spaSection->ico)]);
             }
 
             $spaSection->fieldTranslations = $spaSection->fieldTranslations();
 
             foreach($spaSection->icons as $icon){
                 if ($icon->ico) {
-                    $icon->ico = urldecode(route('storage.image', ['image' => str_replace('/', '-', $icon->ico)]));
+                    $icon->ico = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $icon->ico)]);
                 }
                 $icon->fieldTranslations = $icon->fieldTranslations();
             }

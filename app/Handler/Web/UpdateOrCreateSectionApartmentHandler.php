@@ -6,6 +6,7 @@ use App\PhotoAndMoreSection;
 use App\SectionApartment;
 use App\Location;
 use App\Service\UploadImage;
+use App\Service\UrlGenerator;
 
 class UpdateOrCreateSectionApartmentHandler extends BaseHandler
 {
@@ -47,7 +48,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $data['fieldTranslations'] = $section->fieldTranslations();
             $section->save();
 
-            $section->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $section->photo)]));
+            $section->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $section->photo)]);
             $section->updateFieldTranslations($sectionApartment['fieldTranslations']);
             $section['fieldTranslations'] = $section->fieldTranslations();
             $data['sectionApartments'][] = $section;

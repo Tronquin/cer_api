@@ -4,6 +4,7 @@ namespace App\Handler\GeneralHandlers;
 use App\Extra;
 use App\Handler\BaseHandler;
 use App\Service\ERPService;
+use App\Service\UrlGenerator;
 
 class FindExtrasByLocationHandler extends BaseHandler {
 
@@ -26,8 +27,8 @@ class FindExtrasByLocationHandler extends BaseHandler {
         }
         
         foreach ($extras as &$extra) {
-            $extra['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]));
-            $extra['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]));
+            $extra['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
+            $extra['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
         }
 
         $response['res'] = count($extras);

@@ -3,6 +3,7 @@ namespace App\Handler\Web;
 
 use App\Extra;
 use App\Handler\BaseHandler;
+use App\Service\UrlGenerator;
 use Illuminate\Support\Facades\DB;
 
 class FindExtrasByLocationHandler extends BaseHandler {
@@ -19,12 +20,12 @@ class FindExtrasByLocationHandler extends BaseHandler {
 
             foreach ($extrasErp as $extra) {
                 $extra->front_image = $extra->front_image ?
-                urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])) :
+                    UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]) :
                     null
                 ;
 
                 $extra->icon = $extra->icon ?
-                urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra->icon)])) :
+                    UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->icon)]) :
                     null
                 ;
             }
