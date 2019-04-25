@@ -25,7 +25,9 @@ class SaveCharacteristicHandler extends BaseHandler {
         $characteristic->updateFieldTranslations($this->params['fieldTranslations']);
         $characteristic->save();
 
-        $path = UploadImage::upload($this->params['icon'], 'characteristics/' . $characteristic->id . '/');
+        $icon = 'characteristics_icon_';
+
+        $path = UploadImage::upload($this->params['icon'], 'characteristics/' . $characteristic->id . '/',$icon);
 
         $characteristic->icon = $path;
         $characteristic->save();

@@ -63,8 +63,8 @@ class AvailabilityServiceHandler extends BaseHandler {
                 foreach ($contratados as $contratado) {
                     $webOrErp = $contratado->child ? $contratado->child->toArray() : $contratado->toArray();
                     $webOrErp['fieldTranslations'] = $contratado->child ? $contratado->child->fieldTranslations() : $contratado->fieldTranslations();
-                    $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
-                    $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
+                    $webOrErp['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]));
+                    $webOrErp['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]));
                     $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
                     
                     $extrasContratados[] = $webOrErp;
@@ -78,8 +78,8 @@ class AvailabilityServiceHandler extends BaseHandler {
                 foreach ($serviciosContratados['extras']['extras_disponibles'] as $extErp) {
                     $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
                     $webOrErp['fieldTranslations'] = $extErp->child ? $extErp->child->fieldTranslations() : $extErp->fieldTranslations();
-                    $webOrErp['icon'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
-                    $webOrErp['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
+                    $webOrErp['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]));
+                    $webOrErp['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]));
                     $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
 
                     $extras[] = $webOrErp;

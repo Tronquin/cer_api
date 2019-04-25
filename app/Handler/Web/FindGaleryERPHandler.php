@@ -18,7 +18,7 @@ class FindGaleryERPHandler extends BaseHandler {
         if ($fotosERP){
 
             foreach ($fotosERP as &$photo) {
-                $photo['archivo'] = route('storage.image', ['image' => ('erpimages' . $photo['archivo']) ]);
+                $photo['archivo'] = urldecode(route('storage.image', ['image' => ('erpimages' . $photo['archivo']) ]));
             }
 
             $response['res'] = count($fotosERP);

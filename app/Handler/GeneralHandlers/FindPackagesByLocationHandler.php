@@ -19,24 +19,24 @@ class FindPackagesByLocationHandler extends BaseHandler {
             ->with(['child', 'extras'])
             ->get();
 
-        foreach ($packagesCollection as $pakErp) {
-            
-            $webOrErp = $pakErp->child ? $pakErp->child->toArray() : $pakErp->toArray();
-
-            if($pakErp->extra){
-                $extras = $pakErp->extra->child ? $pakErp->extra->child->toArray() : $pakErp->extra->toArray();
+            foreach ($packagesCollection as $pakErp) {
                 
-                unset($webOrErp['extras']);
-                $webOrErp['extras'] = $extras;
+                $webOrErp = $pakErp->child ? $pakErp->child->toArray() : $pakErp->toArray();
+                
+                if($pakErp->extra){
+                    $extras = $pakErp->extra->child ? $pakErp->extra->child->toArray() : $pakErp->extra->toArray();
+                    
+                    unset($webOrErp['extras']);
+                    $webOrErp['extras'] = $extras;
+                }
+                $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
+                $packages[] = $webOrErp;
             }
-            $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
-            $packages[] = $webOrErp;
-        }
 
-        foreach ($packages as &$package) {
-            $package['icon'] = route('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
-            $package['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]);
-        }
+            foreach ($packages as &$package) {
+                $package['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $package['icon'])]));
+                $package['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]));
+            }
 
         $response['res'] = count($packages);
         $response['msg'] = 'packages de la ubicacion: '.$this->params['ubicacion_id'];

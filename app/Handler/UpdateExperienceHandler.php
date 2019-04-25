@@ -2,6 +2,7 @@
 namespace App\Handler;
 
 use App\Experience;
+use App\Location;
 use App\Service\UploadImage;
 
 class UpdateExperienceHandler extends BaseHandler
@@ -13,11 +14,15 @@ class UpdateExperienceHandler extends BaseHandler
      */
     protected function handle()
     {
+        $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
         $experience = Experience::where('experiencia_id', $this->params['experienceId'])->firstOrFail();
+
+        $front_image_name = $location->pais.'_'.$location->ciudad.'_experience_img_'.$this->params['nombre'].'_';
+        $icon = $location->pais.'_'.$location->ciudad.'_experience_icon_'.$this->params['nombre'].'_';
 
         if (isset($this->params['front_page'])) {
             // Imagen
-            $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/');
+            $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/',$front_image_name);
 
             $experience->front_page = $path;
         }

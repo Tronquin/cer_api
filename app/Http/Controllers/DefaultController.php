@@ -30,13 +30,14 @@ class DefaultController extends Controller
     public function importTranslation(Request $request)
     {
         DB::beginTransaction();
+        $front_image_name = 'languages_img_'.$request->iso.'_';
 
         $language = new Language();
         $language->name = $request->name;
         $language->iso = $request->iso;
         $language->order = 1;
         $language->status = Language::STATUS_ACTIVE;
-        $language->flag = UploadImage::upload($request->flag, 'languages/', str_slug($request->iso));
+        $language->flag = UploadImage::upload($request->flag, 'languages/', $front_image_name);
         $language->save();
 
         $base64 = $request->file;

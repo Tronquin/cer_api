@@ -24,8 +24,8 @@ class FindExtrasOutstandingHandler extends BaseHandler {
         }
         
         foreach ($extras as &$extra) {
-            $extra['icon'] = route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
-            $extra['front_image'] = route('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
+            $extra['icon'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]));
+            $extra['front_image'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]));
         }
 
         $response['res'] = count($extras);
