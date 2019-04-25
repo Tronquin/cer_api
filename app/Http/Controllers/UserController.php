@@ -123,8 +123,7 @@ class UserController extends Controller
         
         $userPassword = $userExist->password;
 
-        if (! Hash::check($data['password'], $userPassword))
-        {
+        if (! Hash::check($data['password'], $userPassword)) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'La contraseña es incorrecta']);
         }
         
@@ -170,7 +169,7 @@ class UserController extends Controller
     protected function find($email)
     {
         $userExist = User::where('email', $email)->first();
-        if(!$userExist){
+        if (!$userExist) {
             return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
         }
         unset($userExist['password']);
@@ -184,12 +183,41 @@ class UserController extends Controller
      * @param  $id
      * @return JsonResponse
      */
-    protected function update(Request $request,$user_id)
+    protected function update(Request $request, $user_id)
     {
         $data = $request->all();
         $data['user_id'] = $user_id;
 
         $handler = new UpdateUserHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    protected function updatePassword(Request $request, $user_id)
+    {
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+
+        $handler = new UpdateUserPasswordHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    protected function sendResetLinkEmail(Request $request)
+    {
+        $data = $request->all();
+
+        $handler = new sendResetPasswordLinkHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
