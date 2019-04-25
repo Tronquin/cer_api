@@ -6,6 +6,7 @@ use App\Service\EmailService;
 use App\User;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
+use App\Handler\Web\sendResetPasswordEmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -213,13 +214,13 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function sendResetLinkEmail(Request $request, $user_id, $token)
+    protected function sendResetPasswordEmail(Request $request, $user_id, $token)
     {
         $data = $request->all();
         $data['user_id'] = $user_id;
         $data['token'] = $token;
 
-        $handler = new sendResetPasswordLinkHandler($data);
+        $handler = new sendResetPasswordEmailHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

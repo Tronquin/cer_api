@@ -6,7 +6,7 @@ use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
 
-class sendResetPasswordLinkHandler extends BaseHandler
+class sendResetPasswordEmailHandler extends BaseHandler
 {
     /**
      * Proceso de este handler
