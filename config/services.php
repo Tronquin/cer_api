@@ -25,6 +25,10 @@ return [
         'region' => 'us-east-1',
     ],
 
+    'postmark' => [
+        'secret' => env('POSTMARK_SECRET'),
+    ],
+
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],

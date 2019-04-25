@@ -9,6 +9,11 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    // Envia Link al usuario para resetear contraseña
+    Route::post('user/password/reset/{token}/{userId}', 'UserController@sendResetPasswordEmail');
+    // Actualizar Contraseña
+    Route::post('user/password/update/{userId}', 'UserController@updatePassword');
+    
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
@@ -135,8 +140,6 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::post('/reservation/deactivateKey', 'ReservationController@deactivateKey');
         // Datos de un usuario
         Route::get('user/{email}', 'UserController@find');
-        // Actualizar Usuario
-        Route::put('user/update/{user_id}', 'UserController@update');
         // Historial de reservas
         Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
         // Obtener Reservas activas

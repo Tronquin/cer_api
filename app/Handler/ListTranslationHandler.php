@@ -2,6 +2,7 @@
 namespace App\Handler;
 use App\DeviceType;
 use App\Language;
+use App\Service\UrlGenerator;
 
 /**
  * Obtiene todos los idiomas disponibles con sus
@@ -32,7 +33,7 @@ class ListTranslationHandler extends BaseHandler {
             $temp = [
                 'name' => $lang->name,
                 'iso' => $lang->iso,
-                'flag' => urldecode(route('storage.image', ['image' => str_replace('/', '-', $lang->flag)])),
+                'flag' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $lang->flag)]),
                 'translations' => []
             ];
 

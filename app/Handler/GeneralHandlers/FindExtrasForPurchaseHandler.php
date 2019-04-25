@@ -6,6 +6,7 @@ use App\Experience;
 use App\Galery;
 use App\Extra;
 use App\Photo;
+use App\Service\UrlGenerator;
 
 class FindExtrasForPurchaseHandler extends BaseHandler {
 
@@ -44,8 +45,8 @@ class FindExtrasForPurchaseHandler extends BaseHandler {
 
                     $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
 
-                    $temp['front_image'] = $temp['front_image'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])])) : null;
-                    $temp['icon'] = $temp['icon'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])])) : null;
+                    $temp['front_image'] = $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                    $temp['icon'] = $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
                     $temp['fieldtranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
                     $temp['precio'] = Extra::calcularIva($temp['base_imponible'],$temp['iva_tipo']);
                     $webOrErp[] = $temp;

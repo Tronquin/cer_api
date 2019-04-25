@@ -3,6 +3,7 @@ namespace App\Handler\Characteristic;
 
 use App\Characteristic;
 use App\Handler\BaseHandler;
+use App\Service\UrlGenerator;
 
 /**
  * Obtiene las caracteristicas
@@ -21,7 +22,7 @@ class GetCharacteristicHandler extends BaseHandler {
             $characteristic->fieldTranslations = $characteristic->fieldTranslations();
 
             if (! empty($characteristic->icon)) {
-                $characteristic->icon = urldecode(route('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]));
+                $characteristic->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
             }
         }
 

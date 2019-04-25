@@ -2,6 +2,7 @@
 namespace App\Handler\Web;
 
 use App\Handler\BaseHandler;
+use App\Service\UrlGenerator;
 use Illuminate\Support\Facades\DB;
 use App\Photo;
 
@@ -18,7 +19,7 @@ class FindGaleryERPHandler extends BaseHandler {
         if ($fotosERP){
 
             foreach ($fotosERP as &$photo) {
-                $photo['archivo'] = urldecode(route('storage.image', ['image' => ('erpimages' . $photo['archivo']) ]));
+                $photo['archivo'] = UrlGenerator::generate('storage.image', ['image' => ('erpimages' . $photo['archivo']) ]);
             }
 
             $response['res'] = count($fotosERP);

@@ -7,6 +7,7 @@ use App\Galery;
 use App\Extra;
 use App\Location;
 use App\Photo;
+use App\Service\UrlGenerator;
 
 class FindExperiencesByLocationHandler extends BaseHandler {
 
@@ -42,7 +43,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
             $webOrErp = $expErp->child ? $expErp->child->toArray() : $expErp->toArray();
 
             if ($webOrErp['front_page']) {
-                $webOrErp['front_page'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_page'])]));
+                $webOrErp['front_page'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_page'])]);
             }
 
             $extraIds = [];
@@ -51,8 +52,8 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
                 $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
 
-                $temp['front_image'] = $temp['front_image'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])])) : null;
-                $temp['icon'] = $temp['icon'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])])) : null;
+                $temp['front_image'] = $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                $temp['icon'] = $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
                 
                 $temp['fieldTranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
 
@@ -66,8 +67,8 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
                     $temp = $extraErp->child ? $extraErp->child->toArray() : $extraErp->toArray();
 
-                    $temp['front_image'] = $temp['front_image'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])])) : null;
-                    $temp['icon'] = $temp['icon'] ? urldecode(route('storage.image', ['image' => str_replace('/', '-', $temp['icon'])])) : null;
+                    $temp['front_image'] = $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
+                    $temp['icon'] = $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
                     
                     $temp['fieldTranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
 
