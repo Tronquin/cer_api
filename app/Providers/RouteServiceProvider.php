@@ -53,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
              ->namespace($this->namespace)
+             ->domain(config('app.url'))
              ->group(base_path('routes/web.php'));
     }
 
