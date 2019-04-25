@@ -33,8 +33,18 @@ class UpdateOrCreatePackageHandler extends BaseHandler {
         $pack->activo = $this->params['data']['activo'];
         $pack->orden_calculo = $this->params['data']['orden_calculo'];
 
-        $front_image_name = $location->pais.'_'.$location->ciudad.'_package_img_'.$this->params['data']['nombre'];
-        $icon = $location->pais.'_'.$location->ciudad.'_package_icon_'.$this->params['data']['nombre'];
+        $package_Name = '';
+        foreach($this->params['data']['fieldTranslations'] as $iso){
+            if($iso['iso'] === 'en'){
+                foreach($iso['fields'] as $extraName){
+                    if($extraName['field'] === 'nombre')
+                    $package_Name = $extraName['translation'];
+                }
+            }
+        }
+
+        $front_image_name = $location->pais.'_'.$location->ciudad.'_package_img_'.$package_Name.'_';
+        $icon = $location->pais.'_'.$location->ciudad.'_package_icon_'.$package_Name.'_';
 
         if (isset($this->params['data']['front_image'])) {
             // Imagen

@@ -4,6 +4,7 @@ namespace App\Handler\Web;
 use App\Handler\BaseHandler;
 use App\Extra;
 use App\Tag;
+use App\Location;
 use App\Service\UploadImage;
 
 class SaveExtrasHandler extends BaseHandler {
@@ -13,6 +14,7 @@ class SaveExtrasHandler extends BaseHandler {
      */
     protected function handle()
     {
+        $location = Location::where('ubicacion_id',$this->params['data']['ubicacion_id'])->firstOrFail();
         $extra_erp = Extra::where('extra_id','=',$this->params['data']['extra_id'])->with('tags')->where('type','=','erp')->first();
         $extra = Extra::where('extra_id','=',$this->params['data']['extra_id'])->with('tags')->where('type','=','web')->first();
 
@@ -32,17 +34,28 @@ class SaveExtrasHandler extends BaseHandler {
         $extra->destacado = $this->params['data']['destacado'];
         $extra->activo = $this->params['data']['activo'];
         $extra->outstanding = $this->params['data']['outstanding'];
+        $extra_Name = '';
+        foreach($this->params['data']['fieldTranslations'] as $iso){
+            if($iso['iso'] === 'en'){
+                foreach($iso['fields'] as $extraName){
+                    if($extraName['field'] === 'nombre')
+                    $extra_Name = $extraName['translation'];
+                }
+            }
+        }
+        $front_image_name = $location->pais.'_'.$location->ciudad.'_extra_img_'.$extra_Name.'_';
+        $icon = $location->pais.'_'.$location->ciudad.'_extra_icon_'.$extra_Name.'_';
 
         if (isset($this->params['data']['front_image'])) {
             // Imagen
-            $path = UploadImage::upload($this->params['data']['front_image'], 'extras/' . $extra->id . '/');
+            $path = UploadImage::upload($this->params['data']['front_image'], 'extras/' . $extra->id . '/',$front_image_name);
 
             $extra->front_image = $path;
         }
 
         if (isset($this->params['data']['icon'])) {
             // Icono
-            $path = UploadImage::upload($this->params['data']['icon'], 'extras/' . $extra->id . '/');
+            $path = UploadImage::upload($this->params['data']['icon'], 'extras/' . $extra->id . '/',$icon);
 
             $extra->icon = $path;
         }

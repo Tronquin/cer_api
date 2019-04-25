@@ -24,7 +24,7 @@ class GetPhotoByGalleryByLocation extends BaseHandler
         foreach ($galleries as $gallery) {
 
             foreach ($gallery->photos as $photo) {
-                $photo->url = route('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+                $photo->url = urldecode(route('storage.image', ['image' => str_replace('/', '-', $photo->url)]));
                 $photo->fieldTranslations = $photo->fieldTranslations();
             }
 

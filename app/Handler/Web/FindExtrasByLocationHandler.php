@@ -19,12 +19,12 @@ class FindExtrasByLocationHandler extends BaseHandler {
 
             foreach ($extrasErp as $extra) {
                 $extra->front_image = $extra->front_image ?
-                    route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]) :
+                urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])) :
                     null
                 ;
 
                 $extra->icon = $extra->icon ?
-                    route('storage.image', ['image' => str_replace('/', '-', $extra->icon)]) :
+                urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra->icon)])) :
                     null
                 ;
             }

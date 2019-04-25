@@ -25,16 +25,28 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
             $cardInfo->active = isset($card['active']) ? $card['active'] : 0;
             $cardInfo->url = isset($card['url']) ? $card['url'] : null;
 
+            $card_Name = '';
+            foreach($card['fieldTranslations'] as $iso){
+                if($iso['iso'] === 'en'){
+                    foreach($iso['fields'] as $cardName){
+                        if($cardName['field'] === 'name')
+                        $card_Name = $cardName['translation'];
+                    }
+                }
+            }
+
+            $front_image_name = 'cardinfo_img_'.$card_Name.'_';
+
             if (isset($card['front_image'])) {
                 // Imagen
-                $path = UploadImage::upload($card['front_image'], 'cardinfo/');
+                $path = UploadImage::upload($card['front_image'], 'cardinfo/',$front_image_name);
 
                 $cardInfo->front_image = $path;
             }
 
             $data['fieldTranslations'] = $cardInfo->fieldTranslations();
             $cardInfo->save();
-            $cardInfo->front_image = route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
+            $cardInfo->front_image = urldecode(route('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]));
             $cardInfo->updateFieldTranslations($card['fieldTranslations']);
             $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
             $data['cards'][] = $cardInfo;

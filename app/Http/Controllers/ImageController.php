@@ -18,9 +18,11 @@ class ImageController extends Controller
     public function getImage($image)
     {
 
-        $imagen = Imagen::where('slug',$image)->firstOrFail();
-        if (! $imagen->slug) {
-            abort(404);
+        $imagen = Imagen::where('slug',$image)->first();
+        
+        if (! $imagen) {
+            $imagen = [];
+            $imagen['url'] = str_replace('/', '-', $image);
         }
 
         $path = str_replace('-', '/', $imagen['url']);

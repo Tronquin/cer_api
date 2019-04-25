@@ -34,7 +34,7 @@ class UploadImage
         $size = str_replace('/', '-', $path);
 
         $tamaño = getimagesize(env('APP_URL').'storage/image/size/'.$size);
-        $name = $name.'_'.$tamaño[0].'x'.$tamaño[1].'-'.$uniq;
+        $name = $name.$tamaño[0].'x'.$tamaño[1].'-'.$uniq;
         
         $imagen = new Imagen();
         $imagen->slug = $name;
