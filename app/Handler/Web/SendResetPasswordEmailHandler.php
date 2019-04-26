@@ -26,7 +26,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
             return $response;
         }
 
-        $userId = $user-id;
+        $userId = $user->id;
         $token = $this->params['token'];
         $host = config('app.web_url');
         $url = $host . "/es/" . $this->params['user_id'] . '/' . $token . '/reset';
