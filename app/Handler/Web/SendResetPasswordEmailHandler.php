@@ -30,9 +30,9 @@ class SendResetPasswordEmailHandler extends BaseHandler
         $host = request()->getSchemeAndHttpHost();
         $url = $host . "/" . $token;
 
-        if (isset($this->params['email'])) {
-            Mail::to($this->params['email'])->send(new ResetPassword($url));
-        }
+   
+        Mail::to($user->email)->send(new ResetPassword($url));
+
         
         $response = [
             'res' => 1,
