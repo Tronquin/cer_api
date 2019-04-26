@@ -6,7 +6,8 @@ use App\Service\EmailService;
 use App\User;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
-use App\Handler\Web\sendResetPasswordEmail;
+use App\Handler\Web\SendResetPasswordEmailHandler;
+use App\Handler\Web\UpdateUserPasswordHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -199,10 +200,11 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function updatePassword(Request $request, $user_id)
+    protected function updatePassword(Request $request, $user_id, $new_password)
     {
         $data = $request->all();
         $data['user_id'] = $user_id;
+        $data['new_password'] = $new_password;
 
         $handler = new UpdateUserPasswordHandler($data);
         $handler->processHandler();
@@ -220,7 +222,7 @@ class UserController extends Controller
         $data['user_id'] = $user_id;
         $data['token'] = $token;
 
-        $handler = new sendResetPasswordEmailHandler($data);
+        $handler = new SendResetPasswordEmailHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

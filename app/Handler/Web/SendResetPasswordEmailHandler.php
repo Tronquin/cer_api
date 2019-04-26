@@ -6,7 +6,7 @@ use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
 
-class sendResetPasswordEmailHandler extends BaseHandler
+class SendResetPasswordEmailHandler extends BaseHandler
 {
     /**
      * Proceso de este handler
@@ -26,16 +26,19 @@ class sendResetPasswordEmailHandler extends BaseHandler
             return $response;
         }
 
+        $userId = $user->id;
         $token = $this->params['token'];
-        $host = request()->getSchemeAndHttpHost();
-        $url = $host . "/" . $this->params['user_id'] . "/" . $token;
+        $host = config('app.web_url');
+        $url = $host . "/es/" . $this->params['user_id'] . '/' . $token . '/reset';
 
-        Mail::to($this->params['email'])->send($url);
+   
+        Mail::to($user->email)->send(new ResetPassword($url));
 
+        
         $response = [
             'res' => 1,
             'msg' => 'Correo Enviado!',
-            'data' => [],
+            'data' => [$userId, $token, $url],
         ];
         return $response;
     }
@@ -48,8 +51,6 @@ class sendResetPasswordEmailHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'id' => 'required',
-            'email' => 'required'
         ];
     }
 }

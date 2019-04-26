@@ -294,7 +294,7 @@
         </tr>
         <tr>
             <td style="padding: 0px 35px; background-color: #000;">
-                <p style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">¡Enhorabuena!<span style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif;font-weight: bold;"> ¿Necesitas reiniciar tu contraseña?</p>
+                <p style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">¡Enhorabuena!<span style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif;font-weight: bold;"> ¿Necesitas reiniciar tu contraseña?</span></p>
             </td>
         </tr>
 
@@ -303,7 +303,7 @@
                 <div style="margin: 0; padding: 20px 15px 0px 15px;">
                     <div style="padding-bottom: 20px;color: #FFF; font-size: 17px; font-family: 'rawline', sans-serif; text-align: justify;font-weight: Light;">
                         <img src="{{ asset('storage/image/email-registerUser-usuario.svg') }}" width="30" style="float: left;padding:0px 20px 0px 5px;">
-                        <div style="padding-top: 5px;"><span style="font-size: 16px ;font-family: 'rawline';font-weight: bold;color: #fff;">Reiniciar Contraseña: <a href="{{ $reset->url }}" style="color: blue;">{{ $reset->url }}</a> </div>
+                        <div style="padding-top: 5px;"><span style="font-size: 16px ;font-family: 'rawline';font-weight: bold;color: #fff;">Reiniciar Contraseña: <a href="{{ $url }}" style="color: blue;">{{ $url }}</a> </div>
 
                     </div>
                 </div>
