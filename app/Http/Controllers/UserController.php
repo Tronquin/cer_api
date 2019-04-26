@@ -7,6 +7,7 @@ use App\User;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
 use App\Handler\Web\SendResetPasswordEmailHandler;
+use App\Handler\Web\UpdateUserPasswordHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
