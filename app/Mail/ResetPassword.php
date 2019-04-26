@@ -11,7 +11,7 @@ class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $reset;
+    public $url;
     /**
      * Create a new message instance.
      *
@@ -19,7 +19,7 @@ class ResetPassword extends Mailable
      */
     public function __construct($url)
     {
-        $this->reset = $url;
+        $this->url = $url;
     }
 
     /**
@@ -29,6 +29,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->from('hello@jacidi.com')->view('email.resetPassword');
+        return $this->from('hello@jacidi.com')->view('email.resetPassword', ['url' => $this->url]);
     }
 }
