@@ -204,6 +204,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::put('/admin/home/default_experience/{ubicacion_id}', 'Admin\HomeController@setDefaultExperience');
             // Configura caracteristicas
             Route::resource('/admin/master/characteristic', 'Admin\CharacteristicController');
+            // Actualiza las tipologias
+            Route::post('/admin/typology', 'Admin\TypologyController@updateOrCreateTypology');
         });
     });
 });

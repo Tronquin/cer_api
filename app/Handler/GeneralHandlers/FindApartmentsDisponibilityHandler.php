@@ -78,6 +78,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                             $tip['lavabos'] = $t['lavabos'];
                             $tip['precio_upgrade'] = $t['precio_upgrade'];
                             $tip['precio_desglosado'] = $t['precio_desglosado'];
+                            $tip['noches'] = $t['noches'];
                             $validTipologia[] = $tip;
                         }
                     }

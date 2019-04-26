@@ -15,11 +15,11 @@ class FindTypologyByLocationHandler extends BaseHandler {
 
         $tipologiaCollection = Typology::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
-            ->with(['child','apartamentos'])
+            ->with(['characteristics','child','apartamentos'])
             ->get();
-
-        foreach ($tipologiaCollection as $tpErp) {
-            $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
+            
+            foreach ($tipologiaCollection as $tpErp) {
+                $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
 
             $aparments = [];
             foreach ($tpErp->apartamentos as $aparmentErp) {
@@ -28,7 +28,7 @@ class FindTypologyByLocationHandler extends BaseHandler {
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
-
+            $webOrErp['fieldTranslations'] = $tpErp->child ? $tpErp->child->fieldTranslations() : $tpErp->fieldTranslations();
             $tipologias[] = $webOrErp;
         }
 

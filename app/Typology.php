@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\TraitDefinition\FieldTranslationTrait;
 
 class Typology extends Model
 {
+    use FieldTranslationTrait;
+
     protected $table = 'typologies';
 
     protected $fillable = [
@@ -29,7 +32,7 @@ class Typology extends Model
      */
     public function characteristics()
     {
-        return $this->belongsToMany(Typology::class, 'typology_characteristic', 'typology_id', 'characteristic_id');
+        return $this->belongsToMany(Characteristic::class, 'typology_characteristic', 'typology_id', 'characteristic_id');
     }
 
     public function parent()
@@ -74,6 +77,16 @@ class Typology extends Model
 
     public function ubicacion(){
         return $this->belongsTo('App\Ubicacion');
+    }
+
+    /**
+     * Campos que se pueden almacenar en field_translations
+     *
+     * @return array
+     */
+    public function fieldsToTranslate()
+    {
+        return ['description'];
     }
 
 }
