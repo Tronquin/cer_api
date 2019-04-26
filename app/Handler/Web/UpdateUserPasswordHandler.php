@@ -25,27 +25,14 @@ class UpdateUserPasswordHandler extends BaseHandler
             return $response;
         }
 
-        if ($this->params['old_password'] = $this->params['new_password']) {
-            $response = [
-                'res' => 0,
-                'msg' => 'Antigue Contraseña igual a Nueva Contraseña',
-                'data' => [],
-            ];
-        } elseif ($this->params['new_password'] != $this->params['new_password_confirm']) {
-            $response = [
-                'res' => 0,
-                'msg' => 'La nueva contraseña no coincide con la confirmacion',
-                'data' => [],
-            ];
-        } else {
-            $usuario->password = Hash::make($this->params['new_password']);
-            $usuario->save();
-            $response = [
+        $usuario->password = Hash::make($this->params['new_password']);
+        $usuario->save();
+        $response = [
                 'res' => 1,
                 'msg' => 'Clave de Usuario actualizada',
-                'data' => $usuario,
+                'data' => [$usuario, $this->params['new_password']]
             ];
-        }
+
 
         return $response;
     }
@@ -58,7 +45,6 @@ class UpdateUserPasswordHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'user_id' => 'required|numeric'
         ];
     }
 }
