@@ -30,8 +30,11 @@ class SendResetPasswordEmailHandler extends BaseHandler
 
         $timestamp = $_SERVER['REQUEST_TIME'];
         $iso = $this->params['iso'];
-        $tokenData = ['id' => $user->id, 'timestamp' => $timestamp];
-        $payload = JWTFactory::make($tokenData);
+        $factory = JWTFactory::customClaims([
+            'id' => $user->id,
+            'timestamp' => $timestamp,
+        ]);
+        $payload = $factory->make();
         $token = JWTAuth::encode($payload);
         $secret = env('JWT_SECRET', 0);
         $host = config('app.web_url');
