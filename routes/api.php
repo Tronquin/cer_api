@@ -10,9 +10,9 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
     // Envia Link al usuario para resetear contraseña
-    Route::post('user/password/reset/{userId}/{token}', 'UserController@sendResetPasswordEmail');
+    Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
     // Actualizar Contraseña
-    Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
+    Route::post('user/password/update/{token}', 'UserController@updatePassword');
     
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen

@@ -5,6 +5,8 @@ use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class SendResetPasswordEmailHandler extends BaseHandler
 {
@@ -26,10 +28,14 @@ class SendResetPasswordEmailHandler extends BaseHandler
             return $response;
         }
 
-        $userId = $user->id;
-        $token = $this->params['token'];
+        $timestamp = $_SERVER['REQUEST_TIME'];
+        $iso = $this->params['iso'];
+        $tokenData = ['id' => $user->id, 'timestamp' => $timestamp];
+        $payload = JWTFactory::make($tokenData);
+        $token = JWTAuth::encode($payload);
+        $secret = env('JWT_SECRET', 0);
         $host = config('app.web_url');
-        $url = $host . "/es/" . $this->params['user_id'] . '/' . $token . '/reset';
+        $url = $host . "/" . $iso . "/" . $token . '/reset';
 
    
         Mail::to($user->email)->send(new ResetPassword($url));
@@ -38,7 +44,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
         $response = [
             'res' => 1,
             'msg' => 'Correo Enviado!',
-            'data' => [$userId, $token, $url],
+            'data' => ['token' => $token, 'key' => $secret , 'url' => $url],
         ];
         return $response;
     }

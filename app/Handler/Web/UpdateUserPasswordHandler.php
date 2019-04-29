@@ -4,6 +4,8 @@ namespace App\Handler\Web;
 use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class UpdateUserPasswordHandler extends BaseHandler
 {
@@ -14,24 +16,35 @@ class UpdateUserPasswordHandler extends BaseHandler
      */
     protected function handle()
     {
-        $usuario = User::find($this->params['user_id']);
-
+        $payload = JWTAuth::getPayload($this->params['token'])->toArray();
+        $delta = 86400; //24 horas en milisegundos
         $response = [
             'res' => 0,
-            'msg' => 'Usuario no encontrado',
+            'msg' => 'Token Expirado',
             'data' => [],
         ];
 
-        if (!$usuario) {
+        if ($payload['timestamp'] > $delta) {
             return $response;
         }
 
-        $usuario->password = Hash::make($this->params['new_password']);
+        $usuario = User::find($payload['id']);
+
+        if (!$usuario) {
+            $response = [
+                'res' => 0,
+                'msg' => 'Usuario no Encontrado',
+                'data' => [],
+            ];
+            return $response;
+        }
+
+        $usuario->password = Hash::make($payload['newPassword']);
         $usuario->save();
         $response = [
                 'res' => 1,
                 'msg' => 'Clave de Usuario actualizada',
-                'data' => [$usuario, $this->params['new_password']]
+                'data' => [$usuario, $payload['newPassword']]
             ];
 
 
