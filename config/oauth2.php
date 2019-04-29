@@ -5,6 +5,6 @@ return [
     /*
      * Tiempo de expiracion del token en minutos
      */
-    'time_expire' => env('oauth2_time', 10)
+    'time_expire' => env('OAUTH2_TIME', 30)
 
 ];

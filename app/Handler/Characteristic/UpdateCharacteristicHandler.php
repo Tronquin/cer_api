@@ -34,6 +34,11 @@ class UpdateCharacteristicHandler extends BaseHandler {
         }
 
         DB::commit();
+        return [
+            'res' => 1,
+            'msg' => 'Operación exitosa',
+            'data' => $characteristic
+        ];
     }
 
     /**

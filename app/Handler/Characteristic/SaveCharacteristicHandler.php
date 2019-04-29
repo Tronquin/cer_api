@@ -22,20 +22,20 @@ class SaveCharacteristicHandler extends BaseHandler {
 
         $characteristic = new Characteristic();
         $characteristic->icon = '';
-        $characteristic->updateFieldTranslations($this->params['fieldTranslations']);
         $characteristic->save();
-
         $icon = 'characteristics_icon_';
-
+        
         $path = UploadImage::upload($this->params['icon'], 'characteristics/' . $characteristic->id . '/',$icon);
-
+        
         $characteristic->icon = $path;
         $characteristic->save();
-
+        
+        $characteristic->updateFieldTranslations($this->params['fieldTranslations']);
+        
         DB::commit();
-
         return [
             'res' => 1,
+            'msg' => 'Operación exitosa',
             'data' => $characteristic
         ];
     }

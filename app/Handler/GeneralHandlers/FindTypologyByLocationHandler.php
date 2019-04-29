@@ -3,6 +3,7 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Typology;
+use App\Service\UrlGenerator;
 
 class FindTypologyByLocationHandler extends BaseHandler {
 
@@ -15,20 +16,28 @@ class FindTypologyByLocationHandler extends BaseHandler {
 
         $tipologiaCollection = Typology::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
-            ->with(['child','apartamentos'])
+            ->with(['characteristics','child','apartamentos'])
             ->get();
-
-        foreach ($tipologiaCollection as $tpErp) {
-            $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
+            
+            foreach ($tipologiaCollection as $tpErp) {
+                $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
 
             $aparments = [];
             foreach ($tpErp->apartamentos as $aparmentErp) {
                 $aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
             }
+            $characteristics = [];
+            foreach ($tpErp->characteristics as &$characteristic) {
+                $characteristic['fieldTranslations'] = $characteristic->fieldTranslations();
+                $characteristic['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
+                $characteristics[] = $characteristic;
+
+            }
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
-
+            $webOrErp['characteristics'] = $characteristics;
+            $webOrErp['fieldTranslations'] = $tpErp->child ? $tpErp->child->fieldTranslations() : $tpErp->fieldTranslations();
             $tipologias[] = $webOrErp;
         }
 

@@ -42,6 +42,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                         foreach($ubication['disponibility']['experiencias'] as $exp){
                             if($experiencia['experiencia_id'] === $exp['id']){
                                 $experiencia['precio_upgrade'] = $exp['precio_upgrade'];
+                                $experiencia['precio_desglosado'] = $exp['precio_desglosado'];
                             }
                         }
                     }
@@ -54,6 +55,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                         foreach($ubication['disponibility']['tarifas'] as $tarifa){
                             if($pack['tarifa_id'] === $tarifa['id']){
                                 $pack['precio_upgrade'] = $tarifa['precio_upgrade'];
+                                $pack['precio_desglosado'] = $tarifa['precio_desglosado'];
                             }
                         }
                     }
@@ -75,6 +77,8 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                             $tip['dormitorios'] = $t['dormitorios'];
                             $tip['lavabos'] = $t['lavabos'];
                             $tip['precio_upgrade'] = $t['precio_upgrade'];
+                            $tip['precio_desglosado'] = $t['precio_desglosado'];
+                            $tip['noches'] = $t['noches'];
                             $validTipologia[] = $tip;
                         }
                     }
