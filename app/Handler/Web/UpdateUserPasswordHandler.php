@@ -25,22 +25,14 @@ class UpdateUserPasswordHandler extends BaseHandler
         if (!$usuario) {
             return $response;
         }
-        if (Hash::check($this->params['old_password'], $usuario->password)) {
-            $usuario->password = Hash::make($this->params['new_password']);
-            $usuario->save();
-            $response = [
-                    'res' => 1,
-                    'msg' => 'Clave de Usuario actualizada',
-                    'data' => [$usuario, $this->params['new_password']]
-                ];
-        } else {
-            $response = [
-                    'res' => 0,
-                    'msg' => 'Clave Antigua no coincide con registros',
-                    'data' => [$usuario, $this->params['old_password']]
-                ];
-        }
 
+        $usuario->password = Hash::make($this->params['new_password']);
+        $usuario->save();
+        $response = [
+                'res' => 1,
+                'msg' => 'Clave de Usuario actualizada',
+                'data' => [$usuario, $this->params['new_password']]
+            ];
 
 
         return $response;

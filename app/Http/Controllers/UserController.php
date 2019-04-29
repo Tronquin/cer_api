@@ -200,12 +200,11 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function updatePassword(Request $request, $user_id, $new_password, $old_password)
+    protected function updatePassword(Request $request, $user_id, $new_password)
     {
         $data = $request->all();
         $data['user_id'] = $user_id;
         $data['new_password'] = $new_password;
-        $data['old_password'] = $old_password
         $handler = new UpdateUserPasswordHandler($data);
         $handler->processHandler();
 

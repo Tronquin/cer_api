@@ -12,7 +12,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{userId}/{token}', 'UserController@sendResetPasswordEmail');
     // Actualizar Contraseña
-    Route::post('user/password/update/{userId}/{newPassword}/{oldPassword}', 'UserController@updatePassword');
+    Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
     
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
