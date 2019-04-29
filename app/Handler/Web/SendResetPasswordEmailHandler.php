@@ -26,8 +26,16 @@ class SendResetPasswordEmailHandler extends BaseHandler
             return $response;
         }
 
+<<<<<<< HEAD
         $userId = $user->id;
         $token = $this->params['token'];
+=======
+        $timestamp = $_SERVER['REQUEST_TIME'];
+        $iso = $this->params['iso'];
+        $payload = JWTAuth::getPayload();
+        $token = JWTAuth::encode($payload);
+        $secret = env('JWT_SECRET', 0);
+>>>>>>> f48b526b0e036fcba6440fe723589a4ecc0aa0a5
         $host = config('app.web_url');
         $url = $host . "/es/" . $this->params['user_id'] . '/' . $token . '/reset';
 
