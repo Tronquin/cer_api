@@ -18,8 +18,7 @@
         "maatwebsite/excel": "^3.1",
         "stripe/stripe-php": "^6.19",
         "symfony/console": "^3.4.24",
-        "wildbit/swiftmailer-postmark": "^3.0",
-        "tymon/jwt-auth": "dev-develop"
+        "wildbit/swiftmailer-postmark": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

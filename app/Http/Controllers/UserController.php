@@ -200,10 +200,12 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function updatePassword(Request $request, $token)
+    protected function updatePassword(Request $request, $user_id, $new_password)
     {
         $data = $request->all();
-        $data['token'] = $token;
+        $data['user_id'] = $user_id;
+        $data['new_password'] = $new_password;
+
         $handler = new UpdateUserPasswordHandler($data);
         $handler->processHandler();
 
@@ -214,11 +216,11 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function sendResetPasswordEmail(Request $request, $iso, $user_id)
+    protected function sendResetPasswordEmail(Request $request, $user_id, $token)
     {
         $data = $request->all();
         $data['user_id'] = $user_id;
-        $data['iso'] = $iso;
+        $data['token'] = $token;
 
         $handler = new SendResetPasswordEmailHandler($data);
         $handler->processHandler();
