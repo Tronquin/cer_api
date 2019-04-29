@@ -3,6 +3,7 @@ namespace App\Handler\Web;
 
 use App\User;
 use App\Handler\BaseHandler;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateUserPasswordHandler extends BaseHandler
 {
