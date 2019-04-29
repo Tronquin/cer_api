@@ -3,6 +3,7 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Typology;
+use App\Service\UrlGenerator;
 
 class FindTypologyByLocationHandler extends BaseHandler {
 
@@ -25,9 +26,17 @@ class FindTypologyByLocationHandler extends BaseHandler {
             foreach ($tpErp->apartamentos as $aparmentErp) {
                 $aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
             }
+            $characteristics = [];
+            foreach ($tpErp->characteristics as &$characteristic) {
+                $characteristic['fieldTranslations'] = $characteristic->fieldTranslations();
+                $characteristic['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
+                $characteristics[] = $characteristic;
+
+            }
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
+            $webOrErp['characteristics'] = $characteristics;
             $webOrErp['fieldTranslations'] = $tpErp->child ? $tpErp->child->fieldTranslations() : $tpErp->fieldTranslations();
             $tipologias[] = $webOrErp;
         }

@@ -201,15 +201,19 @@ class ERPGetData {
                         $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
 
                         $tipologia_lang['es'] = [
+                            'nombre' => '',
                             'descripcion' => $tipologia['descripcion_es']
                         ];
                         $tipologia_lang['en'] = [
+                            'nombre' => $tipologia['nombre'],
                             'descripcion' => $tipologia['descripcion_en']
                         ];
                         $tipologia_lang['fr'] = [
+                            'nombre' => '',
                             'descripcion' => $tipologia['descripcion_fr']
                         ];
                         $tipologia_lang['po'] = [
+                            'nombre' => '',
                             'descripcion' => $tipologia['descripcion_po']
                         ];
 
@@ -225,6 +229,20 @@ class ERPGetData {
                             foreach($tipologia_lang as $key => $lang){
                                 
                                 if($language['iso'] == $key){
+                                    $translation = FieldTranslation::where('content_id',$tipologia_erp->id)
+                                                    ->where('field','nombre')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Typology::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $tipologia_erp->id;
+                                        $translation->content_type = Typology::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre';
+                                        $translation->translation = $lang['nombre'];
+                                        $translation->save();
+                                    }
             
                                     $translation = FieldTranslation::where('content_id',$tipologia_erp->id)
                                                     ->where('field','description')

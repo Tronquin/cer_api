@@ -86,7 +86,7 @@ class Typology extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description'];
+        return ['nombre','description'];
     }
 
 }
