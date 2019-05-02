@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\GetDataFromErpCommand::class,
+        Commands\GetDataTripavisorCommand::class,
         Commands\SendEmailCommand::class
     ];
 
