@@ -61,7 +61,7 @@ class UpdateLocationHandler extends BaseHandler
         return [
             'locationId' => 'required|numeric',
             'fieldTranslations' => 'required',
-            'domain' => 'required'
+            // 'domain' => 'required'
         ];
     }
 }
