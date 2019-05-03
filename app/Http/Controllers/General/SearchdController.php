@@ -17,6 +17,7 @@ use App\Handler\GeneralHandlers\FindPackagesByLocationHandler;
 use App\Handler\GeneralHandlers\FindLocationsHandler;
 use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
+use App\Handler\GeneralHandlers\FindExtraByLocationTagChildrenHandler;
 use App\Handler\GeneralHandlers\SaveMasiveExtraTagsHandler;
 use App\Handler\SiteMapHandler;
 use App\Http\Controllers\Controller;
@@ -276,6 +277,26 @@ class SearchdController extends Controller
     public function findExtraByLocationTag($type,$ubicacion_id)
     {
         $handler = new FindExtraByLocationTagHandler(['ubicacion_id' => $ubicacion_id,'type' => $type]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene extras para cada ubicacion segun el findExtraByLocationTagChildren
+     * al que pertenecen
+     *
+     * @param $type
+     * @param $tagChildren
+     * @return JsonResponse
+     */
+    public function findExtraByLocationTagChildren($type,$tagChildren)
+    {
+        $handler = new FindExtraByLocationTagChildrenHandler(['type' => $type,'tag_children' => $tagChildren]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

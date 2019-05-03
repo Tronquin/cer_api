@@ -30,6 +30,7 @@ class FindExtraByTagHandler extends BaseHandler {
                     $extras[] = [
                         'id' => $extra->id,
                         'type' => $extra->type,
+                        'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
                         'fieldTranslations' => $extra->fieldTranslations()
                     ];
                 }

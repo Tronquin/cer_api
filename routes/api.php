@@ -17,6 +17,8 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
+    // Obtiene extras por ubicacion, tag y tagchildren al que pertenecen
+    Route::get('/find/extra_by_tags_children/{type}/{children}', 'General\SearchdController@findExtraByLocationTagChildren');
     // Obtiene los datos de Tripavisor
     Route::get('/find/tripavisor', 'General\TripAvisorController@findTripAvisor');
     // Busca logs de la maquina
