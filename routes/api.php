@@ -66,7 +66,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtener Section Apartment
     Route::get('/find/sectionapartment/{location_id}', 'Admin\SectionApartmentController@getSectionApartment');
     // Obtener fotos y mas
-    Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
+    Route::get('/find/photos_and_more/{location_id}', 'PhotoAndMoreController@photoAndMore');
     // Obtener extras Oustanding
     Route::get('/find/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@getExtras');
     // Datos del usuario
@@ -196,11 +196,11 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
             // Actualizar las pregunta frecuente
             Route::post('/admin/frequentquestion', 'Admin\FrequentQuestionController@updateOrCreateFrequentQuestion');
             // Actualizar las secciones de apartamentos
-            Route::post('/admin/sectionapartment/{ubicacion_id}', 'Admin\SectionApartmentController@updateOrCreateSectionApartment');
+            Route::post('/admin/sectionapartment/{location_id}', 'Admin\SectionApartmentController@updateOrCreateSectionApartment');
             // Gestion de fotos y mas
-            Route::post('/admin/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@store');
+            Route::post('/admin/photos_and_more/{location_id}', 'PhotoAndMoreController@store');
             // Crea o Actualiza extras Oustanding
-            Route::put('/admin/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@updateOrCreateExtras');
+            Route::put('/admin/extrasoustanding/{location_id}', 'ExtrasOustandingController@updateOrCreateExtras');
             // Elimina Documento de extra Outstanding
             Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
             // Configura experiencia predeterminada del home

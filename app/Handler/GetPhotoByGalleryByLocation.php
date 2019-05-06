@@ -19,7 +19,7 @@ class GetPhotoByGalleryByLocation extends BaseHandler
      */
     protected function handle()
     {
-        $location = Location::where('ubicacion_id', $this->params['ubicacionId'])->firstOrFail();
+        $location = Location::where('id', $this->params['location_id'])->firstOrFail();
         $galleries = Galery::where('location_id', $location->id)->with(['photos'])->get();
 
         foreach ($galleries as $gallery) {
