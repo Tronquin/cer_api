@@ -53,7 +53,7 @@ class GetPhotoByGalleryByLocation extends BaseHandler
     protected function validationRules()
     {
         return [
-            'ubicacionId' => 'required'
+            'location_id' => 'required'
         ];
     }
 }
