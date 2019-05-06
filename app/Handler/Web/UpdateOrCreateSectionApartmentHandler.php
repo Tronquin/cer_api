@@ -23,9 +23,9 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
         foreach ($this->params['sectionApartments'] as $sectionApartment) {
             $id = $sectionApartment['id'];
 
-            $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
+            $location = Location::where('id',$this->params['location_id'])->firstOrFail();
             $section = SectionApartment::query()->findOrNew($id);
-            $section->ubicacion_id = $this->params['ubicacion_id'];
+            $section->location_id = $this->params['location_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
 
             $sectionApartment_Name = '';

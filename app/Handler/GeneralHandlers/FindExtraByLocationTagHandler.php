@@ -27,10 +27,12 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                 foreach ($tag->extras as $extraKey => $extra) {
                     
                     if($extra->ubicacion_id === intval($this->params['ubicacion_id'])){
+                        $precio = $extra->calcularIva($extra->base_imponible,$extra->iva_tipo);
                         $extras[] = [
                             'id' => $extra->id,
                             'type' => $extra->type,
-                            'coste' => $extra->coste,
+                            'precio' => $precio,
+                            'coste' => $precio['total'],
                             'fieldTranslations' => $extra->fieldTranslations(),
                             'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
                         ];
