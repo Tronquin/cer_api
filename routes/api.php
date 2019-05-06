@@ -64,7 +64,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     // Obtener frequent questions
     Route::get('/find/frequentquestion', 'Admin\FrequentQuestionController@getFrequentquestions');
     // Obtener Section Apartment
-    Route::get('/find/sectionapartment/{ubicacion_id}', 'Admin\SectionApartmentController@getSectionApartment');
+    Route::get('/find/sectionapartment/{location_id}', 'Admin\SectionApartmentController@getSectionApartment');
     // Obtener fotos y mas
     Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
     // Obtener extras Oustanding

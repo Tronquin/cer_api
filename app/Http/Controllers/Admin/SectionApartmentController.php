@@ -15,15 +15,15 @@ class SectionApartmentController extends Controller
     /**
     * consulta los datos de las SectionApartment
     * @return mixed
-    * @param $ubicacion_id
+    * @param $location_id
     */
-    public function getSectionApartment($ubicacion_id){
+    public function getSectionApartment($location_id){
 
         $data = [];
         $Translation = new SectionApartment();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
         
-        $sectionApartments = SectionApartment::where('ubicacion_id',$ubicacion_id)->orderBy('order')->get();
+        $sectionApartments = SectionApartment::where('location_id',$location_id)->orderBy('order')->get();
         foreach ($sectionApartments as &$sectionApartment){
             $sectionApartment['photo'] = urldecode(route('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]));
             $sectionApartment['fieldTranslations'] = $sectionApartment->fieldTranslations();
@@ -56,7 +56,7 @@ class SectionApartmentController extends Controller
     public function updateOrCreateSectionApartment(Request $request,$ubicacion_id){
 
         $data = $request->all();
-        $data['ubicacion_id'] = $ubicacion_id;
+        $data['location_id'] = $ubicacion_id;
         
         $handler = new UpdateOrCreateSectionApartmentHandler($data);
         $handler->processHandler();
