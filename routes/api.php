@@ -1,19 +1,19 @@
 <?php
 
 
-Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
 
     // Rutas validadas por Oauth2
-    
+
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
     // Envia Link al usuario para resetear contraseña
-    Route::post('user/password/reset/{userId}/{token}', 'UserController@sendResetPasswordEmail');
+    Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
     // Actualizar Contraseña
     Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
-    
+
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
@@ -71,7 +71,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
     Route::get('/find/user/{email}', 'UserController@find');
     // Registrar una reserva
     Route::post('/reservation/create', 'ReservationController@createReservation');
-    
+
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
@@ -145,7 +145,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
         Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
         // Obtener Reservas activas
         Route::get('/find/reservation/actives/{email}', 'ReservationController@reservationActiveByUser');
-        
+
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
             // Obtiene tags
@@ -176,7 +176,7 @@ Route::group(['prefix' => 'v1','middleware' => 'oauth2'], function () {
             Route::get('/find/galery/erp', 'GaleryController@erpGalery');
             // Guardar imagenes en galeria
             Route::post('/photo/create/{galleryCode}', 'PhotoController@create');
-            
+
             //Obtener Documentos
             Route::get('/document', 'DocumentController@index');
             //Guarda Documentos

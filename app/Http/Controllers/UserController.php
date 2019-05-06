@@ -116,19 +116,19 @@ class UserController extends Controller
     protected function login(Request $request)
     {
         $data = $request->all();
-        
+
         $userExist = User::query()->where('email', $data['email'])->first();
 
-        if (! $userExist) {
+        if (!$userExist) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario no existe']);
         }
-        
+
         $userPassword = $userExist->password;
 
-        if (! Hash::check($data['password'], $userPassword)) {
+        if (!Hash::check($data['password'], $userPassword)) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'La contraseña es incorrecta']);
         }
-        
+
         $sessionExist = Session::query()->where('user_id', $userExist['id'])->delete();
 
         $clientIp = $request->ip();
@@ -216,11 +216,11 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function sendResetPasswordEmail(Request $request, $user_id, $token)
+    protected function sendResetPasswordEmail(Request $request, $iso, $user_id)
     {
         $data = $request->all();
+        $data['iso'] = $iso;
         $data['user_id'] = $user_id;
-        $data['token'] = $token;
 
         $handler = new SendResetPasswordEmailHandler($data);
         $handler->processHandler();
