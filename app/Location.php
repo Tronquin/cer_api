@@ -196,6 +196,6 @@ class Location extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description', 'alt_image', 'alt_logo'];
+        return ['description_home','description','text_buscador','text_info','alt_image', 'alt_logo'];
     }
 }
