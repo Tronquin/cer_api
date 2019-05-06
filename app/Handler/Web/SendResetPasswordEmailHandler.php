@@ -5,6 +5,7 @@ use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
+use \Firebase\JWT\JWT;
 
 class SendResetPasswordEmailHandler extends BaseHandler
 {
@@ -21,24 +22,27 @@ class SendResetPasswordEmailHandler extends BaseHandler
             'msg' => 'Usuario no encontrado',
             'data' => [],
         ];
-    
+
         if (!$user) {
             return $response;
         }
 
-        $userId = $user->id;
-        $token = $this->params['token'];
+        $secret = "c4StR0W3b2019";
+        $timestamp = $_SERVER['REQUEST_TIME'];
+        $payload = ['id' => $user->id, 'timestamp' => $timestamp];
+        $token = JWT::encode($payload, $secret);
+        $iso = $this->params['iso'];
         $host = config('app.web_url');
-        $url = $host . "/es/" . $this->params['user_id'] . '/' . $token . '/reset';
+        $url = $host . '/' . $iso . '/' . $token . '/reset';
 
-   
+
         Mail::to($user->email)->send(new ResetPassword($url));
 
-        
+
         $response = [
             'res' => 1,
             'msg' => 'Correo Enviado!',
-            'data' => [$userId, $token, $url],
+            'data' => ['token' => $token, 'url' => $url, 'payload' => $payload],
         ];
         return $response;
     }
@@ -50,7 +54,6 @@ class SendResetPasswordEmailHandler extends BaseHandler
      */
     protected function validationRules()
     {
-        return [
-        ];
+        return [];
     }
 }
