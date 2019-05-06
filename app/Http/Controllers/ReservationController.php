@@ -738,12 +738,21 @@ class ReservationController extends Controller
         
         $reserva = $handler->getData();
         
-        $data['paymentId'] = $reserva['data']['reserva']['pagos'][0]['id'];
-        $data['creditCard'] = $params['number'];
-        $data['holder'] = $params['holder'];
-        $data['date'] = $params['expirationMonth'] . '-' . $params['expirationYear'];
-        $data['cvc'] = $params['cvc'];
+        if($reserva['res'] === 0)
+        return new JsonResponse($reserva['msg'],'404');
 
+        $data = [];
+        $reserva_ids = [];
+        foreach($reserva['reservas'] as $reserva_cliente){
+            $data[] = [
+                'paymentId' => $reserva_cliente['pending_payment'],
+                'creditCard' => $params['number'],
+                'holder' => $params['holder'],
+                'date' => $params['expirationMonth'] . '-' . $params['expirationYear'],
+                'cvc' => $params['cvc']
+            ];
+            $reserva_ids[] = $reserva_cliente['id'];
+        }
         // Se efectua el proceso de cobro por tarjeta de credito a traves del paymentGateway
         $handler = new ReservationProcessPaymentHandler(compact('data'));
         $handler->processHandler();
@@ -756,7 +765,7 @@ class ReservationController extends Controller
         $payment['reservas'] = $reserva['reservas'];
         if(isset($reserva['session']))
         $payment['session'] = $reserva['session'];
-        $payment['reserva_id'] = $reserva['data']['reserva']['id'];
+        $payment['reserva_id'] = $reserva_ids;
         // Se guardan los datos del pago y la reserva en BD reservation_payment_persistence
         $handler = new ReservationPaymentPersistenceHandler(['data' => $payment]);
         $handler->processHandler();

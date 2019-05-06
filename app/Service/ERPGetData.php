@@ -34,6 +34,8 @@ class ERPGetData {
 
         if(count($ubicaciones)){
             foreach($ubicaciones as $ubicacion){
+                if($ubicacion['nombre'] !== '' && $ubicacion['nombre'] !== null)
+            {
                 // Guardamos los id de las ubicaciones para las siguientes consultas
                 $ubicacion_id[] = ['id' => $ubicacion['id']];
                 $ubicacion_erp = Location::where('ubicacion_id','=',$ubicacion['id'])
@@ -160,7 +162,7 @@ class ERPGetData {
                     $gallery->location_id = $ubicacion_erp->id;
                     $gallery->save();
                 }
-                
+            }  
             }
             if(count($ubicacion_id)){
                 foreach($ubicacion_id as $ubicacion){

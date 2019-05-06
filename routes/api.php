@@ -56,7 +56,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtener imagenes por galeria
     Route::get('/photo/{galleryCode}', 'PhotoController@photos');
     // Obtener imagenes por ubicacion
-    Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
+    Route::get('/photo/location/{location_id}', 'PhotoController@photosByLocation');
     // Obtener informacion del spa
     Route::get('/location/sagrada_familia/spa', 'SpaController@info');
     // Obtener cards
