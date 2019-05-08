@@ -13,18 +13,26 @@ class FindLocationsHandler extends BaseHandler {
     protected function handle()
     {
         $locations = Location::where('type', 'erp')
-            ->with(['child'])
+            ->with(['child','tipologias'])
             ->orderBy('id')
             ->get();
         
         $LocationwebOrErp = [];
         foreach ($locations as $locationErp) {
             $temp = $locationErp->child ? $locationErp->child->toArray() : $locationErp->toArray();
+            $tempObject = $locationErp->child ? $locationErp->child : $locationErp;
+
             $temp['front_page'] = $this->generateImageUrl($temp['front_page']);
+            $temp['domain_logo'] = $this->generateImageUrl($temp['domain_logo']);
             $temp['fieldTranslations'] = $locationErp->fieldTranslations();
             $temp['logo'] = $this->generateImageUrl($temp['logo']);
             $temp['slug'] = str_slug($locationErp->nombre);
 
+            $tipologias = [];
+            foreach($tempObject->tipologias as $tipologia){
+                $tipologias[] = $tipologia->child ? $tipologia->child->toArray() : $tipologia->toArray();
+            }
+            $temp['tipologias'] = $tipologias;
             $LocationwebOrErp[] = $temp;
         }
 

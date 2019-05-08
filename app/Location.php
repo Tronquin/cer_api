@@ -73,14 +73,14 @@ class Location extends Model
         return $this->hasMany(SearchHistory::class, 'location_id');
     }
 
-    /**
-     * Ubicacion::find($ubicacion_id)->extras;
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function extras()
     {
         return $this->hasMany(Extra::class, 'ubicacion_id');
+    }
+
+    public function tipologias()
+    {
+        return $this->hasMany(Typology::class,'ubicacion_id');
     }
 
     /*public function dispensers()
@@ -122,10 +122,6 @@ class Location extends Model
         return $this->belongsToMany('App\Reseller');
     }
 
-    public function tipologias()
-    {
-        return $this->hasMany('App\Tipologia');
-    }
 
 
     public function masters()
