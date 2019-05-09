@@ -9,6 +9,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    Route::post('/email/confirmation_reserve', 'Admin\SendingEmailController@sendConfirmationReserve');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
     // Actualizar Contraseña
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtener imagenes por ubicacion
     Route::get('/photo/location/{location_id}', 'PhotoController@photosByLocation');
     // Obtener informacion del spa
-    Route::get('/location/sagrada_familia/spa', 'SpaController@info');
+    Route::get('/location/spa_info/{location_id}', 'SpaController@info');
     // Obtener cards
     Route::get('/find/cardinfo', 'Admin\CardInfoController@getCardInfo');
     // Obtener frequent questions
@@ -187,7 +188,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
             Route::delete('/document/{documentId}', 'DocumentController@destroy');
 
             // Actualizar informacion del spa
-            Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
+            Route::put('/admin/spa_info/{location_id}', 'SpaController@update');
             // Agregar / Actualizar idiomas
             Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
             Route::put('/admin/translation/excel', 'DefaultController@updateTranslation');

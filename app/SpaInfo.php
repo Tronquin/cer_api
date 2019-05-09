@@ -12,7 +12,9 @@ class SpaInfo extends Model
     protected $table = 'spa_info';
 
     protected $fillable = [
-        'photo'
+        'photo',
+        'link_tour',
+        'location_id'
     ];
 
     /**
@@ -24,6 +26,14 @@ class SpaInfo extends Model
     }
 
     /**
+     * Todas las secciones del SPA
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id');
+    }
+
+    /**
      * Campos que se pueden almacenar en field_translations
      *
      * @return array
@@ -32,6 +42,7 @@ class SpaInfo extends Model
     {
         return [
             'description',
+            'name',
             'title',
             'subtitle',
             'alt_image'

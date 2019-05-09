@@ -503,6 +503,18 @@ class ERPGetData {
                         $experiencia_erp->sabanas_cada_dias = $experiencia['sabanas_cada_dias'];
                         $experiencia_erp->upgrade_extra_id = $experiencia['upgrade_extra_id'];
 
+                        $experiencia_lang['es'] = [
+                            'nombre' => '',
+                        ];
+                        $experiencia_lang['en'] = [
+                            'nombre' => $experiencia['nombre'],
+                        ];
+                        $experiencia_lang['fr'] = [
+                            'nombre' => '',
+                        ];
+                        $experiencia_lang['po'] = [
+                            'nombre' => '',
+                        ];
                         // Relacion muchos a muchos Experiencia-extras
                         $extraIds = [];
                         foreach ($experiencia['extras'] as $extra) {
@@ -515,6 +527,28 @@ class ERPGetData {
                             $apartamentoIds[] = Apartment::where('apartamento_id', $apartamento['id'])->first()->id;
                         }
                         $experiencia_erp->save();
+
+                        foreach($languages as $language){
+                            foreach($experiencia_lang as $key => $lang){
+                                
+                                if($language['iso'] == $key){
+                                    $translation = FieldTranslation::where('content_id',$experiencia_erp->id)
+                                                    ->where('field','nombre')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', Experience::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $experiencia_erp->id;
+                                        $translation->content_type = Experience::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre';
+                                        $translation->translation = $lang['nombre'];
+                                        $translation->save();
+                                    }
+                                }
+                            }
+                        }
 
                         // Extableciendo Relaciones
                         $experiencia_erp->extras()->sync($extraIds);  

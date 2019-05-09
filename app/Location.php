@@ -27,12 +27,16 @@ class Location extends Model
         'knock',
         'ip_ubicacion',
         'iva_reservas',
-        'descripcion_es',
-        'descripcion_en',
-        'descripcion_fr',
-        'descripcion_po',
+        'front_page',
         'domain',
-        'default_experience'
+        'default_experience',
+        'pais',
+        'ciudad',
+        'link_tour',
+        'has_spa',
+        'is_published',
+        'domain_logo',
+        'logo',
     ];
 
     public function experiencias()
@@ -81,6 +85,11 @@ class Location extends Model
     public function tipologias()
     {
         return $this->hasMany(Typology::class,'ubicacion_id');
+    }
+
+    public function spas()
+    {
+        return $this->hasMany(SpaInfo::class,'location_id');
     }
 
     /*public function dispensers()

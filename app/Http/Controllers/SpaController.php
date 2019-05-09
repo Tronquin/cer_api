@@ -12,11 +12,12 @@ class SpaController extends Controller
     /**
      * Obtiene informacion del SPA
      *
+     * @param $location_id
      * @return JsonResponse
      */
-    public function info()
+    public function info($location_id)
     {
-        $handler = new GetSpaInfoHandler();
+        $handler = new GetSpaInfoHandler(['location_id' => $location_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -29,12 +30,16 @@ class SpaController extends Controller
     /**
      * Actualiza informacion del SPA
      *
+     * @param $location_id
      * @param Request $request
      * @return JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request,$location_id)
     {
-        $handler = new UpdateSpaInfoHandler($request->all());
+        $data = $request->all();
+        $data['location_id'] = $location_id;
+        
+        $handler = new UpdateSpaInfoHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

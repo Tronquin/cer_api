@@ -15,14 +15,18 @@ class UpdateSpaInfoHandler extends BaseHandler
      */
     protected function handle()
     {
-        $spaInfo = SpaInfo::query()->firstOrNew([]);
+        $spaInfo = SpaInfo::query()->firstOrNew(['location_id' => $this->params['location_id']]);
 
         $spa_info_name = '';
         foreach($this->params['fieldTranslations'] as $iso){
-            if($iso['iso'] === 'en'){
-                foreach($iso['fields'] as $spaInfoName){
-                    if($spaInfoName['field'] === 'name')
-                    $spa_info_name = $spaInfoName['translation'];
+            if($iso['iso'] === 'es'){
+                foreach($iso['fields'] as &$spaInfoName){
+                    if($spaInfoName['field'] === 'name'){
+                        if($spaInfoName['translation'] === '' || $spaInfoName['translation'] === null)
+                        $spaInfoName['translation'] = 'SPA AND GYM';
+                        
+                        $spa_info_name = $spaInfoName['translation'];
+                    }
                 }
             }
         }

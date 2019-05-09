@@ -13,7 +13,7 @@ class FindLocationsHandler extends BaseHandler {
     protected function handle()
     {
         $locations = Location::where('type', 'erp')
-            ->with(['child','tipologias'])
+            ->with(['child','tipologias','spas'])
             ->orderBy('id')
             ->get();
         
@@ -33,6 +33,12 @@ class FindLocationsHandler extends BaseHandler {
                 $tipologias[] = $tipologia->child ? $tipologia->child->toArray() : $tipologia->toArray();
             }
             $temp['tipologias'] = $tipologias;
+
+            foreach($tempObject->spas as &$spa){
+                $spa['fieldTranslations'] = $spa->fieldTranslations();
+            }
+            $temp['spas'] = $tempObject->spas;
+
             $LocationwebOrErp[] = $temp;
         }
 

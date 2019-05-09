@@ -45,7 +45,7 @@ class UpdateLocationHandler extends BaseHandler
         $domain = str_replace('https://', '', $domain);
         $location->domain = $domain;
         $location->has_spa = $this->params['has_spa'];
-        $location->has_spa = $this->params['is_published'];
+        $location->is_published = $this->params['is_published'];
         $location->link_tour = $this->params['link_tour'];
         $location->updateFieldTranslations($this->params['fieldTranslations']);
 

@@ -14,19 +14,31 @@ class GetSpaInfoHandler extends BaseHandler
      */
     protected function handle()
     {
-        $spaInfo = SpaInfo::query()->with(['spaSections'])->first();
+        $spaInfo = SpaInfo::query()->with(['spaSections'])
+            ->where('location_id',$this->params['location_id'])
+            ->first();
 
+        $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
+        
         if (! $spaInfo) {
             $spaInfo = new SpaInfo();
             $spaInfo->photo = null;
+            $spaInfo->location_id = $this->params['location_id'];
             $spaInfo->spa_sections = [];
+            foreach ($spaInfo->fieldTranslations() as $iso){
+                foreach($iso['fields'] as &$spaInfoName){
+                    if($spaInfoName['field'] === 'name'){
+                        if($spaInfoName['translation'] === '' || $spaInfoName['translation'] === null)
+                        $spaInfoName['translation'] = 'SPA AND GYM';
+                    }
+                }
+            }
         }
 
         if ($spaInfo->photo) {
             $spaInfo->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
         }
             
-        $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
 
         foreach ($spaInfo->spaSections as $spaSection) {
 

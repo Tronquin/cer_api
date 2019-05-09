@@ -25,8 +25,8 @@ class ExtrasOustandingController extends Controller
         
         $extras = ExtraOustanding::where('location_id', $location_id)->get();
         foreach ($extras as &$extra) {
-            $extra->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]));
-            $extra->icon = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]));
+            $extra->photo = generate('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]);
+            $extra->icon = generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra->document = route('storage.document', ['document' => str_replace('/', '-', $extra['document'])]);
             $extra['fieldTranslations'] = $extra->fieldTranslations();
         }

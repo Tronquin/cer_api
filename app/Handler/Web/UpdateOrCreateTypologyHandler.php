@@ -18,7 +18,17 @@ class UpdateOrCreateTypologyHandler extends BaseHandler
     {
         DB::beginTransaction();
 
+        $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
         $tipologia = Typology::query()->findOrNew($this->params['id']);
+
+        $front_image_name = $location->pais.'_'.$location->ciudad.'_typology_';
+
+        if (isset($this->params['front_image'])) {
+            // Imagen
+            $path = UploadImage::upload($this->params['front_image'], 'typology/',$front_image_name);
+
+            $tipologia->front_image = $path;
+        }
         $tipologia->save();
         $tipologia->updateFieldTranslations($this->params['fieldTranslations']);
 
