@@ -5,6 +5,7 @@ use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPassword;
+use App\Mail\BaseMail;
 use \Firebase\JWT\JWT;
 
 class SendResetPasswordEmailHandler extends BaseHandler
@@ -35,9 +36,9 @@ class SendResetPasswordEmailHandler extends BaseHandler
         $host = config('app.web_url');
         $url = $host . '/' . $iso . '/' . $token . '/reset';
 
+        $emailInstance = new BaseMail('email.resetPassword', [$user->email], ['url' => $url]);
 
-        Mail::to($user->email)->send(new ResetPassword($url));
-
+        Mail::send($emailInstance);
 
         $response = [
             'res' => 1,
