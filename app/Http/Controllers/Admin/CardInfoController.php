@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
+use App\Service\UrlGenerator;
 use App\Handler\Web\UpdateOrCreateCardInfoHandler;
 use Illuminate\Http\Request;
 use App\CardInfo;
@@ -24,7 +25,7 @@ class CardInfoController extends Controller
         
         $cardInfo = CardInfo::all();
         foreach ($cardInfo as &$card){
-            $card->front_image = generate('storage.image', ['image' => str_replace('/', '-', $card['front_image'])]);
+            $card->front_image = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $card['front_image'])]);
             $card['fieldTranslations'] = $card->fieldTranslations();
         }
 

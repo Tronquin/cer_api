@@ -3,6 +3,7 @@ namespace App\Handler;
 
 use App\Location;
 use App\PhotoAndMore;
+use App\Service\UrlGenerator;
 
 class GetPhotoAndMoreHandler extends BaseHandler
 {
@@ -35,14 +36,14 @@ class GetPhotoAndMoreHandler extends BaseHandler
             $section->fieldTranslations = $section->fieldTranslations();
 
             foreach ($section->gallery->photos as $photo) {
-                $photo->url = generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
+                $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
                 $photo->fieldTranslations = $photo->fieldTranslations();
             }
 
             if ($section->sectionApartment) {
                 if (! in_array($section->sectionApartment->id, $sectionApartmentIds)) {
                     // Evito hacer este proceso dos veces para una misma seccion del apto
-                    $section->sectionApartment->photo = generate('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
+                    $section->sectionApartment->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
                     $section->sectionApartment->fieldTranslations = $section->sectionApartment->fieldTranslations();
                     $sectionApartmentIds[] = $section->sectionApartment->id;
                 }

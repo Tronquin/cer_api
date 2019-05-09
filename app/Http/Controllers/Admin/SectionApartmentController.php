@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\SectionApartment;
+use App\Service\UrlGenerator;
 use App\Handler\Web\UpdateOrCreateSectionApartmentHandler;
 
 class SectionApartmentController extends Controller
@@ -25,7 +26,7 @@ class SectionApartmentController extends Controller
         
         $sectionApartments = SectionApartment::where('location_id',$location_id)->orderBy('order')->get();
         foreach ($sectionApartments as &$sectionApartment){
-            $sectionApartment['photo'] = generate('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]);
+            $sectionApartment['photo'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]);
             $sectionApartment['fieldTranslations'] = $sectionApartment->fieldTranslations();
         }
 
