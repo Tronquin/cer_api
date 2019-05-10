@@ -9,6 +9,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    Route::post('/email/confirmation_reserve', 'Admin\SendingEmailController@sendConfirmationReserve');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
     // Actualizar Contraseña
@@ -56,9 +57,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtener imagenes por galeria
     Route::get('/photo/{galleryCode}', 'PhotoController@photos');
     // Obtener imagenes por ubicacion
-    Route::get('/photo/location/{ubicacion_id}', 'PhotoController@photosByLocation');
+    Route::get('/photo/location/{location_id}', 'PhotoController@photosByLocation');
     // Obtener informacion del spa
-    Route::get('/location/sagrada_familia/spa', 'SpaController@info');
+    Route::get('/location/spa_info/{location_id}', 'SpaController@info');
     // Obtener cards
     Route::get('/find/cardinfo', 'Admin\CardInfoController@getCardInfo');
     // Obtener frequent questions
@@ -66,7 +67,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtener Section Apartment
     Route::get('/find/sectionapartment/{location_id}', 'Admin\SectionApartmentController@getSectionApartment');
     // Obtener fotos y mas
-    Route::get('/find/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@photoAndMore');
+    Route::get('/find/photos_and_more/{location_id}', 'PhotoAndMoreController@photoAndMore');
     // Obtener extras Oustanding
     Route::get('/find/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@getExtras');
     // Datos del usuario
@@ -187,7 +188,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
             Route::delete('/document/{documentId}', 'DocumentController@destroy');
 
             // Actualizar informacion del spa
-            Route::put('/admin/sagrada_familia/spa', 'SpaController@update');
+            Route::put('/admin/spa_info/{location_id}', 'SpaController@update');
             // Agregar / Actualizar idiomas
             Route::post('/admin/translation/excel', 'DefaultController@importTranslation');
             Route::put('/admin/translation/excel', 'DefaultController@updateTranslation');
@@ -196,11 +197,11 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
             // Actualizar las pregunta frecuente
             Route::post('/admin/frequentquestion', 'Admin\FrequentQuestionController@updateOrCreateFrequentQuestion');
             // Actualizar las secciones de apartamentos
-            Route::post('/admin/sectionapartment/{ubicacion_id}', 'Admin\SectionApartmentController@updateOrCreateSectionApartment');
+            Route::post('/admin/sectionapartment/{location_id}', 'Admin\SectionApartmentController@updateOrCreateSectionApartment');
             // Gestion de fotos y mas
-            Route::post('/admin/photos_and_more/{ubicacionId}', 'PhotoAndMoreController@store');
+            Route::post('/admin/photos_and_more/{location_id}', 'PhotoAndMoreController@store');
             // Crea o Actualiza extras Oustanding
-            Route::put('/admin/extrasoustanding/{ubicacionId}', 'ExtrasOustandingController@updateOrCreateExtras');
+            Route::put('/admin/extrasoustanding/{location_id}', 'ExtrasOustandingController@updateOrCreateExtras');
             // Elimina Documento de extra Outstanding
             Route::delete('/admin/extrasoustanding/{documentId}', 'ExtrasOustandingController@destroyDocument');
             // Configura experiencia predeterminada del home

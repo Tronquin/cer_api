@@ -24,7 +24,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $id = $sectionApartment['id'];
 
             $location = Location::where('id',$this->params['location_id'])->firstOrFail();
-            $section = SectionApartment::query()->findOrNew($id);
+            $section = SectionApartment::query()->with('extras')->findOrNew($id);
             $section->location_id = $this->params['location_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
 
@@ -47,6 +47,13 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
 
             $data['fieldTranslations'] = $section->fieldTranslations();
             $section->save();
+
+            $idExtras = [];
+            foreach ($sectionApartment['extras'] as $extra){
+                $idExtras[] = $extra['id'];
+            }
+            
+            $section->extras()->sync($idExtras);
 
             $section->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $section->photo)]);
             $section->updateFieldTranslations($sectionApartment['fieldTranslations']);

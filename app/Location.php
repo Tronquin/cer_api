@@ -27,12 +27,16 @@ class Location extends Model
         'knock',
         'ip_ubicacion',
         'iva_reservas',
-        'descripcion_es',
-        'descripcion_en',
-        'descripcion_fr',
-        'descripcion_po',
+        'front_page',
         'domain',
-        'default_experience'
+        'default_experience',
+        'pais',
+        'ciudad',
+        'link_tour',
+        'has_spa',
+        'is_published',
+        'domain_logo',
+        'logo',
     ];
 
     public function experiencias()
@@ -73,14 +77,19 @@ class Location extends Model
         return $this->hasMany(SearchHistory::class, 'location_id');
     }
 
-    /**
-     * Ubicacion::find($ubicacion_id)->extras;
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function extras()
     {
         return $this->hasMany(Extra::class, 'ubicacion_id');
+    }
+
+    public function tipologias()
+    {
+        return $this->hasMany(Typology::class,'ubicacion_id');
+    }
+
+    public function spas()
+    {
+        return $this->hasMany(SpaInfo::class,'location_id');
     }
 
     /*public function dispensers()
@@ -122,10 +131,6 @@ class Location extends Model
         return $this->belongsToMany('App\Reseller');
     }
 
-    public function tipologias()
-    {
-        return $this->hasMany('App\Tipologia');
-    }
 
 
     public function masters()
@@ -196,6 +201,6 @@ class Location extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description', 'alt_image', 'alt_logo'];
+        return ['description_home','description','text_buscador','text_info','alt_image', 'alt_logo'];
     }
 }

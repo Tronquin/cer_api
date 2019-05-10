@@ -13,7 +13,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
      */
     protected function handle()
     {
-        $location = Location::query()->where('ubicacion_id', $this->params['ubicacionId'])->firstOrFail();
+        $location = Location::query()->where('id', $this->params['location_id'])->firstOrFail();
 
         $photoAndMore = PhotoAndMore::query()->with(['sections'])->where('location_id', $location->id)->firstOrNew([]);
         $photoAndMore->video = ! empty($this->params['video']) ? $this->params['video'] : '';
@@ -67,7 +67,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
         return [
             'video' => 'required',
             'fieldTranslations' => 'required',
-            'ubicacionId' => 'required'
+            'location_id' => 'required'
         ];
     }
 

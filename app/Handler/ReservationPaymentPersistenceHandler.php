@@ -12,7 +12,7 @@ class ReservationPaymentPersistenceHandler extends BaseHandler {
     protected function handle()
     {
         $payment_persistence = new ReservationPaymentPersistence();
-        $payment_persistence->reserva_id = $this->params['data']['reserva_id'];
+        $payment_persistence->reservas_ids = json_encode($this->params['data']['reserva_id']);
         $payment_persistence->payment = json_encode($this->params['data']['payment']);
         $response = $payment_persistence->save();
 
@@ -28,7 +28,7 @@ class ReservationPaymentPersistenceHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'reserva_id' =>'required|numeric',
+            'reserva_id' =>'required',
             'payment' =>'required',
         ];
     }

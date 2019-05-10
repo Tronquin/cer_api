@@ -23,7 +23,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
         foreach ($this->params['oustandings'] as $extra) {
             $id = $extra['id'];
 
-            $location = Location::where('ubicacion_id',$this->params['location_id'])->firstOrFail();
+            $location = Location::where('id',$this->params['location_id'])->firstOrFail();
             $oustanding = ExtraOustanding::query()->findOrNew($id);
             $oustanding->location_id = $this->params['location_id'];
 

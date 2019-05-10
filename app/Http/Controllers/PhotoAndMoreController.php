@@ -15,9 +15,9 @@ class PhotoAndMoreController extends Controller
      * @param $ubicacionId
      * @return JsonResponse
      */
-    public function photoAndMore($ubicacionId)
+    public function photoAndMore($location_id)
     {
-        $handler = new GetPhotoAndMoreHandler(compact('ubicacionId'));
+        $handler = new GetPhotoAndMoreHandler(compact('location_id'));
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -31,13 +31,13 @@ class PhotoAndMoreController extends Controller
      * Crea / Actualiza informacion de fotos y mas
      *
      * @param Request $request
-     * @param $ubicacionId
+     * @param $location_id
      * @return JsonResponse
      */
-    public function store(Request $request, $ubicacionId)
+    public function store(Request $request, $location_id)
     {
         $data = $request->all();
-        $data['ubicacionId'] = $ubicacionId;
+        $data['location_id'] = $location_id;
 
         $handler = new CreatePhotoAndMoreHandler($data);
         $handler->processHandler();

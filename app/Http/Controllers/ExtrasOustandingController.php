@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\ExtraOustanding;
 use App\Handler\Web\UpdateOrCreateExtraOustandingHandler;
 use App\Handler\DestroyDocumentHandler;
+use App\Service\UrlGenerator;
 
 class ExtrasOustandingController extends Controller
 {
@@ -25,8 +26,8 @@ class ExtrasOustandingController extends Controller
         
         $extras = ExtraOustanding::where('location_id', $location_id)->get();
         foreach ($extras as &$extra) {
-            $extra->photo = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]));
-            $extra->icon = urldecode(route('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]));
+            $extra->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]);
+            $extra->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra->document = route('storage.document', ['document' => str_replace('/', '-', $extra['document'])]);
             $extra['fieldTranslations'] = $extra->fieldTranslations();
         }

@@ -521,6 +521,21 @@ class ERPService {
 
         return $response;
     }
+
+    /**
+     * get reserva complete_info
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public static function completeInfo(array $data)
+    {
+        $response = self::send('reservas/complete_info', [
+            'reserva_id' => $data['reserva_id']
+        ]);
+
+        return $response;
+    }
     
     /**
      * Envia un request al ERP

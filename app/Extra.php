@@ -99,6 +99,14 @@ class Extra extends Model
     }
 
     /**
+     * section apartment asociados a este extra
+     */
+    public function sectionApartments()
+    {
+        return $this->belongsToMany(SectionApartment::class, 'section_apartment_extras', 'extra_id', 'section_apartment_id');
+    }
+
+    /**
      * Campos que se pueden almacenar en field_translations
      *
      * @return array
