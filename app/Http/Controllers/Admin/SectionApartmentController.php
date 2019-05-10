@@ -24,10 +24,16 @@ class SectionApartmentController extends Controller
         $Translation = new SectionApartment();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
         
-        $sectionApartments = SectionApartment::where('location_id',$location_id)->orderBy('order')->get();
+        $sectionApartments = SectionApartment::where('location_id',$location_id)->with('extras')->orderBy('order')->get();
         foreach ($sectionApartments as &$sectionApartment){
             $sectionApartment['photo'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]);
             $sectionApartment['fieldTranslations'] = $sectionApartment->fieldTranslations();
+
+            foreach($sectionApartment->extras as &$extra){
+                $extra['precio'] = $extra->calcularIva($extra->base_imponible,$extra->iva_tipo);
+                $extra['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
+                $extra['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
+            }
         }
 
         $data['fieldTranslations'] = $Translation->fieldTranslation;

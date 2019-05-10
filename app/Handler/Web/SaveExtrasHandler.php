@@ -62,7 +62,7 @@ class SaveExtrasHandler extends BaseHandler {
         
         $response = $extra->save();
 
-        $arrayTags = [];
+        $idTags = [];
         foreach ($this->params['data']['tags'] as $tagsParents){
             foreach ($tagsParents['data'] as $tags){
                 $idTags[] = Tag::where('description', $tags['text'])->where('parent_id',$tagsParents['tagParentId'])->first()->toArray();

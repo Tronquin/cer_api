@@ -25,4 +25,12 @@ class SectionApartment extends Model
     {
         return ['name', 'alt_image'];
     }
+
+    /**
+     * extras asociados a esta section
+     */
+    public function extras()
+    {
+        return $this->belongsToMany(Extra::class, 'section_apartment_extras', 'section_apartment_id', 'extra_id');
+    }
 }
