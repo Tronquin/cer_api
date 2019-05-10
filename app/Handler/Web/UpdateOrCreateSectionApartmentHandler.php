@@ -27,7 +27,8 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $section = SectionApartment::query()->with('extras')->findOrNew($id);
             $section->location_id = $this->params['location_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;
-
+            $section->show_web = isset($sectionApartment['show_web']) ? $sectionApartment['show_web'] : false;
+            
             $sectionApartment_Name = '';
             foreach($section->fieldTranslations() as $iso){
                 if($iso['iso'] === 'en'){
@@ -43,6 +44,11 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             if (isset($sectionApartment['photo'])) {
                 $path = UploadImage::upload($sectionApartment['photo'], 'sectionApartment/',$front_image_name);
                 $section->photo =  $path;
+            }
+
+            if (isset($sectionApartment['icon'])) {
+                $path = UploadImage::upload($sectionApartment['icon'], 'sectionApartment/',$icon);
+                $section->icon =  $path;
             }
 
             $data['fieldTranslations'] = $section->fieldTranslations();

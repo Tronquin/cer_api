@@ -27,6 +27,7 @@ class SectionApartmentController extends Controller
         $sectionApartments = SectionApartment::where('location_id',$location_id)->with('extras')->orderBy('order')->get();
         foreach ($sectionApartments as &$sectionApartment){
             $sectionApartment['photo'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $sectionApartment->photo)]);
+            $sectionApartment['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $sectionApartment->icon)]);
             $sectionApartment['fieldTranslations'] = $sectionApartment->fieldTranslations();
 
             foreach($sectionApartment->extras as &$extra){

@@ -12,8 +12,10 @@ class SectionApartment extends Model
     protected $table = 'section_apartments';
 
     protected $fillable = [
+        'location_id',
         'photo',
         'order',
+        'show_web'
     ];
 
     /**
