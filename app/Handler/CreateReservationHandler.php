@@ -10,6 +10,7 @@ use App\Package;
 use App\User;
 use App\Session;
 use Illuminate\Support\Facades\Hash;
+use App\ReservationServicePersistence;
 use App\Service\EmailService;
 
 /**
@@ -56,11 +57,43 @@ class CreateReservationHandler extends BaseHandler
             EmailService::send('email.registerUser', [$user->email], compact('user'));
         }
         $response = ERPService::createReservation($this->params);
-
         if(isset($token))
         $response['session'] = $token;
-    
+        
         foreach($response['data'] as $reservation_client){
+            foreach($this->params['apartamentos'] as &$apartamento){
+                if(count($apartamento['extras']) > 0){
+
+                    if($apartamento['tipologia_id'] === $reservation_client['reserva']['tipologia_id'] && 
+                    $apartamento['experiencia_id'] === $reservation_client['reserva']['experiencia_id'] && 
+                    $apartamento['regimen_id'] === $reservation_client['reserva']['tarifa_id'] && 
+                    $apartamento['politica_id'] === $reservation_client['reserva']['politica_cancelacion']['id'] && 
+                    $apartamento['promocion_id'] === $reservation_client['reserva']['promocion_id'] &&
+                    $apartamento['adultos'] === $reservation_client['reserva']['adultos'] &&
+                    $apartamento['ninos'] === $reservation_client['reserva']['ninos'] &&
+                    $apartamento['adultos'] === $reservation_client['reserva']['adultos']){
+    
+                        $apartamento['pago_extras'] = 0;
+                        $apartamento['reserva_id'] = $reservation_client['reserva']['id'];
+                        foreach($apartamento['extras'] as &$extra){
+                            $extra['original_id'] = $extra['id'];
+                            $extra['id'] = $extra['extra_id'];
+                        }
+                        $services = ERPService::addReservationService($apartamento);
+                        foreach ($apartamento['extras'] as $extra) {
+                            $service_persistence = new ReservationServicePersistence();
+                            
+                            $service_persistence->reserva_id = $apartamento['reserva_id'];
+                            $service_persistence->extra_id = $extra['original_id'];
+                            $service_persistence->cantidad = $extra['cantidad'];
+                            $service_persistence->status_id = 2;
+                            
+                            $service_persistence->save();
+                        }
+                        $response['services'][] = $services['data']['pago'];
+                    }
+                }
+            }
             $reservation = new Reservation();
             $checkin = date("Y-m-d",strtotime($reservation_client['reserva']['fecha_entrada']));
             $checkout = date("Y-m-d",strtotime($reservation_client['reserva']['fecha_salida']));
@@ -117,7 +150,7 @@ class CreateReservationHandler extends BaseHandler
             
             if ($handler->isSuccess()) {
                 $extras_contratados = $handler->getData();
-                $dato['extras_contratados'] = $extras_contratados['data']['list']['extras']['extras_contratados'];
+                $dato['extras'] = $extras_contratados['data']['list']['extras']['extras_contratados'];
             }
             $response['reservas'][] = $dato;
         }

@@ -30,6 +30,7 @@ use App\Handler\DeletePersistenceHandler;
 use App\Handler\GenerateRateHandler;
 use App\Handler\EarlyAndLateCheckinHandler;
 use App\Handler\OneServicePersistenceHandler;
+use App\Handler\MultiServicePersistenceHandler;
 use App\Handler\ApartmentDisponibilityHandler;
 use App\Handler\ReservationFeedbackHandler;
 use App\Handler\ReservationKeyReceivedHandler;
@@ -484,6 +485,44 @@ class ReservationController extends Controller
     }
 
     /**
+     * agrega extras a las reservas especificadas
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function multiServicePeristence(Request $request){
+
+        $params = $request->all();
+        $handler = new MultiServicePersistenceHandler(['data' => $params]);
+        $handler->processHandler();
+
+        if (!$handler->isSuccess()) 
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+           
+        $services = $handler->getData();
+        
+        $payments_ids = [];
+        foreach($services['data']['pagos'] as $pago){
+            $payments_ids[] = $pago['id'];
+        }
+        $data = [
+            'payments' => $payments_ids,
+            'creditCard' => $params['creditCard'],
+            'holder' => $params['holder'],
+            'date' => $params['date'],
+            'cvc' => $params['cvc']
+        ];
+        // Se efectua el proceso de cobro por tarjeta de credito a traves del paymentGateway
+        $handler = new ReservationProcessPaymentHandler(compact('data'));
+        $handler->processHandler();
+
+        if (!$handler->isSuccess()) 
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+       
+        return new JsonResponse($handler->getData());
+    }
+
+    /**
      * disponibilidad de un apartamento
      *
      * @param $apartamento_id
@@ -732,27 +771,34 @@ class ReservationController extends Controller
         $params['ip'] = $request->ip();
         $handler = new CreateReservationHandler($params);
         $handler->processHandler();
-        
         if (!$handler->isSuccess()) 
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+            return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
         
         $reserva = $handler->getData();
         
         if($reserva['res'] === 0)
-        return new JsonResponse($reserva['msg'],'404');
-
-        $data = [];
+            return new JsonResponse($reserva);
+            
         $reserva_ids = [];
+        $payments = [];
         foreach($reserva['reservas'] as $reserva_cliente){
-            $data[] = [
-                'paymentId' => $reserva_cliente['pending_payment'],
-                'creditCard' => $params['number'],
-                'holder' => $params['holder'],
-                'date' => $params['expirationMonth'] . '-' . $params['expirationYear'],
-                'cvc' => $params['cvc']
-            ];
+            $payments[] = $reserva_cliente['pending_payment'];
             $reserva_ids[] = $reserva_cliente['id'];
         }
+
+        if(isset($reserva['services'])){
+            foreach($reserva['services'] as $pago){
+                $payments[] = $pago['id'];
+            }
+        }
+
+        $data = [
+            'payments' => $payments,
+            'creditCard' => $params['number'],
+            'holder' => $params['holder'],
+            'date' => $params['expirationMonth'] . '-' . $params['expirationYear'],
+            'cvc' => $params['cvc']
+        ];
         // Se efectua el proceso de cobro por tarjeta de credito a traves del paymentGateway
         $handler = new ReservationProcessPaymentHandler(compact('data'));
         $handler->processHandler();

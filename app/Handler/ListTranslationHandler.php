@@ -3,6 +3,7 @@ namespace App\Handler;
 use App\DeviceType;
 use App\Language;
 use App\Service\UrlGenerator;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Obtiene todos los idiomas disponibles con sus
@@ -38,15 +39,37 @@ class ListTranslationHandler extends BaseHandler {
             ];
 
             $keyTranslations =  $lang->keyTranslations()->where('device_type_id', $deviceType->id)->get();
-
+            $data = '';
             foreach ($keyTranslations as $keyTranslation) {
                 $temp['translations'][] = [
                     'key' => $keyTranslation->key,
                     'value' => $keyTranslation->pivot->translation
                 ];
+                $trans = '"'.$keyTranslation->key.'" => "'.$keyTranslation->pivot->translation.'",';
+                
+                $data = $data.'
+                '.$trans;
+                
             }
 
             $response[] = $temp;
+
+            /** CREAMOS LOS ARCHIVO LANG */
+            $directorio = env('APP_URL').'/resources/lang/'.$lang->iso; 
+            /*//dump(file_exists($directorio),$lang->iso,$directorio);
+            if(file_exists($directorio))
+            {
+                $mensaje = "El Directorio $directorio se ha modificado";
+                dump($mensaje);
+            }
+            else
+            {
+                $content = "<?php \n\nreturn[ \n$data\n];";
+
+                $mensaje = "El Directorio $directorio se ha creado";
+                Storage::disk('languages')->put('lang/'.$lang->iso.'/emails.php', $content);
+                //dump(Storage::disk('local'),Storage::disk('local')->put($directorio, $mensaje));
+            }*/
         }
 
         return $response;
