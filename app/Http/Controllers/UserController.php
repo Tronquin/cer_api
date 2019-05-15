@@ -8,6 +8,7 @@ use App\Session;
 use App\Handler\Web\UpdateUserHandler;
 use App\Handler\Web\SendResetPasswordEmailHandler;
 use App\Handler\Web\UpdateUserPasswordHandler;
+use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -39,6 +40,11 @@ class UserController extends Controller
                 'email' => $session ? $session->user->email : null
             ]
         ]);
+    }
+
+    protected function index(Request $request)
+    {
+        return User::orderBy('id', 'desc')->paginate(15);
     }
 
     /**
@@ -79,6 +85,24 @@ class UserController extends Controller
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }
+
+    protected function delete(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return ['res' => 'Usuario Eliminado'];
+    }
+
+    protected function store(Request $request, $name, $last_name, $email, $type, $password)
+    {
+        $data['name'] = $name;
+        $data['last_name'] = $last_name;
+        $data['email'] = $email;
+        $data['type'] = $type;
+        $data['password'] = hash::make($password);
+        return User::create($data);
+    }
+
 
     /**
      * Create a new user by rol.
@@ -223,6 +247,21 @@ class UserController extends Controller
         $data['user_id'] = $user_id;
 
         $handler = new SendResetPasswordEmailHandler($data);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
+    {
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+
+        $handler = new SendResetPasswordEmailAdminHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

@@ -25,8 +25,7 @@ trait FieldTranslationTrait
             ->where('content_id', $this->id)
             ->where('content_type', self::class)
             ->with(['language'])
-            ->get()
-        ;
+            ->get();
         $languages = Language::query()->orderBy('main', 'DESC')->orderBy('id')->get(['iso', 'name', 'id']);
 
         $response = [];
@@ -66,7 +65,7 @@ trait FieldTranslationTrait
      */
     public function updateFieldTranslations(array $fieldTranslations)
     {
-        $language = Language::query()->where('iso', 'en')->first();
+        $language = Language::query()->where('iso', 'es')->first();
 
         foreach ($fieldTranslations as $field) {
             if ($field['iso'] == $language->iso) {
@@ -75,19 +74,18 @@ trait FieldTranslationTrait
 
                 foreach ($field['fields'] as $fieldTranslation) {
 
-                    if (! in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
+                    if (!in_array($fieldTranslation['field'], $this->fieldsToTranslate())) {
                         continue;
                     }
 
-                    $translation = FieldTranslation::where('content_id',$this->id)
+                    $translation = FieldTranslation::where('content_id', $this->id)
                         ->where('content_type', self::class)
                         ->where('field', $fieldTranslation['field'])
                         ->where('language_id', $language->id)
                         ->first();
 
                     if (
-                        ! $translation ||
-                        ($translation && $translation->translation !== $fieldTranslation['translation'])
+                        !$translation || ($translation && $translation->translation !== $fieldTranslation['translation'])
                     ) {
                         // No existe la traduccion || Existe y es distinta a la cargada
                         $this->translateFromApi($fieldTranslation['translation'] ?? '', $fieldTranslation['field']);
@@ -118,10 +116,10 @@ trait FieldTranslationTrait
                 ->firstOrNew([]);
 
             $trans = '';
-            if ($language->iso === 'en') {
+            if ($language->iso === 'es') {
                 $trans = $transText;
-            } elseif (! empty($transText)) {
-                $trans = TranslationService::trans($transText, 'en', $language->iso)['text'][0];
+            } elseif (!empty($transText)) {
+                $trans = TranslationService::trans($transText, 'es', $language->iso)['text'][0];
             }
 
             $translation->content_id = $this->id;
@@ -149,13 +147,13 @@ trait FieldTranslationTrait
                     foreach ($field['fields'] as $fieldTranslation) {
 
                         if (
-                            ! in_array($fieldTranslation['field'], $this->fieldsToTranslate()) ||
+                            !in_array($fieldTranslation['field'], $this->fieldsToTranslate()) ||
                             $fieldTranslation['field'] !== $fieldToSave
                         ) {
                             continue;
                         }
 
-                        $translation = FieldTranslation::where('content_id',$this->id)
+                        $translation = FieldTranslation::where('content_id', $this->id)
                             ->where('content_type', self::class)
                             ->where('field', $fieldTranslation['field'])
                             ->where('language_id', $language->id)

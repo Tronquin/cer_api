@@ -21,7 +21,7 @@ class UpdateUserHandler extends BaseHandler
             'data' => [],
         ];
 
-        if(!$usuario) return $response;
+        if (!$usuario) return $response;
 
         $usuario->name = $this->params['name'];
         $usuario->last_name = $this->params['last_name'];
@@ -66,5 +66,4 @@ class UpdateUserHandler extends BaseHandler
             'birthday' => 'required',*/
         ];
     }
-
 }

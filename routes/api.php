@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
 
@@ -10,11 +10,17 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
     Route::post('/email/confirmation_reserve', 'Admin\SendingEmailController@sendConfirmationReserve');
+    Route::post('admin/password/reset/{userId}', 'UserController@sendResetPasswordEmailAdmin');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
+    //Devuelve todos los usuarios
+    Route::get('user/index', 'UserController@index');
     // Actualizar Contraseña
     Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
-
+    //Eliminar Usuario
+    Route::delete('user/delete/{id}', 'UserController@delete');
+    //Crear Usuario
+    Route::put('user/create/{name}/{last_name}/{email}/{type}/{password}', 'UserController@store');
     Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
