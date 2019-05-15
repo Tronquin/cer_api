@@ -4,6 +4,7 @@ namespace App\Handler\Web;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\DB;
 use App\Typology;
+use App\Location;
 use App\Service\UploadImage;
 use App\Service\UrlGenerator;
 

@@ -33,7 +33,7 @@ class FindTypologyByLocationHandler extends BaseHandler {
                 $characteristics[] = $characteristic;
 
             }
-
+            $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
             $webOrErp['characteristics'] = $characteristics;

@@ -34,6 +34,7 @@ class SectionApartmentController extends Controller
                 $extra['precio'] = $extra->calcularIva($extra->base_imponible,$extra->iva_tipo);
                 $extra['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
                 $extra['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
+                $extra['fieldTranslations'] = $extra->fieldTranslations();
             }
         }
 

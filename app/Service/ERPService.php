@@ -154,7 +154,7 @@ class ERPService {
             'pagado' => $data['pago_extras'],
             'extras' => $data['extras']
         ]);
-
+        
         return $response;
     }
 
@@ -517,7 +517,7 @@ class ERPService {
      */
     public static function processPayment(array $data)
     {
-        $response = self::send('reservas/cobrarPago', $data);
+        $response = self::send('reservas/cobrarPagoMultiple', $data);
 
         return $response;
     }
