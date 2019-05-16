@@ -23,33 +23,33 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
         foreach ($this->params['oustandings'] as $extra) {
             $id = $extra['id'];
 
-            $location = Location::where('id',$this->params['location_id'])->firstOrFail();
+            $location = Location::where('id', $this->params['location_id'])->firstOrFail();
             $oustanding = ExtraOustanding::query()->findOrNew($id);
             $oustanding->location_id = $this->params['location_id'];
 
             $oustandings_Name = '';
-            foreach($extra['fieldTranslations'] as $iso){
-                if($iso['iso'] === 'en'){
-                    foreach($iso['fields'] as $oustandingsName){
-                        if($oustandingsName['field'] === 'name')
-                        $oustandings_Name = $oustandingsName['translation'];
+            foreach ($extra['fieldTranslations'] as $iso) {
+                if ($iso['iso'] === 'en') {
+                    foreach ($iso['fields'] as $oustandingsName) {
+                        if ($oustandingsName['field'] === 'name')
+                            $oustandings_Name = $oustandingsName['translation'];
                     }
                 }
             }
 
-            $front_image_name = $location->pais.'_'.$location->ciudad.'_oustandings_img_'.$oustandings_Name.'_';
-            $icon = $location->pais.'_'.$location->ciudad.'_oustandings_icon_'.$oustandings_Name.'_';
+            $front_image_name = $location->pais . '_' . $location->ciudad . '_oustandings_img_' . $oustandings_Name . '_';
+            $icon = $location->pais . '_' . $location->ciudad . '_oustandings_icon_' . $oustandings_Name . '_';
 
             if (isset($extra['photo'])) {
                 // Imagen
-                $path = UploadImage::upload($extra['photo'], 'extras/oustandings/',$front_image_name);
+                $path = UploadImage::upload($extra['photo'], 'extras/oustandings/', $front_image_name);
 
                 $oustanding->photo = $path;
             }
 
             if (isset($extra['icon'])) {
                 // Imagen
-                $path = UploadImage::upload($extra['icon'], 'extras/oustandings/icon/',$icon);
+                $path = UploadImage::upload($extra['icon'], 'extras/oustandings/icon/', $icon);
 
                 $oustanding->icon = $path;
             }
@@ -66,6 +66,11 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
                 $oustanding->document_name = $documentName;
             }
 
+            if (isset($extra['order'])) {
+                $order = $extra['order'];
+                $oustanding->order = $order;
+            }
+
             $data['fieldTranslations'] = $oustanding->fieldTranslations();
             $oustanding->save();
             $oustanding->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]);
@@ -79,7 +84,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
 
         // Elimino todas las secciones que no llegaron de front
         ExtraOustanding::query()->where('location_id', $this->params['location_id'])->whereNotIn('id', $oustandingsIds)->delete();
-            
+
         $response = [
             'res' => 1,
             'msg' => "Operación exitosa",
@@ -96,8 +101,6 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
      */
     protected function validationRules()
     {
-        return [
-            
-        ];
+        return [];
     }
 }
