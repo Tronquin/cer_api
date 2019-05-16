@@ -30,6 +30,7 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                 if ($location->ubicacion_id === $extra->ubicacion_id){
                     $extras[] = [
                         'id' => $extra->id,
+                        'extra_id' => $extra->extra_id,
                         'location_id' => $location->id,
                         'ubicacion_id' => $location->ubicacion_id,
                         'type' => $extra->type,

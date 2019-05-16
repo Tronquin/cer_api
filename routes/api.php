@@ -80,6 +80,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/user/{email}', 'UserController@find');
     // Registrar una reserva
     Route::post('/reservation/create', 'ReservationController@createReservation');
+    //busqueda de experiencia por idate
+    Route::get('/find/experienceById/{experiencie_id}', 'ExperienceController@find');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -118,12 +120,14 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
         Route::post('/edit/guest', 'ReservationController@updateGuestPassaport');
         // Envia al erp los datos modificados de la reserva al realizar el pago
         Route::post('/reservation/payment', 'ReservationController@reservationPayment');
-        // Envia al erp los datos modificados de la reserva al realizar el pago
+        // Genera las tasas de la reserva
         Route::post('/reservation/rate', 'ReservationController@generateRate');
         // Envia al erp los datos modificados de la reserva al realizar el pago
         Route::post('/persistence/service', 'ReservationController@reservationServicePersistence');
-        // Envia al erp los datos modificados de la reserva al realizar el pago
+        // agrega extras a una reserva y los persiste en cer-api
         Route::post('/persistence/oneservice', 'ReservationController@oneServicePeristence');
+        // agrega varios extras a varias reservas cobra por la pasarela de pago y los persiste en cer-api
+        Route::post('/persistence/multiservice', 'ReservationController@multiServicePeristence');
         // guarda el feedback de la reserva
         Route::post('/reservation/feedback', 'ReservationController@reservationFeedback');
         // guarda el numero de llaves entregadas
