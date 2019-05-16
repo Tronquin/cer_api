@@ -1,0 +1,30 @@
+<?php 
+
+return[ 
+
+                    "emails.confirmacionreserva.title" => "Confirmation of Booking",
+                    "emails.confirmacionreserva.checkin" => "Check-In",
+                    "emails.confirmacionreserva.checkout" => "Check-Out",
+                    "emails.confirmacionreserva.localizadorreserva" => "Booking reference",
+                    "emails.confirmacionreserva.nombre" => "Name",
+                    "emails.confirmacionreserva.pax" => "Pax",
+                    "emails.confirmacionreserva.apartamento" => "Apartment",
+                    "emails.confirmacionreserva.tipodeapartamento" => "Type of Apartment",
+                    "emails.confirmacionreserva.tipoderegimen" => "Type of Regime",
+                    "emails.confirmacionreserva.experiencia" => "Experience",
+                    "emails.confirmacionreserva.portal" => "Portal",
+                    "emails.confirmacionreserva.politicadecancelacion" => "Cancellation policy",
+                    "emails.confirmacionreserva.queincluyemiexp" => "That includes my experience?",
+                    "emails.confirmacionreserva.resumendpago" => "Payment summary",
+                    "emails.confirmacionreserva.serviciosextras" => "Extra Services",
+                    "emails.confirmacionreserva.total" => "Total",
+                    "emails.confirmacionreserva.ivaincluido" => "vat included",
+                    "emails.confirmacionreserva.online" => "Online",
+                    "emails.confirmacionreserva.direccion" => "Address",
+                    "emails.confirmacionreserva.ubicarenmapa" => "Locate in the map",
+                    "emails.confirmacionreserva.tienesdudas" => "Do you have questions?",
+                    "emails.confirmacionreserva.contactanos" => "Contact us",
+                    "emails.confirmacionreserva.siguenosenredes" => "Follow us on our networks",
+                    "emails.confirmacionreserva.descargaapp" => "Download our App",
+                    "emails.confirmacionreserva.descripcion" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhfssfsfsg euisfsmod tincidunt laoreet dolore magna aliquam.",
+];

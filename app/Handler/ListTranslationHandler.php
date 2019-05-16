@@ -40,36 +40,83 @@ class ListTranslationHandler extends BaseHandler {
 
             $keyTranslations =  $lang->keyTranslations()->where('device_type_id', $deviceType->id)->get();
             $data = '';
+            $do_it = 0;
             foreach ($keyTranslations as $keyTranslation) {
                 $temp['translations'][] = [
                     'key' => $keyTranslation->key,
                     'value' => $keyTranslation->pivot->translation
                 ];
-                $trans = '"'.$keyTranslation->key.'" => "'.$keyTranslation->pivot->translation.'",';
-                
-                $data = $data.'
-                '.$trans;
-                
+                $key_email = explode('emails',$keyTranslation->key);
+                $traduccion = $keyTranslation->pivot->translation;
+                if(count($key_email) > 1){
+                    $key = $keyTranslation->key;
+                    $limpiar_traduccion = explode('"',$keyTranslation->pivot->translation);
+                    $traduccion = count($limpiar_traduccion);
+                    
+                    if($traduccion%2 ===0){
+                        $traduccion = $keyTranslation->pivot->translation.'"';
+                    }else{
+                        $traduccion = $keyTranslation->pivot->translation;
+                    }
+
+                    $traduccion = $keyTranslation->pivot->translation;
+                    $trans = '"'.$keyTranslation->key.'" => "'.$traduccion.'",';
+                    
+                    $data = $data.'
+                    '.$trans;
+
+                    $do_it = 1;
+                }
             }
 
             $response[] = $temp;
 
             /** CREAMOS LOS ARCHIVO LANG */
-            $directorio = env('APP_URL').'/resources/lang/'.$lang->iso; 
-            /*//dump(file_exists($directorio),$lang->iso,$directorio);
-            if(file_exists($directorio))
-            {
-                $mensaje = "El Directorio $directorio se ha modificado";
-                dump($mensaje);
-            }
-            else
-            {
+            if($do_it === 1){
+                $path = public_path();
+                $directorio = explode('/public',$path);
+                
+                $directorio = $directorio[0].'/resources/lang/'.$lang->iso; 
+                $file = $directorio.'/emails.php'; 
                 $content = "<?php \n\nreturn[ \n$data\n];";
 
-                $mensaje = "El Directorio $directorio se ha creado";
-                Storage::disk('languages')->put('lang/'.$lang->iso.'/emails.php', $content);
-                //dump(Storage::disk('local'),Storage::disk('local')->put($directorio, $mensaje));
-            }*/
+                if(file_exists($directorio))
+                {
+                    $mensaje = "El Directorio $directorio se ha modificado";
+                    unlink($file);
+                    if($archivo = fopen($file, "a"))
+                    {
+                        if(fwrite($archivo,$content))
+                        {
+                            echo "Se ha ejecutado correctamente";
+                        }
+                        else
+                        {
+                            echo "Ha habido un problema al crear el archivo";
+                        }
+                
+                        fclose($archivo);
+                    }
+                }
+                else
+                {
+
+                    mkdir($path.'../../resources/lang/'.$lang->iso,0777,true);
+                    if($archivo = fopen($file, "a"))
+                    {
+                        if(fwrite($archivo,$content))
+                        {
+                            echo "Se ha ejecutado correctamente";
+                        }
+                        else
+                        {
+                            echo "Ha habido un problema al crear el archivo";
+                        }
+                
+                        fclose($archivo);
+                    }
+                }
+            }
         }
 
         return $response;

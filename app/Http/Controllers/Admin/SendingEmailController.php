@@ -20,11 +20,13 @@ class SendingEmailController extends Controller
     public function sendConfirmationReserve(Request $request){
 
         $data = $request->all();
+        \App::setLocale($data['iso']);
         $handler = new SendConfirmationReserveHandler($data);
         $handler->processHandler();
         $data = $handler->getData();
+        
         if ($handler->isSuccess()) {
-            return view('email.confirmacionReserva', ['data' => $data['data']]);
+            \App::setLocale('es');
             return new JsonResponse($handler->getData());
         }
 

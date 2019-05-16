@@ -67,7 +67,7 @@
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                         <td style="padding: 5px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; color: #555555;">
-                            <h1 style="margin: 0 0 10px; text-align: center; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;padding-left: 30px;">Confirmación de Reserva</h1>
+                            <h1 style="margin: 0 0 10px; text-align: center; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;padding-left: 30px;">{{ trans('emails.emails.confirmacionreserva.title') }}</h1>
                         </td>
                     </tr>
                 </table>
@@ -87,7 +87,7 @@
                                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">                              
                                                     <tr>
                                                         <td style="color: #fff;font-size: 28px;font-family: 'rawline', sans-serif;font-weight: 600;padding-top:10px">
-                                                            <span>Check - In</span>
+                                                            <span>{{ trans('emails.emails.confirmacionreserva.checkin') }}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -107,7 +107,7 @@
                                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">                              
                                                     <tr>
                                                         <td style="color: #fff;font-size: 28px;font-family: 'rawline', sans-serif;font-weight: 600;padding-top:10px">
-                                                            <span>Check - Out</span>
+                                                            <span>{{ trans('emails.emails.confirmacionreserva.checkout') }}</span>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -142,7 +142,7 @@
                     <tr>
                         <td style="background-color: #8E071C;border-top-left-radius:0.2rem;border-bottom-left-radius:0.2rem">
                             <div style="padding:0px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Localizador de Reserva</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.localizadorreserva') }}</span>
                             </div>
                         </td>
                         <td style="background-color: #8E071C;border-top-right-radius:0.2rem;border-bottom-right-radius:0.2rem">
@@ -160,7 +160,7 @@
                     <tr>
                         <td style="background-color: darkgray;border-top-left-radius:0.2rem;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Nombre</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.nombre') }}</span>
                             </div>
                         </td>
                         <td style="background-color: darkgray;border-top-right-radius:0.2rem;">
@@ -172,7 +172,7 @@
                     <tr>
                         <td style="background-color: gray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">N° pax</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">N° {{ trans('emails.emails.confirmacionreserva.pax') }}</span>
                             </div>
                         </td>
                         <td style="background-color: gray;">
@@ -184,7 +184,7 @@
                     <tr>
                         <td style="background-color: darkgray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Apartamento</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.apartamento') }}</span>
                             </div>
                         </td>
                         <td style="background-color: darkgray;">
@@ -196,7 +196,7 @@
                     <tr>
                         <td style="background-color: gray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Tipo de apartamento</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.tipodeapartamento') }}</span>
                             </div>
                         </td>
                         <td style="background-color: gray;">
@@ -208,7 +208,7 @@
                     <tr>
                         <td style="background-color: darkgray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Tipo de regimen</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.tipoderegimen') }}</span>
                             </div>
                         </td>
                         <td style="background-color: darkgray;">
@@ -220,7 +220,7 @@
                     <tr>
                         <td style="background-color: gray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Experiencia</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.experiencia') }}</span>
                             </div>
                         </td>
                         <td style="background-color: gray;">
@@ -232,7 +232,7 @@
                     <tr>
                         <td style="background-color: darkgray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Portal</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.portal') }}</span>
                             </div>
                         </td>
                         <td style="background-color: darkgray;">
@@ -244,7 +244,7 @@
                     <tr>
                         <td style="background-color: gray;border-bottom-left-radius:0.2rem">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Política de cancelación</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.politicadecancelacion') }}</span>
                             </div>
                         </td>
                         <td style="background-color: gray;;border-bottom-right-radius:0.2rem">
@@ -262,7 +262,7 @@
                     <tr>
                         <td style="background-color: #ED9C28;border-top-left-radius:0.2rem;border-radius:2rem">
                             <div style="padding:0px 10px 10px 10px;font-size: 30px;text-align:center; font-family: 'rawline', sans-serif; font-weight: 700;">
-                                <span style="text-align: center;color: #151515; font-size: 20px; font-family: 'rawline', sans-serif;font-weight: Light;">¿Que incluye mi experiencia?</span>
+                                <span style="text-align: center;color: #151515; font-size: 20px; font-family: 'rawline', sans-serif;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.queincluyemiexp') }}</span>
                             </div>
                         </td>
                     </tr>
@@ -330,7 +330,7 @@
                     <tr>
                         <td style="background-color: gray;border-top-left-radius:0.2rem;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('auth.failed') }}</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.resumendpago') }}</span>
                             </div>
                         </td>
                         <td style="background-color: gray;border-top-right-radius:0.2rem;">
@@ -367,7 +367,7 @@
                     <tr >
                         <td style="background-color: darkgray;">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Servicios Extra</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.serviciosextras') }}</span>
                             </div>
                         </td>
                         <td style="background-color: darkgray;">
@@ -402,7 +402,7 @@
                     <tr>
                         <td style="background-color: gray;border-bottom-left-radius:0.2rem">
                             <div style="padding:5px 10px 10px 10px;float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 800;">
-                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">Total <span><span style="font-weight: 400;">(iva incluido)</span>
+                                <span style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.total') }} <span><span style="font-weight: 400;">({{ trans('emails.emails.confirmacionreserva.ivaincluido') }})</span>
                             </div>
                         </td>
                         <td style="background-color: gray;;border-bottom-right-radius:0.2rem">
@@ -420,7 +420,7 @@
                     <tr>
                         <td style="background-color: #ED9C28;border-top-left-radius:0.2rem;border-radius:2rem">
                             <div style="padding:5px 10px 10px 10px;font-size: 30px;text-align:center; font-family: 'rawline', sans-serif; font-weight: 700;">
-                                <a href=""><span style="text-align: center;color: #151515; font-size: 20px; font-family: 'rawline', sans-serif;font-weight: Light;">Check - In Online</span></a>
+                                <a href=""><span style="text-align: center;color: #151515; font-size: 20px; font-family: 'rawline', sans-serif;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.checkin') }} {{ trans('emails.emails.confirmacionreserva.online') }}</span></a>
                             </div>
                         </td>
                     </tr>
@@ -433,7 +433,7 @@
                     <tr>
                         <td style="padding: 5px 40px;">
                             <div style="font-size: 20px;text-align:left; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                <p style="text-align: left;color: #FFF; font-size: 16px; font-family: 'rawline', sans-serif;font-weight: Light;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhfssfsfsg euisfsmod tincidunt laoreet dolore magna aliquam.</p>
+                                <p style="text-align: left;color: #FFF; font-size: 16px; font-family: 'rawline', sans-serif;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.descripcion') }}</p>
                             </div>
                         </td>
                     </tr>
@@ -452,7 +452,7 @@
                     <tr>
                         <td style="padding: 10px 40px;">
                             <div style="margin-bottom:-3px;padding:0px 30px 0px 0px; float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600;">
-                                <div style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Bold;">Dirección</div>
+                                <div style="text-align: left;color: #FFF; font-size: 20px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Bold;">{{ trans('emails.emails.confirmacionreserva.direccion') }}</div>
                             </div>
                             <div style="float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 400;">
                                 <div style="text-align: left;color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ $data['reserva']['ubicacion']['direccion'] }}</div>
@@ -460,7 +460,7 @@
                         </td>
                         <td style="padding: 10px 40px;">
                             <div style="float: right;text-align: right; font-size: 30px;font-family: 'rawline', sans-serif;font-weight: 600;">
-                            <a href="#"><span style="text-align: right;color: #ED9C28; font-size: 20px; font-family: 'rawline', sans-serif; text-align: right;font-weight: Light;">Ubicar en el mapa</span></a>
+                            <a href="#"><span style="text-align: right;color: #ED9C28; font-size: 20px; font-family: 'rawline', sans-serif; text-align: right;font-weight: Light;">{{ trans('emails.emails.confirmacionreserva.ubicarenmapa') }}</span></a>
                             </div>
                         </td>
                     </tr>

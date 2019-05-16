@@ -1,0 +1,30 @@
+<?php 
+
+return[ 
+
+                    "emails.confirmacionreserva.title" => "Confirmacion de Reserva",
+                    "emails.confirmacionreserva.checkin" => "Check-In",
+                    "emails.confirmacionreserva.checkout" => "Check-Out",
+                    "emails.confirmacionreserva.localizadorreserva" => "Localizador de Reserva",
+                    "emails.confirmacionreserva.nombre" => "Nombre",
+                    "emails.confirmacionreserva.pax" => "Pax",
+                    "emails.confirmacionreserva.apartamento" => "Apartamento",
+                    "emails.confirmacionreserva.tipodeapartamento" => "Tipo de Apartamento",
+                    "emails.confirmacionreserva.tipoderegimen" => "Tipo de Regimen",
+                    "emails.confirmacionreserva.experiencia" => "Experiencia",
+                    "emails.confirmacionreserva.portal" => "Portal",
+                    "emails.confirmacionreserva.politicadecancelacion" => "Politica de Cancelación",
+                    "emails.confirmacionreserva.queincluyemiexp" => "Que incluye mi experiencia?",
+                    "emails.confirmacionreserva.resumendpago" => "Resumen de Pago",
+                    "emails.confirmacionreserva.serviciosextras" => "Servicios Extras",
+                    "emails.confirmacionreserva.total" => "Total",
+                    "emails.confirmacionreserva.ivaincluido" => "iva incluido",
+                    "emails.confirmacionreserva.online" => "Online",
+                    "emails.confirmacionreserva.direccion" => "Dirección",
+                    "emails.confirmacionreserva.ubicarenmapa" => "Ubicar en el mapa",
+                    "emails.confirmacionreserva.tienesdudas" => "¿Tienes dudas?",
+                    "emails.confirmacionreserva.contactanos" => "Contáctanos",
+                    "emails.confirmacionreserva.siguenosenredes" => "Siguenos en nuestras redes",
+                    "emails.confirmacionreserva.descargaapp" => "Descarga nuestra App",
+                    "emails.confirmacionreserva.descripcion" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhfssfsfsg euisfsmod tincidunt laoreet dolore magna aliquam.",
+];

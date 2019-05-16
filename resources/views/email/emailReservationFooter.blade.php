@@ -19,7 +19,7 @@
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                             <tr>
                                 <td style="color: #FFF;padding-bottom: 20px;">
-                                    <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">¿Tienes dudas? Contáctanos</p>
+                                    <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.tienesdudas') }} {{ trans('emails.emails.confirmacionreserva.contactanos') }}</p>
                                     <div style="padding-bottom: 20px;">
                                         <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                     </div>
@@ -32,11 +32,11 @@
                                 <td style="color: #fff;padding-top: 10px;">
                                     <div style="margin: 0;">
                                         <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                            <div style="padding-bottom: 10px;">Síguenos en nuestras redes</div>
+                                            <div style="padding-bottom: 10px;">{{ trans('emails.emails.confirmacionreserva.siguenosenredes') }}</div>
                                             <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                         </div>
                                         <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                            <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">Descarga nuestra App</span> <br>
+                                            <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.descargaapp') }}</span> <br>
                                             <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                             <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                         </div>

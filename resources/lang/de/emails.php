@@ -1,0 +1,30 @@
+<?php 
+
+return[ 
+
+                    "emails.confirmacionreserva.title" => "Die bestätigung der Buchung",
+                    "emails.confirmacionreserva.checkin" => "Check-In",
+                    "emails.confirmacionreserva.checkout" => "Check-Out",
+                    "emails.confirmacionreserva.localizadorreserva" => "Buchungsnummer",
+                    "emails.confirmacionreserva.nombre" => "Name",
+                    "emails.confirmacionreserva.pax" => "Pax",
+                    "emails.confirmacionreserva.apartamento" => "Wohnung",
+                    "emails.confirmacionreserva.tipodeapartamento" => "Art der Wohnung",
+                    "emails.confirmacionreserva.tipoderegimen" => "Art von Regime",
+                    "emails.confirmacionreserva.experiencia" => "Erfahrung",
+                    "emails.confirmacionreserva.portal" => "Portal",
+                    "emails.confirmacionreserva.politicadecancelacion" => "Stornobedingungen",
+                    "emails.confirmacionreserva.queincluyemiexp" => "Enthält meine erfahrung?",
+                    "emails.confirmacionreserva.resumendpago" => "Zusammenfassung Aufpreis",
+                    "emails.confirmacionreserva.serviciosextras" => "Extra-Dienstleistungen",
+                    "emails.confirmacionreserva.total" => "Insgesamt",
+                    "emails.confirmacionreserva.ivaincluido" => "mwst",
+                    "emails.confirmacionreserva.online" => "Online",
+                    "emails.confirmacionreserva.direccion" => "Adresse",
+                    "emails.confirmacionreserva.ubicarenmapa" => "Suchen sie auf der karte",
+                    "emails.confirmacionreserva.tienesdudas" => "Haben sie fragen?",
+                    "emails.confirmacionreserva.contactanos" => "Kontaktieren sie uns",
+                    "emails.confirmacionreserva.siguenosenredes" => "Folgen sie uns in unseren netzwerken",
+                    "emails.confirmacionreserva.descargaapp" => "Laden sie sich unsere App",
+                    "emails.confirmacionreserva.descripcion" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhfssfsfsg euisfsmod tincidunt laoreet dolore magna aliquam.",
+];

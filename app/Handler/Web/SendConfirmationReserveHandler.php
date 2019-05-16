@@ -63,10 +63,10 @@ class SendConfirmationReserveHandler extends BaseHandler
         }
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
-        $data['lang'] = $this->params['lang'];
+        $data['lang'] = $this->params['iso'];
         $emailInstance = new BaseMail('email.confirmacionReserva', [$data['reserva']['cliente']['email']], ['data' => $data]);
 
-        //Mail::send($emailInstance);
+        Mail::send($emailInstance);
             
         $response = [
             'res' => 1,
