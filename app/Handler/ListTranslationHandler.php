@@ -70,53 +70,6 @@ class ListTranslationHandler extends BaseHandler {
             }
 
             $response[] = $temp;
-
-            /** CREAMOS LOS ARCHIVO LANG */
-            if($do_it === 1){
-                $path = public_path();
-                $directorio = explode('/public',$path);
-                
-                $directorio = $directorio[0].'/resources/lang/'.$lang->iso; 
-                $file = $directorio.'/emails.php'; 
-                $content = "<?php \n\nreturn[ \n$data\n];";
-
-                if(file_exists($directorio))
-                {
-                    $mensaje = "El Directorio $directorio se ha modificado";
-                    unlink($file);
-                    if($archivo = fopen($file, "a"))
-                    {
-                        if(fwrite($archivo,$content))
-                        {
-                            echo "Se ha ejecutado correctamente";
-                        }
-                        else
-                        {
-                            echo "Ha habido un problema al crear el archivo";
-                        }
-                
-                        fclose($archivo);
-                    }
-                }
-                else
-                {
-
-                    mkdir($path.'../../resources/lang/'.$lang->iso,0777,true);
-                    if($archivo = fopen($file, "a"))
-                    {
-                        if(fwrite($archivo,$content))
-                        {
-                            echo "Se ha ejecutado correctamente";
-                        }
-                        else
-                        {
-                            echo "Ha habido un problema al crear el archivo";
-                        }
-                
-                        fclose($archivo);
-                    }
-                }
-            }
         }
 
         return $response;
