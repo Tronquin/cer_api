@@ -3,6 +3,7 @@ namespace App\Handler;
 
 use App\Service\UrlGenerator;
 use App\SpaInfo;
+use App\Language;
 
 class GetSpaInfoHandler extends BaseHandler
 {
@@ -18,8 +19,6 @@ class GetSpaInfoHandler extends BaseHandler
             ->where('location_id',$this->params['location_id'])
             ->first();
 
-        $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
-        
         if (! $spaInfo) {
             $spaInfo = new SpaInfo();
             $spaInfo->photo = null;
@@ -33,8 +32,11 @@ class GetSpaInfoHandler extends BaseHandler
                     }
                 }
             }
+            $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
+        }else{
+            $spaInfo->fieldTranslations = $spaInfo->fieldTranslations();
         }
-
+        
         if ($spaInfo->photo) {
             $spaInfo->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $spaInfo->photo)]);
         }

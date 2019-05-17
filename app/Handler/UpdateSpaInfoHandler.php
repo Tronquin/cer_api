@@ -17,7 +17,7 @@ class UpdateSpaInfoHandler extends BaseHandler
     {
         $spaInfo = SpaInfo::query()->firstOrNew(['location_id' => $this->params['location_id']]);
 
-        $spa_info_name = '';
+        $spa_info = '';
         foreach($this->params['fieldTranslations'] as $iso){
             if($iso['iso'] === 'es'){
                 foreach($iso['fields'] as &$spaInfoName){
@@ -25,12 +25,12 @@ class UpdateSpaInfoHandler extends BaseHandler
                         if($spaInfoName['translation'] === '' || $spaInfoName['translation'] === null)
                         $spaInfoName['translation'] = 'SPA AND GYM';
                         
-                        $spa_info_name = $spaInfoName['translation'];
+                        $spa_info = $spaInfoName['translation'];
                     }
                 }
             }
         }
-        $SpaInfophoto = 'spaInfo_img_'.$spa_info_name.'_';
+        $SpaInfophoto = 'spaInfo_img_'.$spa_info.'_';
         
         if (isset($this->params['photo'])) {
             // Imagen
@@ -108,7 +108,7 @@ class UpdateSpaInfoHandler extends BaseHandler
         }
         
         // Elimino todas las secciones que no llegaron de front
-        SpaSection::query()->whereNotIn('id', $sectionIds)->delete();
+        SpaSection::query()->where('spa_info_id',$spaInfo->id)->whereNotIn('id', $sectionIds)->delete();
 
         $response = [
             'res' => 1,
