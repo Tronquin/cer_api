@@ -41,7 +41,7 @@ class MultiServicePersistenceHandler extends BaseHandler {
             $extras[] = $response['data']['extras'];
             $pagos[] = $response['data']['pago'];
 
-            $reservation = Reservation::query()->where('reserva_id_erp', $this->params['data']['reserva_id'])->first();
+            $reservation = Reservation::query()->where('reserva_id_erp', $apartamento['reserva_id_erp'])->first();
             EmailService::sendHiredService($reservation);
         }
         

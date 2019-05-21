@@ -20,17 +20,20 @@ class BaseMail extends Mailable
     public $view;
     public $recipients;
     public $params;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @param string $view
+     * @param string $subject
      * @param array $recipients
      * @param array $params
      */
-    public function __construct($view, array $recipients, array $params)
+    public function __construct($view, $subject, array $recipients, array $params)
     {
         $this->view = $view;
+        $this->subject = $subject;
         $this->recipients = $recipients;
         $this->params = $params;
     }
@@ -42,6 +45,9 @@ class BaseMail extends Mailable
      */
     public function build()
     {
-        return $this->view($this->view, $this->params)->to($this->recipients);
+        return $this->view($this->view, $this->params)
+            ->subject($this->subject)
+            ->to($this->recipients)
+        ;
     }
 }

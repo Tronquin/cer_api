@@ -21,13 +21,15 @@ class EmailService
      * Envia un correo a cola
      *
      * @param string $view
+     * @param string $subject
      * @param array $recipients
      * @param array $params
      */
-    public static function send($view, array $recipients, array $params = [])
+    public static function send($view, $subject, array $recipients, array $params = [])
     {
         $emailSpooler = new EmailSpooler();
         $emailSpooler->view = $view;
+        $emailSpooler->subject = $subject;
         $emailSpooler->recipients = json_encode($recipients);
         $emailSpooler->params = json_encode($params);
         $emailSpooler->status = EmailSpooler::STATUS_PENDING;
@@ -50,7 +52,7 @@ class EmailService
 
         $reservation->experience->fieldTranslations = $reservation->experience->fieldTranslations();
         $experienceName = '';
-        foreach ($reservation->experience->fieldTranslation as $fieldTranslation) {
+        foreach ($reservation->experience->fieldTranslations as $fieldTranslation) {
             if ($fieldTranslation['iso'] === 'es') {
                 foreach ($fieldTranslation['fields'] as $field) {
                     if ($field['field'] === 'nombre') {
@@ -78,18 +80,20 @@ class EmailService
             }
             $services[] = [
                 'name' => $extraName,
-                'amount' => $extra['precio']
+                'amount' => $extra['precio']['total']
             ];
         }
 
-        self::send('email.hiredService', [$reservation->user->email], [
-            'locator' => $reservation->localizador_erp,
-            'name' => $reservation->user->name . ' ' . $reservation->user->last_name,
-            'apartment' => $reservation->apartment->nombre,
-            'experience' => $experienceName,
-            'cancellationPolicy' => $cancellationPolicy,
-            'services' => $services,
-            'status' => 'Pagado'
+        self::send('email.hiredServices', 'Servicios contradados', [$reservation->user->email], [
+            'data' => [
+                'locator' => $reservation->localizador_erp,
+                'name' => $reservation->user->name . ' ' . $reservation->user->last_name,
+                'apartment' => $reservation->apartment->nombre,
+                'experience' => $experienceName,
+                'cancellationPolicy' => $cancellationPolicy,
+                'services' => $services,
+                'status' => 'Pagado'
+            ]
         ]);
     }
 }

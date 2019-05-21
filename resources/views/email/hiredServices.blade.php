@@ -249,7 +249,7 @@
         <!-- Hero Image, Flush : BEGIN -->
         <tr>
             <td valign="top"
-                style=" background-image: url('storage/image/email-hiredService-Fotos-Servicios_extra_02.jpg');
+                style=" background-image: url('{{ url('storage/image/email-hiredService-Fotos-Servicios_extra_02.jpg') }}');
                             background-position: center center !important;
                             padding: 0px 40px;
                             display: flex; align-items: flex-end;
