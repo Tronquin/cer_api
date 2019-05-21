@@ -6,7 +6,7 @@ use App\ReservationPersistence;
 use App\Service\ERPService;
 use App\Status;
 use App\Mail\BaseMail;
-use Illuminate\Support\Facades\Mail;
+use App\Service\EmailService;
 use App\Handler\AvailabilityServiceHandler;
 use App\Handler\FindExperiencesHandler;
 
@@ -61,9 +61,7 @@ class CheckoutHandler extends BaseHandler {
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['data']['iso'];
         
-        $emailInstance = new BaseMail('email.checkout', [$response['data']['reserva']['cliente']['email']], ['data' => $data]);
-
-        Mail::send($emailInstance);
+        EmailService::send('email.checkout',[$response['data']['reserva']['cliente']['email']],['data' => $data]);
 
         return $response;
     }

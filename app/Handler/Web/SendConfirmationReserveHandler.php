@@ -6,7 +6,6 @@ use App\Handler\FindExperienceHandler;
 use App\Service\EmailService;
 use App\Service\ERPService;
 use App\Mail\BaseMail;
-use Illuminate\Support\Facades\Mail;
 use App\Handler\AvailabilityServiceHandler;
 
 class SendConfirmationReserveHandler extends BaseHandler
@@ -64,9 +63,8 @@ class SendConfirmationReserveHandler extends BaseHandler
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['iso'];
-        $emailInstance = new BaseMail('email.confirmacionReserva', [$data['reserva']['cliente']['email']], ['data' => $data]);
 
-        Mail::send($emailInstance);
+        EmailService::send('email.confirmacionReserva',[$data['reserva']['cliente']['email']],['data' => $data]);
             
         $response = [
             'res' => 1,

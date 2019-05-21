@@ -334,7 +334,7 @@
                                             @endif
                                         @endforeach
                                         <div style="display: flex; font-weight:bold;align-items: center; float:left; width: 33%;justify-content:center;border-right: 1px solid #959799">1</div>
-                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $data['total_reserva'] - $data['reserva']['total_extras_contratados'] }}</div>
+                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $data['total_reserva'] - $data['reserva']['total_extras_contratados'] }} €</div>
                                     </div>
                                 </td>
                             </tr>
@@ -352,7 +352,7 @@
                                             @endif
                                         @endforeach
                                         <div style="display: flex; font-weight:bold;align-items: center; float:left; width: 33%;justify-content:center;border-right: 1px solid #959799">{{ $extra['cantidad'] }}</div>
-                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $extra['precio']['total'] }}</div>
+                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $extra['precio']['total'] }} €</div>
                                     </div>
                                 </td>
                             </tr>
@@ -362,7 +362,7 @@
                                     <div style="margin: 0; background-color: #56595A; padding: 0 15px 0 15px; height: 55px; display: flex;">
                                         <div style="float: left;display: flex; text-align: left;align-items: center; width: 34%;border-right: 1px solid #959799;">Total (IVA incluido)</div>
                                         <div style="display: flex; font-weight:bold;align-items: center; float:left; width: 33%;justify-content:center;border-right: 1px solid #959799"></div>
-                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $data['total_reserva'] }}</div>
+                                        <div style="float: left;display: flex;align-items: center; width: 32%; font-weight: bold;justify-content: center;">{{ $data['total_reserva'] }} €</div>
                                     </div>
                                 </td>
                             </tr>

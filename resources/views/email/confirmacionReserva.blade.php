@@ -10,7 +10,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>Confirmación de Reserva</title>
+    <title>{{ trans('emails.emails.confirmacionreserva.title') }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -511,7 +511,7 @@
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #959799">
                                         <div style="float: left;">{{ $data['reserva']['experiencia']['nombre'] }}</div>
-                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] - $data['reserva']['total_extras_contratados'] }}</div>
+                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] - $data['reserva']['total_extras_contratados'] }} €</div>
                                     </div>
                                 </td>
                             </tr>

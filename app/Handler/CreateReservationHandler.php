@@ -12,6 +12,7 @@ use App\Session;
 use Illuminate\Support\Facades\Hash;
 use App\ReservationServicePersistence;
 use App\Service\EmailService;
+use App\Handler\Web\SendConfirmationReserveHandler;
 
 /**
  * Registra una reservacion en el ERP
