@@ -64,20 +64,22 @@ class CreateReservationHandler extends BaseHandler
         
         foreach($response['data'] as $reservation_client){
             \App::setLocale($reservation_client['iso']);
-            $email_data = [];
-            $email_data['reserva_id'] = $reservation_client['reserva']['id'];
-            $email_data['iso'] = $reservation_client['iso'];
-            $handler = new SendConfirmationReserveHandler($email_data);
-            $handler->processHandler();
-            $data = $handler->getData();
-            
-            if (!$handler->isSuccess()) {
+            if($reservation_client['sendEmail'] === 1){
+                $email_data = [];
+                $email_data['reserva_id'] = $reservation_client['reserva']['id'];
+                $email_data['iso'] = $reservation_client['iso'];
+                $handler = new SendConfirmationReserveHandler($email_data);
+                $handler->processHandler();
+                $data = $handler->getData();
                 
-                return $response = [
-                    'res' => 0,
-                    'msg' => "Error al enviar email confirmacion reserva",
-                    'data' => []
-                ];
+                if (!$handler->isSuccess()) {
+                    
+                    return $response = [
+                        'res' => 0,
+                        'msg' => "Error al enviar email confirmacion reserva",
+                        'data' => []
+                    ];
+                }
             }
             \App::setLocale('es');
 
