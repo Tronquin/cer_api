@@ -446,15 +446,15 @@
                                                 
                                                 @if($i === 0)
                                                 <div style="float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; margin-right: 17px;">
-                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === 'http://www.cer-api.test/storage/image')
+                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === $data['base_url'].'storage/image')
                                                     <img src="{{ asset('storage/image/emails-confirmacionReserva-Acceso_al_spa.jpg') }}" width="250" >
                                                     @else
-                                                    <img src="{{ asset('storage/image/emails-confirmacionReserva-Acceso_al_spa.jpg') }}" width="250" >
+                                                    <img src="{{ $data['reserva']['experiencia']['extras'][$i]['front_image'] }}" width="250" >
                                                     @endif
                                                     <img style="position:absolute;margin:-205px 0px 0px 10px;" src="{{ asset('storage/image/emails-confirmacionReserva-Recommended.svg') }}" width="60" > 
                                                 @else
                                                 <div style="float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px;">
-                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === 'http://www.cer-api.test/storage/image')
+                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === $data['base_url'].'storage/image')
                                                     <img src="{{ asset('storage/image/emails-confirmacionReserva-Acceso_al_spa.jpg') }}" width="250" >
                                                     @else
                                                     <img src="{{ $data['reserva']['experiencia']['extras'][$i]['front_image'] }}" width="250" >
@@ -510,7 +510,15 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #959799">
-                                        <div style="float: left;">{{ $data['reserva']['experiencia']['nombre'] }}</div>
+                                        @foreach ($data['reserva']['experiencia']['fieldTranslations'] as $iso)
+                                            @if($iso['iso'] === $data['lang'])
+                                                @foreach($iso['fields']  as $translation)
+                                                    @if($translation['field'] === 'nombre')
+                                                    <div style="float: left;">{{ $translation['translation'] }}</div>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] - $data['reserva']['total_extras_contratados'] }} €</div>
                                     </div>
                                 </td>
@@ -567,7 +575,7 @@
                     <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                         <tr>
                             <td class="button-td button-td-primary">
-                                <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.checkin') }} {{ trans('emails.emails.confirmacionreserva.online') }}</a>
+                                <a class="button-a button-a-primary" href="{{ $data['web_url'] }}" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.checkin') }} {{ trans('emails.emails.confirmacionreserva.online') }}</a>
                             </td>
                         </tr>
                     </table>

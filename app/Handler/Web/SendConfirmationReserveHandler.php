@@ -33,8 +33,9 @@ class SendConfirmationReserveHandler extends BaseHandler
         $experiencia = $handler->getData();
         $data['reserva']['experiencia'] = $experiencia['data'];
         $extras_price = 0;
-        foreach($data['reserva']['experiencia']['extras'] as $extra){
+        foreach($data['reserva']['experiencia']['extras'] as &$extra){
             $extras_price = $extras_price + $extra['precio']['total'];
+            $extra['precio']['total'] = round($extra['precio']['total']);
         }
 
         $fecha_entrada = explode(" ",$data['reserva']['fecha_entrada']);
@@ -63,6 +64,8 @@ class SendConfirmationReserveHandler extends BaseHandler
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['iso'];
+        $data['base_url'] = env('APP_URL');
+        $data['web_url'] = env('WEB_URL_BASE').'es/checkin/ListReserve/'.$data['reserva']['id'];
 
         EmailService::send('email.confirmacionReserva','Confirmacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
             
