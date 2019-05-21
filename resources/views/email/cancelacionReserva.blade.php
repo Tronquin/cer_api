@@ -10,7 +10,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>{{ trans('emails.emails.confirmacionreserva.title') }}</title>
+    <title>Cancelación de Reserva</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -244,11 +244,11 @@
         <!-- Preview Text Spacing Hack : END -->
 
         <!-- Email Body : BEGIN -->
-        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">
+        <table valign="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">
             <!-- Email Header : BEGIN -->
             <!-- Hero Image, Flush : BEGIN -->
             <tr>
-                <td valign="top" style="text-align: center; background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 1)), url('{{ asset('storage/image/emails-confirmacionReserva-SPA_Sagrada_Familia.jpg') }}'); background-position: center center !important; background-size: cover !important; height: 270px">
+                <td valign="bottom" style="text-align: center; background-image: url('{{ asset('storage/image/emails-cancelacionReserva-Fotos-foto_roja.jpg') }}'); background-position: center center !important; background-size: cover !important; height: 270px">
                     <!--[if gte mso 9]>
                     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
                     <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
@@ -257,8 +257,9 @@
                     <div>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                                <td valign="top" style="text-align: center; padding: 10px; font-family: sans-serif; font-size: 15px; font-family: 'rawline', sans-serif;line-height: 20px; color: #ffffff;">
-                                    <p><img src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="150"></p>
+                                <td valign="bottom" style="text-align: left; padding: 10px 40px; font-family: sans-serif; font-size: 15px; font-family: 'rawline', sans-serif;line-height: 20px; color: #ffffff;">
+                                    <p><img src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="170"></p>
+                                    <hr style="border-color: #787878; border-bottom-width: 1px;">
                                 </td>
                             </tr>
                         </table>
@@ -274,65 +275,57 @@
 
             <!-- 1 Column: BEGIN -->
             <tr>
-                <td style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));">
+                <td>
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <!-- 1 Column: BEGIN -->
                         <tr>
-                            <td style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));">
+                            <td style="padding: 0 40px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; background-color: #1B0105">
+                                <h1 style="margin: 0 0 10px; text-align: left; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">Se ha cancelado tu reserva</h1>
+                            </td>
+                        </tr>
+
+                        <!-- 2 Even Columns : BEGIN -->
+                        <tr>
+                            <td valign="top" style="padding: 10px; background-color: #1B0105;">
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
-                                        <td style="padding: 5px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; color: #555555;">
-                                            <h1 style="margin: 0 0 10px; text-align: center; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ trans('emails.emails.confirmacionreserva.title') }}</h1>
-                                        </td>
-                                    </tr>
-
-                                    <!-- 2 Even Columns : BEGIN -->
-                                    <tr>
-                                        <td valign="top" style="padding: 10px; background-color: #000;">
+                                        <!-- Column : BEGIN -->
+                                        <td class="stack-column-center">
                                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                                 <tr>
-                                                    <!-- Column : BEGIN -->
-                                                    <td class="stack-column-center">
-                                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                            <tr>
-                                                                <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
-                                                                    <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
-                                                                    <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                                        <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkin') }}</b><br>
-                                                                        <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['fecha_entrada'] }}</span><br>
-                                                                        <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_entrada'] }}</span>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                    <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
+                                                        <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
+                                                        <div style="float: left; margin-left: 15px; margin-top: 8px;">
+                                                            <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkin') }}</b><br>
+                                                            <span style="font-weight: 300; font-size: 20; font-family: 'rawline', sans-serif; color:#FFF;">{{ $data['reserva']['fecha_entrada'] }}</span><br>
+                                                            <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_entrada'] }}</span>
+                                                        </div>
                                                     </td>
-                                                    <!-- Column : END -->
-                                                    <!-- Column : BEGIN -->
-                                                    <td class="stack-column-center">
-                                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                                                            <tr>
-                                                                <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
-                                                                    <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
-                                                                    <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                                        <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkout') }}</b><br>
-                                                                        <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['fecha_salida'] }}</span><br>
-                                                                        <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_salida'] }}</span>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                    <!-- Column : END -->
                                                 </tr>
                                             </table>
                                         </td>
+                                        <!-- Column : END -->
+                                        <!-- Column : BEGIN -->
+                                        <td class="stack-column-center">
+                                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                                <tr>
+                                                    <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
+                                                        <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
+                                                        <div style="float: left; margin-left: 15px; margin-top: 8px;">
+                                                            <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkout') }}</b><br>
+                                                            <span style="font-weight: 300; font-size: 20; font-family: 'rawline', sans-serif;color: #FFF;">{{ $data['reserva']['fecha_salida'] }}</span><br>
+                                                            <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_salida'] }}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- Column : END -->
                                     </tr>
-                                    <!-- 2 Even Columns : END -->
-
                                 </table>
                             </td>
                         </tr>
-                        <!-- 1 Column : END -->
+                        <!-- 2 Even Columns : END -->
+
                     </table>
                 </td>
             </tr>
@@ -341,7 +334,7 @@
             <!-- Column Table BEGIN -->
             <tr>
                 <!-- Bulletproof Background Images c/o https://backgrounds.cm -->
-                <td valign="middle" style="text-align: center; background-color: #000;">
+                <td valign="middle" style="text-align: center; background-image: linear-gradient(#1B0105, #5C0412);">
                     <!--[if gte mso 9]>
 	                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
 	                <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
@@ -353,7 +346,7 @@
                                 <td valign="middle" style="text-align: center; padding: 40px 40px 30px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="font-weight: bold; margin: 0; background-color: #8E071C; border-radius: 3px; padding: 15px 15px;">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.localizadorreserva') }}</div>
-                                        <div style="text-align: right">{{ $data['reserva']['localizador'] }}</div>
+                                        <div style="text-align: right">{{ trans('emails.emails.confirmacionreserva.localizadorreserva') }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -366,8 +359,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
+                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #fff;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
                                         <div style="float: left;">N&ordm; {{ trans('emails.emails.confirmacionreserva.pax') }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} adultos - {{ $data['reserva']['ninos'] }} niños</div>
                                     </div>
@@ -375,7 +368,7 @@
                             </tr>
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.apartamento') }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['apartamento']['nombre'] }}</div>
                                     </div>
@@ -383,31 +376,39 @@
                             </tr>
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipodeapartamento') }}</div>
+                                        <div style="text-align: right; font-weight: bold">SPA Sagrada Familia</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
+                                        <div style="float: left;">Tipo de apartamento</div>
                                         <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} dormitorios - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} baños</div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipoderegimen') }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['tarifa']['nombre'] }}</div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
+                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #fff;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-top: 1px solid #959799">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.experiencia') }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['experiencia']['nombre'] }}</div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
+                                <td valign="middle" style="text-align: center; padding: 0px 40px 40px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
+                                    <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;border-top: 1px solid #959799 ">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.politicadecancelacion') }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['politica_cancelacion']['nombre_cliente'] }}</div>
                                     </div>
@@ -421,78 +422,10 @@
 	                <![endif]-->
                 </td>
             </tr>
-            <tr>
-                <td style="padding: 20px 20px 20px; text-align: center; background-color: #000;">
-                    <!-- Button : BEGIN -->
-                    <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
-                        <tr>
-                            <td class="button-td button-td-primary">
-                                <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.queincluyemiexp') }}</a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1)); padding-bottom:20px">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                        <tr>
-                            <td class="stack-column-center" valign="top">
-                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">                              
-                                    <tr>
-                                        <td style="color: #fff;">
-                                            <div style="padding: 0px 40px;background-color:white">
-                                            @for ($i = 0;$i < 2; $i++)
-                                                
-                                                @if($i === 0)
-                                                <div style="float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; margin-right: 17px;">
-                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === $data['base_url'].'storage/image')
-                                                    <img src="{{ asset('storage/image/emails-confirmacionReserva-Acceso_al_spa.jpg') }}" width="250" >
-                                                    @else
-                                                    <img src="{{ $data['reserva']['experiencia']['extras'][$i]['front_image'] }}" width="250" >
-                                                    @endif
-                                                    <img style="position:absolute;margin:-205px 0px 0px 10px;" src="{{ asset('storage/image/emails-confirmacionReserva-Recommended.svg') }}" width="60" > 
-                                                @else
-                                                <div style="float: left;font-size: 30px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px;">
-                                                    @if($data['reserva']['experiencia']['extras'][$i]['front_image'] === $data['base_url'].'storage/image')
-                                                    <img src="{{ asset('storage/image/emails-confirmacionReserva-Acceso_al_spa.jpg') }}" width="250" >
-                                                    @else
-                                                    <img src="{{ $data['reserva']['experiencia']['extras'][$i]['front_image'] }}" width="250" >
-                                                    @endif
-                                                @endif
-                                                <div style="width:180px;margin:-50px 0px 0px 60px;position:absolute;">
-
-                                                    @foreach ($data['reserva']['experiencia']['extras'][$i]['fieldTranslations'] as $iso)
-                                                        @if($iso['iso'] === 'es')
-                                                            @foreach($iso['fields']  as $translation)
-                                                            @if($translation['field'] === 'nombre')
-                                                            <div style="display: block;margin:0px 0px 0px 75px;float:right;font-size: 12px; font-family: 'rawline', sans-serif; font-weight: 400;">
-                                                                {{ $translation['translation']}}  
-                                                            </div>
-                                                            @endif
-                                                            @endforeach
-                                                        @endif
-                                                    @endforeach    
-                                                    <div style="display: block;margin:0px 0px 0px 75px;float: right;font-size: 12px; font-family: 'rawline', sans-serif; font-weight: 800;">
-                                                        {{ $data['reserva']['experiencia']['extras'][$i]['precio']['total'] }}€  
-                                                    </div>                                        
-                                                </div>
-                                                </div>
-                                            @endfor
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <!-- Column Table : END -->
 
             <!-- Column Table : BEGIN -->
             <tr>
-                <td valign="middle" style="text-align: center; background-color: #000;">
+                <td valign="middle" style="text-align: center; background-color: #5C0412;">
                     <!--[if gte mso 9]>
                     <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
                     <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
@@ -510,16 +443,8 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #959799">
-                                        @foreach ($data['reserva']['experiencia']['fieldTranslations'] as $iso)
-                                            @if($iso['iso'] === $data['lang'])
-                                                @foreach($iso['fields']  as $translation)
-                                                    @if($translation['field'] === 'nombre')
-                                                    <div style="float: left;">{{ $translation['translation'] }}</div>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] - $data['reserva']['total_extras_contratados'] }} €</div>
+                                        <div style="float: left;">{{ $data['reserva']['experiencia']['nombre'] }}</div>
+                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] - $data['reserva']['total_extras_contratados'] }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -534,10 +459,10 @@
                             </tr>
                             @foreach ($data['reserva']['extras_contratados'] as $extra)
                             <tr>
-                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 18px; color: #ffffff;">
+                                <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
                                     @foreach ($extra['fieldTranslations'] as $iso)
-                                        @if($iso['iso'] === $data['lang'])
+                                        @if($iso['iso'] === 'es')
                                             @foreach($iso['fields']  as $translation)
                                                 @if($translation['field'] === 'nombre')
                                                 <div style="float: left;">{{ $translation['translation'] }}</div>
@@ -553,7 +478,7 @@
                             @endif
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px 20px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                    <div style="margin: 0; background-color: #56595A; padding: 15px 15px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top: 1px solid #959799">
+                                    <div style="margin: 0; background-color: #56595A; padding: 15px 15px;border-top: 1px solid #959799 ; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;">
                                         <div style="float: left;"><b>{{ trans('emails.emails.confirmacionreserva.total') }}</b> ({{ trans('emails.emails.confirmacionreserva.ivaincluido') }})</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] }} €</div>
                                     </div>
@@ -569,42 +494,9 @@
             </tr>
             <!-- Column Table : END -->
 
-            <tr>
-                <td style="text-align: center; background-color: #000;">
-                    <!-- Button : BEGIN -->
-                    <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
-                        <tr>
-                            <td class="button-td button-td-primary">
-                                <a class="button-a button-a-primary" href="{{ $data['web_url'] }}" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.checkin') }} {{ trans('emails.emails.confirmacionreserva.online') }}</a>
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- Button : END -->
-                </td>
-            </tr>
-            <tr>
-                <td style="padding: 0px 40px; text-align: center; background-color: #000;">
-                    <p style="color: #FFF; font-size: 15px; font-family: 'rawline', sans-serif; text-align: left;">{{ trans('emails.emails.confirmacionreserva.descripcion') }}</p>
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="middle" style="text-align: center; padding: 10px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #fff;background-color: #000;">
-                    <div style="margin: 0; padding: 25px 15px 30px 15px;border-bottom: 1px solid #787878;border-top: 1px solid #787878">
-                        <div style="float: left; text-align: left;margin-top: -10px;">
-                            <b>{{ trans('emails.emails.confirmacionreserva.direccion') }}</b> <br>
-                            <span style="font-size: 19px; font-family: 'rawline', sans-serif;">{{ $data['reserva']['ubicacion']['direccion'] }}</span>
-                        </div>
-                        <div style="text-align: right; font-weight: bold">
-                            <a href="#" style="color: #ED9C28">{{ trans('emails.emails.confirmacionreserva.ubicarenmapa') }}</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
             <!-- Contact Columns : BEGIN -->
             <tr>
-                <td valign="top" style="padding: 0px 0px 0px 0px; background-color: #000;">
+                <td valign="top" style="padding: 0px 0px 0px 0px; background-color: #5C0412;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                         <tr>
                             <!-- Column : BEGIN -->
@@ -612,7 +504,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('storage/image/emails-registerUser-Botones.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
+                                            <img src="{{ asset('storage/image/emails-cancelacionReserva-SVG-botones_triste.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
                                         </td>
                                     </tr>
                                 </table>
@@ -638,10 +530,10 @@
                                                 <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
                                                     <div style="padding-bottom: 10px;">{{ trans('emails.emails.confirmacionreserva.siguenosenredes') }}</div>
                                                     <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
-                                                        </div> 
-                                                        <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                            <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.descargaapp') }}</span> <br>
-                                                            <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
+                                                </div> 
+                                                <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
+                                                    <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.descargaapp') }}</span> <br>
+                                                    <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                     <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                                 </div>
                                             </div>
@@ -668,7 +560,7 @@
                                         <td style="padding: 10px; text-align: center;font-size: 10px; font-family: 'rawline', sans-serif; color: #fff;">
                                             <a href="#" style="color: #FFF; text-decoration: none;">www.castroexclusiveresidences.com</a>
                                             <div style="padding-top:5px">
-                                                <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;">
+                                                <img src="{{ asset('storage/image/emails-checkOut-SVG-Instagram.svg') }}" width="20" style="float: left;">
                                                 <a href="#" style="color: #FFF; text-decoration: none;">@castroexclusiveresidences</a>
                                             </div>
                                         </td>
@@ -692,7 +584,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px 0px 10px 40px; text-align: right">
-                                            <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
+                                            <a href="#"><img src="{{ asset('storage/image/emails-checkOut-SVG-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
                                         </td>
                                     </tr>
                                 </table>

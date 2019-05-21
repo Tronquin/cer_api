@@ -6,9 +6,10 @@ use App\Handler\FindExperienceHandler;
 use App\Service\EmailService;
 use App\Service\ERPService;
 use App\Mail\BaseMail;
+use Illuminate\Support\Facades\Mail;
 use App\Handler\AvailabilityServiceHandler;
 
-class SendConfirmationReserveHandler extends BaseHandler
+class Send48hrsEmailReservationHandler extends BaseHandler
 {
     /**
      * Proceso de este handler
@@ -32,11 +33,7 @@ class SendConfirmationReserveHandler extends BaseHandler
         }
         $experiencia = $handler->getData();
         $data['reserva']['experiencia'] = $experiencia['data'];
-        $extras_price = 0;
-        foreach($data['reserva']['experiencia']['extras'] as &$extra){
-            $extras_price = $extras_price + $extra['precio']['total'];
-            $extra['precio']['total'] = round($extra['precio']['total']);
-        }
+        
 
         $fecha_entrada = explode(" ",$data['reserva']['fecha_entrada']);
         $fecha_salida = explode(" ",$data['reserva']['fecha_salida']);
@@ -55,20 +52,12 @@ class SendConfirmationReserveHandler extends BaseHandler
             ];
         }
         $servicios = $handler->getData();
-        $data['reserva']['extras_contratados'] = $servicios['data']['list']['extras']['extras_contratados'];
-        $total = 0;
-        foreach($data['reserva']['extras_contratados'] as &$extra){
-            $extra['precio']['total'] = round($extra['precio']['total']);
-            $total = $total + $extra['precio']['total'];
-        }
-        $data['reserva']['total_extras_experiencia'] = $extras_price;
-        $data['reserva']['total_extras_contratados'] = $total;
+        $data['reserva']['extras_disponibles'] = $servicios['data']['list']['extras']['extras_disponibles'];
+        
         $data['lang'] = $this->params['iso'];
-        $data['base_url'] = env('APP_URL');
-        $data['web_url'] = env('WEB_URL_BASE').'es/checkin/ListReserve/'.$data['reserva']['id'];
 
-        EmailService::send('email.confirmacionReserva','Confirmacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
-            
+        EmailService::send('email.48hEmail','Faltan 48hrs para su llegada',[$data['reserva']['cliente']['email']],['data' => $data]);
+
         $response = [
             'res' => 1,
             'msg' => "Operación exitosa",
@@ -86,7 +75,8 @@ class SendConfirmationReserveHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'reserva_id' => 'required|numeric'
+            'reserva_id' => 'required|numeric',
+            'iso' => 'required'
         ];
     }
 

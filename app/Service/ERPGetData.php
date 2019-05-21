@@ -203,11 +203,11 @@ class ERPGetData {
                         $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
 
                         $tipologia_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $tipologia['nombre'],
                             'descripcion' => $tipologia['descripcion_es']
                         ];
                         $tipologia_lang['en'] = [
-                            'nombre' => $tipologia['nombre'],
+                            'nombre' => '',
                             'descripcion' => $tipologia['descripcion_en']
                         ];
                         $tipologia_lang['fr'] = [
@@ -409,11 +409,11 @@ class ERPGetData {
                         $package_erp->orden_calculo = $package['orden_calculo'];
 
                         $package_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $package['nombre'],
                             'descripcion' => ''
                         ];
                         $package_lang['en'] = [
-                            'nombre' => $package['nombre'],
+                            'nombre' => '',
                             'descripcion' => ''
                         ];
                         $package_lang['fr'] = [
@@ -504,10 +504,10 @@ class ERPGetData {
                         $experiencia_erp->upgrade_extra_id = $experiencia['upgrade_extra_id'];
 
                         $experiencia_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $experiencia['nombre'],
                         ];
                         $experiencia_lang['en'] = [
-                            'nombre' => $experiencia['nombre'],
+                            'nombre' => '',
                         ];
                         $experiencia_lang['fr'] = [
                             'nombre' => '',

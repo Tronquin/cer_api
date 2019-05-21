@@ -675,11 +675,13 @@ class ReservationController extends Controller
      * @return JsonResponse
      */
     public function checkout(Request $request){
-
-        $handler = new CheckoutHandler(['data' => $request->all()]);
+        $data = $request->all();
+        \App::setLocale($data['iso']);
+        $handler = new CheckoutHandler(['data' => $data]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
+            \App::setLocale('es');
             return new JsonResponse($handler->getData());
         }
 

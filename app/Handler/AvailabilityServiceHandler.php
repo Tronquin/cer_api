@@ -67,7 +67,8 @@ class AvailabilityServiceHandler extends BaseHandler {
                     $webOrErp['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
                     $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
                     $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
-                    
+                    $webOrErp['cantidad'] = $extcERP['cantidad'];
+
                     $extrasContratados[] = $webOrErp;
                 }
         }
