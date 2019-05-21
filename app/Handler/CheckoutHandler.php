@@ -61,7 +61,7 @@ class CheckoutHandler extends BaseHandler {
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['data']['iso'];
         
-        EmailService::send('email.checkout',[$response['data']['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.checkout','Checkout de Reserva',[$response['data']['reserva']['cliente']['email']],['data' => $data]);
 
         return $response;
     }

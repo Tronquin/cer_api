@@ -65,7 +65,7 @@ class SendCancelacionReservationEmailHandler extends BaseHandler
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['iso'];
 
-        EmailService::send('email.cancelacionReserva',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.cancelacionReserva','Cancelacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
             
         $response = [
             'res' => 1,

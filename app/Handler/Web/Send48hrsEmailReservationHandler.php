@@ -56,7 +56,7 @@ class Send48hrsEmailReservationHandler extends BaseHandler
         
         $data['lang'] = $this->params['iso'];
 
-        EmailService::send('email.48hEmail',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.48hEmail','Faltan 48hrs para su llegada',[$data['reserva']['cliente']['email']],['data' => $data]);
 
         $response = [
             'res' => 1,

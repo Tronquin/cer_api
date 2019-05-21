@@ -64,7 +64,7 @@ class SendConfirmationReserveHandler extends BaseHandler
         $data['reserva']['total_extras_contratados'] = $total;
         $data['lang'] = $this->params['iso'];
 
-        EmailService::send('email.confirmacionReserva',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.confirmacionReserva','Confirmacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
             
         $response = [
             'res' => 1,
