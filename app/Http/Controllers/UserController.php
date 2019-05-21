@@ -81,7 +81,7 @@ class UserController extends Controller
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
 
-        EmailService::send('email.registerUser', [$user->email], compact('user'));
+        EmailService::send('email.registerUser', 'Usuario registrado', [$user->email], compact('user'));
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }

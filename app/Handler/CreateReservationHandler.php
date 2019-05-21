@@ -54,7 +54,7 @@ class CreateReservationHandler extends BaseHandler
             $session->expired_at = new \DateTime("+{$minutes} minutes");
             $session->save();
             $user_id = $user->id;
-            EmailService::send('email.registerUser', [$user->email], compact('user'));
+            EmailService::send('email.registerUser', 'Usuario registrado', [$user->email], compact('user'));
         }
         $response = ERPService::createReservation($this->params);
         if(isset($token))
