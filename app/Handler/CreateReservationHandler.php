@@ -57,10 +57,29 @@ class CreateReservationHandler extends BaseHandler
             EmailService::send('email.registerUser', [$user->email], compact('user'));
         }
         $response = ERPService::createReservation($this->params);
+        
         if(isset($token))
         $response['session'] = $token;
         
         foreach($response['data'] as $reservation_client){
+            \App::setLocale($reservation_client['iso']);
+            $email_data = [];
+            $email_data['reserva_id'] = $reservation_client['reserva']['id'];
+            $email_data['iso'] = $reservation_client['iso'];
+            $handler = new SendConfirmationReserveHandler($email_data);
+            $handler->processHandler();
+            $data = $handler->getData();
+            
+            if (!$handler->isSuccess()) {
+                
+                return $response = [
+                    'res' => 0,
+                    'msg' => "Error al enviar email confirmacion reserva",
+                    'data' => []
+                ];
+            }
+            \App::setLocale('es');
+
             foreach($this->params['apartamentos'] as &$apartamento){
                 if(count($apartamento['extras']) > 0){
 
@@ -154,6 +173,7 @@ class CreateReservationHandler extends BaseHandler
             }
             $response['reservas'][] = $dato;
         }
+        
         unset($response['data']);
         return $response;
     }
