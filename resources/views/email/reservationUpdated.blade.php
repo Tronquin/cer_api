@@ -248,7 +248,7 @@
         <!-- Email Header : BEGIN -->
         <!-- Hero Image, Flush : BEGIN -->
         <tr>
-            <td valign="bottom" style="text-align: center; background-image: url('storage/image/email-reservationUpdated-Fotos-1Confirmacion_de_reserva_05.jpg'); background-position: center center !important; background-size: cover !important; height: 270px">
+            <td valign="bottom" style="text-align: center; background-image: url({{ url('storage/image/email-reservationUpdated-Fotos-1Confirmacion_de_reserva_05.jpg') }}); background-position: center center !important; background-size: cover !important; height: 270px">
                 <!--[if gte mso 9]>
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
                     <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
@@ -364,8 +364,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #000;">
-                                <div style="margin: 0; background-color: #EA9928; padding: 15px 15px;">
+                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color:{{ $data['modificaciones']['adultos_modificados'] || $data['modificaciones']['ninos_modificados'] ? '#000' : '#fff' }};">
+                                <div style="margin: 0; background-color: {{ $data['modificaciones']['adultos_modificados'] || $data['modificaciones']['ninos_modificados'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;">
                                     <div style="float: left;">N&ordm; pax</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['pax'] }}</div>
                                 </div>
@@ -388,24 +388,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #56595A">
+                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['apartamento_modificado'] ? '#000' : '#fff' }};">
+                                <div style="margin: 0; background-color: {{ $data['modificaciones']['apartamento_modificado'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;border-bottom: 1px solid #56595A">
                                     <div style="float: left;">Tipo de apartamento</div>
                                     <div style="text-align: right;font-weight: bold">{{ $data['apartmentType'] }}</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
-                                <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
+                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['regimen_modificado'] ? '#000' : '#fff' }};">
+                                <div style="margin: 0; background-color: {{ $data['modificaciones']['regimen_modificado'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;">
                                     <div style="float: left;">Tipo de Régimen</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['package'] }}</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #000;">
-                                <div style="margin: 0; background-color: #EA9928; padding: 15px 15px;">
+                            <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['experiencia_modificada'] ? '#000' : '#fff' }};">
+                                <div style="margin: 0; background-color: {{ $data['modificaciones']['experiencia_modificada'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;">
                                     <div style="float: left;">Experiencia</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['experience'] }}</div>
                                 </div>
@@ -458,7 +458,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-left: 30px;">
-                                        <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('storage/image/email-reservationUpdated-Fotos-Deluxe-Guardamaletas.jpg'); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px; border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
+                                        <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url({{ url('storage/image/email-reservationUpdated-Fotos-Deluxe-Guardamaletas.jpg') }}); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px; border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
                                             <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Recommended.svg') }}" width="70" style="margin-bottom: 150px;margin-right: 45px;">
                                             <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">Guardamaletas<br> <b>€10 por día</b></p>
                                         </div>
@@ -472,7 +472,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="padding-left: 10px;">
-                                        <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('storage/image/email-reservationUpdated-Fotos-Deluxe-Trae a tu mascota.jpg'); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px;border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
+                                        <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url({{ url('storage/image/email-reservationUpdated-Fotos-Deluxe-Trae_a_tu_mascota.jpg') }}); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px;border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
                                             <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">Trae tu mascota<br> <b>€10 por día</b></p>
                                         </div>
                                     </td>
