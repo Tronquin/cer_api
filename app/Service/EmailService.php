@@ -2,6 +2,9 @@
 namespace App\Service;
 
 use App\EmailSpooler;
+use App\Extra;
+use App\Handler\AvailabilityServiceHandler;
+use App\Reservation;
 
 /**
  * Servicio para envio de correos. Actualmente el servicio
@@ -29,5 +32,64 @@ class EmailService
         $emailSpooler->params = json_encode($params);
         $emailSpooler->status = EmailSpooler::STATUS_PENDING;
         $emailSpooler->save();
+    }
+
+    /**
+     * Envia el correo de servicios adquiridos
+     *
+     * @param Reservation $reservation
+     */
+    public static function sendHiredService(Reservation $reservation)
+    {
+        $handler = new AvailabilityServiceHandler([
+            'reserva_id' => $reservation->reserva_id_erp,
+            'funcion' => 'checkin'
+        ]);
+        $handler->processHandler();
+        $data = $handler->getData();
+
+        $reservation->experience->fieldTranslations = $reservation->experience->fieldTranslations();
+        $experienceName = '';
+        foreach ($reservation->experience->fieldTranslation as $fieldTranslation) {
+            if ($fieldTranslation['iso'] === 'es') {
+                foreach ($fieldTranslation['fields'] as $field) {
+                    if ($field['field'] === 'nombre') {
+                        $experienceName = $field['translation'];
+                        break(2);
+                    }
+                }
+            }
+        }
+        $cancellationPolicy = $reservation->cancelation_policy->nombre === 'NR' ? 'No reembolsable' : 'Flexible';
+
+        $services = [];
+        foreach ($data['data']['list']['extras']['extras_contratados'] as $extra) {
+            $extraInstance = Extra::find($extra['id']);
+            $extraName = '';
+            foreach ($extraInstance->fieldTranslations() as $fieldTranslation) {
+                if ($fieldTranslation['iso'] === 'es') {
+                    foreach ($fieldTranslation['fields'] as $field) {
+                        if ($field['field'] === 'nombre') {
+                            $extraName = $field['translation'];
+                            break(2);
+                        }
+                    }
+                }
+            }
+            $services[] = [
+                'name' => $extraName,
+                'amount' => $extra['precio']
+            ];
+        }
+
+        self::send('email.hiredService', [$reservation->user->email], [
+            'locator' => $reservation->localizador_erp,
+            'name' => $reservation->user->name . ' ' . $reservation->user->last_name,
+            'apartment' => $reservation->apartment->nombre,
+            'experience' => $experienceName,
+            'cancellationPolicy' => $cancellationPolicy,
+            'services' => $services,
+            'status' => 'Pagado'
+        ]);
     }
 }

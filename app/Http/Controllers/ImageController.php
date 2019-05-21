@@ -35,7 +35,7 @@ class ImageController extends Controller
         $file = File::get($path);
         $type = File::mimeType($path);
 
-        if ($type === 'text/html') {
+        if ($type === 'text/html' || $type === 'image/svg') {
             $type = 'image/svg+xml';
         }
 
