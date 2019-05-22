@@ -47,7 +47,7 @@ class SendEmailCommand extends Command
             $params = json_decode($email->params, true);
             $recipients = json_decode($email->recipients, true);
 
-            $emailInstance = new BaseMail($email->view, $recipients, $params);
+            $emailInstance = new BaseMail($email->view, $email->subject, $recipients, $params);
 
             Mail::send($emailInstance);
 

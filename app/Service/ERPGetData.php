@@ -66,16 +66,20 @@ class ERPGetData {
                 $ubicacion_erp->iva_reservas = $ubicacion['iva_reservas'];
                 
                 $ubicacion_lang['es'] = [
-                    'descripcion' => $ubicacion['descripcion_es']
+                    'descripcion' => $ubicacion['descripcion_es'],
+                    'apartment_section_name' => 'Apartamentos'
                 ];
                 $ubicacion_lang['en'] = [
-                    'descripcion' => $ubicacion['descripcion_en']
+                    'descripcion' => $ubicacion['descripcion_en'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_lang['fr'] = [
-                    'descripcion' => $ubicacion['descripcion_fr']
+                    'descripcion' => $ubicacion['descripcion_fr'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_lang['po'] = [
-                    'descripcion' => $ubicacion['descripcion_po']
+                    'descripcion' => $ubicacion['descripcion_po'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_erp->save();
 
@@ -97,6 +101,23 @@ class ERPGetData {
                                 $translation->language_id = $language['id'];
                                 $translation->field = 'description';
                                 $translation->translation = $lang['descripcion'];
+        
+                                $translation->save();
+                            }
+
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','apartment_section_name')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'apartment_section_name';
+                                $translation->translation = $lang['apartment_section_name'];
         
                                 $translation->save();
                             }
@@ -203,11 +224,11 @@ class ERPGetData {
                         $tipologia_erp->incidencia_porcentaje = $tipologia['incidencia_porcentaje'];
 
                         $tipologia_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $tipologia['nombre'],
                             'descripcion' => $tipologia['descripcion_es']
                         ];
                         $tipologia_lang['en'] = [
-                            'nombre' => $tipologia['nombre'],
+                            'nombre' => '',
                             'descripcion' => $tipologia['descripcion_en']
                         ];
                         $tipologia_lang['fr'] = [
@@ -409,11 +430,11 @@ class ERPGetData {
                         $package_erp->orden_calculo = $package['orden_calculo'];
 
                         $package_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $package['nombre'],
                             'descripcion' => ''
                         ];
                         $package_lang['en'] = [
-                            'nombre' => $package['nombre'],
+                            'nombre' => '',
                             'descripcion' => ''
                         ];
                         $package_lang['fr'] = [
@@ -504,10 +525,10 @@ class ERPGetData {
                         $experiencia_erp->upgrade_extra_id = $experiencia['upgrade_extra_id'];
 
                         $experiencia_lang['es'] = [
-                            'nombre' => '',
+                            'nombre' => $experiencia['nombre'],
                         ];
                         $experiencia_lang['en'] = [
-                            'nombre' => $experiencia['nombre'],
+                            'nombre' => '',
                         ];
                         $experiencia_lang['fr'] = [
                             'nombre' => '',

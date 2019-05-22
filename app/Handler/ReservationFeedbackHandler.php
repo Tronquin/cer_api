@@ -1,7 +1,9 @@
 <?php
 namespace App\Handler;
 
+use App\Reservation;
 use App\ReservationFeedback;
+use App\Service\EmailService;
 use App\Service\ERPService;
 
 class ReservationFeedbackHandler extends BaseHandler {
@@ -22,6 +24,12 @@ class ReservationFeedbackHandler extends BaseHandler {
            'value' => !empty($this->params['data']['puntuacion']) ? $this->params['data']['puntuacion'] : -1,
            'comment' => !empty($this->params['data']['comentario']) ? $this->params['data']['comentario'] : ''
        ]);
+
+       if ($feedback->reserva_id) {
+           $reservation = Reservation::query()->where('reserva_id_erp', $feedback->reserva_id)->first();
+           $recipients = [$reservation->user->email];
+           EmailService::send('email.rateService', 'Valoración de reserva', $recipients);
+       }
 
        return $response;
     }

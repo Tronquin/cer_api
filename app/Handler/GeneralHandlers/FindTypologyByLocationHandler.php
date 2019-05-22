@@ -19,8 +19,9 @@ class FindTypologyByLocationHandler extends BaseHandler {
             ->with(['characteristics','child','apartamentos'])
             ->get();
             
-            foreach ($tipologiaCollection as $tpErp) {
-                $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
+        $tipologias = [];    
+        foreach ($tipologiaCollection as $tpErp) {
+            $webOrErp = $tpErp->child ? $tpErp->child->toArray() : $tpErp->toArray();
 
             $aparments = [];
             foreach ($tpErp->apartamentos as $aparmentErp) {

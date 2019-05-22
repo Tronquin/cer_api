@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Handler\Web\SendConfirmationReserveHandler;
+use App\Handler\Web\Send48hrsEmailReservationHandler;
+use App\Handler\Web\SendCancelacionReservationEmailHandler;
 
 class SendingEmailController extends Controller
 {
