@@ -24,6 +24,10 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $id = $sectionApartment['id'];
 
             $location = Location::where('id',$this->params['location_id'])->firstOrFail();
+            
+            if(isset($this->params['sectionsName']))
+            $location->updateFieldTranslations($this->params['sectionsName']);
+
             $section = SectionApartment::query()->with('extras')->findOrNew($id);
             $section->location_id = $this->params['location_id'];
             $section->order = isset($sectionApartment['order']) ? $sectionApartment['order'] : null;

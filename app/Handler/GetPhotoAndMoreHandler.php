@@ -26,7 +26,7 @@ class GetPhotoAndMoreHandler extends BaseHandler
             $photoAndMore->location_id = null;
             $photoAndMore->sections = [];
         }
-
+        $photoAndMore->sectionsName = $location->fieldTranslations();
         $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
 
         $originalSections = [];

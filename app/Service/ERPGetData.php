@@ -66,16 +66,20 @@ class ERPGetData {
                 $ubicacion_erp->iva_reservas = $ubicacion['iva_reservas'];
                 
                 $ubicacion_lang['es'] = [
-                    'descripcion' => $ubicacion['descripcion_es']
+                    'descripcion' => $ubicacion['descripcion_es'],
+                    'apartment_section_name' => 'Apartamentos'
                 ];
                 $ubicacion_lang['en'] = [
-                    'descripcion' => $ubicacion['descripcion_en']
+                    'descripcion' => $ubicacion['descripcion_en'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_lang['fr'] = [
-                    'descripcion' => $ubicacion['descripcion_fr']
+                    'descripcion' => $ubicacion['descripcion_fr'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_lang['po'] = [
-                    'descripcion' => $ubicacion['descripcion_po']
+                    'descripcion' => $ubicacion['descripcion_po'],
+                    'apartment_section_name' => ''
                 ];
                 $ubicacion_erp->save();
 
@@ -97,6 +101,23 @@ class ERPGetData {
                                 $translation->language_id = $language['id'];
                                 $translation->field = 'description';
                                 $translation->translation = $lang['descripcion'];
+        
+                                $translation->save();
+                            }
+
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','apartment_section_name')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'apartment_section_name';
+                                $translation->translation = $lang['apartment_section_name'];
         
                                 $translation->save();
                             }
