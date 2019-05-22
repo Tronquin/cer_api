@@ -82,11 +82,13 @@ class UpdateSpaInfoHandler extends BaseHandler
                 $icon->spa_section_id = $section->id;
                 
                 $spa_icon_name = '';
-                foreach($icono['fieldTranslations'] as $iso){
-                    if($iso['iso'] === 'en'){
-                        foreach($iso['fields'] as $spaIconName){
-                            if($spaIconName['field'] === 'name')
-                            $spa_icon_name = $spaIconName['translation'];
+                if (isset($icono['fieldTranslations'])) {
+                    foreach($icono['fieldTranslations'] as $iso){
+                        if($iso['iso'] === 'en'){
+                            foreach($iso['fields'] as $spaIconName){
+                                if($spaIconName['field'] === 'name')
+                                    $spa_icon_name = $spaIconName['translation'];
+                            }
                         }
                     }
                 }

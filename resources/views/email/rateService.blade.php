@@ -248,7 +248,7 @@
         <!-- Email Header : BEGIN -->
         <!-- Hero Image, Flush : BEGIN -->
         <tr>
-            <td valign="bottom" style="text-align: center; background-image: url('storage/image/email-rateService-Fotos-Valoracion_02.jpg'); background-position: center center !important; background-size: cover !important; height: 270px">
+            <td valign="bottom" style="text-align: center; background-image: url({{ url('storage/image/email-rateService-Fotos-Valoracion_02.jpg') }}); background-position: center center !important; background-size: cover !important; height: 270px">
                 <!--[if gte mso 9]>
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
                     <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
