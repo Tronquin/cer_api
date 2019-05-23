@@ -23,21 +23,45 @@ class FindExtraByLocationTagHandler extends BaseHandler {
         foreach($tagParents as $parentKey => $tagParent){
             $childrens = [];
             foreach ($tagParent->children as $tagKey => $tag) {
-                $extras = [];
+                $extrasERP = [];
+                $extrasWEB = [];
                 foreach ($tag->extras as $extraKey => $extra) {
                     
                     if($extra->ubicacion_id === intval($this->params['ubicacion_id'])){
                         $precio = $extra->calcularIva($extra->base_imponible,$extra->iva_tipo);
-                        $extras[] = [
-                            'id' => $extra->id,
-                            'type' => $extra->type,
-                            'precio' => $precio,
-                            'coste' => $precio['total'],
-                            'fieldTranslations' => $extra->fieldTranslations(),
-                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
-                        ];
+                        if($extra->type === 'erp'){
+                            $extrasERP[] = [
+                                'id' => $extra->id,
+                                'extra_id' => $extra->extra_id,
+                                'type' => $extra->type,
+                                'precio' => $precio,
+                                'coste' => $precio['total'],
+                                'fieldTranslations' => $extra->fieldTranslations(),
+                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                            ];
+                        }else if($extra->type === 'web'){
+                            $extrasWEB[] = [
+                                'id' => $extra->id,
+                                'extra_id' => $extra->extra_id,
+                                'type' => $extra->type,
+                                'precio' => $precio,
+                                'coste' => $precio['total'],
+                                'fieldTranslations' => $extra->fieldTranslations(),
+                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                            ];
+                        }
+                        
                     }
                 }
+                foreach($extrasERP as $erpKey => $eErp){
+                    foreach($extrasWEB as $eWeb){
+                        if($eErp['extra_id'] === $eWeb['extra_id']){
+                            unset($extrasERP[$erpKey]);
+                        }
+                    }
+                }
+                $extras = array_merge($extrasERP,$extrasWEB);
+
                 $childrens [] = [
                     'tag' => $tag->description,
                     'extras' => $extras,
