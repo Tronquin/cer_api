@@ -24,23 +24,50 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
 
         $locations = Location::all();
         $response = [];
-        $extras = [];
+
+        $extrasERP = [];
+        $extrasWEB = [];
+
         foreach($locations as $location){
             foreach ($tagSearched->extras as $extraKey => $extra) {
                 if ($location->ubicacion_id === $extra->ubicacion_id){
-                    $extras[] = [
-                        'id' => $extra->id,
-                        'extra_id' => $extra->extra_id,
-                        'location_id' => $location->id,
-                        'ubicacion_id' => $location->ubicacion_id,
-                        'type' => $extra->type,
-                        'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
-                        'fieldTranslations' => $extra->fieldTranslations(),
-                        'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
-                    ];
+                    if($extra->type === 'erp'){
+                        $extrasERP[] = [
+                            'id' => $extra->id,
+                            'extra_id' => $extra->extra_id,
+                            'location_id' => $location->id,
+                            'manera_cobro' => $extra->manera_cobro,
+                            'ubicacion_id' => $location->ubicacion_id,
+                            'type' => $extra->type,
+                            'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
+                            'fieldTranslations' => $extra->fieldTranslations(),
+                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                        ];
+                    }else if($extra->type === 'web'){
+                        $extrasWEB[] = [
+                            'id' => $extra->id,
+                            'extra_id' => $extra->extra_id,
+                            'location_id' => $location->id,
+                            'manera_cobro' => $extra->manera_cobro,
+                            'ubicacion_id' => $location->ubicacion_id,
+                            'type' => $extra->type,
+                            'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
+                            'fieldTranslations' => $extra->fieldTranslations(),
+                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                        ];
+                    }
                 }
             }
         }
+        foreach($extrasERP as $erpKey => $eErp){
+            foreach($extrasWEB as $eWeb){
+                if($eErp['extra_id'] === $eWeb['extra_id']){
+                    unset($extrasERP[$erpKey]);
+                }
+            }
+        }
+        $extras = array_merge($extrasERP,$extrasWEB);
+        
         $response = [
             'tag' => $tagSearched->description,
             'extras' => $extras,

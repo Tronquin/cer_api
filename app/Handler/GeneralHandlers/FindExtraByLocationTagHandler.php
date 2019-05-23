@@ -32,6 +32,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                         if($extra->type === 'erp'){
                             $extrasERP[] = [
                                 'id' => $extra->id,
+                                'manera_cobro' => $extra->manera_cobro,
                                 'extra_id' => $extra->extra_id,
                                 'type' => $extra->type,
                                 'precio' => $precio,
@@ -42,6 +43,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                         }else if($extra->type === 'web'){
                             $extrasWEB[] = [
                                 'id' => $extra->id,
+                                'manera_cobro' => $extra->manera_cobro,
                                 'extra_id' => $extra->extra_id,
                                 'type' => $extra->type,
                                 'precio' => $precio,

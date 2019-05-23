@@ -67,19 +67,27 @@ class ERPGetData {
                 
                 $ubicacion_lang['es'] = [
                     'descripcion' => $ubicacion['descripcion_es'],
-                    'apartment_section_name' => 'Apartamentos'
+                    'apartment_section_name' => 'Apartamentos',
+                    'title_info' => '¿Porqué proponemos tres experiencias?',
+                    'description_info' => 'la experiencia castro Exclusive Residences consiste en llenar los 80 metros cuadrados de tu apartamento de vivencias y recuerdos donde tú eliges qué herramientas usar para ello'
                 ];
                 $ubicacion_lang['en'] = [
                     'descripcion' => $ubicacion['descripcion_en'],
-                    'apartment_section_name' => ''
+                    'apartment_section_name' => '',
+                    'description_info' => '',
+                    'title_info' => ''
                 ];
                 $ubicacion_lang['fr'] = [
                     'descripcion' => $ubicacion['descripcion_fr'],
-                    'apartment_section_name' => ''
+                    'apartment_section_name' => '',
+                    'description_info' => '',
+                    'title_info' => ''
                 ];
                 $ubicacion_lang['po'] = [
                     'descripcion' => $ubicacion['descripcion_po'],
-                    'apartment_section_name' => ''
+                    'apartment_section_name' => '',
+                    'description_info' => '',
+                    'title_info' => ''
                 ];
                 $ubicacion_erp->save();
 
@@ -118,6 +126,40 @@ class ERPGetData {
                                 $translation->language_id = $language['id'];
                                 $translation->field = 'apartment_section_name';
                                 $translation->translation = $lang['apartment_section_name'];
+        
+                                $translation->save();
+                            }
+
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','description_info')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'description_info';
+                                $translation->translation = $lang['description_info'];
+        
+                                $translation->save();
+                            }
+
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','title_info')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'title_info';
+                                $translation->translation = $lang['title_info'];
         
                                 $translation->save();
                             }
