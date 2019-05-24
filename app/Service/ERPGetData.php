@@ -9,6 +9,11 @@ use App\Extra;
 use App\Experience;
 use App\Apartment;
 use App\Typology;
+use App\Dormitorio;
+use App\Cocina;
+use App\Lavabo;
+use App\Terraza;
+use App\Salon;
 use App\Package;
 use App\CancellationPolicy;
 use App\Promotion;
@@ -323,6 +328,285 @@ class ERPGetData {
                                         $translation->translation = $lang['descripcion'];
                 
                                         $translation->save();
+                                    }
+                                }
+                            }
+                        }
+                        foreach($tipologia['dormitorios'] as $dormitorio){
+                            
+                            $dormitorio_erp = Dormitorio::where('dormitorio_id','=',$dormitorio['id'])
+                            ->where('type','=','erp')
+                            ->first();
+
+                            if (! $dormitorio_erp) {
+                                $dormitorio_erp = new Dormitorio();
+                            }
+
+                            $dormitorio_erp->dormitorio_id = $dormitorio['id'];
+                            $dormitorio_erp->tipologia_id = $dormitorio['tipologia_id'];
+                            $dormitorio_erp->cama = $dormitorio['cama'];
+                            $dormitorio_erp->camas_cantidad = $dormitorio['camas_cantidad'];
+                            $dormitorio_erp->tv = $dormitorio['tv'];
+                            $dormitorio_erp->armario = $dormitorio['armario'];
+                            $dormitorio_erp->balcon = $dormitorio['balcon'];
+                            $dormitorio_erp->telefono = $dormitorio['telefono'];
+
+                            $dormitorio_lang['es'] = [
+                                'nombre' => $dormitorio['cama'],
+                            ];
+                            $dormitorio_lang['en'] = [
+                                'nombre' => '',
+                            ];
+                            $dormitorio_lang['fr'] = [
+                                'nombre' => '',
+                            ];
+                            $dormitorio_lang['de'] = [
+                                'nombre' => '',
+                            ];
+
+                            $dormitorio_erp->save();
+
+                            foreach($languages as $language){
+                                foreach($dormitorio_lang as $key => $lang){
+                                    
+                                    if($language['iso'] == $key){
+                                        $translation = FieldTranslation::where('content_id',$dormitorio_erp->id)
+                                                        ->where('field','nombre')
+                                                        ->where('language_id',$language['id'])
+                                                        ->where('content_type', Dormitorio::class)
+                                                        ->first();
+                                        if(!$translation){
+                                            $translation = new FieldTranslation();
+                                            $translation->content_id = $dormitorio_erp->id;
+                                            $translation->content_type = Dormitorio::class;
+                                            $translation->language_id = $language['id'];
+                                            $translation->field = 'nombre';
+                                            $translation->translation = $lang['nombre'];
+                                            $translation->save();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        foreach($tipologia['cocinas'] as $cocina){
+                            
+                            $cocina_erp = Cocina::where('cocina_id','=',$cocina['id'])
+                            ->where('type','=','erp')
+                            ->first();
+
+                            if (! $cocina_erp) {
+                                $cocina_erp = new Cocina();
+                            }
+
+                            $cocina_erp->cocina_id = $cocina['id'];
+                            $cocina_erp->tipologia_id = $cocina['tipologia_id'];
+                            $cocina_erp->nevera = $cocina['nevera'];
+                            $cocina_erp->vitro = $cocina['vitro'];
+                            $cocina_erp->microondas = $cocina['microondas'];
+                            $cocina_erp->horno = $cocina['horno'];
+                            $cocina_erp->maquina_cafe = $cocina['maquina_cafe'];
+                            $cocina_erp->hervidor = $cocina['hervidor'];
+                            $cocina_erp->lavadora = $cocina['lavadora'];
+                            $cocina_erp->secadora = $cocina['secadora'];
+                            $cocina_erp->plancha = $cocina['plancha'];
+                            $cocina_erp->lavavajillas = $cocina['lavavajillas'];
+                            $cocina_erp->mesa_comedor = $cocina['mesa_comedor'];
+
+                            $cocina_lang['es'] = [
+                                'nombre' => 'cocina',
+                            ];
+                            $cocina_lang['en'] = [
+                                'nombre' => '',
+                            ];
+                            $cocina_lang['fr'] = [
+                                'nombre' => '',
+                            ];
+                            $cocina_lang['de'] = [
+                                'nombre' => '',
+                            ];
+
+                            $cocina_erp->save();
+
+                            foreach($languages as $language){
+                                foreach($cocina_lang as $key => $lang){
+                                    
+                                    if($language['iso'] == $key){
+                                        $translation = FieldTranslation::where('content_id',$cocina_erp->id)
+                                                        ->where('field','nombre')
+                                                        ->where('language_id',$language['id'])
+                                                        ->where('content_type', Cocina::class)
+                                                        ->first();
+                                        if(!$translation){
+                                            $translation = new FieldTranslation();
+                                            $translation->content_id = $cocina_erp->id;
+                                            $translation->content_type = Cocina::class;
+                                            $translation->language_id = $language['id'];
+                                            $translation->field = 'nombre';
+                                            $translation->translation = $lang['nombre'];
+                                            $translation->save();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        foreach($tipologia['lavabos'] as $lavabo){
+                            
+                            $lavabo_erp = Lavabo::where('lavabo_id','=',$lavabo['id'])
+                            ->where('type','=','erp')
+                            ->first();
+
+                            if (! $lavabo_erp) {
+                                $lavabo_erp = new Lavabo();
+                            }
+
+                            $lavabo_erp->lavabo_id = $lavabo['id'];
+                            $lavabo_erp->tipologia_id = $lavabo['tipologia_id'];
+                            $lavabo_erp->tipo = $lavabo['tipo'];
+                            $lavabo_erp->espejo_aumento = $lavabo['espejo_aumento'];
+                            $lavabo_erp->secador = $lavabo['secador'];
+                            $lavabo_erp->bide = $lavabo['bide'];
+
+                            $lavabo_lang['es'] = [
+                                'nombre' => $lavabo['tipo'],
+                            ];
+                            $lavabo_lang['en'] = [
+                                'nombre' => '',
+                            ];
+                            $lavabo_lang['fr'] = [
+                                'nombre' => '',
+                            ];
+                            $lavabo_lang['de'] = [
+                                'nombre' => '',
+                            ];
+
+                            $lavabo_erp->save();
+
+                            foreach($languages as $language){
+                                foreach($lavabo_lang as $key => $lang){
+                                    
+                                    if($language['iso'] == $key){
+                                        $translation = FieldTranslation::where('content_id',$lavabo_erp->id)
+                                                        ->where('field','nombre')
+                                                        ->where('language_id',$language['id'])
+                                                        ->where('content_type', Lavabo::class)
+                                                        ->first();
+                                        if(!$translation){
+                                            $translation = new FieldTranslation();
+                                            $translation->content_id = $lavabo_erp->id;
+                                            $translation->content_type = Lavabo::class;
+                                            $translation->language_id = $language['id'];
+                                            $translation->field = 'nombre';
+                                            $translation->translation = $lang['nombre'];
+                                            $translation->save();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        foreach($tipologia['salones'] as $salon){
+                            
+                            $salon_erp = Salon::where('salon_id','=',$salon['id'])
+                            ->where('type','=','erp')
+                            ->first();
+
+                            if (! $salon_erp) {
+                                $salon_erp = new Salon();
+                            }
+
+                            $salon_erp->salon_id = $salon['id'];
+                            $salon_erp->tipologia_id = $salon['tipologia_id'];
+                            $salon_erp->tv = $salon['tv'];
+                            $salon_erp->sofas = $salon['sofas'];
+                            $salon_erp->sofacama = $salon['sofacama'];
+                            $salon_erp->comedor = $salon['comedor'];
+                            $salon_erp->sillas = $salon['sillas'];
+                            $salon_erp->telefono = $salon['telefono'];
+
+                            $salon_lang['es'] = [
+                                'nombre' => 'Salon '.$salon['id'],
+                            ];
+                            $salon_lang['en'] = [
+                                'nombre' => '',
+                            ];
+                            $salon_lang['fr'] = [
+                                'nombre' => '',
+                            ];
+                            $salon_lang['de'] = [
+                                'nombre' => '',
+                            ];
+
+                            $salon_erp->save();
+
+                            foreach($languages as $language){
+                                foreach($salon_lang as $key => $lang){
+                                    
+                                    if($language['iso'] == $key){
+                                        $translation = FieldTranslation::where('content_id',$salon_erp->id)
+                                                        ->where('field','nombre')
+                                                        ->where('language_id',$language['id'])
+                                                        ->where('content_type', Salon::class)
+                                                        ->first();
+                                        if(!$translation){
+                                            $translation = new FieldTranslation();
+                                            $translation->content_id = $salon_erp->id;
+                                            $translation->content_type = Salon::class;
+                                            $translation->language_id = $language['id'];
+                                            $translation->field = 'nombre';
+                                            $translation->translation = $lang['nombre'];
+                                            $translation->save();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        foreach($tipologia['terrazas'] as $terraza){
+                            
+                            $terraza_erp = Terraza::where('terraza_id','=',$terraza['id'])
+                            ->where('type','=','erp')
+                            ->first();
+
+                            if (! $terraza_erp) {
+                                $terraza_erp = new Terraza();
+                            }
+
+                            $terraza_erp->terraza_id = $terraza['id'];
+                            $terraza_erp->tipologia_id = $terraza['tipologia_id'];
+                            $terraza_erp->mesa = $terraza['mesa'];
+                            $terraza_erp->sillas = $terraza['sillas'];
+
+                            $terraza_lang['es'] = [
+                                'nombre' => 'Terraza '.$terraza['id'],
+                            ];
+                            $terraza_lang['en'] = [
+                                'nombre' => '',
+                            ];
+                            $terraza_lang['fr'] = [
+                                'nombre' => '',
+                            ];
+                            $terraza_lang['de'] = [
+                                'nombre' => '',
+                            ];
+
+                            $terraza_erp->save();
+
+                            foreach($languages as $language){
+                                foreach($terraza_lang as $key => $lang){
+                                    
+                                    if($language['iso'] == $key){
+                                        $translation = FieldTranslation::where('content_id',$terraza_erp->id)
+                                                        ->where('field','nombre')
+                                                        ->where('language_id',$language['id'])
+                                                        ->where('content_type', Terraza::class)
+                                                        ->first();
+                                        if(!$translation){
+                                            $translation = new FieldTranslation();
+                                            $translation->content_id = $terraza_erp->id;
+                                            $translation->content_type = Terraza::class;
+                                            $translation->language_id = $language['id'];
+                                            $translation->field = 'nombre';
+                                            $translation->translation = $lang['nombre'];
+                                            $translation->save();
+                                        }
                                     }
                                 }
                             }

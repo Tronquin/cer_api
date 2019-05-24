@@ -16,7 +16,7 @@ class FindTypologyByLocationHandler extends BaseHandler {
 
         $tipologiaCollection = Typology::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
-            ->with(['characteristics','child','apartamentos'])
+            ->with(['characteristics','child','apartamentos','dormitorios','cocinas','lavabos','salones','terrazas'])
             ->get();
             
         $tipologias = [];    
@@ -26,6 +26,26 @@ class FindTypologyByLocationHandler extends BaseHandler {
             $aparments = [];
             foreach ($tpErp->apartamentos as $aparmentErp) {
                 $aparments[] = $aparmentErp->child ? $aparmentErp->child->toArray() : $aparmentErp->toArray();
+            }
+            $dormitorios = [];
+            foreach ($tpErp->dormitorios as $dormitorioErp) {
+                $dormitorios[] = $dormitorioErp->child ? $dormitorioErp->child->toArray() : $dormitorioErp->toArray();
+            }
+            $cocinas = [];
+            foreach ($tpErp->cocinas as $cocinaErp) {
+                $cocinas[] = $cocinaErp->child ? $cocinaErp->child->toArray() : $cocinaErp->toArray();
+            }
+            $lavabos = [];
+            foreach ($tpErp->lavabos as $lavaboErp) {
+                $lavabos[] = $lavaboErp->child ? $lavaboErp->child->toArray() : $lavaboErp->toArray();
+            }
+            $salones = [];
+            foreach ($tpErp->salones as $salonErp) {
+                $salones[] = $salonErp->child ? $salonErp->child->toArray() : $salonErp->toArray();
+            }
+            $terrazas = [];
+            foreach ($tpErp->terrazas as $terrazaErp) {
+                $terrazas[] = $terrazaErp->child ? $terrazaErp->child->toArray() : $terrazaErp->toArray();
             }
             $characteristics = [];
             foreach ($tpErp->characteristics as &$characteristic) {
@@ -37,6 +57,16 @@ class FindTypologyByLocationHandler extends BaseHandler {
             $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] = $aparments;
+            unset($webOrErp['dormitorios']);
+            $webOrErp['dormitorios'] = $dormitorios;
+            unset($webOrErp['cocinas']);
+            $webOrErp['cocinas'] = $cocinas;
+            unset($webOrErp['lavabos']);
+            $webOrErp['lavabos'] = $lavabos;
+            unset($webOrErp['salones']);
+            $webOrErp['salones'] = $salones;
+            unset($webOrErp['terrazas']);
+            $webOrErp['terrazas'] = $terrazas;
             $webOrErp['characteristics'] = $characteristics;
             $webOrErp['fieldTranslations'] = $tpErp->child ? $tpErp->child->fieldTranslations() : $tpErp->fieldTranslations();
             $tipologias[] = $webOrErp;
