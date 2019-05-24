@@ -16,8 +16,10 @@ class SaveMasiveExtraTagsHandler extends BaseHandler {
         $extraTagIds = [];
         if($this->params['method'] === 'save'){
             foreach ($this->params['extras'] as $extra){
-                $extra = Extra::where('id','=',$extra)->with('tags')->first();
-                foreach($extra->tags as $tag){
+                $extra = Extra::where('extra_id','=',$extra)->where('type','erp')->with('tags','child')->first();
+                $extraWebOrErp = $extra->child ? $extra->child : $extra;
+                
+                foreach($extraWebOrErp->tags as $tag){
                     $extraTagIds[] = $tag->id;
                 }
                 foreach ($this->params['tags'] as $tagsParents){
@@ -25,13 +27,17 @@ class SaveMasiveExtraTagsHandler extends BaseHandler {
                         $extraTagIds[] = $tag;
                     }
                 }
+
                 array_unique($extraTagIds);
-                $extra->tags()->sync($extraTagIds);
+                $extra->tags()->detach($extraTagIds);
+                $extraWebOrErp->tags()->sync($extraTagIds);
             }
         }else if($this->params['method'] === 'eliminar'){
             foreach ($this->params['extras'] as $extra){
-                $extra = Extra::where('id','=',$extra)->with('tags')->first();
-                foreach($extra->tags as $tag){
+                $extra = Extra::where('extra_id','=',$extra)->where('type','erp')->with('tags','child')->first();
+                $extraWebOrErp = $extra->child ? $extra->child : $extra;
+
+                foreach($extraWebOrErp->tags as $tag){
                     $extraTagIds[] = $tag->id;
                 }
                 foreach ($this->params['tags'] as $tagsParents){
@@ -43,7 +49,8 @@ class SaveMasiveExtraTagsHandler extends BaseHandler {
                     }
                 }
                 array_unique($extraTagIds);
-                $extra->tags()->sync($extraTagIds);
+                $extra->tags()->detach($extraTagIds);
+                $extraWebOrErp->tags()->sync($extraTagIds);
             }
         }
        
