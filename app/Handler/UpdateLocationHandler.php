@@ -56,6 +56,11 @@ class UpdateLocationHandler extends BaseHandler
         $location->is_published = $this->params['is_published'];
         $location->link_tour = $this->params['link_tour'];
         $location->alt_marker = $this->params['alt_marker'];
+        $location->facebook = $this->params['facebook'];
+        $location->instagram = $this->params['instagram'];
+        $location->email_contact = $this->params['email_contact'];
+        $location->phone_contact = $this->params['phone_contact'];
+
         $location->updateFieldTranslations($this->params['fieldTranslations']);
 
         $location->save();
