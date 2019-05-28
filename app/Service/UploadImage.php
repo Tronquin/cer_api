@@ -71,6 +71,10 @@ class UploadImage
             return '.svg';
         }
 
+        if (str_replace('image/vnd.microsoft.icon', '', $base64[0]) !== $base64[0]) {
+            return '.ico';
+        }
+
         throw new \Exception('Image format invalid');
     }
 }
