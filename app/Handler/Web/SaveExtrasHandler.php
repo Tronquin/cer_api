@@ -74,6 +74,7 @@ class SaveExtrasHandler extends BaseHandler {
                 $ids[] = $tag['id'];
             }
         }
+        $extra_erp->tags()->detach($ids);
         $extra->tags()->sync($ids);
         
         $extra->updateFieldTranslations($this->params['data']['fieldTranslations']);

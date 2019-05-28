@@ -53,31 +53,31 @@ class Typology extends Model
 
     public function cocinas()
     {
-        return $this->hasMany('App\Cocina');
+        return $this->hasMany(Cocina::class,'tipologia_id','tipologia_id');
     }
 
     public function dormitorios()
     {
-        return $this->hasMany('App\Dormitorio');
+        return $this->hasMany(Dormitorio::class,'tipologia_id','tipologia_id');
     }
 
     public function lavabos()
     {
-        return $this->hasMany('App\Lavabo');
+        return $this->hasMany(Lavabo::class,'tipologia_id','tipologia_id');
     }
 
-    public function salons()
+    public function salones()
     {
-        return $this->hasMany('App\Salon');
+        return $this->hasMany(Salon::class,'tipologia_id','tipologia_id');
     }
 
     public function terrazas()
     {
-        return $this->hasMany('App\Terraza');
+        return $this->hasMany(Terraza::class,'tipologia_id','tipologia_id');
     }
 
     public function ubicacion(){
-        return $this->belongsTo('App\Ubicacion');
+        return $this->belongsTo(Location::class,'tipologia_id','tipologia_id');
     }
 
     /**

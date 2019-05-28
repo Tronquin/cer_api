@@ -24,6 +24,7 @@ class FindLocationsHandler extends BaseHandler {
 
             $temp['front_page'] = $this->generateImageUrl($temp['front_page']);
             $temp['domain_logo'] = $this->generateImageUrl($temp['domain_logo']);
+            $temp['marker'] = $this->generateImageUrl($temp['marker']);
             $temp['fieldTranslations'] = $locationErp->fieldTranslations();
             $temp['logo'] = $this->generateImageUrl($temp['logo']);
             $temp['slug'] = str_slug($locationErp->nombre);
