@@ -56,6 +56,25 @@ class UploadImage
     }
 
     /**
+     * Genera un slug
+     *
+     * @param string $name
+     * @return string
+     */
+    public static function slug($name)
+    {
+        $slug = str_slug($name);
+        $slug = str_replace('ñ', 'n', $slug);
+        $slug = str_replace('á', 'a', $slug);
+        $slug = str_replace('é', 'e', $slug);
+        $slug = str_replace('í', 'i', $slug);
+        $slug = str_replace('ó', 'o', $slug);
+        $slug = str_replace('ú', 'u', $slug);
+
+        return $slug;
+    }
+
+    /**
      * Extrae el tipo de imagen del base64
      *
      * @param string $base64
