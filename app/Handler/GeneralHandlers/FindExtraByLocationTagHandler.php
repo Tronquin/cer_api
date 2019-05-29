@@ -29,7 +29,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                     
                     if($extra->ubicacion_id === intval($this->params['ubicacion_id'])){
                         $precio = $extra->calcularIva($extra->base_imponible,$extra->iva_tipo);
-                        if($extra->type === 'erp'){
+                        if($extra->type === 'erp' && $extra->is_published){
                             $extrasERP[] = [
                                 'id' => $extra->id,
                                 'manera_cobro' => $extra->manera_cobro,
@@ -40,7 +40,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                                 'fieldTranslations' => $extra->fieldTranslations(),
                                 'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
                             ];
-                        }else if($extra->type === 'web'){
+                        }else if($extra->type === 'web' && $extra->is_published){
                             $extrasWEB[] = [
                                 'id' => $extra->id,
                                 'manera_cobro' => $extra->manera_cobro,

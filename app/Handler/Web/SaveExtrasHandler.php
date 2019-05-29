@@ -34,6 +34,7 @@ class SaveExtrasHandler extends BaseHandler {
         $extra->destacado = $this->params['data']['destacado'];
         $extra->activo = $this->params['data']['activo'];
         $extra->outstanding = $this->params['data']['outstanding'];
+        $extra->is_published = $this->params['data']['is_published'];
         $extra_Name = '';
         foreach($this->params['data']['fieldTranslations'] as $iso){
             if($iso['iso'] === 'en'){
