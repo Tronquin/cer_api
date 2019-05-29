@@ -27,12 +27,15 @@ class FindExtraByTagHandler extends BaseHandler {
             foreach ($tagParent->children as $tag) {
                 $extras = [];
                 foreach ($tag->extras as $extra) {
-                    $extras[] = [
-                        'id' => $extra->id,
-                        'type' => $extra->type,
-                        'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
-                        'fieldTranslations' => $extra->fieldTranslations()
-                    ];
+                    if($extra->is_published){
+                        $extras[] = [
+                            'id' => $extra->id,
+                            'type' => $extra->type,
+                            'is_published' => $extra->is_published,
+                            'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
+                            'fieldTranslations' => $extra->fieldTranslations()
+                        ];
+                    }
                 }
 
                 $childrens[] =  [

@@ -20,6 +20,7 @@ class UpdateLocationHandler extends BaseHandler
         $domainLogo = $location->pais.'_'.$location->ciudad.'_location_domain_logo_'.$this->params['nombre'].'_';
         $marker = $location->pais.'_'.$location->ciudad.'_location_marker_'.$this->params['nombre'].'_';
         $favicon = $location->pais.'_'.$location->ciudad.'_location_favicon_'.$this->params['nombre'].'_';
+        $register_img = $location->pais.'_'.$location->ciudad.'_location_registerImg_'.$this->params['nombre'].'_';
 
 
         if (isset($this->params['front_page'])) {
@@ -57,6 +58,13 @@ class UpdateLocationHandler extends BaseHandler
             $location->favicon = $path;
         }
 
+        if (isset($this->params['register_img'])) {
+            // marker
+            $path = UploadImage::upload($this->params['register_img'], 'locations/' . $location->id . '/',$register_img);
+
+            $location->register_img = $path;
+        }
+
         $domain = str_replace('http://', '', $this->params['domain']);
         $domain = str_replace('https://', '', $domain);
         $location->domain = $domain;
@@ -66,6 +74,7 @@ class UpdateLocationHandler extends BaseHandler
         $location->alt_marker = $this->params['alt_marker'];
         $location->alt_favicon = $this->params['alt_favicon'];
         $location->facebook = $this->params['facebook'];
+        $location->alt_register_img = $this->params['alt_register_img'];
         $location->instagram = $this->params['instagram'];
         $location->email_contact = $this->params['email_contact'];
         $location->phone_contact = $this->params['phone_contact'];

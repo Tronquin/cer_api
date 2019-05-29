@@ -16,6 +16,7 @@ class FindExtrasOutstandingHandler extends BaseHandler {
         $extrasCollection = Extra::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'web')
             ->where('outstanding', true)
+            ->where('is_published', true)
             ->get();
 
         $extras = [];

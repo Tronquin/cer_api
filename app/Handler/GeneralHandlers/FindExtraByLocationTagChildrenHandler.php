@@ -31,7 +31,7 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
         foreach($locations as $location){
             foreach ($tagSearched->extras as $extraKey => $extra) {
                 if ($location->ubicacion_id === $extra->ubicacion_id){
-                    if($extra->type === 'erp'){
+                    if($extra->type === 'erp' && $extra->is_published){
                         $extrasERP[] = [
                             'id' => $extra->id,
                             'extra_id' => $extra->extra_id,
@@ -43,7 +43,7 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                             'fieldTranslations' => $extra->fieldTranslations(),
                             'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
                         ];
-                    }else if($extra->type === 'web'){
+                    }else if($extra->type === 'web' && $extra->is_published){
                         $extrasWEB[] = [
                             'id' => $extra->id,
                             'extra_id' => $extra->extra_id,
