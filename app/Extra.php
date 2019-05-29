@@ -34,6 +34,12 @@ class Extra extends Model
         'servicio_gestion',
         'destacado',
         'activo',
+        'cambia_hora_entrada',
+        'cambia_hora_salida',
+        'front_image',
+        'icon',
+        'outstanding',
+        'is_published'
     ];
 
     /**

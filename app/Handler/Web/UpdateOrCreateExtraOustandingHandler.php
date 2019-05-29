@@ -26,6 +26,7 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
             $location = Location::where('id', $this->params['location_id'])->firstOrFail();
             $oustanding = ExtraOustanding::query()->findOrNew($id);
             $oustanding->location_id = $this->params['location_id'];
+            $oustanding->is_published = $extra['is_published'];
 
             $oustandings_Name = '';
             foreach ($extra['fieldTranslations'] as $iso) {

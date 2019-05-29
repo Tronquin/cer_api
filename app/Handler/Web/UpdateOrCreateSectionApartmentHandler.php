@@ -19,11 +19,10 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
     {
         $data = [];
         $sectionApartmentIds = [];
-        
+
+        $location = Location::where('id',$this->params['location_id'])->firstOrFail();
         foreach ($this->params['sectionApartments'] as $sectionApartment) {
             $id = $sectionApartment['id'];
-
-            $location = Location::where('id',$this->params['location_id'])->firstOrFail();
             
             if(isset($this->params['sectionsName']))
             $location->updateFieldTranslations($this->params['sectionsName']);
@@ -77,7 +76,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             ->whereNotIn('section_apartment_id', $sectionApartmentIds)
             ->whereNotNull('section_apartment_id')
             ->delete();
-        SectionApartment::query()->whereNotIn('id', $sectionApartmentIds)->delete();
+        SectionApartment::query()->where('location_id', $location->id)->whereNotIn('id', $sectionApartmentIds)->delete();
             
         $response = [
             'res' => 1,
