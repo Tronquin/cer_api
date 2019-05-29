@@ -20,11 +20,11 @@ class UploadImage
         $base64 = explode(',', $base64);
         $upload = base64_decode($base64[1]);
         $name = '';
-        if (! $filename) {
+        if (!$filename) {
             $uniq = uniqid();
             $name = $uniq;
-        }else{
-            $filename = strtolower(str_replace(' ','_',$filename));
+        } else {
+            $filename = strtolower(str_replace(' ', '_', $filename));
             $uniq = uniqid();
             $name = $filename;
         }
@@ -33,15 +33,26 @@ class UploadImage
         Storage::disk('public')->put($path, $upload);
         $size = str_replace('/', '-', $path);
 
-        $tamaño = getimagesize(env('APP_URL').'storage/image/size/'.$size);
-        $name = $name.$tamaño[0].'x'.$tamaño[1].'-'.$uniq;
-        
+        $tamaño = getimagesize(env('APP_URL') . 'storage/image/size/' . $size);
+        $name = $name . $tamaño[0] . 'x' . $tamaño[1] . '-' . $uniq;
+
         $imagen = new Imagen();
         $imagen->slug = $name;
         $imagen->url = $path;
         $imagen->save();
 
         return $name;
+    }
+
+    /**
+     * Indica si un texto es una imagen en base 64
+     *
+     * @param string $content
+     * @return bool
+     */
+    public static function isBase64($content)
+    {
+        return $content !== str_replace('data:image', '', $content);
     }
 
     /**

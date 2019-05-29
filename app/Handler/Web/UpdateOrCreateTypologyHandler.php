@@ -22,9 +22,9 @@ class UpdateOrCreateTypologyHandler extends BaseHandler
         $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
         $tipologia = Typology::query()->findOrNew($this->params['id']);
 
-        $front_image_name = $location->pais.'_'.$location->ciudad.'_typology_';
+        $front_image_name = str_slug($location->pais).'_'.str_slug($location->ciudad).'_typology_';
 
-        if (isset($this->params['front_image'])) {
+        if (isset($this->params['front_image']) && UploadImage::isBase64($this->params['front_image'])) {
             // Imagen
             $path = UploadImage::upload($this->params['front_image'], 'typology/',$front_image_name);
 
