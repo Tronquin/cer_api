@@ -3,9 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use ShortPixel\ShortPixel;
 use Illuminate\Support\Facades\Storage;
-use function GuzzleHttp\json_encode;
 
 class ImageCompression extends Command
 {
@@ -71,6 +69,20 @@ class ImageCompression extends Command
 
         return array_values($arr);
     }
+
+    /**
+     * Gets Parent Folder Path 
+     * @param string
+     * @return string
+     */
+    public function getParentFolderPath($string)
+    {
+        $explode = explode('/', $string);
+        unset($explode[count($explode) - 1]);
+        $string = implode('/', $explode);
+
+        return $string;
+    }
     /**
      * Execute the console command.
      *
@@ -105,28 +117,23 @@ class ImageCompression extends Command
         \ShortPixel\setKey(env("SHORTPIXEL_KEY", "O4rvdcTTXBPbPM70xWtI"));
 
         $storagePath  = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
-        $imagePath = $this->getImagesFromDirectory($storagePath);
         $optimizedPath = storage_path('app/optimized') . '/';
-        $optimizedPaths = [];
+        $publicImagesPath = $this->getImagesFromDirectory($storagePath);
 
-
-        foreach ($imagePath as $key => $value) {
-            $op = str_replace($storagePath, $optimizedPath, $value);
-            if (!file_exists($op)) {
-
-                $explode = explode('/', $op);
-                unset($explode[count($explode) - 1]);
-                $op = implode('/', $explode);
-
+        foreach ($publicImagesPath as $key => $value) {
+            $optimizedImagePath = str_replace($storagePath, $optimizedPath, $value);
+            if (!file_exists($optimizedImagePath)) {
+                $optimizedFolder = $this->getParentFolderPath($optimizedImagePath);
                 $optimizedPaths[] = [
-                    'original' => $value,
-                    'optimized' => $op
+                    'original' => $value, //Original Path in Public
+                    'optimized' => $optimizedFolder //Optimized Destiny folder Path 
                 ];
             }
         }
-
         foreach ($optimizedPaths as $key => $value) {
             \ShortPixel\fromFile($value['original'])->wait(300)->toFiles($value['optimized']);
         }
+
+        $this->info('All Images have been Optimized Successfully');
     }
 }

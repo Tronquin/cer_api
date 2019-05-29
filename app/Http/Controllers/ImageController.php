@@ -17,18 +17,26 @@ class ImageController extends Controller
      */
     public function getImage($image)
     {
-        
-        $imagen = Imagen::where('slug',$image)->first();
 
-        if (! $imagen) {
+        $imagen = Imagen::where('slug', $image)->first();
+
+        if (!$imagen) {
             $imagen = [];
             $imagen['url'] = str_replace('/', '-', $image);
         }
 
-        $path = str_replace('-', '/', $imagen['url']);
-        $path = storage_path('app/public') . '/' . $path;
+        $imageRelativePath = str_replace('-', '/', $imagen['url']);
+        $publicPath = storage_path('app/public') . '/' . $imageRelativePath;
+        $optimizedPath = storage_path('app/optimized') . '/' . $imageRelativePath;
 
-        if (! file_exists($path)) {
+
+        if (file_exists($optimizedPath)) {
+            $path = $optimizedPath;
+        } else {
+            $path = $publicPath;
+        }
+
+        if (!file_exists($publicPath)) {
             abort(404);
         }
 
@@ -43,7 +51,6 @@ class ImageController extends Controller
         $response->header('Content-Type', $type);
 
         return $response;
-
     }
 
     /**
@@ -54,13 +61,21 @@ class ImageController extends Controller
      */
     public function getImageSize($image)
     {
-        
-        $path = str_replace('-', '/', $image);
-        $path = storage_path('app/public') . '/' . $path;
+        $imageRelativePath = str_replace('-', '/', $image);
+        $publicPath = storage_path('app/public') . '/' . $imageRelativePath;
+        $optimizedPath = storage_path('app/optimized') . '/' . $imageRelativePath;
 
-        if (! file_exists($path)) {
+
+        if (file_exists($optimizedPath)) {
+            $path = $optimizedPath;
+        } else {
+            $path = $publicPath;
+        }
+
+        if (!file_exists($publicPath)) {
             abort(404);
         }
+
 
         $file = File::get($path);
         $type = File::mimeType($path);
@@ -73,6 +88,5 @@ class ImageController extends Controller
         $response->header('Content-Type', $type);
 
         return $response;
-
     }
 }
