@@ -62,7 +62,7 @@ class ImageCompression extends Command
     {
         foreach ($arr as $key => $value) {
             $info = pathinfo($value);
-            if ($info["extension"] == "pdf" || $info["extension"] == "xlsx" || $info["extension"] == "gitignore" || $info["extension"] == "shortpixel") {
+            if (in_array($info['extension'], ['pdf', 'xlsx', 'gitignore', 'shortpixel', 'svg'])) {
                 unset($arr[$key]);
             }
         }
