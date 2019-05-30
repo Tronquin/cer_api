@@ -653,7 +653,62 @@ class ERPGetData {
                         $politica_cancelacions_erp->incidencia_porcentaje = $politica_cancelacion['incidencia_porcentaje'];
                         $politica_cancelacions_erp->activo = $politica_cancelacion['activo'];
 
+                        
+                        $politica_cancelacions_lang['es'] = [
+                            'nombre' => $politica_cancelacion['nombre'],
+                            'nombre_cliente' => $politica_cancelacion['nombre_cliente']
+                        ];
+                        $politica_cancelacions_lang['en'] = [
+                            'nombre' => '',
+                            'nombre_cliente' => ''
+                        ];
+                        $politica_cancelacions_lang['fr'] = [
+                            'nombre' => '',
+                            'nombre_cliente' => ''
+                        ];
+                        $politica_cancelacions_lang['de'] = [
+                            'nombre' => '',
+                            'nombre_cliente' => ''
+                        ];
+                        
                         $politica_cancelacions_erp->save();
+
+                        foreach($languages as $language){
+                            foreach($politica_cancelacions_lang as $key => $lang){
+                                
+                                if($language['iso'] == $key){
+                                    $translation = FieldTranslation::where('content_id',$politica_cancelacions_erp->id)
+                                                    ->where('field','nombre')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', CancellationPolicy::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $politica_cancelacions_erp->id;
+                                        $translation->content_type = CancellationPolicy::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre';
+                                        $translation->translation = $lang['nombre'];
+                                        $translation->save();
+                                    }
+
+                                    $translation = FieldTranslation::where('content_id',$politica_cancelacions_erp->id)
+                                                    ->where('field','nombre_cliente')
+                                                    ->where('language_id',$language['id'])
+                                                    ->where('content_type', CancellationPolicy::class)
+                                                    ->first();
+                                    if(!$translation){
+                                        $translation = new FieldTranslation();
+                                        $translation->content_id = $politica_cancelacions_erp->id;
+                                        $translation->content_type = CancellationPolicy::class;
+                                        $translation->language_id = $language['id'];
+                                        $translation->field = 'nombre_cliente';
+                                        $translation->translation = $lang['nombre_cliente'];
+                                        $translation->save();
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     // Tabla Extra
