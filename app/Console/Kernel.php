@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\GetDataFromErpCommand::class,
         Commands\GetDataTripavisorCommand::class,
         Commands\SendEmailCommand::class,
-        Commands\GetTranslationDataForEmailsCommand::class
+        Commands\GetTranslationDataForEmailsCommand::class,
+        Commands\ImageCompression::class
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('cer:email:send')->everyMinute();
+        $schedule->command('image:compression')->everyFiveMinutes();
     }
 
     /**
@@ -37,7 +39,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
