@@ -80,7 +80,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/user/{email}', 'UserController@find');
     // Registrar una reserva
     Route::post('/reservation/create', 'ReservationController@createReservation');
-    //busqueda de experiencia por idate
+    //busqueda de experiencia por id
     Route::get('/find/experienceById/{experiencie_id}', 'ExperienceController@find');
     //busqueda de politicas de cancelacion por ubicacion
     Route::get('/find/cancellationPolicyByLocation/{ubicacion_id}', 'General\SearchdController@findCancellationPolicy');

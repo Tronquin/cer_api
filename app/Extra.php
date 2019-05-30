@@ -73,7 +73,8 @@ class Extra extends Model
 
     public function experiences()
     {
-        return $this->belongsToMany(Experience::class, 'experiences_extras', 'extra_id', 'experience_id');
+        return $this->belongsToMany(Experience::class, 'experiences_extras', 'extra_id', 'experience_id')
+            ->withPivot('is_published');;
     }
 
     /**

@@ -15,8 +15,18 @@ class UpdateExperienceHandler extends BaseHandler
     protected function handle()
     {
         $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
-        $experience = Experience::where('experiencia_id', $this->params['experienceId'])->firstOrFail();
+        $experience = Experience::where('experiencia_id', $this->params['experienceId'])->with(['extras'])->firstOrFail();
 
+        foreach($this->params['extras']['disponibles'] as $extra){
+            foreach($experience->extras as $extraErp){
+                if($extra['extra_id'] === $extraErp->extra_id){
+
+                    $extraExp = $experience->extras()->find($extraErp->id);
+                    $extraExp->pivot->is_published = $extra['activo'];
+                    $extraExp->pivot->save();
+                }
+            }
+        }
         $front_image_name = $location->pais.'_'.$location->ciudad.'_experience_img_'.$this->params['nombre'].'_';
         $icon = $location->pais.'_'.$location->ciudad.'_experience_icon_'.$this->params['nombre'].'_';
 
