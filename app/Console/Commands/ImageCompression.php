@@ -119,7 +119,7 @@ class ImageCompression extends Command
         $storagePath  = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix();
         $optimizedPath = storage_path('app/optimized') . '/';
         $publicImagesPath = $this->getImagesFromDirectory($storagePath);
-
+        $optimizedPaths = [];
         foreach ($publicImagesPath as $key => $value) {
             $optimizedImagePath = str_replace($storagePath, $optimizedPath, $value);
             if (!file_exists($optimizedImagePath)) {
@@ -130,7 +130,11 @@ class ImageCompression extends Command
                 ];
             }
         }
+
         foreach ($optimizedPaths as $key => $value) {
+            $this->info('Image number ' . $key . ' to Compress: ' . $value['original']);
+            $this->info('Image Compressed to route: ' . $value['optimized']);
+            $this->info('--------------------------');
             \ShortPixel\fromFile($value['original'])->wait(300)->toFiles($value['optimized']);
         }
 
