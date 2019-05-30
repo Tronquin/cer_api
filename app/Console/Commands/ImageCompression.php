@@ -131,6 +131,7 @@ class ImageCompression extends Command
             }
         }
 
+        $this->info('Pending Image: ' . count($optimizedPaths));
         foreach ($optimizedPaths as $key => $value) {
             $this->info('Image number ' . $key . ' to Compress: ' . $value['original']);
             $this->info('Image Compressed to route: ' . $value['optimized']);
