@@ -17,6 +17,9 @@ class UpdateSpaInfoHandler extends BaseHandler
     {
         $spaInfo = SpaInfo::query()->firstOrNew(['location_id' => $this->params['location_id']]);
 
+        $spaInfo->link_tour = $this->params['link_tour'];
+        $spaInfo->link_iframe = $this->params['link_iframe'];
+        
         $spa_info = '';
         foreach($this->params['fieldTranslations'] as $iso){
             if($iso['iso'] === 'es'){
