@@ -21,7 +21,8 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
         $sectionApartmentIds = [];
 
         $location = Location::where('id',$this->params['location_id'])->firstOrFail();
-        foreach ($this->params['sectionApartments'] as $sectionApartment) {
+        $sectionApartments = $this->params['sectionApartments']??[];
+        foreach ($sectionApartments as $sectionApartment) {
             $id = $sectionApartment['id'];
             
             if(isset($this->params['sectionsName']))
@@ -95,7 +96,6 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
     protected function validationRules()
     {
         return [
-            'sectionApartments' => 'required'
         ];
     }
 }
