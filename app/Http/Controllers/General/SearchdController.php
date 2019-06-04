@@ -19,6 +19,7 @@ use App\Handler\GeneralHandlers\FindExtrasForPurchaseHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagHandler;
 use App\Handler\GeneralHandlers\FindExtraByLocationTagChildrenHandler;
 use App\Handler\GeneralHandlers\SaveMasiveExtraTagsHandler;
+use App\Handler\GeneralHandlers\FindCancellationPolicyHandler;
 use App\Handler\SiteMapHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
@@ -350,6 +351,24 @@ class SearchdController extends Controller
     public function siteMap()
     {
         $handler = new SiteMapHandler();
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene la informacion de las politicas de cancelacion por ubicacion
+     *
+     * @return JsonResponse
+     * @param $ubicacion_id
+     */
+    public function findCancellationPolicy($ubicacion_id)
+    {
+        $handler = new FindCancellationPolicyHandler(['ubicacion_id' => $ubicacion_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

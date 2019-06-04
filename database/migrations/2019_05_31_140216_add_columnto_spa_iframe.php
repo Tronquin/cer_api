@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnPhotosAndMoreGalleryTitle extends Migration
+class AddColumntoSpaIframe extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnPhotosAndMoreGalleryTitle extends Migration
      */
     public function up()
     {
-        Schema::table('photos_and_more', function (Blueprint $table) {
-            $table->string('gallery_title')->nullable();
+        Schema::table('spa_info', function (Blueprint $table) {
+            $table->string('link_iframe')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnPhotosAndMoreGalleryTitle extends Migration
      */
     public function down()
     {
-        Schema::table('cancellation_policys', function (Blueprint $table) {
-            $table->dropColumn('gallery_title');
+        Schema::table('spa_info', function (Blueprint $table) {
+            $table->dropColumn('link_iframe');
         });
     }
 }

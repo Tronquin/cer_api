@@ -62,7 +62,7 @@ class ImageCompression extends Command
     {
         foreach ($arr as $key => $value) {
             $info = pathinfo($value);
-            if ($info["extension"] == "pdf" || $info["extension"] == "xlsx" || $info["extension"] == "gitignore" || $info["extension"] == "shortpixel") {
+            if (in_array($info['extension'], ['pdf', 'xlsx', 'gitignore', 'shortpixel', 'svg'])) {
                 unset($arr[$key]);
             }
         }
@@ -131,6 +131,7 @@ class ImageCompression extends Command
             }
         }
 
+        $this->info('Pending Image: ' . count($optimizedPaths));
         foreach ($optimizedPaths as $key => $value) {
             $this->info('Image number ' . $key . ' to Compress: ' . $value['original']);
             $this->info('Image Compressed to route: ' . $value['optimized']);

@@ -34,7 +34,7 @@ class FindExperiencesByLocationHandler extends BaseHandler {
 
         $extras = Extra::where('ubicacion_id', $ubicacionId)
             ->where('type', 'erp')    
-            ->with(['child'])
+            ->with(['child','experiences'])
             ->limit(5)
             ->get();
             
@@ -56,7 +56,10 @@ class FindExperiencesByLocationHandler extends BaseHandler {
                 $temp['icon'] = $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
                 
                 $temp['fieldTranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
-
+                $activo = $extraErp->experiences()->find($expErp->id);
+                $activo = $activo->pivot->is_published;
+                $temp['activo'] = $activo;
+                
                 $available[] = $temp;
                 $extraIds[] = $extraErp->id;
             }

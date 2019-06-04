@@ -15,13 +15,14 @@ class UpdateLocationHandler extends BaseHandler
     {
         $location = Location::where('ubicacion_id', $this->params['locationId'])->firstOrFail();
 
-        $front_image_name = $location->pais.'_'.$location->ciudad.'_location_img_'.$this->params['nombre'].'_';
-        $icon = $location->pais.'_'.$location->ciudad.'_location_icon_'.$this->params['nombre'].'_';
-        $domainLogo = $location->pais.'_'.$location->ciudad.'_location_domain_logo_'.$this->params['nombre'].'_';
-        $marker = $location->pais.'_'.$location->ciudad.'_location_marker_'.$this->params['nombre'].'_';
-        $favicon = $location->pais.'_'.$location->ciudad.'_location_favicon_'.$this->params['nombre'].'_';
-        $register_img = $location->pais.'_'.$location->ciudad.'_location_registerImg_'.$this->params['nombre'].'_';
-
+        $front_image_name = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_img_'.$this->params['nombre'].'_');
+        $icon = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_icon_'.$this->params['nombre'].'_');
+        $domainLogo = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_domain_logo_'.$this->params['nombre'].'_');
+        $marker = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_marker_'.$this->params['nombre'].'_');
+        $favicon = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_favicon_'.$this->params['nombre'].'_');
+        $register_img = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_registerImg_'.$this->params['nombre'].'_');
+        $header_exp_domain = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_headerExpDomain_'.$this->params['nombre'].'_');
+        $header_exp = UploadImage::slug($location->pais.'_'.$location->ciudad.'_location_headerExp_'.$this->params['nombre'].'_');
 
         if (isset($this->params['front_page'])) {
             // Imagen de portada
@@ -63,6 +64,20 @@ class UpdateLocationHandler extends BaseHandler
             $path = UploadImage::upload($this->params['register_img'], 'locations/' . $location->id . '/',$register_img);
 
             $location->register_img = $path;
+        }
+
+        if (isset($this->params['header_exp_domain'])) {
+            // header exp domain
+            $path = UploadImage::upload($this->params['header_exp_domain'], 'locations/' . $location->id . '/',$header_exp_domain);
+
+            $location->header_exp_domain = $path;
+        }
+
+        if (isset($this->params['header_exp'])) {
+            // header exp
+            $path = UploadImage::upload($this->params['header_exp'], 'locations/' . $location->id . '/',$header_exp);
+
+            $location->header_exp = $path;
         }
 
         $domain = str_replace('http://', '', $this->params['domain']);
