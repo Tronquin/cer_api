@@ -16,13 +16,23 @@ class AddTranslationServiciosNoReserva extends Migration
         $translations = [
             [
                 'key' => 'components.loginIndex.noReserve',
-                'translation' => 'No Tienes Ninguna Reserva'
+                'translation' => 'No tienes ninguna reserva'
             ],
             [
                 'key' => 'components.loginIndex.noReserveMessage',
-                'translation' => 'Para Poder Acceder a Esta Opcion, debes hacer una reserva primero, haz click aqui para reservar'
+                'translation' => 'Debes crear una reserva primero para poder acceder a esta opción. Haz click para reservar'
+            ],
+            [
+                'key' => 'components.loginIndex.buttonReserve',
+                'translation' => 'Reservar'
             ]
         ];
+
+        $keys = \App\KeyTranslation::query()->whereIn('key', array_column($translations, 'key'))->get();
+        foreach ($keys as $key) {
+            $key->languages()->sync([]);
+            $key->delete();
+        }
 
         $device = \App\DeviceType::query()->where('code', 'web')->first();
         $languages = \App\Language::all();

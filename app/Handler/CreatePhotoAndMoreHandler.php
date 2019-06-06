@@ -65,7 +65,7 @@ class CreatePhotoAndMoreHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'video' => 'required',
+            // 'video' => 'required',
             'fieldTranslations' => 'required',
             'location_id' => 'required'
         ];
