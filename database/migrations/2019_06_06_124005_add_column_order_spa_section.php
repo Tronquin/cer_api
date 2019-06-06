@@ -13,7 +13,7 @@ class AddColumnOrderSpaSection extends Migration
      */
     public function up()
     {
-        Schema::table('spa_section', function (Blueprint $table) {
+        Schema::table('spa_sections', function (Blueprint $table) {
             $table->integer('order')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddColumnOrderSpaSection extends Migration
      */
     public function down()
     {
-        Schema::table('spa_info', function (Blueprint $table) {
+        Schema::table('spa_sections', function (Blueprint $table) {
             $table->dropColumn('order');
         });
     }
