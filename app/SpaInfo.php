@@ -22,7 +22,7 @@ class SpaInfo extends Model
      */
     public function spaSections()
     {
-        return $this->hasMany(SpaSection::class, 'spa_info_id');
+        return $this->hasMany(SpaSection::class, 'spa_info_id')->orderBy('order');
     }
 
     /**
