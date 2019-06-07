@@ -231,8 +231,7 @@
 
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-            (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using
-            a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+            {{ CTrans::trans('pages.header.preheader', 'es') }}
         </div>
         <!-- Visually Hidden Preheader Text : END -->
 
@@ -369,7 +368,7 @@
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
                                         <div style="float: left;">N&ordm; {{ trans('emails.emails.confirmacionreserva.pax') }}</div>
-                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} adultos - {{ $data['reserva']['ninos'] }} niños</div>
+                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} {{ CTrans::trans('pages.booking.adult', 'es') }} - {{ $data['reserva']['ninos'] }} {{ CTrans::trans('pages.booking.child', 'es') }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -385,7 +384,7 @@
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipodeapartamento') }}</div>
-                                        <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} dormitorios - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} baños</div>
+                                        <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} {{ CTrans::trans('pages.booking.rooms', 'es') }} - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} {{ CTrans::trans('pages.booking.bath', 'es') }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -681,7 +680,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                            <p style="margin: 0;">Copyright © 2018 castro Exclusive Residences All Rights Reserved</p>
+                                            <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
                                         </td>
                                     </tr>
                                 </table>

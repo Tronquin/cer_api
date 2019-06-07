@@ -77,7 +77,7 @@
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                             <tr>
                                 <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                    <p style="margin: 0;">Copyright © 2018 castro Exclusive Residences All Rights Reserved</p>
+                                    <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
                                 </td>
                             </tr>
                         </table>

@@ -10,7 +10,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>Confirmación de Reserva</title>
+    <title>{{ CTrans::trans('pages.hired.title', 'es') }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -231,8 +231,7 @@
 
     <!-- Visually Hidden Preheader Text : BEGIN -->
     <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-        (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using
-        a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+        {{ CTrans::trans('pages.header.preheader', 'es') }}
     </div>
     <!-- Visually Hidden Preheader Text : END -->
 
@@ -279,13 +278,13 @@
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                         <td style="padding: 5px 40px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px;">
-                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 25px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">Para nosotros tu opinión es importante</h1>
+                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 25px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('pages.rate.forUs', 'es') }}</h1>
                         </td>
                     </tr>
 
                     <tr>
                         <td style="padding: 0px 40px; text-align: center; background-color: #000;">
-                            <p style="color: #FFF; font-size: 15px; font-weight: 300; font-family: 'rawline', sans-serif; text-align: left;">Nos encantaría que tú y tus acompañantes <b>valoren la estancia</b>. ¡No te quitará mucho tiempo!</p>
+                            <p style="color: #FFF; font-size: 15px; font-weight: 300; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('pages.rate.rateUs', 'es') }}</p>
                         </td>
                     </tr>
 
@@ -332,7 +331,7 @@
                 <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                     <tr>
                         <td class="button-td button-td-primary">
-                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">Valora tu estancia en
+                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('pages.rate.google+', 'es') }}
                                 <span style="color:#BC0926;">Google+</span></a>
                         </td>
                     </tr>
@@ -364,7 +363,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="color: #FFF;padding-bottom: 20px;">
-                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">¿Tienes dudas? Contáctanos</p>
+                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', 'es') }}</p>
                                         <div style="padding-bottom: 20px;">
                                             <img src="{{ asset('storage/image/email-rateService-SVG-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                         </div>
@@ -377,11 +376,11 @@
                                     <td style="color: #fff;padding-top: 10px;">
                                         <div style="margin: 0;">
                                             <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                                <div style="padding-bottom: 10px;">Síguenos en nuestras redes</div>
+                                                <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', 'es') }}</div>
                                                 <img src="{{ asset('storage/image/email-rateService-SVG-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                             </div>
                                             <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">Descarga nuestra App</span> <br>
+                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', 'es') }}</span> <br>
                                                 <a href="#"><img src="{{ asset('storage/image/email-rateService-SVG-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                 <a href="#"><img src="{{ asset('storage/image/email-rateService-SVG-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                             </div>
@@ -422,7 +421,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                        <p style="margin: 0;">Copyright © 2018 castro Exclusive Residences All Rights Reserved</p>
+                                        <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
                                     </td>
                                 </tr>
                             </table>
