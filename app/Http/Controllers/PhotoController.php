@@ -53,12 +53,15 @@ class PhotoController extends Controller
      * Obtiene las imagenes de una galeria
      *
      * @param string $galleryCode
+     * @param Request $request
      * @return JsonResponse
      */
     public function photos($galleryCode, Request $request)
     {
-        $erp_images = $request->erp_images;
-        $handler = new GetPhotoByGallery(compact('galleryCode', 'erp_images'));
+        $handler = new GetPhotoByGallery([
+            'galleryCode' => $galleryCode,
+            'erp_images' => $request->erp_images
+        ]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
@@ -72,11 +75,15 @@ class PhotoController extends Controller
      * Obtiene las imagenes de una galeria
      *
      * @param string $location_id
+     * @param Request $request
      * @return JsonResponse
      */
-    public function photosByLocation($location_id)
+    public function photosByLocation($location_id, Request $request)
     {
-        $handler = new GetPhotoByGalleryByLocation(compact('location_id'));
+        $handler = new GetPhotoByGalleryByLocation([
+            'location_id' => $location_id,
+            'erp_images' => $request->erp_images
+        ]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
