@@ -1,6 +1,7 @@
 <?php
 namespace App\Handler;
 
+use App\Service\EmailService;
 use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
