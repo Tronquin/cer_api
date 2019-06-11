@@ -18,6 +18,70 @@ class AddStaticTranslations extends Migration
 
         $translations = [
             [
+                'key' => 'email.subject.registerUser',
+                'translation' => 'Usuario registrado'
+            ],
+            [
+                'key' => 'email.subject.24hs',
+                'translation' => 'Faltan 24hrs para su llegada'
+            ],
+            [
+                'key' => 'email.subject.48hs',
+                'translation' => 'Faltan 48hrs para su llegada'
+            ],
+            [
+                'key' => 'email.subject.48hs.errorExperience',
+                'translation' => 'error para obtener la experiencia'
+            ],
+            [
+                'key' => 'email.subject.48hs.errorExp',
+                'translation' => 'error para obtener los extras contratados'
+            ],
+            [
+                'key' => 'email.subject.reservationUpdated',
+                'translation' => 'Modificación de reserva'
+            ],
+            [
+                'key' => 'email.subject.resetPassword',
+                'translation' => 'Restablecer la contraseña'
+            ],
+            [
+                'key' => 'email.subject.hiredServices',
+                'translation' => 'Servicios contradados'
+            ],
+            [
+                'key' => 'email.subject.hiredServices.reimbursable',
+                'translation' => 'No reembolsable'
+            ],
+            [
+                'key' => 'email.subject.hiredServices.flexible',
+                'translation' => 'Flexible'
+            ],
+            [
+                'key' => 'email.subject.hiredServices.paid',
+                'translation' => 'Pagado'
+            ],
+            [
+                'key' => 'email.subject.confirmacionReserva',
+                'translation' => 'Confirmacion de Reserva'
+            ],
+            [
+                'key' => 'email.subject.confirmacionReserva',
+                'translation' => 'Confirmacion de Reserva'
+            ],
+            [
+                'key' => 'email.subject.rateServices',
+                'translation' => 'Valoración de reserva'
+            ],
+            [
+                'key' => 'email.subject.checkout',
+                'translation' => 'Checkout de Reserva'
+            ],
+            [
+                'key' => 'email.subject.cancelacionReserva',
+                'translation' => 'Cancelacion de Reserva'
+            ],
+            [
                 'key' => 'pages.header.welcome',
                 'translation' => 'Bienvenido'
             ],

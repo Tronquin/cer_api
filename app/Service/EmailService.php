@@ -83,7 +83,7 @@ class EmailService
                 'amount' => $extra['precio']['total']
             ];
         }
-        $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
+        $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador_erp'])->first();
 
         self::send('email.hiredServices', 'Servicios contradados', [$reservation->user->email], [
             'data' => [
