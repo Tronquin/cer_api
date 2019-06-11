@@ -37,10 +37,13 @@ class GetPhotoByGallery extends BaseHandler
             ];
         }
 
-        $erpImages = ERPImage::all();
-        foreach ($erpImages as $erpImage) {
-            $erpImage->completeUrl = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
-            $erpImage->fieldTranslations = $erpImage->fieldTranslations();
+        if (! isset($this->params['erp_images']) || $this->params['erp_images']) {
+
+            $erpImages = ERPImage::all();
+            foreach ($erpImages as $erpImage) {
+                $erpImage->completeUrl = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
+                $erpImage->fieldTranslations = $erpImage->fieldTranslations();
+            }
         }
 
         $response['res'] = count($photos);
@@ -61,7 +64,7 @@ class GetPhotoByGallery extends BaseHandler
     protected function validationRules()
     {
         return [
-            'galleryCode' => 'required'
+            'galleryCode' => 'required',
         ];
     }
 }
