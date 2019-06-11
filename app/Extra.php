@@ -37,6 +37,7 @@ class Extra extends Model
         'cambia_hora_entrada',
         'cambia_hora_salida',
         'front_image',
+        'front_image_large',
         'icon',
         'outstanding',
         'is_published'
@@ -120,6 +121,6 @@ class Extra extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['description','nombre', 'alt_image', 'alt_icon'];
+        return ['description','nombre', 'alt_image', 'alt_icon', 'description_large'];
     }
 }
