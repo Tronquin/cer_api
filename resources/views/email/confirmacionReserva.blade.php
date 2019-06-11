@@ -10,7 +10,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>{{ trans('emails.emails.confirmacionreserva.title') }}</title>
+    <title>{{ CTrans::trans('emails.confirmacionreserva.title', $data['lang']) }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -281,7 +281,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td style="padding: 5px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; color: #555555;">
-                                            <h1 style="margin: 0 0 10px; text-align: center; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ trans('emails.emails.confirmacionreserva.title') }}</h1>
+                                            <h1 style="margin: 0 0 10px; text-align: center; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('emails.confirmacionreserva.title', $data['lang']) }}</h1>
                                         </td>
                                     </tr>
 
@@ -297,7 +297,7 @@
                                                                 <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
                                                                     <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
                                                                     <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                                        <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkin') }}</b><br>
+                                                                        <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkin', $data['lang']) }}</b><br>
                                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['fecha_entrada'] }}</span><br>
                                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_entrada'] }}</span>
                                                                     </div>
@@ -313,7 +313,7 @@
                                                                 <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
                                                                     <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
                                                                     <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                                        <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ trans('emails.emails.confirmacionreserva.checkout') }}</b><br>
+                                                                        <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkout', $data['lang']) }}</b><br>
                                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['fecha_salida'] }}</span><br>
                                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['reserva']['hora_salida'] }}</span>
                                                                     </div>
@@ -351,7 +351,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 40px 40px 30px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="font-weight: bold; margin: 0; background-color: #8E071C; border-radius: 3px; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.localizadorreserva') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.localizadorreserva', $data['lang']) }}</div>
                                         <div style="text-align: right">{{ $data['reserva']['localizador'] }}</div>
                                     </div>
                                 </td>
@@ -359,7 +359,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.nombre') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.nombre', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['cliente']['nombre'] }} {{ $data['reserva']['cliente']['apellido'] }}</div>
                                     </div>
                                 </td>
@@ -367,7 +367,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
-                                        <div style="float: left;">N&ordm; {{ trans('emails.emails.confirmacionreserva.pax') }}</div>
+                                        <div style="float: left;">N&ordm; {{ CTrans::trans('emails.confirmacionreserva.pax', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} {{ CTrans::trans('pages.booking.adult', $data['lang']) }} - {{ $data['reserva']['ninos'] }} {{ CTrans::trans('pages.booking.child', $data['lang']) }}</div>
                                     </div>
                                 </td>
@@ -375,7 +375,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.apartamento') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.apartamento', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['apartamento']['nombre'] }}</div>
                                     </div>
                                 </td>
@@ -383,7 +383,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipodeapartamento') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.tipodeapartamento', $data['lang']) }}</div>
                                         <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} {{ CTrans::trans('pages.booking.rooms', $data['lang']) }} - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} {{ CTrans::trans('pages.booking.bath', $data['lang']) }}</div>
                                     </div>
                                 </td>
@@ -391,7 +391,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipoderegimen') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.tipoderegimen', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['tarifa']['nombre'] }}</div>
                                     </div>
                                 </td>
@@ -399,7 +399,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.experiencia') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.experiencia', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['experiencia']['nombre'] }}</div>
                                     </div>
                                 </td>
@@ -407,7 +407,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;">
-                                        <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.politicadecancelacion') }}</div>
+                                        <div style="float: left;">{{ CTrans::trans('emails.confirmacionreserva.politicadecancelacion', $data['lang']) }}</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['politica_cancelacion']['nombre_cliente'] }}</div>
                                     </div>
                                 </td>
@@ -426,7 +426,7 @@
                     <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                         <tr>
                             <td class="button-td button-td-primary">
-                                <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.queincluyemiexp') }}</a>
+                                <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('emails.confirmacionreserva.queincluyemiexp', $data['lang']) }}</a>
                             </td>
                         </tr>
                     </table>
@@ -502,7 +502,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 15px 15px;">
-                                        <div style="text-align: left;">{{ trans('emails.emails.confirmacionreserva.resumendpago') }}</div>
+                                        <div style="text-align: left;">{{ CTrans::trans('emails.confirmacionreserva.resumendpago', $data['lang']) }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -526,7 +526,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #959799">
-                                        <div style="text-align: left;">{{ trans('emails.emails.confirmacionreserva.serviciosextras') }}</div>
+                                        <div style="text-align: left;">{{ CTrans::trans('emails.confirmacionreserva.serviciosextras', $data['lang']) }}</div>
                                         
                                     </div>
                                 </td>
@@ -553,7 +553,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding: 0px 40px 20px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; border-top: 1px solid #959799">
-                                        <div style="float: left;"><b>{{ trans('emails.emails.confirmacionreserva.total') }}</b> ({{ trans('emails.emails.confirmacionreserva.ivaincluido') }})</div>
+                                        <div style="float: left;"><b>{{ CTrans::trans('emails.confirmacionreserva.total', $data['lang']) }}</b> ({{ CTrans::trans('emails.confirmacionreserva.ivaincluido', $data['lang']) }})</div>
                                         <div style="text-align: right; font-weight: bold">{{ $data['reserva']['total_reserva'] }} €</div>
                                     </div>
                                 </td>
@@ -574,7 +574,8 @@
                     <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                         <tr>
                             <td class="button-td button-td-primary">
-                                <a class="button-a button-a-primary" href="{{ $data['web_url'] }}" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ trans('emails.emails.confirmacionreserva.checkin') }} {{ trans('emails.emails.confirmacionreserva.online') }}</a>
+                                <a class="button-a button-a-primary" href="{{ $data['web_url'] }}" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('emails.confirmacionreserva.checkin', $data['lang']) }}
+                                    {{ CTrans::trans('emails.confirmacionreserva.online', $data['lang']) }}</a>
                             </td>
                         </tr>
                     </table>
@@ -583,7 +584,7 @@
             </tr>
             <tr>
                 <td style="padding: 0px 40px; text-align: center; background-color: #000;">
-                    <p style="color: #FFF; font-size: 15px; font-family: 'rawline', sans-serif; text-align: left;">{{ trans('emails.emails.confirmacionreserva.descripcion') }}</p>
+                    <p style="color: #FFF; font-size: 15px; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('emails.confirmacionreserva.descripcion', $data['lang']) }}</p>
                 </td>
             </tr>
 
@@ -591,11 +592,11 @@
                 <td valign="middle" style="text-align: center; padding: 10px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #fff;background-color: #000;">
                     <div style="margin: 0; padding: 25px 15px 30px 15px;border-bottom: 1px solid #787878;border-top: 1px solid #787878">
                         <div style="float: left; text-align: left;margin-top: -10px;">
-                            <b>{{ trans('emails.emails.confirmacionreserva.direccion') }}</b> <br>
+                            <b>{{ CTrans::trans('emails.confirmacionreserva.direccion', $data['lang']) }}</b> <br>
                             <span style="font-size: 19px; font-family: 'rawline', sans-serif;">{{ $data['reserva']['ubicacion']['direccion'] }}</span>
                         </div>
                         <div style="text-align: right; font-weight: bold">
-                            <a href="#" style="color: #ED9C28">{{ trans('emails.emails.confirmacionreserva.ubicarenmapa') }}</a>
+                            <a href="#" style="color: #ED9C28">{{ CTrans::trans('emails.confirmacionreserva.ubicarenmapa', $data['lang']) }}</a>
                         </div>
                     </div>
                 </td>
@@ -622,7 +623,8 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td style="color: #FFF;padding-bottom: 20px;">
-                                            <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.tienesdudas') }} {{ trans('emails.emails.confirmacionreserva.contactanos') }}</p>
+                                            <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('emails.confirmacionreserva.tienesdudas', $data['lang']) }}
+                                                {{ CTrans::trans('emails.confirmacionreserva.contactanos', $data['lang']) }}</p>
                                             <div style="padding-bottom: 20px;">
                                                 <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                             </div>
@@ -635,11 +637,11 @@
                                         <td style="color: #fff;padding-top: 10px;">
                                             <div style="margin: 0;">
                                                 <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                                    <div style="padding-bottom: 10px;">{{ trans('emails.emails.confirmacionreserva.siguenosenredes') }}</div>
+                                                    <div style="padding-bottom: 10px;">{{ CTrans::trans('emails.confirmacionreserva.siguenosenredes', $data['lang']) }}</div>
                                                     <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                                         </div> 
                                                         <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                            <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ trans('emails.emails.confirmacionreserva.descargaapp') }}</span> <br>
+                                                            <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('emails.confirmacionreserva.descargaapp', $data['lang']) }}</span> <br>
                                                             <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                     <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                                 </div>
