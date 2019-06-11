@@ -29,7 +29,7 @@ class CreateReservationHandler extends BaseHandler
     protected function handle()
     {
         $userExist = User::query()->where('email', $this->params['cliente_email'])->first();
-        $iso = $response['data'][0]['iso'];
+        $iso = $this->params['iso'];
 
         if ($userExist) {
 
