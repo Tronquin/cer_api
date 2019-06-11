@@ -11,7 +11,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>{{ CTrans::trans('pages.48Hours.title', 'es') }}</title>
+    <title>{{ CTrans::trans('pages.48Hours.title', $data['lang']) }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -220,7 +220,7 @@
     <center style="width: 100%; background-color: #fff;">
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-            {{ CTrans::trans('pages.header.preheader', 'es') }}
+            {{ CTrans::trans('pages.header.preheader', $data['lang']) }}
         </div>
         <!-- Visually Hidden Preheader Text : END -->
 
@@ -239,7 +239,7 @@
                     <div style="box-sizing: border-box; width: 100%; padding: 0 40px; margin-top: 140px;">
                         <img style="max-width: 100%;" src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="150" height="60" alt="Castro">
                         <div style="width: 100%; height: 1px; margin: 15px 0; background-color: #fff; border-radius: 1px;"></div>
-                        <p style="margin: 0; color: #fff; font-weight: bold; font-size: 24px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.48Hours.until', 'es') }}</p>
+                        <p style="margin: 0; color: #fff; font-weight: bold; font-size: 24px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.48Hours.until', $data['lang']) }}</p>
                     </div>
                 </td>
             </tr>
@@ -363,7 +363,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; font-size: 20px; font-family: 'rawline', sans-serif; font-weight: 600; line-height: 20px; color: #ffffff;">
                                     <div style=" margin: 0;">
-                                        <div style="float: left; text-align: left;">{{ CTrans::trans('pages.booking.arrival', 'es') }}</div>
+                                        <div style="float: left; text-align: left;">{{ CTrans::trans('pages.booking.arrival', $data['lang']) }}</div>
                                         <div style="text-align: right;">{{ $data['reserva']['hora_entrada'] }}</div>
                                     </div>
                                 </td>
@@ -371,7 +371,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; font-size: 20px; font-family: 'rawline', sans-serif; font-weight: 600; line-height: 20px; color: #ffffff;">
                                     <div>
-                                        <p style="text-align: left; font-size: 13px; font-weight: 300; line-height: 16px;">{{ CTrans::trans('pages.booking.access', 'es') }}</p>
+                                        <p style="text-align: left; font-size: 13px; font-weight: 300; line-height: 16px;">{{ CTrans::trans('pages.booking.access', $data['lang']) }}</p>
                                     </div>
                                 </td>
                             </tr>
@@ -389,7 +389,7 @@
                         <tr>
                             <td style="width: 100%; padding: 10px 0 ; border-radius: 50px; background-color: #ED9C28;">
                                 <a href="#" style="font-size: 20px; font-family: 'rawline', sans-serif; font-weight: bold; line-height: 20px; text-decoration: none; color: #000; ">
-                                    {{ CTrans::trans('pages.48Hours.earlyCheckIn', 'es') }}
+                                    {{ CTrans::trans('pages.48Hours.earlyCheckIn', $data['lang']) }}
                                 </a>
                             </td>
                         </tr>
@@ -416,7 +416,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; font-size: 20px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff; ">
                                     <div style="margin: 0; padding: 18px; background-color: #56595A; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom: 1.5px solid #494b4c">
-                                        <div style="text-align: left; font-weight: 600">{{ CTrans::trans('pages.48Hours.experience', 'es') }}</div>
+                                        <div style="text-align: left; font-weight: 600">{{ CTrans::trans('pages.48Hours.experience', $data['lang']) }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -459,7 +459,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; font-size: 20px; font-family: 'rawline', sans-serif; line-height: 20px; color: #8A071C; ">
                                     <div style="margin: 0; padding: 18px; background-color: #ffffff; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom: 1.5px solid transparent">
-                                        <div style="text-align: left; font-weight: 800">{{ CTrans::trans('pages.48Hours.otherServices', 'es') }}
+                                        <div style="text-align: left; font-weight: 800">{{ CTrans::trans('pages.48Hours.otherServices', $data['lang']) }}
                                         </div>
                                     </div>
                                 </td>
@@ -495,7 +495,7 @@
                         <tr>
                             <td style="width: 100%; padding: 10px 40px ; border-radius: 50px; background-color: #ED9C28;">
                                 <a href="#" style="font-size: 20px; font-family: 'rawline', sans-serif; font-weight: bold; line-height: 20px; text-decoration: none; color: #000; ">
-                                    {{ CTrans::trans('pages.48Hours.access', 'es') }}
+                                    {{ CTrans::trans('pages.48Hours.access', $data['lang']) }}
                                 </a>
                             </td>
                         </tr>
@@ -557,7 +557,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td style="color: #FFF;padding-bottom: 20px;">
-                                            <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', 'es') }}</p>
+                                            <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', $data['lang']) }}</p>
                                             <div style="padding-bottom: 20px;">
                                                 <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;">
                                                 <span style="font-size: 13px;">+34 93 281 29 05</span>
@@ -572,11 +572,11 @@
                                         <td style="color: #fff;padding-top: 10px;">
                                             <div style="margin: 0;">
                                                 <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                                    <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', 'es') }}</div>
+                                                    <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', $data['lang']) }}</div>
                                                     <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                                 </div>
                                                 <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                    <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', 'es') }}</span> <br>
+                                                    <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', $data['lang']) }}</span> <br>
                                                     <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                     <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                                 </div>
@@ -617,7 +617,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                            <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
+                                            <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', $data['lang']) }}</p>
                                         </td>
                                     </tr>
                                 </table>

@@ -10,7 +10,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>{{ CTrans::trans('pages.hired.title', 'es') }}</title>
+    <title>{{ CTrans::trans('pages.hired.title', $data['iso']) }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -231,7 +231,7 @@
 
     <!-- Visually Hidden Preheader Text : BEGIN -->
     <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-        {{ CTrans::trans('pages.header.preheader', 'es') }}
+        {{ CTrans::trans('pages.header.preheader', $data['iso']) }}
     </div>
     <!-- Visually Hidden Preheader Text : END -->
 
@@ -278,12 +278,12 @@
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                         <td style="padding: 0 40px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; background-color: #000;">
-                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('pages.reservationUpdate.bookingModified', 'es') }} </h1>
+                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('pages.reservationUpdate.bookingModified', $data['iso']) }} </h1>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 0px 40px; background-color: #000;">
-                            <p style="text-align: left; color: #FFF; font-size: 17px; font-weight: 300; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('pages.reservationUpdate.bookingChanged', 'es') }} <span style="color: #EA9928; font-weight: bold;">{{ CTrans::trans('pages.reservationUpdate.yellow', 'es') }}</span> </p>
+                            <p style="text-align: left; color: #FFF; font-size: 17px; font-weight: 300; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('pages.reservationUpdate.bookingChanged', $data['iso']) }} <span style="color: #EA9928; font-weight: bold;">{{ CTrans::trans('pages.reservationUpdate.yellow', $data['iso']) }}</span> </p>
                         </td>
                     </tr>
 
@@ -299,7 +299,7 @@
                                                 <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
                                                     <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
                                                     <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                        <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.24Hours.checkin', 'es') }}</b><br>
+                                                        <b style="font-size: 28px;font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.24Hours.checkin', $data['iso']) }}</b><br>
                                                         <span style="font-weight: bold; font-size: 20; font-family: 'rawline', sans-serif; color:#EA9928;">{{ $data['checkin'] }}</span><br>
                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['checkinHour'] }}</span>
                                                     </div>
@@ -315,7 +315,7 @@
                                                 <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
                                                     <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
                                                     <div style="float: left; margin-left: 15px; margin-top: 8px;">
-                                                        <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.24Hours.checkout', 'es') }}</b><br>
+                                                        <b style="font-size: 28px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.24Hours.checkout', $data['iso']) }}</b><br>
                                                         <span style="font-weight: bold; font-size: 20; font-family: 'rawline', sans-serif;color: #EA9928;">{{ $data['checkout'] }}</span><br>
                                                         <span style="font-weight: 300; font-size: 19; font-family: 'rawline', sans-serif;">{{ $data['checkoutHour'] }}</span>
                                                     </div>
@@ -349,7 +349,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 40px 40px 30px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="font-weight: bold; margin: 0; background-color: #8E071C; border-radius: 3px; padding: 15px 15px;">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.tracker', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.tracker', $data['iso']) }}</div>
                                     <div style="text-align: right">{{ $data['locator'] }}</div>
                                 </div>
                             </td>
@@ -357,7 +357,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="margin: 0; background-color: #6D6F70; border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 15px 15px;">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.name', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.name', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['name'] }}</div>
                                 </div>
                             </td>
@@ -381,7 +381,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px;border-bottom: 1px solid #56595A">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.apartament', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.apartament', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['apartment'] }}</div>
                                 </div>
                             </td>
@@ -389,7 +389,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['apartamento_modificado'] ? '#000' : '#fff' }};">
                                 <div style="margin: 0; background-color: {{ $data['modificaciones']['apartamento_modificado'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;border-bottom: 1px solid #56595A">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.apartamentType', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.apartamentType', $data['iso']) }}</div>
                                     <div style="text-align: right;font-weight: bold">{{ $data['apartmentType'] }}</div>
                                 </div>
                             </td>
@@ -397,7 +397,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['regimen_modificado'] ? '#000' : '#fff' }};">
                                 <div style="margin: 0; background-color: {{ $data['modificaciones']['regimen_modificado'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.regimen', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.regimen', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['package'] }}</div>
                                 </div>
                             </td>
@@ -405,7 +405,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: {{ $data['modificaciones']['experiencia_modificada'] ? '#000' : '#fff' }};">
                                 <div style="margin: 0; background-color: {{ $data['modificaciones']['experiencia_modificada'] ? '#EA9928' : '#6D6F70' }}; padding: 15px 15px;">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.experience', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.experience', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['experience'] }}</div>
                                 </div>
                             </td>
@@ -413,7 +413,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px 40px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="margin: 0; background-color: #6D6F70; padding: 15px 15px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; ">
-                                    <div style="float: left;">{{ CTrans::trans('pages.booking.politic', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.booking.politic', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['cancellationPolicy'] }}</div>
                                 </div>
                             </td>
@@ -432,7 +432,7 @@
                 <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                     <tr>
                         <td class="button-td button-td-primary">
-                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('pages.booking.myExperience', 'es') }}</a>
+                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 30px 10px 30px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('pages.booking.myExperience', $data['iso']) }}</a>
                         </td>
                     </tr>
                 </table>
@@ -441,7 +441,7 @@
 
         <tr>
             <td style="padding: 0px 40px; background-color: #000;">
-                <h1 style="margin: 0 0 10px; text-align: left; font-size: 20px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('pages.booking.otherServices', 'es') }} </h1>
+                <h1 style="margin: 0 0 10px; text-align: left; font-size: 20px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;">{{ CTrans::trans('pages.booking.otherServices', $data['iso']) }} </h1>
                 <hr style="border-color:#787878; border-bottom-width: 1px;">
             </td>
         </tr>
@@ -459,7 +459,7 @@
                                     <td style="padding-left: 30px;">
                                         <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url({{ url('storage/image/email-reservationUpdated-Fotos-Deluxe-Guardamaletas.jpg') }}); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px; border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
                                             <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Recommended.svg') }}" width="70" style="margin-bottom: 150px;margin-right: 45px;">
-                                            <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">{{ CTrans::trans('pages.booking.packageService', 'es') }}</p>
+                                            <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">{{ CTrans::trans('pages.booking.packageService', $data['iso']) }}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -472,7 +472,7 @@
                                 <tr>
                                     <td style="padding-left: 10px;">
                                         <div style="text-align: right; background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url({{ url('storage/image/email-reservationUpdated-Fotos-Deluxe-Trae_a_tu_mascota.jpg') }}); background-position: center center !important; background-size: cover !important; width: 250px; height: 230px;border-radius: 3px;display: flex; align-items: flex-end; justify-content: flex-end;">
-                                            <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">{{ CTrans::trans('pages.booking.petService', 'es') }}</p>
+                                            <p style="margin: 0; color: #FFF; font-size: 27;font-family: 'rawline', sans-serif;padding:0px 10px 10px 0px;">{{ CTrans::trans('pages.booking.petService', $data['iso']) }}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -498,7 +498,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="margin: 0; background-color: #56595A; border-top-left-radius: 3px; border-top-right-radius: 3px; padding: 15px 15px;">
-                                    <div style="text-align: left;">{{ CTrans::trans('pages.booking.payResume', 'es') }}</div>
+                                    <div style="text-align: left;">{{ CTrans::trans('pages.booking.payResume', $data['iso']) }}</div>
                                 </div>
                             </td>
                         </tr>
@@ -521,7 +521,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #000;">
                                 <div style="margin: 0; background-color: #EA9928; padding: 15px 15px 10px 15px;">
-                                    <div style="text-align: left;">{{ CTrans::trans('pages.booking.extraExperience', 'es') }}</div>
+                                    <div style="text-align: left;">{{ CTrans::trans('pages.booking.extraExperience', $data['iso']) }}</div>
                                 </div>
                             </td>
                         </tr>
@@ -538,7 +538,7 @@
                         <tr>
                             <td valign="middle" style="text-align: center; padding: 0px 40px 20px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                 <div style="margin: 0; background-color: #56595A; padding: 15px 15px; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;">
-                                    <div style="float: left;">{{ CTrans::trans('pages.reservationUpdate.iva', 'es') }}</div>
+                                    <div style="float: left;">{{ CTrans::trans('pages.reservationUpdate.iva', $data['iso']) }}</div>
                                     <div style="text-align: right; font-weight: bold">{{ $data['total'] }}</div>
                                 </div>
                             </td>
@@ -559,7 +559,7 @@
                 <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                     <tr>
                         <td class="button-td button-td-primary">
-                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('pages.reservationUpdate.checkOnline', 'es') }}</a>
+                            <a class="button-a button-a-primary" href="#" style="background: #ED9C28; font-size: 21px; font-family: 'rawline', sans-serif; font-weight: bold; text-decoration: none; padding: 8px 180px 10px 180px; color: #000; display: block; border-radius: 50px;">{{ CTrans::trans('pages.reservationUpdate.checkOnline', $data['iso']) }}</a>
                         </td>
                     </tr>
                     <tr></tr>
@@ -569,7 +569,7 @@
         </tr>
         <tr>
             <td style="padding: 0px 40px; text-align: center; background-color: #000;">
-                <p style="color: #FFF; font-size: 15px; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('pages.reservationUpdate.checkOnlineText', 'es') }}</p>
+                <p style="color: #FFF; font-size: 15px; font-family: 'rawline', sans-serif; text-align: left;">{{ CTrans::trans('pages.reservationUpdate.checkOnlineText', $data['iso']) }}</p>
             </td>
         </tr>
 
@@ -581,7 +581,7 @@
                         <span style="font-size: 19px; font-family: 'rawline', sans-serif;">{{ $data['address'] }}</span>
                     </div>
                     <div style="text-align: right; font-weight: bold">
-                        <a href="#" style="color: #ED9C28">{{ CTrans::trans('pages.reservationUpdate.mapTracker', 'es') }}</a>
+                        <a href="#" style="color: #ED9C28">{{ CTrans::trans('pages.reservationUpdate.mapTracker', $data['iso']) }}</a>
                     </div>
                 </div>
             </td>
@@ -608,7 +608,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="color: #FFF;padding-bottom: 20px;">
-                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', 'es') }}</p>
+                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', $data['iso']) }}</p>
                                         <div style="padding-bottom: 20px;">
                                             <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                         </div>
@@ -621,11 +621,11 @@
                                     <td style="color: #fff;padding-top: 10px;">
                                         <div style="margin: 0;">
                                             <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                                <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', 'es') }}</div>
+                                                <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', $data['iso']) }}</div>
                                                 <img src="{{ asset('storage/image/email-reservationUpdated-SVG-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                             </div>
                                             <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', 'es') }}</span> <br>
+                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', $data['iso']) }}</span> <br>
                                                 <a href="#"><img src="{{ asset('storage/image/email-reservationUpdated-SVG-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                 <a href="#"><img src="{{ asset('storage/image/email-reservationUpdated-SVG-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                             </div>
@@ -666,7 +666,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                        <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
+                                        <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', $data['iso']) }}</p>
                                     </td>
                                 </tr>
                             </table>

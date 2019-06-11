@@ -1,7 +1,7 @@
 <?php
 namespace App\Handler;
 
-
+use App\Reservation;
 use App\Extra;
 use App\Service\EmailService;
 use App\Service\ERPService;
@@ -52,6 +52,7 @@ class ReservationPaymentHandler extends BaseHandler {
                         ];
                     }
 
+                    $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
                     $data = [
                         'data' => [
                             'modificaciones' => $response['data']['modificaciones'],
@@ -70,6 +71,7 @@ class ReservationPaymentHandler extends BaseHandler {
                             'cancellationPolicy' => $reservation['politica_cancelacion']['nombre_cliente'],
                             'address' => $reservation['ubicacion']['direccion'],
                             'services' => $services,
+                            'iso' => $reservation_instance->iso,
                             'total' => ''
                         ]
                     ];

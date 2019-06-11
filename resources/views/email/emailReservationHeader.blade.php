@@ -8,7 +8,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>{{ CTrans::trans('pages.header.welcome', 'es') }}</title>
+    <title>{{ CTrans::trans('pages.header.welcome', $iso) }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 

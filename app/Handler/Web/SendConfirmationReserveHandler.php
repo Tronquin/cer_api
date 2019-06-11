@@ -1,6 +1,7 @@
 <?php
 namespace App\Handler\Web;
 
+/* use App\Reservation; */
 use App\Handler\BaseHandler;
 use App\Handler\FindExperienceHandler;
 use App\Service\EmailService;
@@ -63,6 +64,8 @@ class SendConfirmationReserveHandler extends BaseHandler
         }
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
+        /* $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
+        $data['iso'] = $reservation_instance->iso; */
         $data['lang'] = $this->params['iso'];
         $data['base_url'] = env('APP_URL');
         $data['web_url'] = env('WEB_URL_BASE').'es/checkin/ListReserve/'.$data['reserva']['id'];

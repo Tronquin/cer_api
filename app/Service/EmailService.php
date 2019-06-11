@@ -83,6 +83,7 @@ class EmailService
                 'amount' => $extra['precio']['total']
             ];
         }
+        $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
 
         self::send('email.hiredServices', 'Servicios contradados', [$reservation->user->email], [
             'data' => [
@@ -92,7 +93,8 @@ class EmailService
                 'experience' => $experienceName,
                 'cancellationPolicy' => $cancellationPolicy,
                 'services' => $services,
-                'status' => 'Pagado'
+                'status' => 'Pagado',
+                'iso' => $reservation_instance->iso
             ]
         ]);
     }

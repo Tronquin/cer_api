@@ -25,10 +25,13 @@ class ReservationFeedbackHandler extends BaseHandler {
            'comment' => !empty($this->params['data']['comentario']) ? $this->params['data']['comentario'] : ''
        ]);
 
+       $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
+       $iso = $reservation_instance->iso;
+
        if ($feedback->reserva_id) {
            $reservation = Reservation::query()->where('reserva_id_erp', $feedback->reserva_id)->first();
            $recipients = [$reservation->user->email];
-           EmailService::send('email.rateService', 'Valoración de reserva', $recipients);
+           EmailService::send('email.rateService', 'Valoración de reserva', $recipients, compact('iso'));
        }
 
        return $response;

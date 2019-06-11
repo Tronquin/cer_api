@@ -231,7 +231,7 @@
 
         <!-- Visually Hidden Preheader Text : BEGIN -->
         <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-            {{ CTrans::trans('pages.header.preheader', 'es') }}
+            {{ CTrans::trans('pages.header.preheader', $data['lang']) }}
         </div>
         <!-- Visually Hidden Preheader Text : END -->
 
@@ -368,7 +368,7 @@
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
                                         <div style="float: left;">N&ordm; {{ trans('emails.emails.confirmacionreserva.pax') }}</div>
-                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} {{ CTrans::trans('pages.booking.adult', 'es') }} - {{ $data['reserva']['ninos'] }} {{ CTrans::trans('pages.booking.child', 'es') }}</div>
+                                        <div style="text-align: right; font-weight: bold">{{ $data['reserva']['adultos'] }} {{ CTrans::trans('pages.booking.adult', $data['lang']) }} - {{ $data['reserva']['ninos'] }} {{ CTrans::trans('pages.booking.child', $data['lang']) }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -384,7 +384,7 @@
                                 <td valign="middle" style="text-align: center; padding: 0px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #ffffff;">
                                     <div style="margin: 0; background-color: #56595A; padding: 15px 15px;">
                                         <div style="float: left;">{{ trans('emails.emails.confirmacionreserva.tipodeapartamento') }}</div>
-                                        <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} {{ CTrans::trans('pages.booking.rooms', 'es') }} - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} {{ CTrans::trans('pages.booking.bath', 'es') }}</div>
+                                        <div style="text-align: right;font-weight: bold">{{ $data['reserva']['tipologia']['componentes']['dormitorios'] }} {{ CTrans::trans('pages.booking.rooms', $data['lang']) }} - {{ $data['reserva']['tipologia']['componentes']['lavabos'] }} {{ CTrans::trans('pages.booking.bath', $data['lang']) }}</div>
                                     </div>
                                 </td>
                             </tr>
@@ -462,7 +462,7 @@
                                                 <div style="width:180px;margin:-50px 0px 0px 60px;position:absolute;">
 
                                                     @foreach ($data['reserva']['experiencia']['extras'][$i]['fieldTranslations'] as $iso)
-                                                        @if($iso['iso'] === 'es')
+                                                        @if($iso['iso'] === $data['lang'])
                                                             @foreach($iso['fields']  as $translation)
                                                             @if($translation['field'] === 'nombre')
                                                             <div style="display: block;margin:0px 0px 0px 75px;float:right;font-size: 12px; font-family: 'rawline', sans-serif; font-weight: 400;">
@@ -680,7 +680,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                            <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', 'es') }}</p>
+                                            <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', $data['lang']) }}</p>
                                         </td>
                                     </tr>
                                 </table>
