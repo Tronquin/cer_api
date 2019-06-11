@@ -37,6 +37,7 @@ class GetPhotoByGallery extends BaseHandler
             ];
         }
 
+        $erpImages = [];
         if (! isset($this->params['erp_images']) || $this->params['erp_images']) {
 
             $erpImages = ERPImage::all();
