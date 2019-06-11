@@ -75,15 +75,11 @@ class PhotoController extends Controller
      * Obtiene las imagenes de una galeria
      *
      * @param string $location_id
-     * @param Request $request
      * @return JsonResponse
      */
-    public function photosByLocation($location_id, Request $request)
+    public function photosByLocation($location_id)
     {
-        $handler = new GetPhotoByGalleryByLocation([
-            'location_id' => $location_id,
-            'erp_images' => $request->erp_images
-        ]);
+        $handler = new GetPhotoByGalleryByLocation(compact('location_id'));
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
