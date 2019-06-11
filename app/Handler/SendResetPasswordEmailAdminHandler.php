@@ -34,9 +34,7 @@ class SendResetPasswordEmailAdminHandler extends BaseHandler
         $host = config('app.admin_url');
         $url = $host . '/reset/' . $token;
 
-        $emailInstance = new BaseMail('email.resetPassword', [$user->email], ['url' => $url]);
-
-        Mail::send($emailInstance);
+        EmailService::send('email.resetPassword', 'Reset Password', [$user->email], ['url' => $url]);
 
         $response = [
             'res' => 1,

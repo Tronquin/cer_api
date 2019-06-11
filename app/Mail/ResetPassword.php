@@ -29,6 +29,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->from('hello@jacidi.com')->view('email.resetPassword', ['url' => $this->url]);
+        return $this->view('email.resetPassword', ['url' => $this->url]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Handler\Web;
 
+use App\Service\EmailService;
 use App\User;
 use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Mail;
@@ -36,9 +37,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
         $host = config('app.web_url');
         $url = $host . '/' . $iso . '/' . $token . '/reset';
 
-        $emailInstance = new BaseMail('email.resetPassword', [$user->email], ['url' => $url]);
-
-        Mail::send($emailInstance);
+        EmailService::send('email.resetPassword', 'Reset Password', [$user->email], ['url' => $url, 'iso' => $iso]);
 
         $response = [
             'res' => 1,
