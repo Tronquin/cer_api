@@ -40,7 +40,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
 
         $response = [
             'res' => 1,
-            'msg' => 'Correo Enviado!',
+            'msg' => CTrans::trans('email.send', $iso),
             'data' => ['token' => $token, 'url' => $url, 'payload' => $payload],
         ];
         return $response;

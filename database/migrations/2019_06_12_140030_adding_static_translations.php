@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStaticTranslations extends Migration
+class AddingStaticTranslations extends Migration
 {
     /**
      * Run the migrations.
@@ -62,6 +62,10 @@ class AddStaticTranslations extends Migration
                 'translation' => 'minutes'
             ],
             [
+                'key' => 'email.send',
+                'translation' => 'Correo Enviado!'
+            ],
+            [
                 'key' => 'email.msg.userNotFound',
                 'translation' => 'Usuario no encontrado'
             ],
@@ -91,7 +95,7 @@ class AddStaticTranslations extends Migration
             ],
             [
                 'key' => 'email.subject.hiredServices',
-                'translation' => 'Servicios contradados'
+                'translation' => 'Servicios contratados'
             ],
             [
                 'key' => 'email.subject.hiredServices.reimbursable',
