@@ -22,16 +22,60 @@ class AddStaticTranslations extends Migration
                 'translation' => 'Usuario registrado'
             ],
             [
+                'key' => 'booking.msg.bookingError',
+                'translation' => 'Error al enviar email confirmacion reserva'
+            ],
+            [
+                'key' => 'userController.msg.userCreated',
+                'translation' => 'Usuario creado'
+            ],
+            [
+                'key' => 'userController.msg.userDeleted',
+                'translation' => 'Usuario Eliminado'
+            ],
+            [
+                'key' => 'userController.msg.userExists',
+                'translation' => 'El Usuario ya existe'
+            ],
+            [
+                'key' => 'userController.msg.userDoesntExists',
+                'translation' => 'El Usuario no existe'
+            ],
+            [
+                'key' => 'userController.msg.userData',
+                'translation' => 'Datos del usuario'
+            ],
+            [
+                'key' => 'userController.msg.wrongPass',
+                'translation' => 'La contraseña es incorrecta'
+            ],
+            [
+                'key' => 'userController.msg.successLogin',
+                'translation' => 'Login Exitoso'
+            ],
+            [
+                'key' => 'userController.msg.successLogout',
+                'translation' => 'Logout Exitoso'
+            ],
+            [
+                'key' => 'userController.msg.minutes',
+                'translation' => 'minutes'
+            ],
+            [
+                'key' => 'email.msg.userNotFound',
+                'translation' => 'Usuario no encontrado'
+            ],
+            [
                 'key' => 'email.subject.24hs',
-                'translation' => 'Faltan 24hrs para su llegada'
+                'translation' => 'Faltan 24 horas para su llegada'
             ],
             [
                 'key' => 'email.subject.48hs',
-                'translation' => 'Faltan 48hrs para su llegada'
+                'translation' => 'Faltan 48 horas para su llegada'
             ],
             [
                 'key' => 'email.subject.48hs.errorExperience',
-                'translation' => 'error para obtener la experiencia'
+                'translation' => 'error para obtener los datos de la experiencia'
             ],
             [
                 'key' => 'email.subject.48hs.errorExp',
@@ -60,10 +104,6 @@ class AddStaticTranslations extends Migration
             [
                 'key' => 'email.subject.hiredServices.paid',
                 'translation' => 'Pagado'
-            ],
-            [
-                'key' => 'email.subject.confirmacionReserva',
-                'translation' => 'Confirmacion de Reserva'
             ],
             [
                 'key' => 'email.subject.confirmacionReserva',
@@ -405,6 +445,12 @@ class AddStaticTranslations extends Migration
         ];
 
         foreach ($translations as $translation) {
+
+            $keyTranslation = \App\KeyTranslation::query()->where('key', $translation['key'])->first();
+
+            if ($keyTranslation) {
+                continue;
+            } 
 
             $keyTranslation = new App\KeyTranslation();
             $keyTranslation->key = $translation['key'];

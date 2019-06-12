@@ -5,6 +5,7 @@ use App\EmailSpooler;
 use App\Extra;
 use App\Handler\AvailabilityServiceHandler;
 use App\Reservation;
+use App\Service\CERTranslator;
 
 /**
  * Servicio para envio de correos. Actualmente el servicio
@@ -52,6 +53,8 @@ class EmailService
 
         $reservation->experience->fieldTranslations = $reservation->experience->fieldTranslations();
         $experienceName = '';
+        $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador_erp'])->first();
+        
         foreach ($reservation->experience->fieldTranslations as $fieldTranslation) {
             if ($fieldTranslation['iso'] === 'es') {
                 foreach ($fieldTranslation['fields'] as $field) {
@@ -62,7 +65,7 @@ class EmailService
                 }
             }
         }
-        $cancellationPolicy = $reservation->cancelation_policy->nombre === 'NR' ? 'No reembolsable' : 'Flexible';
+        $cancellationPolicy = $reservation->cancelation_policy->nombre === 'NR' ? CTrans::trans('email.subject.hiredServices.reimbursable', $reservation_instance->iso) : CTrans::trans('email.subject.hiredServices.flexible', $reservation_instance->iso);
 
         $services = [];
         foreach ($data['data']['list']['extras']['extras_contratados'] as $extra) {
@@ -83,9 +86,8 @@ class EmailService
                 'amount' => $extra['precio']['total']
             ];
         }
-        $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador_erp'])->first();
 
-        self::send('email.hiredServices', 'Servicios contradados', [$reservation->user->email], [
+        self::send('email.hiredServices', CTrans::trans('email.subject.hiredServices', $reservation_instance->iso), [$reservation->user->email], [
             'data' => [
                 'locator' => $reservation->localizador_erp,
                 'name' => $reservation->user->name . ' ' . $reservation->user->last_name,
@@ -93,7 +95,7 @@ class EmailService
                 'experience' => $experienceName,
                 'cancellationPolicy' => $cancellationPolicy,
                 'services' => $services,
-                'status' => 'Pagado',
+                'status' => CTrans::trans('email.subject.hiredServices.paid', $reservation_instance->iso),
                 'iso' => $reservation_instance->iso
             ]
         ]);

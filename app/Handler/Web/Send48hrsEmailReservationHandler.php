@@ -8,6 +8,7 @@ use App\Service\ERPService;
 use App\Mail\BaseMail;
 use Illuminate\Support\Facades\Mail;
 use App\Handler\AvailabilityServiceHandler;
+use App\Service\CERTranslator;
 
 class Send48hrsEmailReservationHandler extends BaseHandler
 {
@@ -24,11 +25,12 @@ class Send48hrsEmailReservationHandler extends BaseHandler
         
         $handler = new FindExperienceHandler(['experiencia_id' => $data['reserva']['experiencia']['id']]);
         $handler->processHandler();
+        $data['lang'] = $this->params['iso'];
 
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener la experiencia',
+                'msg' => CTrans::trans('email.subject.48hs.errorExperience', $data['lang']),
             ];
         }
         $experiencia = $handler->getData();
@@ -48,15 +50,13 @@ class Send48hrsEmailReservationHandler extends BaseHandler
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener los extras contratados',
+                'msg' => CTrans::trans('email.subject.48hs.errorExp', $data['lang']),
             ];
         }
         $servicios = $handler->getData();
         $data['reserva']['extras_disponibles'] = $servicios['data']['list']['extras']['extras_disponibles'];
-        
-        $data['lang'] = $this->params['iso'];
 
-        EmailService::send('email.48hEmail','Faltan 48hrs para su llegada',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.48hEmail', CTrans::trans('email.subject.48hs', $data['lang']),[$data['reserva']['cliente']['email']],['data' => $data]);
 
         $response = [
             'res' => 1,

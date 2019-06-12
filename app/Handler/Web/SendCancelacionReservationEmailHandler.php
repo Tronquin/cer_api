@@ -8,6 +8,7 @@ use App\Service\ERPService;
 use App\Mail\BaseMail;
 use Illuminate\Support\Facades\Mail;
 use App\Handler\AvailabilityServiceHandler;
+use App\Service\CERTranslator;
 
 class SendCancelacionReservationEmailHandler extends BaseHandler
 {
@@ -24,11 +25,12 @@ class SendCancelacionReservationEmailHandler extends BaseHandler
         
         $handler = new FindExperienceHandler(['experiencia_id' => $data['reserva']['experiencia']['id']]);
         $handler->processHandler();
+        $data['lang'] = $this->params['iso'];
 
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener la experiencia',
+                'msg' => CTrans::trans('email.subject.48hs.errorExperience', $data['lang']),
             ];
         }
         $experiencia = $handler->getData();
@@ -51,7 +53,7 @@ class SendCancelacionReservationEmailHandler extends BaseHandler
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener los extras contratados',
+                'msg' => CTrans::trans('email.subject.48hs.errorExp', $data['lang']),
             ];
         }
         $servicios = $handler->getData();
@@ -63,9 +65,8 @@ class SendCancelacionReservationEmailHandler extends BaseHandler
         }
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
-        $data['lang'] = $this->params['iso'];
 
-        EmailService::send('email.cancelacionReserva','Cancelacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.cancelacionReserva', CTrans::trans('email.subject.cancelacionReserva', $data['lang']),[$data['reserva']['cliente']['email']],['data' => $data]);
             
         $response = [
             'res' => 1,

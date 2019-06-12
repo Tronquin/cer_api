@@ -12,6 +12,7 @@ use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use App\Service\CERTranslator;
 
 class UserController extends Controller
 {
@@ -82,7 +83,7 @@ class UserController extends Controller
         $session->save();
         $iso = $data['iso'];
 
-        EmailService::send('email.registerUser', 'Usuario registrado', [$user->email], compact('user', 'iso'));
+        EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso'));
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }
