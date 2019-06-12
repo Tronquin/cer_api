@@ -22,6 +22,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     //Crear Usuario
     Route::put('user/create/{name}/{last_name}/{email}/{type}/{password}', 'UserController@store');
     Route::get('/sitemap', 'General\SearchdController@siteMap');
+    // Actualizar usuario
+    Route::put('user/update/{user_id}', 'UserController@update');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
     // Obtiene extras por ubicacion, tag y tagchildren al que pertenecen

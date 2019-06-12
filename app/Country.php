@@ -14,4 +14,12 @@ class Country extends Model
         'iso3',
         'phone_code'
     ];
+
+    /**
+     * Users
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class, 'country_id');
+    }
 }
