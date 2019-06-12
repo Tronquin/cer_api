@@ -55,7 +55,7 @@ class User extends Model
      */
     public function isAdmin()
     {
-        return strtolower($this->role->name) === 'admin';
+        return strtolower($this->rol->name) === 'admin';
     }
 
     /**
@@ -63,6 +63,6 @@ class User extends Model
      */
     public function isClient()
     {
-        return strtolower($this->role->name) === 'user';
+        return strtolower($this->rol->name) === 'user';
     }
 }
