@@ -208,7 +208,7 @@ class UserController extends Controller
      * Busca los datos de un usuario.
      *
      * @param Request $request
-     * @param  $id
+     * @param  $user_id
      * @return JsonResponse
      */
     protected function update(Request $request, $user_id)

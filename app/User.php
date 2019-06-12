@@ -21,6 +21,7 @@ class User extends Model
         'direccion',
         'postal_code',
         'birthday',
+        'country_id'
     ];
 
     protected $hidden = ['password'];
@@ -39,5 +40,13 @@ class User extends Model
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'rol_id');
+    }
+
+    /**
+     * Pais
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id');
     }
 }

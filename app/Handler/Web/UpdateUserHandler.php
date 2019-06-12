@@ -33,6 +33,7 @@ class UpdateUserHandler extends BaseHandler
         $usuario->direccion = isset($this->params['direccion']) ? $this->params['direccion'] : null;
         $usuario->postal_code = isset($this->params['postal_code']) ? $this->params['postal_code'] : null;
         $usuario->birthday = isset($this->params['birthday']) ? $this->params['birthday'] : null;
+        $usuario->country_id = $this->params['country_id'] ?? null;
 
         $usuario->save();
         unset($usuario['password']);
