@@ -5,7 +5,7 @@ use App\EmailSpooler;
 use App\Extra;
 use App\Handler\AvailabilityServiceHandler;
 use App\Reservation;
-use App\Service\CERTranslator;
+use CTrans;
 
 /**
  * Servicio para envio de correos. Actualmente el servicio

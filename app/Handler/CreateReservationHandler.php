@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\ReservationServicePersistence;
 use App\Service\EmailService;
 use App\Handler\Web\SendConfirmationReserveHandler;
-use App\Service\CERTranslator;
+use CTrans;
 
 /**
  * Registra una reservacion en el ERP

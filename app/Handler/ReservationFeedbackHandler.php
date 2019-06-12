@@ -5,7 +5,7 @@ use App\Reservation;
 use App\ReservationFeedback;
 use App\Service\EmailService;
 use App\Service\ERPService;
-use App\Service\CERTranslator;
+use CTrans;
 
 class ReservationFeedbackHandler extends BaseHandler {
 

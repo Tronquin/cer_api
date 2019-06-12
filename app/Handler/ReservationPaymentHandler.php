@@ -5,7 +5,7 @@ use App\Reservation;
 use App\Extra;
 use App\Service\EmailService;
 use App\Service\ERPService;
-use App\Service\CERTranslator;
+use CTrans;
 
 class ReservationPaymentHandler extends BaseHandler {
 

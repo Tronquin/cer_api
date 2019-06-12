@@ -12,7 +12,7 @@ use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use App\Service\CERTranslator;
+use CTrans;
 
 class UserController extends Controller
 {

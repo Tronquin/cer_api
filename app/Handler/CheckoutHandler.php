@@ -1,15 +1,11 @@
 <?php
 namespace App\Handler;
 
-
 use App\ReservationPersistence;
 use App\Service\ERPService;
 use App\Status;
-use App\Mail\BaseMail;
 use App\Service\EmailService;
-use App\Handler\AvailabilityServiceHandler;
-use App\Handler\FindExperiencesHandler;
-use App\Service\CERTranslator;
+use CTrans;
 
 class CheckoutHandler extends BaseHandler {
 

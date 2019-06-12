@@ -4,11 +4,8 @@ namespace App\Handler\Web;
 use App\Service\EmailService;
 use App\User;
 use App\Handler\BaseHandler;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ResetPassword;
-use App\Mail\BaseMail;
 use \Firebase\JWT\JWT;
-use App\Service\CERTranslator;
+use CTrans;
 
 class SendResetPasswordEmailHandler extends BaseHandler
 {

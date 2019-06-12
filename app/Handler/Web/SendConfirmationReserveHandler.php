@@ -6,9 +6,8 @@ use App\Handler\BaseHandler;
 use App\Handler\FindExperienceHandler;
 use App\Service\EmailService;
 use App\Service\ERPService;
-use App\Mail\BaseMail;
 use App\Handler\AvailabilityServiceHandler;
-use App\Service\CERTranslator;
+use CTrans;
 
 class SendConfirmationReserveHandler extends BaseHandler
 {
