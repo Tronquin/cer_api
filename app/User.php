@@ -49,4 +49,20 @@ class User extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+
+    /**
+     * is admin?
+     */
+    public function isAdmin()
+    {
+        return strtolower($this->role->name) === 'admin';
+    }
+
+    /**
+     * is client?
+     */
+    public function isClient()
+    {
+        return strtolower($this->role->name) === 'user';
+    }
 }

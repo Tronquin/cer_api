@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OAuth2Client;
 use App\Service\EmailService;
 use App\User;
 use App\Session;
@@ -147,6 +148,16 @@ class UserController extends Controller
 
         if (!$userExist) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario no existe']);
+        }
+
+        $token = $request->headers->get('token');
+        $client = OAuth2Client::query()->with(['deviceType'])->where('token', $token)->first();
+
+        if (
+            ($client->deviceType->isAdmin() && ! $userExist->isAdmin()) ||
+            ($client->deviceType->isWeb() && ! $userExist->isClient())
+        ) {
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
         }
 
         $userPassword = $userExist->password;
