@@ -96,13 +96,13 @@ class UserController extends Controller
         return ['res' => 'Usuario Eliminado'];
     }
 
-    protected function store(Request $request, $name, $last_name, $email, $type, $password)
+    protected function store(Request $request)
     {
-        $data['name'] = $name;
-        $data['last_name'] = $last_name;
-        $data['email'] = $email;
-        $data['type'] = $type;
-        $data['password'] = hash::make($password);
+        $data['name'] = $request->name;
+        $data['last_name'] = $request->last_name;
+        $data['email'] = $request->email;
+        $data['type'] = $request->type;
+        $data['password'] = hash::make($request->password);
         return User::create($data);
     }
 
