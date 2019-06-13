@@ -126,6 +126,10 @@ class AddingStaticTranslations extends Migration
                 'translation' => 'Cancelacion de Reserva'
             ],
             [
+                'key' => 'components.loginIndex.header.frequentQuestionsSelect',
+                'translation' => '¿Preguntas sobre tu apartamento?'
+            ],
+            [
                 'key' => 'pages.header.welcome',
                 'translation' => 'Bienvenido'
             ],
