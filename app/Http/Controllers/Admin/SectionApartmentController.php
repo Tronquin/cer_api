@@ -24,7 +24,7 @@ class SectionApartmentController extends Controller
         $data = [];
         $Translation = new SectionApartment();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
-        $location = Location::where('id',$location_id)->first();
+        $location = Location::where('ubicacion_id',$location_id)->first();
         $data['location'] = $location->fieldTranslations();
 
         $sectionApartments = SectionApartment::where('location_id',$location_id)->with('extras')->orderBy('order')->get();
