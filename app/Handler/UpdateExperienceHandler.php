@@ -50,7 +50,6 @@ class UpdateExperienceHandler extends BaseHandler
         }
 
         $experience->updateFieldTranslations($this->params['fieldTranslations']);
-        //dump(json_encode($experience));
         $experience->save();
 
         $response = [
