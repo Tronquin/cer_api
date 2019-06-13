@@ -5,6 +5,7 @@ use App\Reservation;
 use App\Extra;
 use App\Service\EmailService;
 use App\Service\ERPService;
+use CTrans;
 
 class ReservationPaymentHandler extends BaseHandler {
 
@@ -76,7 +77,7 @@ class ReservationPaymentHandler extends BaseHandler {
                         ]
                     ];
 
-                    EmailService::send('email.reservationUpdated', 'Modificación de reserva', $recipients, $data);
+                    EmailService::send('email.reservationUpdated', CTrans::trans('email.subject.reservationUpdated', $data['data']['iso']), $recipients, $data);
 
                     break;
                 }

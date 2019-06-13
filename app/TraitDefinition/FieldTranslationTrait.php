@@ -7,6 +7,8 @@ use App\Service\TranslationService;
 
 trait FieldTranslationTrait
 {
+    public $fieldTranslations;
+
     /**
      * Campos que se pueden almacenar en field_translations
      *
@@ -96,6 +98,32 @@ trait FieldTranslationTrait
                 }
             }
         }
+    }
+
+    /**
+     * Obtiene la traduccion de un campo
+     *
+     * @param string $key
+     * @param string $iso
+     * @return string
+     */
+    public function getFieldTranslation($key, $iso)
+    {
+        if (empty($this->fieldTranslations)) {
+            $this->fieldTranslations = $this->fieldTranslations();
+        }
+
+        foreach ($this->fieldTranslations() as $fieldTranslation) {
+            if ($fieldTranslation['iso'] === $iso) {
+                foreach ($fieldTranslation['fields'] as $field) {
+                    if ($field['field'] === $key) {
+                        return $field['translation'];
+                    }
+                }
+            }
+        }
+
+        return '';
     }
 
     /**

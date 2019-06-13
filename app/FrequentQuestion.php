@@ -16,6 +16,16 @@ class FrequentQuestion extends Model
         'order',
     ];
 
+    public function locations()
+    {
+        return $this->belongsToMany(
+            Location::class, 
+            'frequent_question_location', 
+            'frequent_question_id', 
+            'location_id'
+        );
+    }
+
     /**
      * Campos que se pueden almacenar en field_translations
      *

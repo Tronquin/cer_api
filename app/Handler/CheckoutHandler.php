@@ -1,14 +1,11 @@
 <?php
 namespace App\Handler;
 
-
 use App\ReservationPersistence;
 use App\Service\ERPService;
 use App\Status;
-use App\Mail\BaseMail;
 use App\Service\EmailService;
-use App\Handler\AvailabilityServiceHandler;
-use App\Handler\FindExperiencesHandler;
+use CTrans;
 
 class CheckoutHandler extends BaseHandler {
 
@@ -31,11 +28,12 @@ class CheckoutHandler extends BaseHandler {
         }
         $handler = new FindExperienceHandler(['experiencia_id' => $response['data']['reserva']['experiencia']['id']]);
         $handler->processHandler();
+        $data['lang'] = $this->params['data']['iso'];
         
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener los datos de la experiencia',
+                'msg' => CTrans::trans('email.subject.48hs.errorExperience', $data['lang']),
             ];
         }
         $experiencia = $handler->getData();
@@ -45,7 +43,7 @@ class CheckoutHandler extends BaseHandler {
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener los extras contratados',
+                'msg' => CTrans::trans('email.subject.48hs.errorExp', $data['lang']),
             ];
         }
         $servicios = $handler->getData();
@@ -59,9 +57,8 @@ class CheckoutHandler extends BaseHandler {
         $data['experiencia'] = $experiencia['data'];
         $data['total_reserva'] = $response['data']['reserva']['total_reserva'];
         $data['reserva']['total_extras_contratados'] = $total;
-        $data['lang'] = $this->params['data']['iso'];
         
-        EmailService::send('email.checkout','Checkout de Reserva',[$response['data']['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.checkout', CTrans::trans('email.subject.checkout', $data['lang']),[$response['data']['reserva']['cliente']['email']],['data' => $data]);
 
         return $response;
     }

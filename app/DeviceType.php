@@ -29,4 +29,18 @@ class DeviceType extends Model
     {
         return $this->hasMany(KeyTranslation::class, 'device_type_id');
     }
+
+    /**
+     * is web?
+     */
+    public function isWeb() {
+        return $this->code === 'web';
+    }
+
+    /**
+     * is admin?
+     */
+    public function isAdmin() {
+        return $this->code === 'admin';
+    }
 }

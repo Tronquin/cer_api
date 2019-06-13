@@ -19,9 +19,9 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
     //Eliminar Usuario
     Route::delete('user/delete/{id}', 'UserController@delete');
-    //Crear Usuario
-    Route::put('user/create/{name}/{last_name}/{email}/{type}/{password}', 'UserController@store');
     Route::get('/sitemap', 'General\SearchdController@siteMap');
+    // Actualizar usuario
+    Route::put('user/update/{user_id}', 'UserController@update');
     // Obtiene extras por ubicacion y tag al que pertenecen
     Route::get('/find/extra_by_tags/{type}/{ubicacion_id}', 'General\SearchdController@findExtraByLocationTag');
     // Obtiene extras por ubicacion, tag y tagchildren al que pertenecen
@@ -84,6 +84,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/experienceById/{experiencie_id}', 'ExperienceController@find');
     //busqueda de politicas de cancelacion por ubicacion
     Route::get('/find/cancellationPolicyByLocation/{ubicacion_id}', 'General\SearchdController@findCancellationPolicy');
+    // Obtiene los paises
+    Route::get('/find/countries', 'CountryController@index');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -163,6 +165,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
 
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
+            //Crear Usuario
+            Route::put('/admin/user/create', 'UserController@store');
             // Obtiene tags
             Route::get('find/extra_tags', 'General\SearchdController@findExtraByTag');
             // massive extra by tags save

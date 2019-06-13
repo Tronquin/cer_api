@@ -5,6 +5,7 @@ use App\Reservation;
 use App\ReservationFeedback;
 use App\Service\EmailService;
 use App\Service\ERPService;
+use CTrans;
 
 class ReservationFeedbackHandler extends BaseHandler {
 
@@ -31,7 +32,7 @@ class ReservationFeedbackHandler extends BaseHandler {
        if ($feedback->reserva_id) {
            $reservation = Reservation::query()->where('reserva_id_erp', $feedback->reserva_id)->first();
            $recipients = [$reservation->user->email];
-           EmailService::send('email.rateService', 'Valoración de reserva', $recipients, compact('iso'));
+           EmailService::send('email.rateService', CTrans::trans('email.subject.rateServices', $iso), $recipients, compact('iso'));
        }
 
        return $response;
