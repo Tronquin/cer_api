@@ -27,7 +27,7 @@ class FrequentQuestionController extends Controller
             $frequentQuestion['fieldTranslations'] = $frequentQuestion->fieldTranslations();
 
             $locations = [];
-            $tags=$frequentQuestion->main_web;
+
             if ($frequentQuestion->main_web) {
                $locations[] = [
                                 'id'=> '',
@@ -54,7 +54,6 @@ class FrequentQuestionController extends Controller
                 'res' => count($frequentQuestions),
                 'msg' => "Preguntas encontradas",
                 'data' => $data,
-                'tags' => $tags
             ];
         }else{
             $data['questions'] = [];
