@@ -35,12 +35,16 @@ class Experience extends Model
             ->withPivot('is_published');
     }
 
+    public function extras_experiences_not_included()
+    {
+        return $this->belongsToMany(Extra::class, 'experiences_extras_not_included', 'experience_id', 'extra_id')->withTimestamps();
+    }
     /**
      * Apartamentos asociados a la experiencia
      */
     public function apartamentos()
     {
-        return $this->belongsToMany(Apartment::class,'experiences_apartments','experience_id','apartment_id');
+        return $this->belongsToMany(Apartment::class, 'experiences_apartments', 'experience_id', 'apartment_id');
     }
 
     /**
@@ -48,7 +52,7 @@ class Experience extends Model
      */
     public function galeria()
     {
-        return $this->belongsTo(Galery::class,'galeria_id','galeria_id');
+        return $this->belongsTo(Galery::class, 'galeria_id', 'galeria_id');
     }
 
     /*public function reservas()
@@ -82,6 +86,6 @@ class Experience extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['nombre','description'];
+        return ['nombre', 'description'];
     }
 }
