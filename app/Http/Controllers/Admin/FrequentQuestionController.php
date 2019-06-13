@@ -21,10 +21,29 @@ class FrequentQuestionController extends Controller
         $data = [];
         $Translation = new FrequentQuestion();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
-        
+        $tags=[];
         $frequentQuestions = FrequentQuestion::all();
         foreach ($frequentQuestions as &$frequentQuestion){
             $frequentQuestion['fieldTranslations'] = $frequentQuestion->fieldTranslations();
+
+            $locations = [];
+            $tags=$frequentQuestion->main_web;
+            if ($frequentQuestion->main_web) {
+               $locations[] = [
+                                'id'=> '',
+                                'castro'  => true,
+                                'text' => 'Castro Exclusive Residences'
+                            ]; 
+            }
+            foreach ($frequentQuestion->locations as $location) {
+                $locations[] = [
+                                'id'=> $location->pivot->location_id,
+                                'castro'  => false,
+                                'text' => $location->nombre
+                            ];
+            }
+
+            $frequentQuestion['tags'] = $locations;
         }
 
         if(count($frequentQuestions)){
@@ -35,6 +54,7 @@ class FrequentQuestionController extends Controller
                 'res' => count($frequentQuestions),
                 'msg' => "Preguntas encontradas",
                 'data' => $data,
+                'tags' => $tags
             ];
         }else{
             $data['questions'] = [];

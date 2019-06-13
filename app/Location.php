@@ -70,6 +70,15 @@ class Location extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function frequentQuestions()
+    {
+        return $this->belongsToMany(FrequentQuestion::class,
+            'frequent_question_location',
+            'location_id',
+            'frequent_question_id'
+        );
+    }
+
     /**
      * Historial de busqueda para esta ubicacion
      */
