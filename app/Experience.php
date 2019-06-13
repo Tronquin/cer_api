@@ -86,6 +86,6 @@ class Experience extends Model
      */
     public function fieldsToTranslate()
     {
-        return ['nombre', 'description'];
+        return ['nombre', 'title', 'description'];
     }
 }
