@@ -262,9 +262,8 @@
                                                         <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
                                                         <div style="float: left; margin-left: 15px; margin-top: 8px;">
                                                             <b style="font-size: 26px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkin', $data['lang']) }}</b><br>
-                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ $data['reserva']['checkin'] }}</span><br>
-                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">HORA
-                                                            </span>
+                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ date('Y-m-d', strtotime($data['reserva']['checkin'])) }}</span><br>
+                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;"><!-- HORA --></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -279,8 +278,8 @@
                                                         <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
                                                         <div style="float: left; margin-left: 15px; margin-top: 8px;">
                                                             <b style="font-size: 26px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkout', $data['lang']) }}</b><br>
-                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ $data['reserva']['checkout'] }}</span><br>
-                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">HORA</span>
+                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ date('Y-m-d', strtotime($data['reserva']['checkout'])) }}</span><br>
+                                                            <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;"><!-- HORA --></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -305,7 +304,7 @@
                             <tr>
                                 <td valign="middle" style="text-align: center; padding-bottom: 20px; font-size: 20px; font-family: 'rawline', sans-serif; line-height: 18px; color: #ffffff;">
                                     <div style="margin: 0; font-weight: 600; background-color: #8E071C; border-radius: 3px; padding: 18px;">
-                                        <div style="float: left; text-align: left;">{{ CTrans::trans('emails.confirmacionreserva.localizadorreserva', $data['lang']) }}</div>
+                                        <div style="float: left; text-align: left;">{{ CTrans::trans('pages.booking.tracker', $data['lang']) }}</div>
                                         <div style="text-align: right;">{{ $data['reserva']['localizador_erp'] }}</div>
                                     </div>
                                 </td>
@@ -365,7 +364,7 @@
                                 <td valign="middle" style="text-align: center; font-size: 20px; font-family: 'rawline', sans-serif; font-weight: 600; line-height: 20px; color: #ffffff;">
                                     <div style=" margin: 0;">
                                         <div style="float: left; text-align: left;">{{ CTrans::trans('pages.booking.arrival', $data['lang']) }}</div>
-                                        <div style="text-align: right;">HORA</div>
+                                        <div style="text-align: right;"><!-- HORA --></div>
                                     </div>
                                 </td>
                             </tr>
