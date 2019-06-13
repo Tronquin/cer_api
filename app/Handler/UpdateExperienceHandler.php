@@ -14,31 +14,43 @@ class UpdateExperienceHandler extends BaseHandler
      */
     protected function handle()
     {
-        $location = Location::where('ubicacion_id',$this->params['ubicacion_id'])->firstOrFail();
-        $experience = Experience::where('experiencia_id', $this->params['experienceId'])->with(['extras'])->firstOrFail();
-
-        foreach($this->params['extras']['disponibles'] as $extra){
-            foreach($experience->extras as $extraErp){
-                if($extra['extra_id'] === $extraErp->extra_id){
+        $location = Location::where('ubicacion_id', $this->params['ubicacion_id'])->firstOrFail();
+        $experience = Experience::where('experiencia_id', $this->params['experienceId'])->with(['extras', 'extras_experiences_not_included'])->firstOrFail();
+        foreach ($this->params['extras']['disponibles'] as $extra) {
+            foreach ($experience->extras as $extraErp) {
+                if ($extra['extra_id'] === $extraErp->extra_id) {
 
                     $extraExp = $experience->extras()->find($extraErp->id);
-                    $extraExp->pivot->is_published = $extra['activo'];
+
+                    $extraExp->pivot->is_published = (bool)$extra['activo'];
                     $extraExp->pivot->save();
                 }
             }
         }
-        $front_image_name = $location->pais.'_'.$location->ciudad.'_experience_img_'.$this->params['nombre'].'_';
-        $icon = $location->pais.'_'.$location->ciudad.'_experience_icon_'.$this->params['nombre'].'_';
+
+        //Gathers the Ids of all extras that are included 
+        $extraIdsNotAvailable = [];
+        foreach ($this->params['extras']['no_disponibles'] as $extra) {
+            if ($extra['activo']) {
+                $extraIdsNotAvailable[] = $extra['id'];
+            }
+        }
+
+        //Relacion Muchos a Muchos Experiences_Extras NOT INCLUDED 
+        $experience->extras_experiences_not_included()->sync($extraIdsNotAvailable);
+
+        $front_image_name = $location->pais . '_' . $location->ciudad . '_experience_img_' . $this->params['nombre'] . '_';
+        $icon = $location->pais . '_' . $location->ciudad . '_experience_icon_' . $this->params['nombre'] . '_';
 
         if (isset($this->params['front_page'])) {
             // Imagen
-            $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/',$front_image_name);
+            $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/', $front_image_name);
 
             $experience->front_page = $path;
         }
 
         $experience->updateFieldTranslations($this->params['fieldTranslations']);
-
+        //dump(json_encode($experience));
         $experience->save();
 
         $response = [
