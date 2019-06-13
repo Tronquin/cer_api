@@ -13,36 +13,36 @@ class FindPackagesByLocationHandler extends BaseHandler {
     protected function handle()
     {
         $response = [];
-        $experiences = [];
+        $packages = [];
 
         $packagesCollection = Package::where('ubicacion_id', $this->params['ubicacion_id'])
             ->where('type', 'erp')
             ->with(['child', 'extras'])
             ->get();
 
-            foreach ($packagesCollection as $pakErp) {
-                
-                $webOrErp = $pakErp->child ? $pakErp->child->toArray() : $pakErp->toArray();
-                
-                if($pakErp->extra){
-                    $extras = $pakErp->extra->child ? $pakErp->extra->child->toArray() : $pakErp->extra->toArray();
-                    
-                    unset($webOrErp['extras']);
-                    $webOrErp['extras'] = $extras;
-                }
-                $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
-                $packages[] = $webOrErp;
-            }
+        foreach ($packagesCollection as $pakErp) {
 
-            foreach ($packages as &$package) {
-                $package['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
-                $package['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]);
+            $webOrErp = $pakErp->child ? $pakErp->child->toArray() : $pakErp->toArray();
+
+            if($pakErp->extra){
+                $extras = $pakErp->extra->child ? $pakErp->extra->child->toArray() : $pakErp->extra->toArray();
+
+                unset($webOrErp['extras']);
+                $webOrErp['extras'] = $extras;
             }
+            $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
+            $packages[] = $webOrErp;
+        }
+
+        foreach ($packages as &$package) {
+            $package['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['icon'])]);
+            $package['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $package['front_image'])]);
+        }
 
         $response['res'] = count($packages);
         $response['msg'] = 'packages de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $packages;
-       
+
         return $response;
     }
 
