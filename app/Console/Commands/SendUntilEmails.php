@@ -72,30 +72,6 @@ class SendUntilEmails extends Command
             $data['experienceName'] = $reservation->experience->nombre;
             $data['address'] = $location->direccion;
 
-            EmailService::send(
-                'email.48hEmail',
-                CTrans::trans('email.subject.48hs', $reservation->iso),
-                [$reservation->user->email],
-                [
-                    'data' => [
-                        'reserva' => $data,
-                        'lang' => $reservation->iso
-                    ],
-                ]
-            );
-            EmailService::send(
-                'email.24hours',
-                CTrans::trans('email.subject.24hs', $reservation->iso),
-                [$reservation->user->email],
-                [
-                    'data' => [
-                        'reserva' => $data,
-                        'lang' => $reservation->iso
-                    ],
-                ]
-            );
-            $reservation->emailSent = true;
-
             if (!$reservation->emailSent && ($reservation->checkin >= $after24 && $reservation->checkin <= $after48)) {
 
                 // Enviar correo de 48 horas
