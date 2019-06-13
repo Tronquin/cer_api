@@ -1,10 +1,11 @@
 <?php
 namespace App\Handler;
 
-
+use App\Reservation;
 use App\Extra;
 use App\Service\EmailService;
 use App\Service\ERPService;
+use CTrans;
 
 class ReservationPaymentHandler extends BaseHandler {
 
@@ -52,6 +53,7 @@ class ReservationPaymentHandler extends BaseHandler {
                         ];
                     }
 
+                    $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
                     $data = [
                         'data' => [
                             'modificaciones' => $response['data']['modificaciones'],
@@ -70,11 +72,12 @@ class ReservationPaymentHandler extends BaseHandler {
                             'cancellationPolicy' => $reservation['politica_cancelacion']['nombre_cliente'],
                             'address' => $reservation['ubicacion']['direccion'],
                             'services' => $services,
+                            'iso' => $reservation_instance->iso,
                             'total' => ''
                         ]
                     ];
 
-                    EmailService::send('email.reservationUpdated', 'Modificación de reserva', $recipients, $data);
+                    EmailService::send('email.reservationUpdated', CTrans::trans('email.subject.reservationUpdated', $data['data']['iso']), $recipients, $data);
 
                     break;
                 }

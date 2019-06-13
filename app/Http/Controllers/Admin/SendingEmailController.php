@@ -34,5 +34,5 @@ class SendingEmailController extends Controller
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
-
+    
 }

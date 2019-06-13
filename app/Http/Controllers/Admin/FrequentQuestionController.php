@@ -21,8 +21,8 @@ class FrequentQuestionController extends Controller
         $data = [];
         $Translation = new FrequentQuestion();
         $Translation->fieldTranslation = $Translation->fieldTranslations();
-        $tags=[];
-        $frequentQuestions = FrequentQuestion::all();
+        
+        $frequentQuestions = FrequentQuestion::orderBy('order')->get();
         foreach ($frequentQuestions as &$frequentQuestion){
             $frequentQuestion['fieldTranslations'] = $frequentQuestion->fieldTranslations();
 

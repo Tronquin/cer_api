@@ -38,7 +38,8 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                                 'precio' => $precio,
                                 'coste' => $precio['total'],
                                 'fieldTranslations' => $extra->fieldTranslations(),
-                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
+                                'front_image_large' => $extra->front_image_large ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)]) : null
                             ];
                         }else if($extra->type === 'web' && $extra->is_published){
                             $extrasWEB[] = [
@@ -49,7 +50,8 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                                 'precio' => $precio,
                                 'coste' => $precio['total'],
                                 'fieldTranslations' => $extra->fieldTranslations(),
-                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                                'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
+                                'front_image_large' => $extra->front_image_large ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)]) : null
                             ];
                         }
                         

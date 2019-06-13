@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\ReservationServicePersistence;
 use App\Service\EmailService;
 use App\Handler\Web\SendConfirmationReserveHandler;
+use CTrans;
 
 /**
  * Registra una reservacion en el ERP
@@ -29,6 +30,7 @@ class CreateReservationHandler extends BaseHandler
     protected function handle()
     {
         $userExist = User::query()->where('email', $this->params['cliente_email'])->first();
+        $iso = $this->params['iso'];
 
         if ($userExist) {
 
@@ -55,7 +57,7 @@ class CreateReservationHandler extends BaseHandler
             $session->expired_at = new \DateTime("+{$minutes} minutes");
             $session->save();
             $user_id = $user->id;
-            EmailService::send('email.registerUser', 'Usuario registrado', [$user->email], compact('user'));
+            EmailService::send('email.registerUser', CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso'));
         }
         $response = ERPService::createReservation($this->params);
         
@@ -76,7 +78,7 @@ class CreateReservationHandler extends BaseHandler
                     
                     return $response = [
                         'res' => 0,
-                        'msg' => "Error al enviar email confirmacion reserva",
+                        'msg' => CTrans::trans('booking.msg.bookingError', $iso),
                         'data' => []
                     ];
                 }
@@ -152,6 +154,7 @@ class CreateReservationHandler extends BaseHandler
             $reservation->kids = $reservation_client['reserva']['ninos'];
             $reservation->amount = $reservation_client['reserva']['total_reserva'];
             $reservation->payment_id = $reservation_client['payment_id'];
+            $reservation->iso = $reservation_client['iso'];
             $reservation->save();
 
             $dato = Reservation::where('id',$reservation->id)->first()->toArray();

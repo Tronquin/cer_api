@@ -1,12 +1,13 @@
 <?php
 namespace App\Handler\Web;
 
+/* use App\Reservation; */
 use App\Handler\BaseHandler;
 use App\Handler\FindExperienceHandler;
 use App\Service\EmailService;
 use App\Service\ERPService;
-use App\Mail\BaseMail;
 use App\Handler\AvailabilityServiceHandler;
+use CTrans;
 
 class SendConfirmationReserveHandler extends BaseHandler
 {
@@ -20,6 +21,7 @@ class SendConfirmationReserveHandler extends BaseHandler
         $data = [];
         $response = ERPService::completeInfo($this->params);
         $data['reserva'] = $response['data'];
+        $data['lang'] = $this->params['iso'];
         
         $handler = new FindExperienceHandler(['experiencia_id' => $data['reserva']['experiencia']['id']]);
         $handler->processHandler();
@@ -27,7 +29,7 @@ class SendConfirmationReserveHandler extends BaseHandler
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener la experiencia',
+                'msg' => CTrans::trans('email.subject.48hs.errorExperience', $data['lang']),
             ];
         }
         $experiencia = $handler->getData();
@@ -51,7 +53,7 @@ class SendConfirmationReserveHandler extends BaseHandler
         if (!$handler->isSuccess()) {
             return $response = [
                 'res' => 0,
-                'msg' => 'error para obtener los extras contratados',
+                'msg' => CTrans::trans('email.subject.48hs.errorExp', $data['lang']),
             ];
         }
         $servicios = $handler->getData();
@@ -63,11 +65,10 @@ class SendConfirmationReserveHandler extends BaseHandler
         }
         $data['reserva']['total_extras_experiencia'] = $extras_price;
         $data['reserva']['total_extras_contratados'] = $total;
-        $data['lang'] = $this->params['iso'];
         $data['base_url'] = env('APP_URL');
         $data['web_url'] = env('WEB_URL_BASE').'es/checkin/ListReserve/'.$data['reserva']['id'];
 
-        EmailService::send('email.confirmacionReserva','Confirmacion de Reserva',[$data['reserva']['cliente']['email']],['data' => $data]);
+        EmailService::send('email.confirmacionReserva', CTrans::trans('email.subject.confirmacionReserva', $data['lang']),[$data['reserva']['cliente']['email']],['data' => $data]);
             
         $response = [
             'res' => 1,

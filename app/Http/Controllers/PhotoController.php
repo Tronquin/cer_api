@@ -53,11 +53,15 @@ class PhotoController extends Controller
      * Obtiene las imagenes de una galeria
      *
      * @param string $galleryCode
+     * @param Request $request
      * @return JsonResponse
      */
-    public function photos($galleryCode)
+    public function photos($galleryCode, Request $request)
     {
-        $handler = new GetPhotoByGallery(compact('galleryCode'));
+        $handler = new GetPhotoByGallery([
+            'galleryCode' => $galleryCode,
+            'erp_images' => $request->erp_images
+        ]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\GetDataFromErpCommand::class,
         Commands\GetDataTripavisorCommand::class,
         Commands\SendEmailCommand::class,
+        Commands\SendUntilEmails::class,
         Commands\GetTranslationDataForEmailsCommand::class,
         Commands\ImageCompression::class
     ];
@@ -30,6 +31,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('cer:email:send')->everyMinute();
         $schedule->command('image:compression')->everyFiveMinutes();
+        $schedule->command('cer:emailUntil:send')->hourly();
     }
 
     /**

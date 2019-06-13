@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OAuth2Client;
 use App\Service\EmailService;
 use App\User;
 use App\Session;
@@ -12,6 +13,7 @@ use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use CTrans;
 
 class UserController extends Controller
 {
@@ -80,8 +82,9 @@ class UserController extends Controller
         $session->remember_me = false;
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
+        $iso = $data['iso'];
 
-        EmailService::send('email.registerUser', 'Usuario registrado', [$user->email], compact('user'));
+        EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso'));
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }
@@ -93,13 +96,13 @@ class UserController extends Controller
         return ['res' => 'Usuario Eliminado'];
     }
 
-    protected function store(Request $request, $name, $last_name, $email, $type, $password)
+    protected function store(Request $request)
     {
-        $data['name'] = $name;
-        $data['last_name'] = $last_name;
-        $data['email'] = $email;
-        $data['type'] = $type;
-        $data['password'] = hash::make($password);
+        $data['name'] = $request->name;
+        $data['last_name'] = $request->last_name;
+        $data['email'] = $request->email;
+        $data['type'] = $request->type;
+        $data['password'] = hash::make($request->password);
         return User::create($data);
     }
 
@@ -145,6 +148,16 @@ class UserController extends Controller
 
         if (!$userExist) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario no existe']);
+        }
+
+        $token = $request->headers->get('token');
+        $client = OAuth2Client::query()->with(['deviceType'])->where('token', $token)->first();
+
+        if (
+            ($client->deviceType->isAdmin() && ! $userExist->isAdmin()) ||
+            ($client->deviceType->isWeb() && ! $userExist->isClient())
+        ) {
+            return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
         }
 
         $userPassword = $userExist->password;
@@ -206,7 +219,7 @@ class UserController extends Controller
      * Busca los datos de un usuario.
      *
      * @param Request $request
-     * @param  $id
+     * @param  $user_id
      * @return JsonResponse
      */
     protected function update(Request $request, $user_id)

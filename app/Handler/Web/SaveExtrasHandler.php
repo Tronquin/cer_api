@@ -45,6 +45,7 @@ class SaveExtrasHandler extends BaseHandler {
             }
         }
         $front_image_name = $location->pais.'_'.$location->ciudad.'_extra_img_'.$extra_Name.'_';
+        $front_image_large_name = $location->pais.'_'.$location->ciudad.'_extra_img_l_'.$extra_Name.'_';
         $icon = $location->pais.'_'.$location->ciudad.'_extra_icon_'.$extra_Name.'_';
 
         if (isset($this->params['data']['front_image'])) {
@@ -52,6 +53,12 @@ class SaveExtrasHandler extends BaseHandler {
             $path = UploadImage::upload($this->params['data']['front_image'], 'extras/' . $extra->id . '/',$front_image_name);
 
             $extra->front_image = $path;
+        }
+
+        if (isset($this->params['data']['front_image_large'])) {
+            // Imagen Large
+            $path = UploadImage::upload($this->params['data']['front_image_large'], 'extras/' . $extra->id . '/',$front_image_large_name);
+            $extra->front_image_large = $path;
         }
 
         if (isset($this->params['data']['icon'])) {

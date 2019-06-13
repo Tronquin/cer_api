@@ -23,6 +23,11 @@ class FindExtrasByLocationHandler extends BaseHandler {
                     UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]) :
                     null
                 ;
+                
+                $extra->front_image = $extra->front_image_large ?
+                    UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)]) :
+                    null
+                ;
 
                 $extra->icon = $extra->icon ?
                     UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->icon)]) :

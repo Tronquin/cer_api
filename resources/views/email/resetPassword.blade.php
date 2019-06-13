@@ -11,7 +11,7 @@
     <!-- Use the latest (edge) version of IE rendering engine -->
     <meta name="x-apple-disable-message-reformatting">
     <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title>Bienvenido</title>
+    <title>{{ CTrans::trans('pages.header.welcome', $iso) }}</title>
     <!-- The title tag shows in email notifications, like Android 4.4. -->
 
 
@@ -232,8 +232,7 @@
 
     <!-- Visually Hidden Preheader Text : BEGIN -->
     <div style="display: none; font-size: 1px; font-family: 'rawline', sans-serif; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all;">
-        (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using
-        a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+        {{ CTrans::trans('pages.header.preheader', $iso) }}
     </div>
     <!-- Visually Hidden Preheader Text : END -->
 
@@ -286,7 +285,7 @@
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                         <td style="padding: 5px; font-size: 15px; font-family: 'rawline', sans-serif; line-height: 20px; color: #555555;">
-                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;padding-left: 30px;">Bienvenido</h1>
+                            <h1 style="margin: 0 0 10px; text-align: left; font-size: 27px; font-family: 'rawline', sans-serif; line-height: 30px; color: #fff; font-weight: bold;padding-left: 30px;">{{ CTrans::trans('pages.header.welcome', $iso) }}</h1>
                         </td>
                     </tr>
                 </table>
@@ -294,7 +293,7 @@
         </tr>
         <tr>
             <td style="padding: 0px 35px; background-color: #000;">
-                <p style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">¡Enhorabuena!<span style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif;font-weight: bold;"> ¿Necesitas reiniciar tu contraseña?</span></p>
+                <p style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif; text-align: left;font-weight: Light;">{{ CTrans::trans('pages.register.congrats', $iso) }}<span style="color: #FFF; font-size: 18px; font-family: 'rawline', sans-serif;font-weight: bold;"> {{ CTrans::trans('pages.psswrd.title', $iso) }}</span></p>
             </td>
         </tr>
 
@@ -303,7 +302,7 @@
                 <div style="margin: 0; padding: 20px 15px 0px 15px;">
                     <div style="padding-bottom: 20px;color: #FFF; font-size: 17px; font-family: 'rawline', sans-serif; text-align: justify;font-weight: Light;">
                         <img src="{{ asset('storage/image/emails-registerUser-usuario.svg') }}" width="30" style="float: left;padding:0px 20px 0px 5px;">
-                        <div style="padding-top: 5px;"><span style="font-size: 16px ;font-family: 'rawline';font-weight: bold;color: #fff;">Reiniciar Contraseña: <a href="{{ $url }}" style="color: blue;">CLICK AQUI</a> </div>
+                        <div style="padding-top: 5px;"><span style="font-size: 16px ;font-family: 'rawline';font-weight: bold;color: #fff;">{{ CTrans::trans('pages.psswrd.reset', $iso) }}: <a href="{{ $url }}" style="color: blue;">{{ CTrans::trans('pages.body.click', $iso) }}</a> </div>
 
                     </div>
                 </div>
@@ -330,7 +329,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td style="color: #FFF;padding-bottom: 20px;">
-                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">¿Tienes dudas? Contáctanos</p>
+                                        <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', $iso) }}</p>
                                         <div style="padding-bottom: 20px;">
                                             <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                         </div>
@@ -343,11 +342,11 @@
                                     <td style="color: #fff;padding-top: 10px;">
                                         <div style="margin: 0;">
                                             <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
-                                                <div style="padding-bottom: 10px;">Síguenos en nuestras redes</div>
+                                                <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', $iso) }}</div>
                                                 <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                             </div>
                                             <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
-                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">Descarga nuestra App</span> <br>
+                                                <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', $iso) }}</span> <br>
                                                 <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
                                                 <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                             </div>
@@ -388,7 +387,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="font-size: 6px; font-family: 'rawline', sans-serif; color: #fff; text-align: center;" class="center-on-narrow">
-                                        <p style="margin: 0;">Copyright © 2018 castro Exclusive Residences All Rights Reserved</p>
+                                        <p style="margin: 0;">{{ CTrans::trans('pages.footer.copyright', $iso) }}</p>
                                     </td>
                                 </tr>
                             </table>

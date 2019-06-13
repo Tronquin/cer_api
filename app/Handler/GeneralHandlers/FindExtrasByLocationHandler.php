@@ -30,6 +30,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
         foreach ($extras as &$extra) {
             $extra['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['front_image'])]);
+            $extra['front_image_large'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['front_image_large'])]);
         }
 
         $response['res'] = count($extras);

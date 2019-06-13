@@ -41,7 +41,8 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                             'type' => $extra->type,
                             'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
                             'fieldTranslations' => $extra->fieldTranslations(),
-                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
+                            'front_image_large' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)])
                         ];
                     }else if($extra->type === 'web' && $extra->is_published){
                         $extrasWEB[] = [
@@ -53,7 +54,8 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                             'type' => $extra->type,
                             'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
                             'fieldTranslations' => $extra->fieldTranslations(),
-                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)])
+                            'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
+                            'front_image_large' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)])
                         ];
                     }
                 }
