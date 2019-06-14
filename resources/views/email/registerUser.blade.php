@@ -309,7 +309,6 @@
                         <div style="padding-bottom: 20px;padding-bottom: 20px;color: #FFF; font-size: 17px; font-family: 'rawline', sans-serif; text-align: justify;font-weight: Light;">
                             <img src="{{ asset('storage/image/email-registerUser-clave.svg') }}" width="30" style="float: left;padding:5px 20px 0px 5px;">
                             <span style="font-size: 16px;font-family: 'rawline';font-weight: bold;color: #fff;">{{ CTrans::trans('pages.register.password', $iso) }}:</span> {{ $tempPassword }}
-
                         </div>
                     @endif
                 </div>
