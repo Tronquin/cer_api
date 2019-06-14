@@ -82,9 +82,11 @@ class UserController extends Controller
         $session->remember_me = false;
         $session->expired_at = new \DateTime("+{$minutes} minutes");
         $session->save();
+        
+        $tempPassword = $request->password;
         $iso = $data['iso'];
 
-        EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso'));
+        EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso', 'tempPassword'));
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
     }

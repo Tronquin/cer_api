@@ -18,6 +18,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
             ->where('type', 'erp')
             ->with(['child'])
             ->get();
+        $extras = [];
 
         foreach ($extrasCollection as $extErp) {
             $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();

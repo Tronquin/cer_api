@@ -14,7 +14,7 @@ class StoreDocumentHandler extends BaseHandler
         //New Document Model Instance
         $model = new Document();
         //new Location Model Instance + Query for Correct Location of Document
-        $location = Location::query()->where('id', $this->params['location_id'])->firstOrFail();
+        $location = Location::query()->where('ubicacion_id', $this->params['location_id'])->firstOrFail();
         //new extra outstanding instance + Query for correct Extra Outstanding of document
         $extraOutstanding = ExtraOustanding::query()->where('id', $this->params['extra_outstandings_id']);
 
