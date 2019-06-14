@@ -13,7 +13,7 @@ class GetPhotoAndMoreHandler extends BaseHandler
      */
     protected function handle()
     {
-        $location = Location::query()->where('id', $this->params['location_id'])->firstOrFail();
+        $location = Location::query()->where('ubicacion_id', $this->params['location_id'])->firstOrFail();
 
         $photoAndMore = PhotoAndMore::query()
             ->with(['sections.gallery.photos', 'sections.sectionApartment'])

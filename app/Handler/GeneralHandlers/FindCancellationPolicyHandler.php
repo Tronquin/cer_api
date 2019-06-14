@@ -33,7 +33,7 @@ class FindCancellationPolicyHandler extends BaseHandler {
                 $cancellation_policy['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $cancellation_policy['front_image'])]);
             }
 
-        $response['res'] = count($cancellation_policy);
+        $response['res'] = count($cancellation_policys);
         $response['msg'] = 'packages de la ubicacion: '.$this->params['ubicacion_id'];
         $response['data'] = $cancellation_policys;
        
