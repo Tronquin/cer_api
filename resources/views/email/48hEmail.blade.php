@@ -235,9 +235,9 @@
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: 0 auto;" class="email-container">
             <!-- Email Header : BEGIN -->
             <tr>
-                <td valign="top" style="position: relative; height: 300px; text-align: left; background-image: linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, .4)), url('{{ asset('storage/image/emails-Correo48h-images-48_horas.jpg') }}'); background-position: center center; background-size: cover;">
+                <td valign="top" style="position: relative; height: 300px; text-align: left; background-image: linear-gradient(to bottom, rgba(0, 0, 0, .1), rgba(0, 0, 0, .4)), url('{{ asset('storage/image/email-Correo48h-images-48_horas.jpg') }}'); background-position: center center; background-size: cover;">
                     <div style="box-sizing: border-box; width: 100%; padding: 0 40px; margin-top: 140px;">
-                        <img style="max-width: 100%;" src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="150" height="60" alt="Castro">
+                        <img style="max-width: 100%;" src="{{ asset('storage/image/email-registerUser-Logo_Castro.svg') }}" width="150" height="60" alt="Castro">
                         <div style="width: 100%; height: 1px; margin: 15px 0; background-color: #fff; border-radius: 1px;"></div>
                         <p style="margin: 0; color: #fff; font-weight: bold; font-size: 24px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('pages.48Hours.until', $data['lang']) }}</p>
                     </div>
@@ -259,7 +259,7 @@
                                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                                 <tr>
                                                     <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
-                                                        <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
+                                                        <img src="{{ asset('storage/image/email-confirmacionReserva-Check_In.svg') }}" width="80" height="80" alt="check-in-img" border="0" class="fluid" style="height: auto; float: left; padding-left: 15px;">
                                                         <div style="float: left; margin-left: 15px; margin-top: 8px;">
                                                             <b style="font-size: 26px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkin', $data['lang']) }}</b><br>
                                                             <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ date('Y-m-d', strtotime($data['reserva']['checkin'])) }}</span><br>
@@ -275,7 +275,7 @@
                                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                                 <tr>
                                                     <td style="padding: 10px; text-align: left; color: #fff;" valign="middle">
-                                                        <img src="{{ asset('storage/image/emails-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
+                                                        <img src="{{ asset('storage/image/email-confirmacionReserva-Check_Out.svg') }}" width="80" height="80" alt="check-out-img" border="0" class="fluid" style="height: auto; float: left;">
                                                         <div style="float: left; margin-left: 15px; margin-top: 8px;">
                                                             <b style="font-size: 26px; font-family: 'rawline', sans-serif;">{{ CTrans::trans('emails.confirmacionreserva.checkout', $data['lang']) }}</b><br>
                                                             <span style="font-weight: 200; font-size: 18px; font-family: 'rawline', sans-serif; line-height: 0;">{{ date('Y-m-d', strtotime($data['reserva']['checkout'])) }}</span><br>
@@ -530,7 +530,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                     <tr>
                                         <td>
-                                            <img src="{{ asset('storage/image/emails-registerUser-Botones.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
+                                            <img src="{{ asset('storage/image/email-registerUser-Botones.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
                                         </td>
                                     </tr>
                                 </table>
@@ -543,11 +543,11 @@
                                         <td style="color: #FFF;padding-bottom: 20px;">
                                             <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', $data['lang']) }}</p>
                                             <div style="padding-bottom: 20px;">
-                                                <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;">
+                                                <img src="{{ asset('storage/image/email-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;">
                                                 <span style="font-size: 13px;">+34 93 281 29 05</span>
                                             </div>
                                             <div>
-                                                <img src="{{ asset('storage/image/emails-registerUser-Teléfono.svg') }}" width="20" style="float:left;padding: 5px 10px 0px 3px;">
+                                                <img src="{{ asset('storage/image/email-registerUser-Teléfono.svg') }}" width="20" style="float:left;padding: 5px 10px 0px 3px;">
                                                 <span style="font-size: 13px; font-family: 'rawline', sans-serif;">welcome@castroexclusiveresidences.com</span>
                                             </div>
                                         </td>
@@ -557,12 +557,12 @@
                                             <div style="margin: 0;">
                                                 <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
                                                     <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', $data['lang']) }}</div>
-                                                    <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
+                                                    <img src="{{ asset('storage/image/email-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                                 </div>
                                                 <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
                                                     <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', $data['lang']) }}</span> <br>
-                                                    <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
-                                                    <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
+                                                    <a href="#"><img src="{{ asset('storage/image/email-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
+                                                    <a href="#"><img src="{{ asset('storage/image/email-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                                 </div>
                                             </div>
                                         </td>
@@ -588,7 +588,7 @@
                                         <td style="padding: 10px; text-align: center;font-size: 10px; font-family: 'rawline', sans-serif; color: #fff;">
                                             <a href="#" style="color: #FFF; text-decoration: none;">www.castroexclusiveresidences.com</a>
                                             <div style="padding-top:5px">
-                                                <img src="{{ asset('storage/image/emails-checkOut-SVG-Instagram.svg') }}" width="20" style="float: left;">
+                                                <img src="{{ asset('storage/image/email-checkOut-SVG-Instagram.svg') }}" width="20" style="float: left;">
                                                 <a href="#" style="color: #FFF; text-decoration: none;">@castroexclusiveresidences</a>
                                             </div>
                                         </td>
@@ -612,7 +612,7 @@
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                     <tr>
                                         <td style="padding: 10px 0px 10px 40px; text-align: right">
-                                            <a href="#"><img src="{{ asset('storage/image/emails-checkOut-SVG-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
+                                            <a href="#"><img src="{{ asset('storage/image/email-checkOut-SVG-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
                                         </td>
                                     </tr>
                                 </table>

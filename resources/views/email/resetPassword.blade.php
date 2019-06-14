@@ -248,7 +248,7 @@
         <!-- Email Header : BEGIN -->
         <!-- Hero Image, Flush : BEGIN -->
         <tr>
-            <td valign="top" style="text-align: center; background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0)), url('{{ asset('storage/image/emails-registerUser-Registro_de_usuario.jpg') }}'); background-position: center center !important; background-size: cover !important; height: 270px">
+            <td valign="top" style="text-align: center; background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0)), url('{{ asset('storage/image/email-registerUser-Registro_de_usuario.jpg') }}'); background-position: center center !important; background-size: cover !important; height: 270px">
                 <!--[if gte mso 9]>
                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px;height:175px; background-position: center center !important;">
                     <v:fill type="tile" src="https://via.placeholder.com/600x230/222222/666666" color="#222222" />
@@ -259,7 +259,7 @@
                         <tr>
                             <td valign="top" style="text-align: left; padding: 10px; font-family: sans-serif; font-size: 15px; font-family: 'rawline', sans-serif;line-height: 20px; color: #ffffff;padding-top: 30%;
     padding-left: 32px;">
-                                <p><img src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="150"></p>
+                                <p><img src="{{ asset('storage/image/email-registerUser-Logo_Castro.svg') }}" width="150"></p>
                             </td>
                         </tr>
                     </table>
@@ -301,7 +301,7 @@
             <td valign="middle" style="text-align: center; padding: 10px 40px; font-size: 21px; font-family: 'rawline', sans-serif; line-height: 20px; color: #fff;background-color: #000;">
                 <div style="margin: 0; padding: 20px 15px 0px 15px;">
                     <div style="padding-bottom: 20px;color: #FFF; font-size: 17px; font-family: 'rawline', sans-serif; text-align: justify;font-weight: Light;">
-                        <img src="{{ asset('storage/image/emails-registerUser-usuario.svg') }}" width="30" style="float: left;padding:0px 20px 0px 5px;">
+                        <img src="{{ asset('storage/image/email-registerUser-usuario.svg') }}" width="30" style="float: left;padding:0px 20px 0px 5px;">
                         <div style="padding-top: 5px;"><span style="font-size: 16px ;font-family: 'rawline';font-weight: bold;color: #fff;">{{ CTrans::trans('pages.psswrd.reset', $iso) }}: <a href="{{ $url }}" style="color: blue;">{{ CTrans::trans('pages.body.click', $iso) }}</a> </div>
 
                     </div>
@@ -318,7 +318,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                                 <tr>
                                     <td>
-                                        <img src="{{ asset('storage/image/emails-registerUser-Botones.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
+                                        <img src="{{ asset('storage/image/email-registerUser-Botones.svg') }}" height="230" width="210" style="margin-top: 35px;margin-bottom:-4px">
                                     </td>
                                 </tr>
                             </table>
@@ -331,10 +331,10 @@
                                     <td style="color: #FFF;padding-bottom: 20px;">
                                         <p style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.contactUs', $iso) }}</p>
                                         <div style="padding-bottom: 20px;">
-                                            <img src="{{ asset('storage/image/emails-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
+                                            <img src="{{ asset('storage/image/email-registerUser-Correos.svg') }}" width="15" style="float: left;padding:0px 10px 0px 5px;"> <span style="font-size: 13px;">+34 93 281 29 05</span>
                                         </div>
                                         <div>
-                                            <img src="{{ asset('storage/image/emails-registerUser-Teléfono.svg') }}" width="20" style="float:left;padding: 5px 10px 0px 3px;"> <span style="font-size: 13px; font-family: 'rawline', sans-serif;">welcome@castroexclusiveresidences.com</span>
+                                            <img src="{{ asset('storage/image/email-registerUser-Teléfono.svg') }}" width="20" style="float:left;padding: 5px 10px 0px 3px;"> <span style="font-size: 13px; font-family: 'rawline', sans-serif;">welcome@castroexclusiveresidences.com</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -343,12 +343,12 @@
                                         <div style="margin: 0;">
                                             <div style="margin-right:10px;float: left;font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600; margin-top: 5px; padding-right:10px;">
                                                 <div style="padding-bottom: 10px;">{{ CTrans::trans('pages.footer.followUs', $iso) }}</div>
-                                                <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
+                                                <img src="{{ asset('storage/image/email-registerUser-Instagram.svg') }}" width="20" style="float: left;padding: 4px 10px 0px 3px;"><a href="#" style="font-size: 13px; font-family: 'rawline', sans-serif; font-weight: 400; color: #FFF; text-decoration: none;">@castroexclusiveresidences</span>
                                             </div>
                                             <div style="float: left;text-align: left; padding: 5px 0px 10px 20px;border-left: 1px solid #787878;">
                                                 <span style="font-size: 14px; font-family: 'rawline', sans-serif; font-weight: 600;">{{ CTrans::trans('pages.footer.downloadApp', $iso) }}</span> <br>
-                                                <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
-                                                <a href="#"><img src="{{ asset('storage/image/emails-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
+                                                <a href="#"><img src="{{ asset('storage/image/email-registerUser-Banner_Google_Play.svg') }}" width="80" style="padding-top: 5px;"></a>
+                                                <a href="#"><img src="{{ asset('storage/image/email-registerUser-banner_app_store.svg') }}" width="70" style="padding-top: 5px;"></a>
                                             </div>
                                         </div>
                                     </td>
@@ -374,7 +374,7 @@
                                     <td style="padding: 10px; text-align: center;font-size: 10px; font-family: 'rawline', sans-serif; color: #fff;">
                                         <a href="#" style="color: #FFF; text-decoration: none;">www.castroexclusiveresidences.com</a>
                                         <div style="padding-top:5px">
-                                            <img src="{{ asset('storage/image/emails-registerUser-Instagram.svg') }}" width="20" style="float: left;">
+                                            <img src="{{ asset('storage/image/email-registerUser-Instagram.svg') }}" width="20" style="float: left;">
                                             <a href="#" style="color: #FFF; text-decoration: none;">@castroexclusiveresidences</a>
                                         </div>
                                     </td>
@@ -398,7 +398,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <td style="padding: 10px 0px 10px 40px; text-align: right">
-                                        <a href="#"><img src="{{ asset('storage/image/emails-registerUser-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
+                                        <a href="#"><img src="{{ asset('storage/image/email-registerUser-Logo_Castro.svg') }}" width="130" height="170" alt="logo-castro" border="0" class="fluid" style="height: auto;"></a>
                                     </td>
                                 </tr>
                             </table>
