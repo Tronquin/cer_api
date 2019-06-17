@@ -46,7 +46,7 @@ class UserController extends Controller
 
     protected function index(Request $request)
     {
-        return User::orderBy('id', 'desc')->paginate(15);
+        return User::orderBy('id', 'desc')->with(['rol'])->paginate(15);
     }
 
     /**
@@ -103,11 +103,32 @@ class UserController extends Controller
         $data['name'] = $request->name;
         $data['last_name'] = $request->last_name;
         $data['email'] = $request->email;
-        $data['type'] = $request->type;
+        $data['rol_id'] = $request->type;
         $data['password'] = hash::make($request->password);
+
         return User::create($data);
     }
 
+    public function updateAdmin(Request $request, $userId)
+    {
+        $user = User::find($userId);
+        $user->name = $request->name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->rol_id = $request->type;
+
+        if ($request->has('password') && ! empty($request->password)) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+
+        return [
+            'res' => 1,
+            'msg' => 'Usuario actualizado',
+            'data' => $user
+        ];
+    }
 
     /**
      * Create a new user by rol.

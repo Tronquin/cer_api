@@ -167,6 +167,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
         Route::group(['middleware' => 'adminAuth'], function () {
             //Crear Usuario
             Route::put('/admin/user/create', 'UserController@store');
+            // Actualiza usuario
+            Route::put('/admin/user/update/{user_id}', 'UserController@updateAdmin');
             // Obtiene tags
             Route::get('find/extra_tags', 'General\SearchdController@findExtraByTag');
             // massive extra by tags save
