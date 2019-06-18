@@ -8,7 +8,6 @@ use App\Service\TranslationService;
 trait FieldTranslationTrait
 {
     public $fieldTranslationsData = [];
-
     /**
      * Campos que se pueden almacenar en field_translations
      *
@@ -58,6 +57,11 @@ trait FieldTranslationTrait
         }
 
         return $response;
+    }
+
+    public function getFieldTranslationsAttribute()
+    {
+        return $this->fieldTranslations();
     }
 
     /**
