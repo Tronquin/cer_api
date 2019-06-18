@@ -52,7 +52,7 @@ class FindExperiencesByLocationHandler extends BaseHandler
         }
 
         //All Extras Not Included that are of type 'ERP' associated to that Ubication 
-        $extraNotIncluded = Extra::where('ubicacion_id',  $ubicacionId)->where('type', 'erp')->with(['child'])->get();
+        $extraNotIncluded = Extra::where('type', 'erp')->with(['child'])->get();
 
         foreach ($experiencesCollection as  $expErp) {
 
