@@ -449,7 +449,55 @@ class AddingStaticTranslations extends Migration
             [
                 'key' => 'pages.body.click',
                 'translation' => 'CLICK AQUI'
-            ]
+            ],
+            [
+                'key' => 'layouts.reset.password',
+                'translation' => 'Actualizar Contraseña'
+            ],
+            [
+                'key' => 'layouts.reset.newPassword',
+                'translation' => 'Nueva Contraseña'
+            ],
+            [
+                'key' => 'layouts.reset.confirmNewPassword',
+                'translation' => 'Confirmar Nueva Contraseña'
+            ],
+            [
+                'key' => 'layouts.reset.send',
+                'translation' => 'Enviar'
+            ],
+            [
+                'key' => 'layouts.reset.newPassRequired',
+                'translation' => 'El campo de Nueva Contraseña es requerido.'
+            ],
+            [
+                'key' => 'layouts.reset.newPassConfirmRequired',
+                'translation' => 'El campo de Confirmar Nueva Contraseña es requerido.'
+            ],
+            [
+                'key' => 'layouts.reset.passMatch',
+                'translation' => 'La nueva contraseña coincide con la anterior!'
+            ],
+            [
+                'key' => 'layouts.reset.passDoesntMatch',
+                'translation' => 'La nueva contraseña no coincide!'
+            ],
+            [
+                'key' => 'layouts.reset.passChanged',
+                'translation' => 'La Contraseña ha sido cambiada satisfactoriamente!'
+            ],
+            [
+                'key' => 'layouts.reset.passNotChanged',
+                'translation' => 'No se pudo cambiar la contraseña!'
+            ],
+            [
+                'key' => 'api.resetPassword.passError',
+                'translation' => 'La clave debe ser diferente a la actual.'
+            ],
+            [
+                'key' => 'api.resetPassword.changed',
+                'translation' => 'Clave de Usuario actualizada.'
+            ],
         ];
 
         foreach ($translations as $translation) {
