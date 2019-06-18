@@ -66,6 +66,14 @@ trait FieldTranslationTrait
     }
 
     /**
+     * Get field translations
+     */
+    public function fieldTranslations()
+    {
+        return $this->fieldTranslations;
+    }
+
+    /**
      * Actualiza las traducciones para un registro
      *
      * @param array $fieldTranslations
