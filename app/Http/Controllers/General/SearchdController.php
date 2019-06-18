@@ -106,11 +106,12 @@ class SearchdController extends Controller
      * Busca las experiencias por ubicacion
      *
      * @param $ubicacion_id
+     * @param Request $request
      * @return JsonResponse
      */
-    public function findExperiencesByLocation($ubicacion_id = null){
+    public function findExperiencesByLocation($ubicacion_id = null, Request $request){
 
-        $handler = new FindExperiencesByLocationHandler(['ubicacion_id' => $ubicacion_id]);
+        $handler = new FindExperiencesByLocationHandler(['ubicacion_id' => $ubicacion_id, 'admin_call' => $request->admin_call]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

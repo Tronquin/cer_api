@@ -29,7 +29,18 @@ class FindExperiencesByLocationHandler extends BaseHandler
 
         $experiencesCollection = Experience::where('ubicacion_id', $ubicacionId)
             ->where('type', 'erp')
-            ->with(['child', 'extras', 'apartamentos'])
+            ->with([
+                'child',
+                'extras.child.experiences',
+                'extras.experiences',
+                'apartamentos.child',
+                'extras_experiences_not_included',
+
+                'child.extras.child.experiences',
+                'child.extras.experiences',
+                'child.apartamentos.child',
+                'child.extras_experiences_not_included',
+            ])
             ->orderBy('experiencia_id')
             ->get();
 
@@ -39,9 +50,6 @@ class FindExperiencesByLocationHandler extends BaseHandler
                 $extraIdsAll[] = $extraErp->id;
             }
         }
-        //Extras Not Included associated to an EXPERIENCE
-        // $extraNotIncluded = Extra::where('ubicacion_id', $ubicacionId)->where('type', 'erp')->whereIn('id', $extraIdsAll)->with(['child'])->get();
-
 
         //All Extras Not Included that are of type 'ERP' associated to that Ubication 
         $extraNotIncluded = Extra::where('ubicacion_id',  $ubicacionId)->where('type', 'erp')->with(['child'])->get();
@@ -63,9 +71,13 @@ class FindExperiencesByLocationHandler extends BaseHandler
                 $temp['front_image'] =  $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-',  $temp['front_image'])]) : null;
                 $temp['icon'] =  $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-',  $temp['icon'])]) : null;
 
-                $temp['fieldTranslations'] =  $extraErp->child ?  $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
-                $activo =  $extraErp->experiences()->find($expErp->id);
-                $activo =  $activo->pivot->is_published;
+                $activo = false;
+                foreach ($extraErp->experiences as $exp) {
+                    if ($expErp->id === $exp->id) {
+                        $activo = $exp->pivot->is_published;
+                        break;
+                    }
+                }
                 $temp['activo'] =  $activo;
 
                 $available[] =  $temp;
@@ -78,13 +90,19 @@ class FindExperiencesByLocationHandler extends BaseHandler
                 if (!in_array($temp['id'],  $extraIds)) {
                     $temp['front_image'] =  $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-',  $temp['front_image'])]) : null;
                     $temp['icon'] =  $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-',  $temp['icon'])]) : null;
-                    $temp['fieldTranslations'] =  $extraNot->child ?  $extraNot->child->fieldTranslations() : $extraNot->fieldTranslations();
-                    $temp['activo'] = (bool)$expErp->extras_experiences_not_included()->where('extras.id',  $temp['id'])->count() > 0;
+                    $temp['activo'] = false;
+                    foreach ($expErp->extras_experiences_not_included as $noInclude) {
+                        if ($noInclude->id === $extraNot['id']) {
+                            $temp['activo'] = true;
+                            break;
+                        }
+                    }
 
-                    $noAvailable[] =  $temp;
+                    if ((isset($this->params['admin_call']) && $this->params['admin_call']) || $temp['activo']) {
+                        $noAvailable[] =  $temp;
+                    }
                 }
             }
-
 
             unset($webOrErp['extras']);
             $webOrErp['extras']['disponibles'] =  $available;
@@ -97,8 +115,6 @@ class FindExperiencesByLocationHandler extends BaseHandler
 
             unset($webOrErp['apartamentos']);
             $webOrErp['apartamentos'] =  $aparments;
-
-            $webOrErp['fieldTranslations'] =  $expErp->child ?  $expErp->child->fieldTranslations() : $expErp->fieldTranslations();
 
             $experiences[] =  $webOrErp;
         }

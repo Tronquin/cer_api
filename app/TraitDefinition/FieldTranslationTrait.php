@@ -8,6 +8,16 @@ use App\Service\TranslationService;
 trait FieldTranslationTrait
 {
     public $fieldTranslationsData = [];
+
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->with = ['fieldTranslationsRelation'];
+        $this->append('fieldTranslations');
+    }
+
     /**
      * Campos que se pueden almacenar en field_translations
      *
@@ -16,52 +26,43 @@ trait FieldTranslationTrait
     abstract public function fieldsToTranslate();
 
     /**
+     * Relation
+     */
+    public function fieldTranslationsRelation()
+    {
+        return $this->morphToMany(Language::class, 'content', 'field_translations')->withPivot(['field', 'translation']);
+    }
+
+    /**
      * Traducciones para los campos
      *
      * @return array
      */
-    public function fieldTranslations()
+    public function getFieldTranslationsAttribute()
     {
-        $translations = FieldTranslation::query()
-            ->where('content_id', $this->id)
-            ->where('content_type', self::class)
-            ->with(['language'])
-            ->get();
-        $languages = Language::query()->orderBy('main', 'DESC')->orderBy('id')->get(['iso', 'name', 'id']);
-
         $response = [];
-        foreach ($languages as $language) {
+        foreach ($this->fieldTranslationsRelation as $language) {
 
-            $tempResponse = [
-                'iso' => $language->iso,
-                'name' => $language->name,
-                'fields' => []
-            ];
-
-            foreach ($this->fieldsToTranslate() as $field) {
-
-                $trans = '';
-                foreach ($translations as $translation) {
-                    if ($translation->language_id === $language->id && $translation->field === $field) {
-                        $trans = $translation->translation;
-                    }
-                }
-
-                $tempResponse['fields'][] = [
-                    'field' => $field,
-                    'translation' => $trans
+            if (! isset($response[$language->iso])) {
+                $response[$language->iso] = [
+                    'iso' => $language->iso,
+                    'name' => $language->name,
+                    'fields' => []
                 ];
             }
 
-            $response[] = $tempResponse;
+            $response[$language->iso]['fields'][] = [
+                'field' => $language->pivot->field,
+                'translation' => $language->pivot->translation
+            ];
         }
 
-        return $response;
-    }
+        $finalResponse = [];
+        foreach ($response as $resp) {
+            $finalResponse[] = $resp;
+        }
 
-    public function getFieldTranslationsAttribute()
-    {
-        return $this->fieldTranslations();
+        return $finalResponse;
     }
 
     /**
