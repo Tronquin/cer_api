@@ -92,7 +92,7 @@ class FindExperiencesByLocationHandler extends BaseHandler
                     $temp['icon'] =  $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-',  $temp['icon'])]) : null;
                     $temp['activo'] = false;
                     foreach ($expErp->extras_experiences_not_included as $noInclude) {
-                        if ($noInclude->id === $extraNot['id']) {
+                        if ($noInclude->id === $temp['id']) {
                             $temp['activo'] = true;
                             break;
                         }
