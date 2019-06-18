@@ -29,10 +29,10 @@ class UpdateUserPasswordHandler extends BaseHandler
         $usuario->password = Hash::make($this->params['new_password']);
         $usuario->save();
         $response = [
-                'res' => 1,
-                'msg' => 'Clave de Usuario actualizada',
-                'data' => [$usuario, $this->params['new_password']]
-            ];
+            'res' => 1,
+            'msg' => 'Clave de Usuario actualizada',
+            'data' => [$usuario, $this->params['new_password']]
+        ];
 
 
         return $response;
