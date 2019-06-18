@@ -13,6 +13,7 @@ use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use \Firebase\JWT\JWT;
 use CTrans;
 
 class UserController extends Controller
@@ -290,6 +291,23 @@ class UserController extends Controller
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    protected function checkToken($token, $time)
+    {
+        $expToken = false;
+        $secret = env('SECRET');
+        $decoded = JWT::decode($token, $secret, array('HS256'));
+        $delta = 900;
+        $date = $time;
+        $expiredTime = $date / 1000 - $decoded->timestamp;
+
+        if($expiredTime > $delta){
+            $expToken = true;
+            return new JsonResponse(['res' => 0, 'msg' => 'Token Expired!!', 'tokenStatus' => $expToken]);
+        }else{
+            return new JsonResponse(['res' => 1, 'msg' => 'Valid Token!!', 'tokenStatus' => $expToken]);
+        }
     }
 
     protected function sendResetPasswordEmailAdmin(Request $request, $user_id)

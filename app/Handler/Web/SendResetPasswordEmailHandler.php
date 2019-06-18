@@ -29,7 +29,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
             return $response;
         }
 
-        $secret = "c4StR0W3b2019";
+        $secret = env('SECRET');
         $timestamp = $_SERVER['REQUEST_TIME'];
         $payload = ['id' => $user->id, 'timestamp' => $timestamp];
         $token = JWT::encode($payload, $secret);
@@ -41,7 +41,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
         $response = [
             'res' => 1,
             'msg' => CTrans::trans('email.send', $iso),
-            'data' => ['token' => $token, 'url' => $url, 'payload' => $payload],
+            'data' => ['token' => $token],
         ];
         return $response;
     }

@@ -13,6 +13,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('admin/password/reset/{userId}', 'UserController@sendResetPasswordEmailAdmin');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
+    // comprobar enlace enviado por correo
+    Route::get('user/password/reset/{token}/{time}', 'UserController@checkToken');
     //Devuelve todos los usuarios
     Route::get('user/index', 'UserController@index');
     // Actualizar Contraseña
