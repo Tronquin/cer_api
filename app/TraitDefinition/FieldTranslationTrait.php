@@ -30,7 +30,11 @@ trait FieldTranslationTrait
      */
     public function fieldTranslationsRelation()
     {
-        return $this->morphToMany(Language::class, 'content', 'field_translations')->withPivot(['field', 'translation']);
+        return $this->morphToMany(Language::class, 'content', 'field_translations')
+            ->orderBy('main', 'DESC')
+            ->orderBy('id')
+            ->withPivot(['field', 'translation'])
+        ;
     }
 
     /**

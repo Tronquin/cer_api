@@ -19,7 +19,7 @@ class UploadImage
         $extension = self::getImageType($base64);
         $base64 = explode(',', $base64);
         $upload = base64_decode($base64[1]);
-        $name = '';
+
         if (!$filename) {
             $uniq = uniqid();
             $name = $uniq;
