@@ -27,7 +27,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 COPY . .
-COPY ./docker/config/cer_api.conf /etc/apache2/sites-available/
+COPY cer_api.conf /etc/apache2/sites-available/
 RUN a2enmod rewrite && \
     a2enmod actions && \
     a2enmod deflate && \
