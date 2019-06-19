@@ -18,7 +18,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     //Devuelve todos los usuarios
     Route::get('user/index', 'UserController@index');
     // Actualizar Contraseña
-    Route::post('user/password/update/{userId}/{newPassword}', 'UserController@updatePassword');
+    Route::post('user/password/update/{iso}/{userId}/{newPassword}', 'UserController@updatePassword');
     //Eliminar Usuario
     Route::delete('user/delete/{id}', 'UserController@delete');
     Route::get('/sitemap', 'General\SearchdController@siteMap');
