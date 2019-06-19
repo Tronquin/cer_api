@@ -36,7 +36,7 @@ class ImageController extends Controller
             $path = $publicPath;
         }
 
-        if (!file_exists($publicPath)) {
+        if (!file_exists($path)) {
             abort(404);
         }
 
