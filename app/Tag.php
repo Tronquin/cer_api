@@ -10,6 +10,8 @@ class Tag extends Model
 
     protected $fillable = ['description', 'parent_id'];
 
+    protected $with = ['children','extras'];
+
     /**
      * Padre
      */

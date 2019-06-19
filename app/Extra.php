@@ -9,6 +9,8 @@ class Extra extends Model
     use FieldTranslationTrait;
 
     protected $table = 'extras';
+    
+    protected $appends = ['precio'];
 
     protected $fillable = [
         'extra_id',
@@ -70,6 +72,11 @@ class Extra extends Model
             'monto_iva' => $iva,
             'total' => $total
         ];
+    }
+
+    public function getPrecioAttribute()
+    {
+        return $this->calcularIva($this->base_imponible,$this->iva_tipo);
     }
 
     public function experiences()
