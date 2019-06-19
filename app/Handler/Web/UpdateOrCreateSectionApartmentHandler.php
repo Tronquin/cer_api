@@ -34,7 +34,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
             $section->show_web = isset($sectionApartment['show_web']) ? $sectionApartment['show_web'] : false;
             
             $sectionApartment_Name = '';
-            foreach($section->fieldTranslations() as $iso){
+            foreach($section->fieldTranslations as $iso){
                 if($iso['iso'] === 'en'){
                     foreach($iso['fields'] as $sectionApartmentImage){
                         if($sectionApartmentImage['field'] === 'name')
@@ -55,7 +55,7 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
                 $section->icon =  $path;
             }
 
-            $data['fieldTranslations'] = $section->fieldTranslations();
+            $data['fieldTranslations'] = $section->fieldTranslations;
             $section->save();
 
             $idExtras = [];
@@ -67,7 +67,6 @@ class UpdateOrCreateSectionApartmentHandler extends BaseHandler
 
             $section->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $section->photo)]);
             $section->updateFieldTranslations($sectionApartment['fieldTranslations']);
-            $section['fieldTranslations'] = $section->fieldTranslations();
             $data['sectionApartments'][] = $section;
             $sectionApartmentIds[] = $section->id;
         }

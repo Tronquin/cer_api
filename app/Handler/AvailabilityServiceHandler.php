@@ -63,7 +63,6 @@ class AvailabilityServiceHandler extends BaseHandler {
                                     ->get();
                 foreach ($contratados as $contratado) {
                     $webOrErp = $contratado->child ? $contratado->child->toArray() : $contratado->toArray();
-                    $webOrErp['fieldTranslations'] = $contratado->child ? $contratado->child->fieldTranslations() : $contratado->fieldTranslations();
                     $webOrErp['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
                     $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
                     $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
@@ -79,7 +78,6 @@ class AvailabilityServiceHandler extends BaseHandler {
                                                                             ->get();
                 foreach ($serviciosContratados['extras']['extras_disponibles'] as $extErp) {
                     $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
-                    $webOrErp['fieldTranslations'] = $extErp->child ? $extErp->child->fieldTranslations() : $extErp->fieldTranslations();
                     $webOrErp['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
                     $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
                     $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);

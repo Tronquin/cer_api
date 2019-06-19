@@ -21,12 +21,10 @@ class CardInfoController extends Controller
 
         $data = [];
         $Translation = new CardInfo();
-        $Translation->fieldTranslation = $Translation->fieldTranslations();
         
         $cardInfo = CardInfo::all();
         foreach ($cardInfo as &$card){
             $card->front_image = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $card['front_image'])]);
-            $card['fieldTranslations'] = $card->fieldTranslations();
         }
 
         if(count($cardInfo)){

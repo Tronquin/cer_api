@@ -23,8 +23,6 @@ class FindCancellationPolicyHandler extends BaseHandler {
             foreach ($cancellationPolicyCollection as $canpoErp) {
                 
                 $webOrErp = $canpoErp->child ? $canpoErp->child->toArray() : $canpoErp->toArray();
-                
-                $webOrErp['fieldTranslations'] = $canpoErp->child ? $canpoErp->child->fieldTranslations() : $canpoErp->fieldTranslations();
                 $cancellation_policys[] = $webOrErp;
             }
 

@@ -40,7 +40,7 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                             'ubicacion_id' => $location->ubicacion_id,
                             'type' => $extra->type,
                             'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
-                            'fieldTranslations' => $extra->fieldTranslations(),
+                            'fieldTranslations' => $extra->fieldTranslations,
                             'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
                             'front_image_large' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)])
                         ];
@@ -53,7 +53,7 @@ class FindExtraByLocationTagChildrenHandler extends BaseHandler {
                             'ubicacion_id' => $location->ubicacion_id,
                             'type' => $extra->type,
                             'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
-                            'fieldTranslations' => $extra->fieldTranslations(),
+                            'fieldTranslations' => $extra->fieldTranslations,
                             'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
                             'front_image_large' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)])
                         ];

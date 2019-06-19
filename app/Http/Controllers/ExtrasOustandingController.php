@@ -22,14 +22,12 @@ class ExtrasOustandingController extends Controller
     {
         $data = [];
         $Translation = new ExtraOustanding();
-        $Translation->fieldTranslation = $Translation->fieldTranslations();
         
         $extras = ExtraOustanding::where('location_id', $location_id)->get();
         foreach ($extras as &$extra) {
             $extra->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['photo'])]);
             $extra->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra['icon'])]);
             $extra->document = route('storage.document', ['document' => str_replace('/', '-', $extra['document'])]);
-            $extra['fieldTranslations'] = $extra->fieldTranslations();
         }
 
         if (count($extras)) {

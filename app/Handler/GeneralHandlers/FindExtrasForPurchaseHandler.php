@@ -47,7 +47,6 @@ class FindExtrasForPurchaseHandler extends BaseHandler {
 
                     $temp['front_image'] = $temp['front_image'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['front_image'])]) : null;
                     $temp['icon'] = $temp['icon'] ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $temp['icon'])]) : null;
-                    $temp['fieldtranslations'] = $extraErp->child ? $extraErp->child->fieldTranslations() : $extraErp->fieldTranslations();
                     $temp['precio'] = Extra::calcularIva($temp['base_imponible'],$temp['iva_tipo']);
 
                     if($temp['is_published'])

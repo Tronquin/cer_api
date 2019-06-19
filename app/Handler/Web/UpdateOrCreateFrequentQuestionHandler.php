@@ -43,11 +43,10 @@ class UpdateOrCreateFrequentQuestionHandler extends BaseHandler
                 }
             }           
 
-            $data['fieldTranslations'] = $Question->fieldTranslations();
+            $data['fieldTranslations'] = $Question->fieldTranslations;
             
             $Question->save();
             $Question->updateFieldTranslations($question['fieldTranslations']);
-            $Question['fieldTranslations'] = $Question->fieldTranslations();
             $data['questions'][] = $Question;
             $questionsIds[] = $Question->id;
         }

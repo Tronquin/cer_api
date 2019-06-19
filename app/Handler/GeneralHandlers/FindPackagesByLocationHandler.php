@@ -30,7 +30,7 @@ class FindPackagesByLocationHandler extends BaseHandler {
                 unset($webOrErp['extras']);
                 $webOrErp['extras'] = $extras;
             }
-            $webOrErp['fieldTranslations'] = $pakErp->child ? $pakErp->child->fieldTranslations() : $pakErp->fieldTranslations();
+
             $packages[] = $webOrErp;
         }
 

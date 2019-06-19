@@ -38,7 +38,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                                 'type' => $extra->type,
                                 'precio' => $precio,
                                 'coste' => $precio['total'],
-                                'fieldTranslations' => $extra->fieldTranslations(),
+                                'fieldTranslations' => $extra->fieldTranslations,
                                 'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
                                 'front_image_large' => $extra->front_image_large ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)]) : null
                             ];
@@ -50,7 +50,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
                                 'type' => $extra->type,
                                 'precio' => $precio,
                                 'coste' => $precio['total'],
-                                'fieldTranslations' => $extra->fieldTranslations(),
+                                'fieldTranslations' => $extra->fieldTranslations,
                                 'front_image' => UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image)]),
                                 'front_image_large' => $extra->front_image_large ? UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extra->front_image_large)]) : null
                             ];

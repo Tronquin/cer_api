@@ -26,7 +26,6 @@ class GetPhotoByGallery extends BaseHandler
         foreach ($photos as $photo) {
             $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
             $photo->type = $photo->type ?? '';
-            $photo->fieldTranslations = $photo->fieldTranslations();
         }
 
         if (count($photos) === 0) {
@@ -43,7 +42,6 @@ class GetPhotoByGallery extends BaseHandler
             $erpImages = ERPImage::all();
             foreach ($erpImages as $erpImage) {
                 $erpImage->completeUrl = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $erpImage->url)]);
-                $erpImage->fieldTranslations = $erpImage->fieldTranslations();
             }
         }
 

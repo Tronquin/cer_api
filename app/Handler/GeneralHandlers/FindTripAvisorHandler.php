@@ -17,11 +17,6 @@ class FindTripAvisorHandler extends BaseHandler {
 
         $tripavisorData = Tripavisor::query()->get();
 
-        foreach ($tripavisorData as &$tripavisor) {
-
-            $tripavisor['fieldTranslations'] = $tripavisor->fieldTranslations();
-        }
-
         $response['res'] = count($tripavisorData);
         $response['msg'] = 'datos encontrados';
         $response['data'] = $tripavisorData;

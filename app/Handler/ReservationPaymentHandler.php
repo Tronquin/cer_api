@@ -37,7 +37,7 @@ class ReservationPaymentHandler extends BaseHandler {
                     foreach ($serviceData['data']['list']['extras']['extras_contratados'] as $extra) {
                         $extraInstance = Extra::find($extra['id']);
                         $extraName = '';
-                        foreach ($extraInstance->fieldTranslations() as $fieldTranslation) {
+                        foreach ($extraInstance->fieldTranslations as $fieldTranslation) {
                             if ($fieldTranslation['iso'] === 'es') {
                                 foreach ($fieldTranslation['fields'] as $field) {
                                     if ($field['field'] === 'nombre') {

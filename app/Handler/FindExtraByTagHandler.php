@@ -33,7 +33,7 @@ class FindExtraByTagHandler extends BaseHandler {
                             'type' => $extra->type,
                             'is_published' => $extra->is_published,
                             'precio' => $extra->calcularIva($extra->base_imponible,$extra->iva_tipo),
-                            'fieldTranslations' => $extra->fieldTranslations()
+                            'fieldTranslations' => $extra->fieldTranslations
                         ];
                     }
                 }

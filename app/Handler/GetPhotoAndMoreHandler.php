@@ -26,25 +26,21 @@ class GetPhotoAndMoreHandler extends BaseHandler
             $photoAndMore->location_id = null;
             $photoAndMore->sections = [];
         }
-        $photoAndMore->sectionsName = $location->fieldTranslations();
-        $photoAndMore->fieldTranslations = $photoAndMore->fieldTranslations();
+        $photoAndMore->sectionsName = $location->fieldTranslations;
 
         $originalSections = [];
         $apartmentSections = [];
         $sectionApartmentIds = [];
         foreach ($photoAndMore->sections as $section) {
-            $section->fieldTranslations = $section->fieldTranslations();
 
             foreach ($section->gallery->photos as $photo) {
                 $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
-                $photo->fieldTranslations = $photo->fieldTranslations();
             }
 
             if ($section->sectionApartment) {
                 if (! in_array($section->sectionApartment->id, $sectionApartmentIds)) {
                     // Evito hacer este proceso dos veces para una misma seccion del apto
                     $section->sectionApartment->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $section->sectionApartment->photo)]);
-                    $section->sectionApartment->fieldTranslations = $section->sectionApartment->fieldTranslations();
                     $sectionApartmentIds[] = $section->sectionApartment->id;
                 }
 

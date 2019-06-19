@@ -22,7 +22,7 @@ class FindExtrasByLocationHandler extends BaseHandler {
 
         foreach ($extrasCollection as $extErp) {
             $webOrErp = $extErp->child ? $extErp->child->toArray() : $extErp->toArray();
-            $webOrErp['fieldTranslations'] = $extErp->child ? $extErp->child->fieldTranslations() : $extErp->fieldTranslations();
+
             if($webOrErp['is_published']){
                 $extras[] = $webOrErp;
             }

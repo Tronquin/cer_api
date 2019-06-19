@@ -26,13 +26,11 @@ class FindExperienceHandler extends BaseHandler {
 
         $webOrErp = $experiencia->child ? $experiencia->child->toArray() : $experiencia->toArray();
         $webOrErpObject = $experiencia->child ? $experiencia->child : $experiencia;
-        $webOrErp['fieldTranslations'] = $experiencia->child ? $experiencia->child->fieldTranslations() : $experiencia->fieldTranslations();
         $webOrErp['front_page'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_page'])]);
 
-        $extrasWebOrErp = [];
+        $extras = [];
         foreach($webOrErpObject->extras as &$extra){
             $extrasWebOrErp = $extra->child ? $extra->child->toArray() : $extra->toArray();
-            $extrasWebOrErp['fieldTranslations'] = $extra->child ? $extra->child->fieldTranslations() : $extra->fieldTranslations();
             $extrasWebOrErp['precio'] = Extra::calcularIva($extrasWebOrErp['base_imponible'],$extrasWebOrErp['iva_tipo']);
             $extrasWebOrErp['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extrasWebOrErp['icon'])]);
             $extrasWebOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $extrasWebOrErp['front_image'])]);

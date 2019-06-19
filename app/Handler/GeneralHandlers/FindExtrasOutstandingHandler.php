@@ -22,7 +22,6 @@ class FindExtrasOutstandingHandler extends BaseHandler {
         $extras = [];
         foreach ($extrasCollection as $key => $extra) {
             $extras[$key] = $extra->toArray();
-            $extras[$key]['fieldTranslations'] = $extra->fieldTranslations();
         }
         
         foreach ($extras as &$extra) {

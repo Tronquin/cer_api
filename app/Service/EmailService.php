@@ -51,7 +51,6 @@ class EmailService
         $handler->processHandler();
         $data = $handler->getData();
 
-        $reservation->experience->fieldTranslations = $reservation->experience->fieldTranslations();
         $experienceName = '';
         $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador_erp'])->first();
         
@@ -71,7 +70,7 @@ class EmailService
         foreach ($data['data']['list']['extras']['extras_contratados'] as $extra) {
             $extraInstance = Extra::find($extra['id']);
             $extraName = '';
-            foreach ($extraInstance->fieldTranslations() as $fieldTranslation) {
+            foreach ($extraInstance->fieldTranslations as $fieldTranslation) {
                 if ($fieldTranslation['iso'] === 'es') {
                     foreach ($fieldTranslation['fields'] as $field) {
                         if ($field['field'] === 'nombre') {

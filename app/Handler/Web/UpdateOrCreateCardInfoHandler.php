@@ -45,11 +45,10 @@ class UpdateOrCreateCardInfoHandler extends BaseHandler
                 $cardInfo->front_image = $path;
             }
 
-            $data['fieldTranslations'] = $cardInfo->fieldTranslations();
+            $data['fieldTranslations'] = $cardInfo->fieldTranslations;
             $cardInfo->save();
             $cardInfo->front_image = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $cardInfo->front_image)]);
             $cardInfo->updateFieldTranslations($card['fieldTranslations']);
-            $cardInfo['fieldTranslations'] = $cardInfo->fieldTranslations();
             $data['cards'][] = $cardInfo;
             $cardsIds[] = $cardInfo->id;
         }

@@ -28,10 +28,7 @@ class ReservationActiveHandler extends BaseHandler {
         if(count($data)){
             foreach ($data as &$dato){ 
                 $dato['experiencia'] = Experience::where('id',$dato['experience_id'])->with(['extras'])->first();
-                $dato['experiencia']['fieldTranslations'] = $dato['experiencia']->fieldTranslations();
-                foreach($dato['experiencia']['extras'] as &$extra){
-                    $extra['fieldTranslations'] = $extra->fieldTranslations();
-                }
+
                 $dato['user'] = Reservation::find($dato['id'])->user;
                 $dato['cancelation_policy'] = Reservation::find($dato['id'])->cancelation_policy;
                 $dato['packages'] = Reservation::find($dato['id'])->package;

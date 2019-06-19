@@ -29,7 +29,7 @@ class FindLocationsHandler extends BaseHandler {
             $temp['register_img'] = $this->generateImageUrl($temp['register_img']);
             $temp['header_exp_domain'] = $this->generateImageUrl($temp['header_exp_domain']);
             $temp['header_exp'] = $this->generateImageUrl($temp['header_exp']);
-            $temp['fieldTranslations'] = $locationErp->fieldTranslations();
+            $temp['fieldTranslations'] = $locationErp->fieldTranslations;
             $temp['logo'] = $this->generateImageUrl($temp['logo']);
             $temp['slug'] = str_slug($locationErp->nombre);
 
@@ -39,9 +39,6 @@ class FindLocationsHandler extends BaseHandler {
             }
             $temp['tipologias'] = $tipologias;
 
-            foreach($tempObject->spas as &$spa){
-                $spa['fieldTranslations'] = $spa->fieldTranslations();
-            }
             $temp['spas'] = $tempObject->spas;
 
             $LocationwebOrErp[] = $temp;

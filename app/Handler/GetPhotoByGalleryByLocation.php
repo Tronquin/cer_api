@@ -26,7 +26,6 @@ class GetPhotoByGalleryByLocation extends BaseHandler
 
             foreach ($gallery->photos as $photo) {
                 $photo->url = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $photo->url)]);
-                $photo->fieldTranslations = $photo->fieldTranslations();
             }
 
             if (count($gallery->photos) === 0) {

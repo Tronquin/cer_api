@@ -72,13 +72,12 @@ class UpdateOrCreateExtraOustandingHandler extends BaseHandler
                 $oustanding->order = $order;
             }
 
-            $data['fieldTranslations'] = $oustanding->fieldTranslations();
+            $data['fieldTranslations'] = $oustanding->fieldTranslations;
             $oustanding->save();
             $oustanding->photo = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $oustanding->photo)]);
             $oustanding->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $oustanding->icon)]);
             $oustanding->document = UrlGenerator::generate('storage.document', ['document' => str_replace('/', '-', $oustanding->document)]);
             $oustanding->updateFieldTranslations($extra['fieldTranslations']);
-            $oustanding['fieldTranslations'] = $oustanding->fieldTranslations();
             $data['oustanding'][] = $oustanding;
             $oustandingsIds[] = $oustanding->id;
         }

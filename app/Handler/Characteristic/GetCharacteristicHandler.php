@@ -19,8 +19,6 @@ class GetCharacteristicHandler extends BaseHandler {
     {
         $characteristics = Characteristic::all();
         foreach ($characteristics as $characteristic) {
-            $characteristic->fieldTranslations = $characteristic->fieldTranslations();
-
             if (! empty($characteristic->icon)) {
                 $characteristic->icon = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
             }

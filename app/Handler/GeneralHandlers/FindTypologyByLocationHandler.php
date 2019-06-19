@@ -49,7 +49,6 @@ class FindTypologyByLocationHandler extends BaseHandler {
             }
             $characteristics = [];
             foreach ($tpErp->characteristics as &$characteristic) {
-                $characteristic['fieldTranslations'] = $characteristic->fieldTranslations();
                 $characteristic['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $characteristic->icon)]);
                 $characteristics[] = $characteristic;
 
@@ -68,7 +67,7 @@ class FindTypologyByLocationHandler extends BaseHandler {
             unset($webOrErp['terrazas']);
             $webOrErp['terrazas'] = $terrazas;
             $webOrErp['characteristics'] = $characteristics;
-            $webOrErp['fieldTranslations'] = $tpErp->child ? $tpErp->child->fieldTranslations() : $tpErp->fieldTranslations();
+
             $tipologias[] = $webOrErp;
         }
 
