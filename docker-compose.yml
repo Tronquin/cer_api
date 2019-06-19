@@ -1,0 +1,42 @@
+version: "3.2"
+
+services:
+        
+    db_api:
+      image: localhost:5000/postgres:9.6
+      restart: always
+      volumes:
+        - /var/proyectos_docker/docker_cer/cer_api_docker/data/.db_api:/var/lib/postgresql/data
+      ports:
+        - target: 5432
+          published: 4403
+          protocol: tcp
+          mode: host
+      environment:
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_DB=postgres
+        - PGDATA=/var/lib/postgresql/data
+      networks:
+       - back-jacidi
+
+    api-cer:
+      image: localhost:5000/cer-api
+      restart: always
+      volumes:
+        - /var/proyectos_docker/docker_cer/cer_api_docker/cer_api:/var/www/html
+      entrypoint: /var/www/html/api_entrypoint.sh
+      links:
+        - db_api
+        - cer-erp
+      ports:
+        - target: 80
+          published: 4404
+          protocol: tcp
+          mode: host
+      networks:
+        - back-jacidi
+
+networks:
+   back-jacidi:
+     external: true
