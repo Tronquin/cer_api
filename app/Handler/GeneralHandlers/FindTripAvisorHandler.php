@@ -7,6 +7,8 @@ use App\Service\UrlGenerator;
 
 class FindTripAvisorHandler extends BaseHandler {
 
+    protected $cache = true;
+
     /**
      * Proceso de este handler
      */
