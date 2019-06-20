@@ -12,6 +12,8 @@ use App\Service\UrlGenerator;
 class GetPhotoByGallery extends BaseHandler
 {
 
+    protected $cache = true;
+
     /**
      * Proceso de este handler
      *

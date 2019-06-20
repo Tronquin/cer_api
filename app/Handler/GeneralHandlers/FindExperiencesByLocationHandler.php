@@ -3,14 +3,13 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Experience;
-use App\Galery;
 use App\Extra;
 use App\Location;
-use App\Photo;
 use App\Service\UrlGenerator;
 
 class FindExperiencesByLocationHandler extends BaseHandler
 {
+    protected $cache = true;
 
     /**
      * Proceso de este handler

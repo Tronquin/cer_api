@@ -7,7 +7,15 @@ use App\Service\TranslationService;
 
 trait FieldTranslationTrait
 {
+    /**
+     * Data de traducciones
+     */
     public $fieldTranslationsData = [];
+
+    /**
+     * Idiomas
+     */
+    public static $languages = [];
 
     /**
      * Construct
@@ -45,20 +53,38 @@ trait FieldTranslationTrait
     public function getFieldTranslationsAttribute()
     {
         $response = [];
-        foreach ($this->fieldTranslationsRelation as $language) {
+        $languages = $this->getLanguages();
+        foreach ($languages as $languageInstance) {
+            foreach ($this->fieldTranslationsRelation as $language) {
 
-            if (! isset($response[$language->iso])) {
-                $response[$language->iso] = [
-                    'iso' => $language->iso,
-                    'name' => $language->name,
-                    'fields' => []
-                ];
+                if ($languageInstance->iso !== $language->iso) {
+                    continue;
+                }
+
+                if (!isset($response[$language->iso])) {
+                    // Inicializo el objeto
+                    $response[$language->iso] = [
+                        'iso' => $language->iso,
+                        'name' => $language->name,
+                        'fields' => []
+                    ];
+
+                    foreach ($this->fieldsToTranslate() as $field) {
+                        $response[$language->iso]['fields'][] = [
+                            'field' => $field,
+                            'translation' => ''
+                        ];
+                    }
+                }
+
+                foreach ($response[$language->iso]['fields'] as &$translationField) {
+                    // Obtengo la traduccion
+                    if ($translationField['field'] === $language->pivot->field) {
+                        $translationField['translation'] = $language->pivot->translation;
+                        break;
+                    }
+                }
             }
-
-            $response[$language->iso]['fields'][] = [
-                'field' => $language->pivot->field,
-                'translation' => $language->pivot->translation
-            ];
         }
 
         $finalResponse = [];
@@ -214,5 +240,20 @@ trait FieldTranslationTrait
                 }
             }
         }
+    }
+
+    /**
+     * Obtiene los idiomas
+     *
+     * @return array
+     */
+    private function getLanguages()
+    {
+        if (! count(self::$languages)) {
+            // Evito realizar la misma consulta
+            self::$languages = Language::orderBy('main', 'DESC')->orderBy('id')->get();
+        }
+
+        return self::$languages;
     }
 }

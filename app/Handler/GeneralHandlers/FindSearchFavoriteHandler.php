@@ -11,6 +11,8 @@ use App\SearchHistory;
  */
 class FindSearchFavoriteHandler extends BaseHandler {
 
+    protected $cache = true;
+
     /**
      * Proceso de este handler
      */

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class ListTranslationHandler extends BaseHandler {
 
+    protected $cache = true;
+
     /**
      * Proceso de este handler
      */
@@ -52,7 +54,7 @@ class ListTranslationHandler extends BaseHandler {
                     $key = $keyTranslation->key;
                     $limpiar_traduccion = explode('"',$keyTranslation->pivot->translation);
                     $traduccion = count($limpiar_traduccion);
-                    
+
                     if($traduccion%2 ===0){
                         $traduccion = $keyTranslation->pivot->translation.'"';
                     }else{

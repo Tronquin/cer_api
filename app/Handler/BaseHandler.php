@@ -1,6 +1,7 @@
 <?php
 namespace App\Handler;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Request;
@@ -66,6 +67,21 @@ abstract class BaseHandler {
     protected $oAuth2Client;
 
     /**
+     * Indica si hace cache de la respuesta
+     */
+    protected $cache = false;
+
+    /**
+     * Tiempo de expiracion del cache
+     */
+    protected $timeCache = 60 * 5;
+
+    /**
+     * Dispositivos que usan cache
+     */
+    private $devicesToCache = ['web'];
+
+    /**
      * Proceso de este handler
      *
      * @return array
@@ -100,9 +116,26 @@ abstract class BaseHandler {
         if ($this->checkValidationRules()) {
 
             try {
-
-                $this->data = $this->handle();
                 // Inicia el handler
+
+                $cacheKey = get_called_class();
+                foreach ($this->params as $i => $param) {
+                    $cacheKey .= '-' . $i . '-' . $param;
+                }
+
+                if ($this->cache && in_array($this->oAuth2Client->deviceType->code, $this->devicesToCache)) {
+
+                    if (Cache::has($cacheKey)) {
+                        $this->data = Cache::get($cacheKey);
+                    } else {
+                        $this->data = $this->handle();
+                        Cache::put($cacheKey, $this->data, $this->timeCache);
+                    }
+
+                } else {
+                    $this->data = $this->handle();
+                }
+
                 $this->audit();
 
             } catch (\Exception $ex) {
