@@ -30,7 +30,7 @@ class SendResetPasswordEmailHandler extends BaseHandler
         }
 
         $secret = env('SECRET');
-        $timestamp = $_SERVER['REQUEST_TIME'];
+        $timestamp = (new \DateTime())->getTimestamp();
         $payload = ['id' => $user->id, 'timestamp' => $timestamp];
         $token = JWT::encode($payload, $secret);
         $host = config('app.web_url');

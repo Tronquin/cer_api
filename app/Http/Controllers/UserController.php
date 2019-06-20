@@ -294,21 +294,20 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
-    protected function checkToken($token, $time)
+    protected function checkToken($token)
     {
         $expToken = false;
         $secret = env('SECRET');
         $decoded = JWT::decode($token, $secret, array('HS256'));
-        $delta = 900;
-        $date = $time;
-        $expiredTime = $date / 1000 - $decoded->timestamp;
+        $date = new \DateTime();
+        $expiredTime = (new \DateTime())->setTimestamp($decoded->timestamp)->modify('+15 minutes');
 
-        if($expiredTime > $delta){
+        if($date > $expiredTime){
             $expToken = true;
             return new JsonResponse(['res' => 0, 'msg' => 'Token Expired!!', 'tokenStatus' => $expToken]);
-        }else{
-            return new JsonResponse(['res' => 1, 'msg' => 'Valid Token!!', 'tokenStatus' => $expToken]);
         }
+
+        return new JsonResponse(['res' => 1, 'msg' => 'Valid Token!!', 'tokenStatus' => $expToken]);
     }
 
     protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
