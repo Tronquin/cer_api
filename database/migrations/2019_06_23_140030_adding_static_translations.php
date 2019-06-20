@@ -467,11 +467,11 @@ class AddingStaticTranslations extends Migration
                 'translation' => 'Enviar'
             ],
             [
-                'key' => 'layouts.reset.newPassRequired',
-                'translation' => 'El campo de Nueva Contraseña es requerido.'
+                'key' => 'layouts.reset.newPassReq',
+                'translation' => 'El campo de Nueva Contraseña requerido.'
             ],
             [
-                'key' => 'layouts.reset.newPassConfirmRequired',
+                'key' => 'layouts.reset.newConfPassReq',
                 'translation' => 'El campo de Confirmar Nueva Contraseña es requerido.'
             ],
             [

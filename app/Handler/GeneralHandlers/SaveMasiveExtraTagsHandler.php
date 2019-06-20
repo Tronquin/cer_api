@@ -52,12 +52,18 @@ class SaveMasiveExtraTagsHandler extends BaseHandler {
                 $extra->tags()->detach($extraTagIds);
                 $extraWebOrErp->tags()->sync($extraTagIds);
             }
+        }else if($this->params['method'] === 'ordenar'){
+            foreach ($this->params['tag']['children'] as $tag){
+                $tagChild = Tag::query()->where('id',$tag['id'])->first();
+                $tagChild->order = $tag['order'];
+                $tagChild->save();
+            }
         }
        
         return [
             'res' => 1,
-            'msg' => 'tags agregados correctamente',
-            'data' => count($this->params['extras'])
+            'msg' => 'tags modificados correctamente',
+            'data' => $this->params['extras']??''
         ];
     }
 
@@ -69,8 +75,8 @@ class SaveMasiveExtraTagsHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'extras' => 'required',
-            'tags' => 'required'
+            // 'extras' => 'required',
+            // 'tags' => 'required'
         ];
     }
 

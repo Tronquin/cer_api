@@ -1,0 +1,15 @@
+image: atlassian/default-image:2
+pipelines:
+  default:
+    - step:
+        services:
+          - docker
+        script:
+           - docker build -t cer-api:latest .
+           - docker tag cer-api:latest registry-docker.jacidi.com/cer-api
+           - docker push registry-docker.jacidi.com/cer-api
+    - step:
+        name: Deploy prod
+        trigger: manual
+        script:  
+          - curl -X POST https://admin-docker.jacidi.com/api/webhooks/309b5664-285d-43ff-9bbb-1f374bbf4c6c

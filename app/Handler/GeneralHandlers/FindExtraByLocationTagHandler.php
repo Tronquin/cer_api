@@ -17,7 +17,7 @@ class FindExtraByLocationTagHandler extends BaseHandler {
         $tagParents = Tag::query()
             ->with(['children.extras'])
             ->where('description',strtoupper($this->params['type']))
-            ->orderBy('updated_at')
+            ->orderBy('order')
             ->get();
         
         $response = [];
