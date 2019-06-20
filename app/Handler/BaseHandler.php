@@ -116,10 +116,12 @@ abstract class BaseHandler {
         if ($this->checkValidationRules()) {
 
             try {
+
                 // Inicia el handler
 
                 $cacheKey = get_called_class();
-                foreach ($this->params as $i => $param) {
+                $params = $this->params['data'] ?? $this->params;
+                foreach ($params as $i => $param) {
                     $cacheKey .= '-' . $i . '-' . $param;
                 }
 
