@@ -145,7 +145,6 @@ class CreateReservationHandler extends BaseHandler
             $reservation->checkout = $checkout;
             $reservation->apartment_id = $apartamento_id;
             $reservation->typology_id = $tipologia_id;
-            $reservation->user_id = $user_id;
             $reservation->experience_id = $experiencia_id;
             $reservation->regimen_id = $package_id;
             $reservation->policy_id = $reservation_client['reserva']['politica_cancelacion']['id'];
@@ -155,6 +154,13 @@ class CreateReservationHandler extends BaseHandler
             $reservation->amount = $reservation_client['reserva']['total_reserva'];
             $reservation->payment_id = $reservation_client['payment_id'];
             $reservation->iso = $reservation_client['iso'];
+
+            if ($this->params['no_login']) {
+                $reservation->no_session_user_id = $user_id;
+            } else {
+                $reservation->user_id = $user_id;
+            }
+
             $reservation->save();
 
             $dato = Reservation::where('id',$reservation->id)->first()->toArray();

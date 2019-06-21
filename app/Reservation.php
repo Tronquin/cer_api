@@ -27,6 +27,14 @@ class Reservation extends Model
     }
 
     /**
+     * Usuario que registro la reserva sin iniciar sesion
+     */
+    public function noSessionUser()
+    {
+        return $this->belongsTo(User::class, 'no_session_user_id');
+    }
+
+    /**
      * Experiencia
      */
     public function experience()
