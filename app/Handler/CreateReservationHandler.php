@@ -166,6 +166,7 @@ class CreateReservationHandler extends BaseHandler
             $dato = Reservation::where('id',$reservation->id)->first()->toArray();
             $dato['experiencia'] = Experience::where('id',$dato['experience_id'])->with(['extras'])->first();
             $dato['user'] = Reservation::find($dato['id'])->user;
+            $dato['noSessionUser'] = Reservation::find($dato['id'])->noSessionUser;
             $dato['cancelation_policy'] = Reservation::find($dato['id'])->cancelation_policy;
             $dato['packages'] = Reservation::find($dato['id'])->package;
             $dato['promotion'] = Reservation::find($dato['id'])->promotion;
