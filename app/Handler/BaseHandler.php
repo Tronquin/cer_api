@@ -116,16 +116,15 @@ abstract class BaseHandler {
         if ($this->checkValidationRules()) {
 
             try {
-
                 // Inicia el handler
 
-                $cacheKey = get_called_class();
-                $params = $this->params['data'] ?? $this->params;
-                foreach ($params as $i => $param) {
-                    $cacheKey .= '-' . $i . '-' . $param;
-                }
-
                 if ($this->cache && in_array($this->oAuth2Client->deviceType->code, $this->devicesToCache)) {
+
+                    $cacheKey = get_called_class();
+                    $params = $this->params['data'] ?? $this->params;
+                    foreach ($params as $i => $param) {
+                        $cacheKey .= '-' . $i . '-' . $param;
+                    }
 
                     if (Cache::has($cacheKey)) {
                         $this->data = Cache::get($cacheKey);
