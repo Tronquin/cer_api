@@ -19,12 +19,11 @@ class AdminAuthMiddleware
     {
         $session = Session::where('token','=',$request->headers->get('session'))
             ->with([
-                'user',
-                'user.rol'
+                'user'
             ])
             ->first();
 
-        if (! $session || $session->user->rol->name !== 'Admin') {
+        if (! $session || !$session->user->hasRole('Admin')) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Acceso Restringido'], 403);
         }
 

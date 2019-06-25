@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\OAuth2Client;
 use App\Service\EmailService;
 use App\User;
+use App\Rol;
 use App\Session;
 use App\Handler\Web\UpdateUserHandler;
 use App\Handler\Web\SendResetPasswordEmailHandler;
@@ -47,7 +48,7 @@ class UserController extends Controller
 
     protected function index(Request $request)
     {
-        return User::orderBy('id', 'desc')->with(['rol'])->paginate(15);
+        return User::orderBy('id', 'desc')->with(['roles'])->paginate(15);
     }
 
     /**
@@ -62,6 +63,13 @@ class UserController extends Controller
         $userExist = User::query()->where('email', $data['email'])->first();
 
         if ($userExist) {
+            if($userExist->hasRole('Admin')){
+                $role_user = Rol::where('name', 'User')->first();
+                $userExist->roles()->attach($role_user);
+
+                return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Admin ya es Usuario']);
+            }
+
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario ya existe']);
         }
 
@@ -72,6 +80,8 @@ class UserController extends Controller
         $user->phone = $data['phone'];
         $user->password = Hash::make($data['password']);
         $user->save();
+        $role_user = Rol::where('name', 'User')->first();
+        $user->roles()->attach($role_user);
 
         $clientIp = $request->ip();
         $minutes = config('oauth2.time_expire');
@@ -89,7 +99,12 @@ class UserController extends Controller
 
         EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso', 'tempPassword'));
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
+        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => [
+            'session' => [
+                'token' => $token,
+                'name' => $user->name . ' ' . $user->last_name
+            ]
+        ]]);
     }
 
     protected function delete(Request $request, $id)
@@ -104,7 +119,7 @@ class UserController extends Controller
         $data['name'] = $request->name;
         $data['last_name'] = $request->last_name;
         $data['email'] = $request->email;
-        $data['rol_id'] = $request->type;
+        /* $data['rol_id'] = $request->type; */
         $data['password'] = hash::make($request->password);
 
         return User::create($data);
@@ -116,7 +131,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-        $user->rol_id = $request->type;
+        /* $user->rol_id = $request->type; */
 
         if ($request->has('password') && ! empty($request->password)) {
             $user->password = Hash::make($request->password);
@@ -151,7 +166,8 @@ class UserController extends Controller
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
-        $user->rol_id = $data['rol_id'];
+        /* $user->roles()->attach($data['role_id']); */
+        /* $user->rol_id = $data['role_id']; */
         $user->save();
 
         return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => $user->email]);
@@ -178,8 +194,8 @@ class UserController extends Controller
         $client = OAuth2Client::query()->with(['deviceType'])->where('token', $token)->first();
 
         if (
-            ($client->deviceType->isAdmin() && ! $userExist->isAdmin()) ||
-            ($client->deviceType->isWeb() && ! $userExist->isClient())
+            ($client->deviceType->isAdmin() && ( $userExist->hasRole('User') && !$userExist->hasRole('Admin'))) ||
+            ($client->deviceType->isWeb() && (!$userExist->hasRole('User') && $userExist->hasRole('Admin')))
         ) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
         }
@@ -236,6 +252,11 @@ class UserController extends Controller
             return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
         }
         unset($userExist['password']);
+
+        if($userExist->hasRole('Admin')){
+            $role_user = Rol::where('name', 'User')->first();
+            $userExist->roles()->attach($role_user);
+        }
         return new JsonResponse(['res' => 1, 'msg' => 'Datos del usuario', 'data' => $userExist]);
     }
 

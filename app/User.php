@@ -13,7 +13,6 @@ class User extends Model
         'last_name',
         'email',
         'password',
-        'rol_id',
         'gender',
         'pais',
         'phone',
@@ -35,11 +34,38 @@ class User extends Model
     }
 
     /**
-    * rol de este usuario
+    * roles de este usuario
     */
-    public function rol()
+    public function roles()
     {
-        return $this->belongsTo(Rol::class, 'rol_id');
+        return $this->belongsToMany(Rol::class, 'role_user', 'user_id', 'role_id');
+    }
+
+    /**
+    * Comprueba los permisos del usuario
+    * @param string|array $roles
+    */
+    public function authorizeRoles($roles){
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles) || abort(401, 'This action is unauthorized.');
+        } 
+        return $this->hasRole($roles) || abort(401, 'This action is unauthorized.');
+    }
+
+    /**
+    * Verifica los roles del usuario
+    * @param array $roles
+    */
+    public function hasAnyRole($roles){
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+    
+    /**
+    * Comprueba un rol del usuario
+    * @param string $role
+    */
+    public function hasRole($role){
+        return null !== $this->roles()->where('name', $role)->first();
     }
 
     /**
@@ -53,16 +79,16 @@ class User extends Model
     /**
      * is admin?
      */
-    public function isAdmin()
+    /* public function isAdmin()
     {
         return strtolower($this->rol->name) === 'admin';
-    }
+    } */
 
     /**
      * is client?
      */
-    public function isClient()
+    /* public function isClient()
     {
         return strtolower($this->rol->name) === 'user';
-    }
+    } */
 }

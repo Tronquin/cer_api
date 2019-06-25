@@ -18,6 +18,6 @@ class Rol extends Model
      */
     public function user()
     {
-        return $this->hasMany(User::class, 'rol_id');
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
     }
 }
