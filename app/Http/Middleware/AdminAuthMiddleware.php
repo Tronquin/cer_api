@@ -24,7 +24,7 @@ class AdminAuthMiddleware
             ])
             ->first();
 
-        if (! $session || $session->user->rol->name !== 'Admin') {
+        if (! $session || !$session->user->hasRole('Admin')) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Acceso Restringido'], 403);
         }
 
