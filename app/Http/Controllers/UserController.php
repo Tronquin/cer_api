@@ -99,7 +99,12 @@ class UserController extends Controller
 
         EmailService::send('email.registerUser',  CTrans::trans('email.subject.registerUser', $iso), [$user->email], compact('user', 'iso', 'tempPassword'));
 
-        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => ['session' => $token]]);
+        return new JsonResponse(['res' => 1, 'msg' => 'Usuario creado', 'data' => [
+            'session' => [
+                'token' => $token,
+                'name' => $user->name . ' ' . $user->last_name
+            ]
+        ]]);
     }
 
     protected function delete(Request $request, $id)
