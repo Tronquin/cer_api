@@ -48,7 +48,7 @@ class UserController extends Controller
 
     protected function index(Request $request)
     {
-        return User::orderBy('id', 'desc')->with(['rol'])->paginate(15);
+        return User::orderBy('id', 'desc')->with(['roles'])->paginate(15);
     }
 
     /**

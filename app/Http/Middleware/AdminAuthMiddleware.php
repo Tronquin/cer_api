@@ -19,8 +19,7 @@ class AdminAuthMiddleware
     {
         $session = Session::where('token','=',$request->headers->get('session'))
             ->with([
-                'user',
-                'user.rol'
+                'user'
             ])
             ->first();
 
