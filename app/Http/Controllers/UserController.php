@@ -64,7 +64,7 @@ class UserController extends Controller
 
         if ($userExist) {
             if($userExist->hasRole('Admin')){
-                $role_user = Role::where('name', 'User')->first();
+                $role_user = Rol::where('name', 'User')->first();
                 $userExist->roles()->attach($role_user);
 
                 return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Admin ya es Usuario']);
@@ -80,7 +80,7 @@ class UserController extends Controller
         $user->phone = $data['phone'];
         $user->password = Hash::make($data['password']);
         $user->save();
-        $role_user = Role::where('name', 'User')->first();
+        $role_user = Rol::where('name', 'User')->first();
         $user->roles()->attach($role_user);
 
         $clientIp = $request->ip();
@@ -249,7 +249,7 @@ class UserController extends Controller
         unset($userExist['password']);
 
         if($userExist->hasRole('Admin')){
-            $role_user = Role::where('name', 'User')->first();
+            $role_user = Rol::where('name', 'User')->first();
             $userExist->roles()->attach($role_user);
         }
         return new JsonResponse(['res' => 1, 'msg' => 'Datos del usuario', 'data' => $userExist]);
