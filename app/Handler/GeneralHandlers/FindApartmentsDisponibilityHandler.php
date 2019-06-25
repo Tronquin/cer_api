@@ -3,6 +3,7 @@ namespace App\Handler\GeneralHandlers;
 
 use App\Handler\BaseHandler;
 use App\Location;
+use App\CancellationPolicy;
 use App\SearchHistory;
 use App\Service\ERPService;
 
@@ -61,9 +62,12 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     }
 
                     $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $tipologia['ubicacion_id']]);
-                    //$tipologia['politica_cancelacions'] = $ubicaciones['politica_cancelacions'];
-                    $ubication['politica_cancelacions'] = $ubication['disponibility']['politicas'];
-                    $ubication['promocions'] = $ubicaciones['promocions'];            
+                    $ubication['promocions'] = $ubicaciones['promocions'];  
+                    $cancelation_policy = [];
+                    foreach($ubication['disponibility']['politicas'] as $politicas){
+                        $cancelation_policy[] = CancellationPolicy::query()->where('politica_cancelacion_id', $politicas['id'])->first()->toArray();         
+                    }
+                    $ubication['politica_cancelacions'] = $cancelation_policy;
                 }
                 $tipologia = [];
                 $tipology = new FindTypologyByLocationHandler(['ubicacion_id' => $ubication['id']]);
