@@ -64,8 +64,10 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     $ubication['promocions'] = $ubicaciones['promocions'];  
                     $cancelation_policy = [];
-                    foreach($ubication['disponibility']['politicas'] as $politicas){
-                        $cancelation_policy[] = CancellationPolicy::query()->where('politica_cancelacion_id', $politicas['id'])->first()->toArray();         
+                    foreach($ubication['disponibility']['politicas'] as $key => $politicas){
+                        $cancelation_policy[$key] = CancellationPolicy::query()->where('politica_cancelacion_id', $politicas['id'])->first()->toArray();  
+                        $cancelation_policy[$key]['precio_desglosado']     =   $politicas['precio_desglosado'];
+                        $cancelation_policy[$key]['precio_upgrade']     =   $politicas['precio_upgrade'];
                     }
                     $ubication['politica_cancelacions'] = $cancelation_policy;
                 }
