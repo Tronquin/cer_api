@@ -74,7 +74,7 @@ abstract class BaseHandler {
     /**
      * Tiempo de expiracion del cache
      */
-    protected $timeCache = 60 * 5;
+    protected $timeCache = 60 * 60 * 24;
 
     /**
      * Dispositivos que usan cache
