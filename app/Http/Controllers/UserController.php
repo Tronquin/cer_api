@@ -48,7 +48,13 @@ class UserController extends Controller
 
     protected function index(Request $request)
     {
-        return User::orderBy('id', 'desc')->with(['roles'])->get();
+        $users = User::orderBy('id', 'desc')->with(['roles'])->get();
+
+        return new JsonResponse([
+            'res' => count($users),
+            'data' => $users,
+            'msg' => 'Lista de usuarios'
+        ]);
     }
 
     /**
