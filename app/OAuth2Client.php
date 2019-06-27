@@ -32,6 +32,14 @@ class OAuth2Client extends Model
     }
 
     /**
+     * Indica si el cliente es admin
+     */
+    public function isAdmin()
+    {
+        return $this->deviceType->code === 'admin';
+    }
+
+    /**
      * Indica si el cliente es app
      */
     public function isApp()
