@@ -49,6 +49,8 @@ class UpdateExperienceHandler extends BaseHandler
             $experience->front_page = $path;
         }
 
+        $experience->color = $this->params['color'];
+
         $experience->updateFieldTranslations($this->params['fieldTranslations']);
         $experience->save();
 
