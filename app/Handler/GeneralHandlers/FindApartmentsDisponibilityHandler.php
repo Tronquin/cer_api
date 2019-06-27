@@ -15,10 +15,15 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
     protected function handle()
     {
         $data = $this->params['data'];
+        $ubicaciones = [];
         // Guardo historial de busqueda
         if(intval($data['ubicacion_id']) !== 0){
-            $location = Location::query()->where('ubicacion_id', $data['ubicacion_id'])->first()->toArray();
-    
+            $location = Location::query()->where('ubicacion_id', $data['ubicacion_id'])->with('promocions')->first()->toArray();
+            $ubicaciones['promocions'] = [];
+            foreach($location['promocions'] as $pr => $promo){
+                if($promo['activo'])
+                $ubicaciones['promocions'][] = $promo;
+            }
             $searchHistory = new SearchHistory();
             $searchHistory->start_date = new \DateTime($data['desde']);
             $searchHistory->end_date = new \DateTime($data['hasta']);
@@ -33,6 +38,14 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
         //dump($response);
         if($response['data'] !== ''){
             foreach ($response['data'] as $key => &$ubication){
+                if(!isset($location)){
+                    $ubicaciones['promocions'] = [];
+                    $location = Location::query()->where('ubicacion_id', $ubication['id'])->with('promocions')->first()->toArray();
+                    foreach($location['promocions'] as $pr => $promo){
+                        if($promo['activo'])
+                        $ubicaciones['promocions'][] = $promo;
+                    }
+                }
                 $tipologiaW = [];
                 foreach ($ubication['disponibility']['tipologias'] as $tipologia){
                     $experiences = new FindExperiencesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
@@ -47,7 +60,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                             }
                         }
                     }
-    
+
                     $packages = new FindPackagesByLocationHandler(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     $packages->processHandler();
                     $packs = $packages->getData();
@@ -61,7 +74,6 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                         }
                     }
 
-                    $ubicaciones = ERPService::findUbicacionData(['ubicacion_id' => $tipologia['ubicacion_id']]);
                     $ubication['promocions'] = $ubicaciones['promocions'];  
                     $cancelation_policy = [];
                     foreach($ubication['disponibility']['politicas'] as $pkey => $politicas){

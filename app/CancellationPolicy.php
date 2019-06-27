@@ -21,6 +21,11 @@ class CancellationPolicy extends Model
         'activo',
     ];
 
+    public function ubicacion()
+    {
+        return $this->belongsTo(Location::class,'ubicacion_id','ubicacion_id');
+    }
+
     public function parent()
     {
         return $this->belongsTo(self::class, 'parent_id');

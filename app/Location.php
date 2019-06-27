@@ -102,6 +102,16 @@ class Location extends Model
         return $this->hasMany(SpaInfo::class,'location_id');
     }
 
+    public function promocions()
+    {
+        return $this->hasMany(Promotion::class,'ubicacion_id');
+    }
+
+    public function politica_cancelacions()
+    {
+        return $this->hasMany(CancellationPolicy::class,'ubicacion_id');
+    }
+
     /*public function dispensers()
     {
         return $this->hasMany('App\Dispenser');
@@ -148,15 +158,6 @@ class Location extends Model
         return $this->hasMany('App\Master');
     }
 
-    public function promocions()
-    {
-        return $this->hasMany('App\Promocion');
-    }
-
-    public function politica_cancelacions()
-    {
-        return $this->hasMany('App\PoliticaCancelacion');
-    }
 
     public function tarifas_otas()
     {

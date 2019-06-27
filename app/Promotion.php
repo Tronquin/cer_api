@@ -30,5 +30,8 @@ class Promotion extends Model
     ];
 
 
-
+    public function ubicacion()
+    {
+        return $this->belongsTo(Location::class,'ubicacion_id','ubicacion_id');
+    }
 }
