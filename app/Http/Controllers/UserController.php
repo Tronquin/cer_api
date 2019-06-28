@@ -157,7 +157,7 @@ class UserController extends Controller
         foreach($request->type as $rol){
             $user_roles[] = $rol['id'];
         }
-        $user->roles()->detach($user_roles);
+
         $user->roles()->sync($user_roles);
         $user->save();
 
@@ -273,12 +273,7 @@ class UserController extends Controller
         if (!$userExist) {
             return new JsonResponse(['res' => 0, 'msg' => 'No existe el usuario', 'data' => []]);
         }
-        unset($userExist['password']);
 
-        if($userExist->hasRole('Admin')){
-            $role_user = Rol::where('name', 'User')->first();
-            $userExist->roles()->attach($role_user);
-        }
         return new JsonResponse(['res' => 1, 'msg' => 'Datos del usuario', 'data' => $userExist]);
     }
 
