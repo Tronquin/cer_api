@@ -116,6 +116,10 @@ class UserController extends Controller
     protected function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $user->roles()->detach($user->roles);
+        //$session = Session::findOrFail($user->session->id);
+        
+        //$session->delete();
         $user->delete();
         return ['res' => 'Usuario Eliminado'];
     }
@@ -127,13 +131,19 @@ class UserController extends Controller
         $data['email'] = $request->email;
         /* $data['rol_id'] = $request->type; */
         $data['password'] = hash::make($request->password);
+        $user = User::create($data);
 
-        return User::create($data);
+        $user_roles = [];
+        foreach($request->type as $rol){
+            $user_roles[] = $rol['id'];
+        }
+        $user->roles()->sync($user_roles);
+        return $user;
     }
 
     public function updateAdmin(Request $request, $userId)
     {
-        $user = User::find($userId);
+        $user = User::query()->where('id',$userId)->with('roles')->first();
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -142,8 +152,14 @@ class UserController extends Controller
         if ($request->has('password') && ! empty($request->password)) {
             $user->password = Hash::make($request->password);
         }
-        $user->save();
 
+        $user_roles = [];
+        foreach($request->type as $rol){
+            $user_roles[] = $rol['id'];
+        }
+        $user->roles()->detach($user_roles);
+        $user->roles()->sync($user_roles);
+        $user->save();
 
         return [
             'res' => 1,
