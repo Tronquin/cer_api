@@ -200,8 +200,8 @@ class UserController extends Controller
         $client = OAuth2Client::query()->with(['deviceType'])->where('token', $token)->first();
 
         if (
-            ($client->deviceType->isAdmin() && ( $userExist->hasRole('User') && !$userExist->hasRole('Admin'))) ||
-            ($client->deviceType->isWeb() && (!$userExist->hasRole('User') && $userExist->hasRole('Admin')))
+            ($client->deviceType->isAdmin() && ! $userExist->hasRole('Admin')) ||
+            ($client->deviceType->isWeb() && ! $userExist->hasRole('User'))
         ) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
         }
