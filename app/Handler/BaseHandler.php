@@ -79,7 +79,7 @@ abstract class BaseHandler {
     /**
      * Dispositivos que usan cache
      */
-    private $devicesToCache = ['web'];
+    private $devicesToCache = ['web', 'app'];
 
     /**
      * Proceso de este handler
