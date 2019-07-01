@@ -11,6 +11,7 @@ use App\User;
 use App\Session;
 use Illuminate\Support\Facades\Hash;
 use App\ReservationServicePersistence;
+use App\Handler\GeneralHandlers\FindExtrasContratadosHandler;
 use App\Service\EmailService;
 use App\Handler\Web\SendConfirmationReserveHandler;
 use CTrans;
@@ -173,12 +174,11 @@ class CreateReservationHandler extends BaseHandler
             $dato['apartment'] = Reservation::find($dato['id'])->apartment;
             $dato['identificador'] = $dato['localizador_erp'].'-Apt: '.$dato['apartment']['nombre'];
             $dato['pending_payment'] = $reservation_client['payment_id'];
-            $handler = new AvailabilityServiceHandler(['reserva_id' => $dato['reserva_id_erp'],'funcion' => 'checkin']);
+            $handler = new FindExtrasContratadosHandler(['reserva_id' => $dato['reserva_id_erp']]);
             $handler->processHandler();
             
             if ($handler->isSuccess()) {
-                $extras_contratados = $handler->getData();
-                $dato['extras'] = $extras_contratados['data']['list']['extras']['extras_contratados'];
+                $dato['extras'] = $handler->getData();
             }
             $response['reservas'][] = $dato;
         }
