@@ -15,6 +15,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('admin/password/reset/{token}', 'UserController@checkToken');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
+    // obtiene los roles disponibles
+    Route::get('find/roles', 'RolController@getRoles');
     // comprobar enlace enviado por correo
     Route::get('user/password/reset/{token}', 'UserController@checkToken');
     //Devuelve todos los usuarios
