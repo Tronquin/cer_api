@@ -243,16 +243,19 @@ abstract class BaseHandler {
     {
         $token = Request::header('token');
         $client = OAuth2Client::query()->where('token', $token)->first();
-        $config = Configuration::query()->first();
-        $audit = new Audit();
-        $audit->ip = Request::ip();
-        $audit->oauth2_client_id = $client->id;
-        $audit->action = get_class($this);
-        $audit->params = json_encode($this->params);
-        $audit->response = json_encode($this->data);
-        $audit->version = $config->version;
 
-        $audit->save();
+        if ($client) {
+            $config = Configuration::query()->first();
+            $audit = new Audit();
+            $audit->ip = Request::ip();
+            $audit->oauth2_client_id = $client->id;
+            $audit->action = get_class($this);
+            $audit->params = json_encode($this->params);
+            $audit->response = json_encode($this->data);
+            $audit->version = $config->version;
+
+            $audit->save();
+        }
     }
 
     /**
