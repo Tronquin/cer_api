@@ -6,7 +6,7 @@ use App\Handler\BaseHandler;
 use Illuminate\Support\Facades\Hash;
 use CTrans;
 
-class UpdateUserPasswordHandler extends BaseHandler
+class UpdatePasswordHandler extends BaseHandler
 {
     /**
      * Proceso de este handler

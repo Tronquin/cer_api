@@ -5,6 +5,7 @@ use App\Service\EmailService;
 use App\User;
 use App\Handler\BaseHandler;
 use \Firebase\JWT\JWT;
+use CTrans;
 
 class SendResetPasswordEmailAdminHandler extends BaseHandler
 {
@@ -31,10 +32,10 @@ class SendResetPasswordEmailAdminHandler extends BaseHandler
         $payload = ['id' => $user->id, 'timestamp' => $timestamp];
         $token = JWT::encode($payload, $secret);
         $host = config('app.admin_url');
-        $url = $host . '/reset/' . $token;
+        $url = $host . '/forgot/reset/' . $token;
         $iso = 'es';
         
-        EmailService::send('email.resetPassword', 'Reset Password', [$user->email], ['url' => $url, 'iso' => $iso]);
+        EmailService::send('email.resetPassword', CTrans::trans('email.subject.resetPassword', $iso), [$user->email], ['url' => $url, 'iso' => $iso]);
 
         $response = [
             'res' => 1,
