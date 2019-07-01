@@ -7,6 +7,7 @@ use App\Service\EmailService;
 use App\User;
 use App\Rol;
 use App\Session;
+use App\Reservation;
 use App\Handler\Web\UpdateUserHandler;
 use App\Handler\Web\SendResetPasswordEmailHandler;
 use App\Handler\Web\UpdateUserPasswordHandler;
@@ -117,9 +118,17 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->roles()->detach($user->roles);
-        //$session = Session::findOrFail($user->session->id);
         
-        //$session->delete();
+        $session = Session::query()->where('user_id',$user->id)->first();
+        
+        if($session)
+        $session->delete();
+        
+        $reservation = Reservation::query()->where('user_id',$user->id)->first();
+
+        if($reservation)
+        return ['res' => 'Error. El usuario tiene una reserva registrada y no se ha podido eliminar'];
+
         $user->delete();
         return ['res' => 'Usuario Eliminado'];
     }
@@ -332,6 +341,21 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
+    {
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+        
+        $handler = new SendResetPasswordEmailAdminHandler($data);
+        $handler->processHandler();
+        
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+        
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
     protected function checkToken($token)
     {
         $expToken = false;
@@ -339,27 +363,12 @@ class UserController extends Controller
         $decoded = JWT::decode($token, $secret, array('HS256'));
         $date = new \DateTime();
         $expiredTime = (new \DateTime())->setTimestamp($decoded->timestamp)->modify('+15 minutes');
-
+    
         if($date > $expiredTime){
             $expToken = true;
             return new JsonResponse(['res' => 0, 'msg' => 'Token Expired!!', 'tokenStatus' => $expToken]);
         }
-
+    
         return new JsonResponse(['res' => 1, 'msg' => 'Valid Token!!', 'tokenStatus' => $expToken]);
-    }
-
-    protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
-    {
-        $data = $request->all();
-        $data['user_id'] = $user_id;
-
-        $handler = new SendResetPasswordEmailAdminHandler($data);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 }
