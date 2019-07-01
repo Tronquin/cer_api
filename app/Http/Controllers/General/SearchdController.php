@@ -24,6 +24,7 @@ use App\Handler\SiteMapHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Response;
 
 class SearchdController extends Controller
 {
@@ -355,7 +356,7 @@ class SearchdController extends Controller
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
+            return Response::make($handler->getData()['xml']->asXML())->header('Content-Type', 'text/xml;charset=utf-8');
         }
 
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());

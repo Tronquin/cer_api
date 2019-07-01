@@ -1,16 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+Route::get('/sitemap.xml', 'General\SearchdController@siteMap');
+
 Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
 
     // Rutas validadas por Oauth2
-
     Route::post('/singup', 'UserController@create');
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
     Route::post('/email/confirmation_reserve', 'Admin\SendingEmailController@sendConfirmationReserve');
     Route::post('admin/password/reset/{userId}', 'UserController@sendResetPasswordEmailAdmin');
+    // comprobar enlace enviado por correo - Admin
+    Route::get('admin/password/reset/{token}', 'UserController@checkToken');
     // Envia Link al usuario para resetear contraseña
     Route::post('user/password/reset/{iso}/{userId}', 'UserController@sendResetPasswordEmail');
     // obtiene los roles disponibles
@@ -23,7 +26,6 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('user/password/update/{iso}/{userId}/{newPassword}', 'UserController@updatePassword');
     //Eliminar Usuario
     Route::delete('user/delete/{id}', 'UserController@delete');
-    Route::get('/sitemap', 'General\SearchdController@siteMap');
     // Actualizar usuario
     Route::put('user/update/{user_id}', 'UserController@update');
     // Obtiene extras por ubicacion y tag al que pertenecen

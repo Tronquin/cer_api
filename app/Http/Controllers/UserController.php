@@ -341,6 +341,21 @@ class UserController extends Controller
         return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 
+    protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
+    {
+        $data = $request->all();
+        $data['user_id'] = $user_id;
+        
+        $handler = new SendResetPasswordEmailAdminHandler($data);
+        $handler->processHandler();
+        
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+        
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
     protected function checkToken($token)
     {
         $expToken = false;
@@ -348,27 +363,12 @@ class UserController extends Controller
         $decoded = JWT::decode($token, $secret, array('HS256'));
         $date = new \DateTime();
         $expiredTime = (new \DateTime())->setTimestamp($decoded->timestamp)->modify('+15 minutes');
-
+    
         if($date > $expiredTime){
             $expToken = true;
             return new JsonResponse(['res' => 0, 'msg' => 'Token Expired!!', 'tokenStatus' => $expToken]);
         }
-
+    
         return new JsonResponse(['res' => 1, 'msg' => 'Valid Token!!', 'tokenStatus' => $expToken]);
-    }
-
-    protected function sendResetPasswordEmailAdmin(Request $request, $user_id)
-    {
-        $data = $request->all();
-        $data['user_id'] = $user_id;
-
-        $handler = new SendResetPasswordEmailAdminHandler($data);
-        $handler->processHandler();
-
-        if ($handler->isSuccess()) {
-            return new JsonResponse($handler->getData());
-        }
-
-        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
     }
 }
