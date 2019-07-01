@@ -7,6 +7,7 @@ use App\Handler\BaksheeshHandler;
 use App\Handler\CheckoutHandler;
 use App\Handler\CreateReservationHandler;
 use App\Handler\GalleryHandler;
+use App\Handler\GeneralHandlers\FindExtrasContratadosHandler;
 use App\Handler\ReservationCheckinHandler;
 use App\Handler\FindReservationToCheckinHandler;
 use App\Handler\FindReservationHandler;
@@ -854,6 +855,24 @@ class ReservationController extends Controller
     public function reservationActiveByUser($email)
     {
         $handler = new ReservationActiveHandler(['email' => $email]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene el historial de reserva de un usuario
+     *
+     * @param $reserva_id
+     * @return JsonResponse
+     */
+    public function findExtrasContratados($reserva_id)
+    {
+        $handler = new FindExtrasContratadosHandler(['reserva_id' => $reserva_id]);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

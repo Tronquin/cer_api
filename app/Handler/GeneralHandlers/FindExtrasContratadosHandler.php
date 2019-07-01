@@ -23,13 +23,13 @@ class FindExtrasContratadosHandler extends BaseHandler {
             $contratado = Extra::where('extra_id',$extERP['id'])
                                     ->where('type','erp')
                                     ->with(['child'])
-                                    ->firts();
+                                    ->first();
 
             $webOrErp = $contratado->child ? $contratado->child->toArray() : $contratado->toArray();
             $webOrErp['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['icon'])]);
             $webOrErp['front_image'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $webOrErp['front_image'])]);
             $webOrErp['precio'] = Extra::calcularIva($webOrErp['base_imponible'],$webOrErp['iva_tipo']);
-            $webOrErp['cantidad'] = $webOrErp['cantidad'];
+            $webOrErp['cantidad'] = $extERP['cantidad'];
 
             $extrasContratados[] = $webOrErp;
         }

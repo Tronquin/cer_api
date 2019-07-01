@@ -176,9 +176,9 @@ class CreateReservationHandler extends BaseHandler
             $dato['pending_payment'] = $reservation_client['payment_id'];
             $handler = new FindExtrasContratadosHandler(['reserva_id' => $dato['reserva_id_erp']]);
             $handler->processHandler();
-            
+            $extras = $handler->getData();
             if ($handler->isSuccess()) {
-                $dato['extras'] = $handler->getData();
+                $dato['extras'] = $extras['data'];
             }
             $response['reservas'][] = $dato;
         }

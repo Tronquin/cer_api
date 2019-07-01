@@ -97,7 +97,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
         // Reservation Checkin
         Route::get('/checkin/{reserva_id}', 'ReservationController@reservationCheckin');
         // busca los extras contratados de una reserva
-        Route::get('/find/reservation/extras_contratados/{reserva_id}', 'ReservationController@reservationCheckin');
+        Route::get('/find/reservation/extras_contratados/{reserva_id}', 'ReservationController@findExtrasContratados');
         // Find all Reservation to checkin by date
         Route::get('/reservation/checkin/{ubicacion_id}/{date}', 'ReservationController@findReservationToCheckin');
         // Reservation por localizador o apellido
