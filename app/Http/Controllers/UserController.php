@@ -10,7 +10,7 @@ use App\Session;
 use App\Reservation;
 use App\Handler\Web\UpdateUserHandler;
 use App\Handler\Web\SendResetPasswordEmailHandler;
-use App\Handler\Web\UpdateUserPasswordHandler;
+use App\Handler\Web\UpdatePasswordHandler;
 use App\Handler\SendResetPasswordEmailAdminHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -315,7 +315,7 @@ class UserController extends Controller
         $data['user_id'] = $user_id;
         $data['new_password'] = $new_password;
 
-        $handler = new UpdateUserPasswordHandler($data);
+        $handler = new UpdatePasswordHandler($data);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
