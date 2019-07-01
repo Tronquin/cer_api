@@ -116,6 +116,21 @@ class ERPService {
     }
 
     /**
+     * Busca los extras contratados de una reserva
+     *
+     * @param $data
+     * @return array
+     */
+    public static function extrasContratados($data)
+    {
+        $response = self::send('reservas/buscar_extras_contratados', [
+            'reserva_id' => $data['reserva_id']
+        ]);
+
+        return $response;
+    }
+
+    /**
      * Busca la experiencia de una reserva y las disponibles para mejorar
      *
      * @param $data
