@@ -6,6 +6,7 @@ use App\Reservation;
 use App\Typology;
 use App\Apartment;
 use App\Experience;
+use App\Rol;
 use App\Package;
 use App\User;
 use App\Session;
@@ -183,6 +184,10 @@ class CreateReservationHandler extends BaseHandler
             $response['reservas'][] = $dato;
         }
         
+        if ($userExist && !$userExist->hasRole('User')) {
+            $role_user = Rol::where('name', 'User')->first();
+            $userExist->roles()->attach($role_user);
+        }
         unset($response['data']);
         return $response;
     }

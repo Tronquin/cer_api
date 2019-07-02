@@ -43,4 +43,11 @@ class DeviceType extends Model
     public function isAdmin() {
         return $this->code === 'admin';
     }
+
+    /**
+     * is app?
+     */
+    public function isApp() {
+        return $this->code === 'app';
+    }
 }

@@ -71,10 +71,13 @@ class UserController extends Controller
 
         if ($userExist) {
             if($userExist->hasRole('Admin')){
-                $role_user = Rol::where('name', 'User')->first();
-                $userExist->roles()->attach($role_user);
+                if(!$userExist->hasRole('User')){
+                    $role_user = Rol::where('name', 'User')->first();
+                    $userExist->roles()->attach($role_user);
 
-                return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Admin ya es Usuario']);
+                    return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Admin ya es Usuario']);
+                }
+                return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario ya existe']);
             }
 
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'El Usuario ya existe']);
@@ -88,7 +91,7 @@ class UserController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
         $role_user = Rol::where('name', 'User')->first();
-        $user->roles()->attach($role_user);
+        $user->roles()->sync($role_user);
 
         $clientIp = $request->ip();
         $minutes = config('oauth2.time_expire');
@@ -224,11 +227,16 @@ class UserController extends Controller
         $token = $request->headers->get('token');
         $client = OAuth2Client::query()->with(['deviceType'])->where('token', $token)->first();
 
-        if (
-            ($client->deviceType->isAdmin() && ! $userExist->hasRole('Admin')) ||
-            ($client->deviceType->isWeb() && ! $userExist->hasRole('User'))
-        ) {
+        if (($client->deviceType->isAdmin() && !$userExist->hasRole('Admin'))) {
             return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
+        } else if (($client->deviceType->isWeb() && $userExist->hasRole('Admin') && !$userExist->hasRole('User')) ||
+                    ($client->deviceType->isApp() && $userExist->hasRole('Admin') && !$userExist->hasRole('User'))){
+                        
+                        $role_user = Rol::where('name', 'User')->first();
+                        $userExist->roles()->attach($role_user);
+        } else if (($client->deviceType->isWeb() && !$userExist->hasRole('User')) ||
+                    ($client->deviceType->isApp() && !$userExist->hasRole('User'))){
+                    return new JsonResponse(['res' => 0, 'data' => [], 'msg' => 'Tipo de usuario invalido']);
         }
 
         $userPassword = $userExist->password;
