@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
         Commands\SendEmailCommand::class,
         Commands\SendUntilEmails::class,
         Commands\GetTranslationDataForEmailsCommand::class,
-        Commands\ImageCompression::class
+        Commands\ImageCompression::class,
+        Commands\ImageWebp::class,
     ];
 
     /**
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('cer:email:send')->everyMinute();
         $schedule->command('image:compression')->everyFiveMinutes();
+        $schedule->command('cer:image:webp')->everyFiveMinutes();
         $schedule->command('cer:emailUntil:send')->hourly();
     }
 
