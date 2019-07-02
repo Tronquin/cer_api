@@ -6,8 +6,8 @@ pipelines:
           - docker
         script:
            - docker build -t cer-api:latest .
-           - docker tag cer-api:latest registry-docker.jacidi.com/cer-api
-           - docker push registry-docker.jacidi.com/cer-api
+           - docker tag cer-api:latest registry-docker.jacidi.com/cer-api:latest
+           - docker push registry-docker.jacidi.com/cer-api:latest
     - step:
         name: Deploy prod
         trigger: manual
