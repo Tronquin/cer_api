@@ -29,8 +29,14 @@ class ImageController extends Controller
         $publicPath = storage_path('app/public') . '/' . $imageRelativePath;
         $optimizedPath = storage_path('app/optimized') . '/' . $imageRelativePath;
 
+        $webpPath = storage_path('app/webp') . '/' . $imageRelativePath;
+        $explode = explode('/', $webpPath);
+        $nameAndFormat = explode('.', last($explode));
+        $webpPath = str_replace(".{$nameAndFormat[1]}", '.webp', $webpPath);
 
-        if (file_exists($optimizedPath)) {
+        if (file_exists($webpPath)) {
+            $path = $webpPath;
+        } elseif (file_exists($optimizedPath)) {
             $path = $optimizedPath;
         } else {
             $path = $publicPath;
