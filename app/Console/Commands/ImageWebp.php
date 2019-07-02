@@ -38,7 +38,7 @@ class ImageWebp extends Command
      */
     public function handle()
     {
-        $path = storage_path('app/optimized/');
+        $path = storage_path('app/public/');
         $images = [];
         exec("locate '{$path}'", $images);
 
@@ -54,7 +54,7 @@ class ImageWebp extends Command
                 // Comprueba si tiene nombre y formato, en este caso se asume que es una imagen
 
                 $currentPath = $image;
-                $newPath = str_replace('/optimized/', '/webp/', $image); // Cambio la carpeta
+                $newPath = str_replace('/public/', '/webp/', $image); // Cambio la carpeta
 
                 $dir = str_replace($lastPartUrl, '', $newPath);
                 $dirRelative = str_replace(storage_path('app/'), '', $dir);
