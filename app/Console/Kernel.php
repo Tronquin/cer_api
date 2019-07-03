@@ -34,6 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('image:compression')->everyFiveMinutes();
         $schedule->command('cer:image:webp')->everyFiveMinutes();
         $schedule->command('cer:emailUntil:send')->hourly();
+        $schedule->command('get:Data')->everyTenMinutes();
     }
 
     /**
