@@ -10,7 +10,11 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::post('/login', 'UserController@login');
     Route::post('/is-auth/{token}', 'UserController@isAuth');
     Route::post('/logout', 'UserController@logout');
+    //emails confirmacion, cancelacion y nuevos extras ERP
     Route::post('/email/confirmation_reserve', 'Admin\SendingEmailController@sendConfirmationReserve');
+    Route::post('/email/cancelacion_reserve', 'Admin\SendingEmailController@sendCancelacionReserve');
+    Route::post('/email/new_extra_landing', 'Admin\SendingEmailController@sendNewExtraLanding');
+    // reseteo de contraseña usuario
     Route::post('admin/password/reset/{userId}', 'UserController@sendResetPasswordEmailAdmin');
     // comprobar enlace enviado por correo - Admin
     Route::get('admin/password/reset/{token}', 'UserController@checkToken');

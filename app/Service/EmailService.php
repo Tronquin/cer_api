@@ -99,4 +99,51 @@ class EmailService
             ]
         ]);
     }
+
+    /**
+     * Envia el correo nuevoExtraLanding del erp
+     *
+     * @param $params
+     */
+    public static function sendHiredServiceErp($params)
+    {
+        $experienceName = '';
+        $reservation_instance = ERPService::completeInfo($params['reserva_id']);
+        
+        $experienceName = $reservation_instance->experiencia->nombre;
+        $cancellationPolicy = $reservation_instance->politica_cancelacion->nombre === 'NR' ? CTrans::trans('email.subject.hiredServices.reimbursable', $params['iso']) : CTrans::trans('email.subject.hiredServices.flexible', $params['iso']);
+        
+        $services = [];
+        foreach ($params['extras'] as $extra) {
+            $extraInstance = Extra::find($extra['id']);
+            $extraName = '';
+            foreach ($extraInstance->fieldTranslations as $fieldTranslation) {
+                if ($fieldTranslation['iso'] === $params['iso']) {
+                    foreach ($fieldTranslation['fields'] as $field) {
+                        if ($field['field'] === 'nombre') {
+                            $extraName = $field['translation'];
+                            break(2);
+                        }
+                    }
+                }
+            }
+            $services[] = [
+                'name' => $extraName,
+                'amount' => $extra['precio']['total']
+            ];
+        }
+
+        self::send('email.hiredServices', CTrans::trans('email.subject.hiredServices', $param['iso']), [$reservation_instance->cliente->email], [
+            'data' => [
+                'locator' => $reservation_instance->localizador_erp,
+                'name' => $reservation_instance->cliente->name . ' ' . $reservation->cliente->last_name,
+                'apartment' => $reservation_instance->apartment->nombre,
+                'experience' => $experienceName,
+                'cancellationPolicy' => $cancellationPolicy,
+                'services' => $services,
+                'status' => CTrans::trans('email.subject.hiredServices.paid', $param['iso']),
+                'iso' => $param['iso']
+            ]
+        ]);
+    }
 }
