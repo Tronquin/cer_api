@@ -7,6 +7,7 @@ use App\Handler\FindMachineLogHandler;
 use App\Handler\GeneralHandlers\FindApartmentsByLocationHandler;
 use App\Handler\GeneralHandlers\FindApartmentsDisponibilityHandler;
 use App\Handler\GeneralHandlers\FindExtrasOutstandingHandler;
+use App\Handler\GeneralHandlers\FindImageHandler;
 use App\Handler\GeneralHandlers\FindPriceByNightHandler;
 use App\Handler\GeneralHandlers\FindPOIByLocationHandler;
 use App\Handler\GeneralHandlers\FindExperiencesByLocationHandler;
@@ -371,6 +372,24 @@ class SearchdController extends Controller
     public function findCancellationPolicy($ubicacion_id)
     {
         $handler = new FindCancellationPolicyHandler(['ubicacion_id' => $ubicacion_id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Obtiene las imagenes por dimension o categoria
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function findImages(Request $request)
+    {
+        $handler = new FindImageHandler($request->all());
         $handler->processHandler();
 
         if ($handler->isSuccess()) {

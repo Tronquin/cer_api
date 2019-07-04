@@ -58,6 +58,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/packagesByLocation/{ubicacion_id}', 'General\SearchdController@findPackagesByLocation');
     // Busca los extras destacados por ubicacion
     Route::get('/find/extras/outstanding/{ubicacion_id}', 'General\SearchdController@findExtrasOutstanding');
+    // Busca las imagenes por categoria o dimensiones
+    Route::get('/find/images', 'General\SearchdController@findImages');
     // Busca las ubicaciones
     Route::get('/find/Locations', 'General\SearchdController@findLocations');
     // Obtiene todos los idiomas disponibles con su traduccion
