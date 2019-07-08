@@ -10,7 +10,8 @@ pipelines:
              - docker tag cer-api:prod registry-docker.jacidi.com/cer-api:prod
              - docker push registry-docker.jacidi.com/cer-api:prod
       - step:
-          name: Deploy prod
+          name: Deployment Production
+          deployment: production
           trigger: manual
           script:  
              - curl -X POST https://admin-docker.jacidi.com/api/webhooks/2a817106-aff9-4814-8f04-84f3637d08b4
