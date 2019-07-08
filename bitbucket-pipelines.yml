@@ -6,9 +6,9 @@ pipelines:
           services:
             - docker
           script:
-             - docker build -f ./docker/dockerfiles/DockerfileProd -t cer-api:prod .
-             - docker tag cer-api:prod registry-docker.jacidi.com/cer-api:prod
-             - docker push registry-docker.jacidi.com/cer-api:prod
+             - docker build -f ./docker/dockerfiles/DockerfileProd -t cer-api-prod:latest .
+             - docker tag cer-api-prod:latest registry-docker.jacidi.com/cer-api-prod:latest
+             - docker push registry-docker.jacidi.com/cer-api-prod:latest
       - step:
           name: Deployment Production
           deployment: Production
