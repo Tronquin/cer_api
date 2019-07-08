@@ -9,7 +9,7 @@ pipelines:
              - docker build -f ./docker/dockerfiles/DockerfileProd -t cer-api:prod .
              - docker tag cer-api:prod registry-docker.jacidi.com/cer-api:prod
              - docker push registry-docker.jacidi.com/cer-api:prod
-       - step:
+      - step:
           name: Deploy prod
           trigger: manual
           script:  
