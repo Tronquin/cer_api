@@ -55,26 +55,27 @@ trait FieldTranslationTrait
         $response = [];
         $languages = $this->getLanguages();
         foreach ($languages as $languageInstance) {
+            // Inicializo las traducciones en vacio
+            $response[$languageInstance->iso] = [
+                'iso' => $languageInstance->iso,
+                'name' => $languageInstance->name,
+                'fields' => []
+            ];
+
+            foreach ($this->fieldsToTranslate() as $field) {
+                $response[$languageInstance->iso]['fields'][] = [
+                    'field' => $field,
+                    'translation' => ''
+                ];
+            }
+        }
+
+        foreach ($languages as $languageInstance) {
+            // Cargo las traducciones
             foreach ($this->fieldTranslationsRelation as $language) {
 
                 if ($languageInstance->iso !== $language->iso) {
                     continue;
-                }
-
-                if (!isset($response[$language->iso])) {
-                    // Inicializo el objeto
-                    $response[$language->iso] = [
-                        'iso' => $language->iso,
-                        'name' => $language->name,
-                        'fields' => []
-                    ];
-
-                    foreach ($this->fieldsToTranslate() as $field) {
-                        $response[$language->iso]['fields'][] = [
-                            'field' => $field,
-                            'translation' => ''
-                        ];
-                    }
                 }
 
                 foreach ($response[$language->iso]['fields'] as &$translationField) {
