@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Handler\Web\SendConfirmationReserveHandler;
 use App\Handler\Web\Send48hrsEmailReservationHandler;
 use App\Handler\Web\SendCancelacionReservationEmailHandler;
+use App\Handler\Web\SendNewExtraLandingErpHandler;
 
 class SendingEmailController extends Controller
 {
@@ -66,7 +67,7 @@ class SendingEmailController extends Controller
 
         $data = $request->all();
         \App::setLocale($data['iso']);
-        $handler = new SendCancelacionReservationEmailHandler($data);
+        $handler = new SendNewExtraLandingErpHandler($data);
         $handler->processHandler();
         $data = $handler->getData();
         

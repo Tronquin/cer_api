@@ -108,14 +108,15 @@ class EmailService
     public static function sendHiredServiceErp($params)
     {
         $experienceName = '';
-        $reservation_instance = ERPService::completeInfo($params['reserva_id']);
+        $reservation_instance = ERPService::completeInfo(['reserva_id'=>$params['reserva_id']]);
         
-        $experienceName = $reservation_instance->experiencia->nombre;
-        $cancellationPolicy = $reservation_instance->politica_cancelacion->nombre === 'NR' ? CTrans::trans('email.subject.hiredServices.reimbursable', $params['iso']) : CTrans::trans('email.subject.hiredServices.flexible', $params['iso']);
+        $experienceName = $reservation_instance['data']['experiencia']['nombre'];
+        $cancellationPolicy = $reservation_instance['data']['politica_cancelacion']['nombre'] === 'NR' ? CTrans::trans('email.subject.hiredServices.reimbursable', $params['iso']) : CTrans::trans('email.subject.hiredServices.flexible', $params['iso']);
         
         $services = [];
         foreach ($params['extras'] as $extra) {
             $extraInstance = Extra::find($extra['id']);
+            $extraInstance['precio'] = Extra::calcularIva($extraInstance['base_imponible'],$extraInstance['iva_tipo']);
             $extraName = '';
             foreach ($extraInstance->fieldTranslations as $fieldTranslation) {
                 if ($fieldTranslation['iso'] === $params['iso']) {
@@ -129,20 +130,20 @@ class EmailService
             }
             $services[] = [
                 'name' => $extraName,
-                'amount' => $extra['precio']['total']
+                'amount' => $extraInstance['precio']['total']
             ];
         }
 
-        self::send('email.hiredServices', CTrans::trans('email.subject.hiredServices', $param['iso']), [$reservation_instance->cliente->email], [
+        self::send('email.hiredServices', CTrans::trans('email.subject.hiredServices', $params['iso']), [$reservation_instance['data']['cliente']['email']], [
             'data' => [
-                'locator' => $reservation_instance->localizador_erp,
-                'name' => $reservation_instance->cliente->name . ' ' . $reservation->cliente->last_name,
-                'apartment' => $reservation_instance->apartment->nombre,
+                'locator' => $reservation_instance['data']['localizador'],
+                'name' => $reservation_instance['data']['cliente']['nombre'] . ' ' . $reservation_instance['data']['cliente']['apellido'],
+                'apartment' => $reservation_instance['data']['apartamento']['nombre'],
                 'experience' => $experienceName,
                 'cancellationPolicy' => $cancellationPolicy,
                 'services' => $services,
-                'status' => CTrans::trans('email.subject.hiredServices.paid', $param['iso']),
-                'iso' => $param['iso']
+                'status' => CTrans::trans('summary.pending', $params['iso']),
+                'iso' => $params['iso']
             ]
         ]);
     }
