@@ -15,3 +15,34 @@ pipelines:
           trigger: manual
           script:  
              - curl -X POST $prod_server
+
+    qa:
+      - step:
+          services:
+            - docker
+          script:
+             - docker build -f ./docker/dockerfiles/DockerfileQA -t cer-api-qa:latest .
+             - docker tag cer-api-qa registry-docker.jacidi.com/cer-api-qa
+             - docker push registry-docker.jacidi.com/cer-api-api
+      - step:
+          name: Deployment QA
+          deployment: test
+          trigger: manual
+          script:  
+             - curl -X POST $qa_server
+
+
+    uat:
+      - step:
+          services:
+            - docker
+          script:
+             - docker build -f ./docker/dockerfiles/DockerfileUAT -t cer-api-uat:latest .
+             - docker tag cer-api-uat registry-docker.jacidi.com/cer-api-uat
+             - docker push registry-docker.jacidi.com/cer-api-uat
+      - step:
+          name: Deployment QA
+          deployment: staging
+          trigger: manual
+          script:  
+             - curl -X POST $uat_server
