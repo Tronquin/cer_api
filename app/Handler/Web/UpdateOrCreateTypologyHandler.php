@@ -24,7 +24,7 @@ class UpdateOrCreateTypologyHandler extends BaseHandler
 
         $front_image_name = UploadImage::slug($location->pais.'_'.$location->ciudad.'_typology_');
 
-        if (isset($this->params['front_image']) && UploadImage::isBase64($this->params['front_image'])) {
+        if (isset($this->params['front_image'])) {
             // Imagen
             $path = UploadImage::upload($this->params['front_image'], 'typology/',$front_image_name);
 
