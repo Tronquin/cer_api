@@ -16,30 +16,34 @@ class UploadImage
      */
     public static function upload($base64, $folder, $filename = null)
     {
-        $extension = self::getImageType($base64);
-        $base64 = explode(',', $base64);
-        $upload = base64_decode($base64[1]);
-
-        if (!$filename) {
-            $uniq = uniqid();
-            $name = $uniq;
-        } else {
-            $filename = strtolower(str_replace(' ', '_', $filename));
-            $uniq = uniqid();
-            $name = $filename;
+        if(self::isBase64($base64)){
+            $extension = self::getImageType($base64);
+            $base64 = explode(',', $base64);
+            $upload = base64_decode($base64[1]);
+    
+            if (!$filename) {
+                $uniq = uniqid();
+                $name = $uniq;
+            } else {
+                $filename = strtolower(str_replace(' ', '_', $filename));
+                $uniq = uniqid();
+                $name = $filename;
+            }
+            $filename = $uniq . $extension;
+            $path = $folder . $filename;
+            Storage::disk('public')->put($path, $upload);
+            $size = str_replace('/', '-', $path);
+    
+            $tamaño = getimagesize(env('APP_URL') . 'storage/image/size/' . $size);
+            $name = $name . $tamaño[0] . 'x' . $tamaño[1] . '-' . $uniq;
+    
+            $imagen = new Imagen();
+            $imagen->slug = $name;
+            $imagen->url = $path;
+            $imagen->save();
+        }else{
+            $name = str_replace( env('APP_URL') . 'storage/image/' , '' , $base64);
         }
-        $filename = $uniq . $extension;
-        $path = $folder . $filename;
-        Storage::disk('public')->put($path, $upload);
-        $size = str_replace('/', '-', $path);
-
-        $tamaño = getimagesize(env('APP_URL') . 'storage/image/size/' . $size);
-        $name = $name . $tamaño[0] . 'x' . $tamaño[1] . '-' . $uniq;
-
-        $imagen = new Imagen();
-        $imagen->slug = $name;
-        $imagen->url = $path;
-        $imagen->save();
 
         return $name;
     }

@@ -100,6 +100,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/cancellationPolicyByLocation/{ubicacion_id}', 'General\SearchdController@findCancellationPolicy');
     // Obtiene los paises
     Route::get('/find/countries', 'CountryController@index');
+    // agrega varios extras a varias reservas cobra por la pasarela de pago y los persiste en cer-api
+    Route::post('/persistence/multiservice', 'ReservationController@multiServicePeristence');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -146,8 +148,6 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
         Route::post('/persistence/service', 'ReservationController@reservationServicePersistence');
         // agrega extras a una reserva y los persiste en cer-api
         Route::post('/persistence/oneservice', 'ReservationController@oneServicePeristence');
-        // agrega varios extras a varias reservas cobra por la pasarela de pago y los persiste en cer-api
-        Route::post('/persistence/multiservice', 'ReservationController@multiServicePeristence');
         // guarda el feedback de la reserva
         Route::post('/reservation/feedback', 'ReservationController@reservationFeedback');
         // guarda el numero de llaves entregadas

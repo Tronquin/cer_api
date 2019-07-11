@@ -35,7 +35,7 @@ class UpdateSpaInfoHandler extends BaseHandler
         }
         $SpaInfophoto = 'spaInfo_img_' . $spa_info . '_';
 
-        if (isset($this->params['photo']) && UploadImage::isBase64($this->params['photo'])) {
+        if (isset($this->params['photo'])) {
             // Imagen
             $path = UploadImage::upload($this->params['photo'], 'spa/', $SpaInfophoto);
 
@@ -57,14 +57,14 @@ class UpdateSpaInfoHandler extends BaseHandler
             $spa_section_photo = 'spaSection_img_' . $spaSection['name'] . '_';
             $spa_section_icon = 'spaSection_icon_' . $spaSection['name'] . '_';
 
-            if (isset($spaSection['photo']) && UploadImage::isBase64($spaSection['photo'])) {
+            if (isset($spaSection['photo'])) {
                 // Imagen
                 $path = UploadImage::upload($spaSection['photo'], 'spa/', $spa_section_photo);
 
                 $section->photo = $path;
             }
 
-            if (isset($spaSection['ico']) && UploadImage::isBase64($spaSection['ico'])) {
+            if (isset($spaSection['ico'])) {
                 // Icon
                 $path = UploadImage::upload($spaSection['ico'], 'spa/', $spa_section_icon);
 
@@ -103,7 +103,7 @@ class UpdateSpaInfoHandler extends BaseHandler
 
                 $section_icons_icon = 'spaSectionicons_icon_' . $spa_icon_name . '_';
 
-                if (isset($icono['icon']) && UploadImage::isBase64($icono['icon'])) {
+                if (isset($icono['icon'])) {
                     // Icon
                     $path = UploadImage::upload($icono['icon'], 'spa/icons/', $section_icons_icon);
 
