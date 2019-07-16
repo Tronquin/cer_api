@@ -100,6 +100,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/cancellationPolicyByLocation/{ubicacion_id}', 'General\SearchdController@findCancellationPolicy');
     // Obtiene los paises
     Route::get('/find/countries', 'CountryController@index');
+    // Obtiene las razones
+    Route::resource('/find/porquereservaraqui', 'CountryController@index');
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
@@ -178,6 +180,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
         Route::get('/reservation/user/history/{email}', 'ReservationController@reservationHistory');
         // Obtener Reservas activas
         Route::get('/find/reservation/actives/{email}', 'ReservationController@reservationActiveByUser');
+        // Asociar usuario a reservar por localizador y user_id
+        Route::post('/asing/user/reservation/', 'ReservationController@reservationAsociateUser');
 
         //Rutas admin
         Route::group(['middleware' => 'adminAuth'], function () {
