@@ -20,7 +20,6 @@ class Kernel extends ConsoleKernel
         Commands\GetTranslationDataForEmailsCommand::class,
         Commands\ImageCompression::class,
         Commands\ImageWebp::class,
-        Commands\CreateUser::class,
     ];
 
     /**
