@@ -100,13 +100,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     Route::get('/find/cancellationPolicyByLocation/{ubicacion_id}', 'General\SearchdController@findCancellationPolicy');
     // Obtiene los paises
     Route::get('/find/countries', 'CountryController@index');
-<<<<<<< HEAD
     // Obtiene las razones
     Route::resource('/find/porquereservaraqui', 'CountryController@index');
-=======
     // agrega varios extras a varias reservas cobra por la pasarela de pago y los persiste en cer-api
     Route::post('/persistence/multiservice', 'ReservationController@multiServicePeristence');
->>>>>>> 0f0d8d78c7f46d8d920c1a0627a9f7759bc6b367
 
     Route::group(['middleware' => 'sessionAuth'], function () {
         // Reservation Checkin
