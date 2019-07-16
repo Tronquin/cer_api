@@ -19,10 +19,10 @@ class ReservationAsociateUserHandler extends BaseHandler {
                                     ->where('user_id', null)
                                     ->where('no_session_user_id',1)->get();
 
-        if(count($reservaciones) < 1) $response = ['res' => 0, 'msg' => 'No existen registros con este localizador','data' => []];
+        if(count($reservaciones) < 1) return $response = ['res' => 0, 'msg' => 'No existen registros libres de usuario con este localizador','data' => []];
 
-        $usuario = Session::where('token',$this->params['token'])->first();
-        if (!$usuario) $response = ['res' => 0, 'msg' => 'Usuario no encontrado','data' => []];
+        $usuario = Session::where('token',$this->params['session'])->first();
+        if (!$usuario) return $response = ['res' => 0, 'msg' => 'Usuario no encontrado','data' => []];
 
         foreach ($reservaciones as &$reservation) {
             $reservation->user_id = $usuario->user_id;
@@ -40,7 +40,7 @@ class ReservationAsociateUserHandler extends BaseHandler {
     protected function validationRules()
     {
         return [
-            'user_id' => 'required|numeric',
+            'session' => 'required',
             'localizador' => 'required',
         ];
     }

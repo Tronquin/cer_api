@@ -892,6 +892,7 @@ class ReservationController extends Controller
     public function reservationAsociateUser(Request $request)
     {
         $params = $request->all();
+        $params['session'] = $request->header('session');
         $handler = new ReservationAsociateUserHandler($params);
         $handler->processHandler();
 
