@@ -24,7 +24,6 @@ class ImageController extends Controller
             $imagen = [];
             $imagen['url'] = str_replace('/', '-', $image);
         }
-
         $imageRelativePath = str_replace('-', '/', $imagen['url']);
         $publicPath = storage_path('app/public') . '/' . $imageRelativePath;
         $optimizedPath = storage_path('app/optimized') . '/' . $imageRelativePath;

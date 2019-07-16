@@ -26,7 +26,6 @@ class CreatePhotoHandler extends BaseHandler
                     $gallery_photo = 'gallery_photo_';
                     $path = UploadImage::upload($p['photo'], 'galleries/' . $gallery->id . '/',$gallery_photo);
                 }
-
                 $photo = new Photo();
                 $photo->gallery_id = $gallery->id;
                 $photo->url = $path;
