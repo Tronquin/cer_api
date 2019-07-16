@@ -2,7 +2,7 @@
 namespace App\Handler\UsersHandlers;
 
 use App\Reservation;
-use App\User;
+use App\Session;
 use App\Handler\BaseHandler;
 
 class ReservationAsociateUserHandler extends BaseHandler {
@@ -21,11 +21,11 @@ class ReservationAsociateUserHandler extends BaseHandler {
 
         if(count($reservaciones) < 1) $response = ['res' => 0, 'msg' => 'No existen registros con este localizador','data' => []];
 
-        $usuario = User::find($this->params['user_id'])->first();
+        $usuario = Session::where('token',$this->params['token'])->first();
         if (!$usuario) $response = ['res' => 0, 'msg' => 'Usuario no encontrado','data' => []];
 
         foreach ($reservaciones as &$reservation) {
-            $reservation->user_id = $this->params['user_id'];
+            $reservation->user_id = $usuario->user_id;
             $reservation->save();
         }
 
