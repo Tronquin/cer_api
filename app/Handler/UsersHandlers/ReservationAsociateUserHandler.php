@@ -17,7 +17,8 @@ class ReservationAsociateUserHandler extends BaseHandler {
 
         $reservaciones = Reservation::where('localizador_erp',$this->params['localizador'])
                                     ->where('user_id', null)
-                                    ->where('no_session_user_id',1)->get();
+                                    ->where('no_session_user_id','<>',null)
+                                    ->where('no_session_user_id','<>',0)->get();
 
         if(count($reservaciones) < 1) return $response = ['res' => 0, 'msg' => 'No existen registros libres de usuario con este localizador','data' => []];
 
