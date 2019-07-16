@@ -1,15 +1,48 @@
 image: atlassian/default-image:2
 pipelines:
-  default:
-    - step:
-        services:
-          - docker
-        script:
-           - docker build -t cer-api:latest .
-           - docker tag cer-api:latest registry-docker.jacidi.com/cer-api:latest
-           - docker push registry-docker.jacidi.com/cer-api:latest
-    - step:
-        name: Deploy prod
-        trigger: manual
-        script:  
-          - curl -X POST https://admin-docker.jacidi.com/api/webhooks/2a817106-aff9-4814-8f04-84f3637d08b4
+  branches:
+    master:
+      - step:
+          services:
+            - docker
+          script:
+             - docker build -f ./docker/dockerfiles/DockerfileProd -t cer-api-prod:latest .
+             - docker tag cer-api-prod:latest registry-docker.jacidi.com/cer-api-prod:latest
+             - docker push registry-docker.jacidi.com/cer-api-prod:latest
+      - step:
+          name: Deployment Production
+          deployment: Production
+          trigger: manual
+          script:  
+             - curl -X POST $prod_server
+
+    qa:
+      - step:
+          services:
+            - docker
+          script:
+             - docker build -f ./docker/dockerfiles/DockerfileQA -t cer-api-qa:latest .
+             - docker tag cer-api-qa registry-docker.jacidi.com/cer-api-qa
+             - docker push registry-docker.jacidi.com/cer-api-api
+      - step:
+          name: Deployment QA
+          deployment: test
+          trigger: manual
+          script:  
+             - curl -X POST $qa_server
+
+
+    uat:
+      - step:
+          services:
+            - docker
+          script:
+             - docker build -f ./docker/dockerfiles/DockerfileUAT -t cer-api-uat:latest .
+             - docker tag cer-api-uat registry-docker.jacidi.com/cer-api-uat
+             - docker push registry-docker.jacidi.com/cer-api-uat
+      - step:
+          name: Deployment QA
+          deployment: staging
+          trigger: manual
+          script:  
+             - curl -X POST $uat_server
