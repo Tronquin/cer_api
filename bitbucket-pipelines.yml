@@ -38,10 +38,10 @@ pipelines:
             - docker
           script:
              - docker build -f ./docker/dockerfiles/DockerfileUAT -t cer-api-uat:latest .
-             - docker tag cer-api-uat registry-docker.jacidi.com/cer-api-uat
-             - docker push registry-docker.jacidi.com/cer-api-uat
+             - docker tag cer-api-uat repo-vzla.jacidi.com/cer-api-uat
+             - docker push repo-vzla.jacidi.com/cer-api-uat
       - step:
-          name: Deployment QA
+          name: Deployment UAT
           deployment: staging
           trigger: manual
           script:  
