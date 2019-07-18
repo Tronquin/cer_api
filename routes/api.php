@@ -101,7 +101,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'oauth2'], function () {
     // Obtiene los paises
     Route::get('/find/countries', 'CountryController@index');
     // Obtiene las razones
-    Route::resource('/find/porquereservaraqui', 'CountryController@index');
+    Route::resource('/find/porquereservaraqui', 'ReasonsController');
     // agrega varios extras a varias reservas cobra por la pasarela de pago y los persiste en cer-api
     Route::post('/persistence/multiservice', 'ReservationController@multiServicePeristence');
 
