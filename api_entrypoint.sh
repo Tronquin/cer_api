@@ -1,6 +1,10 @@
 #!/bin/bash
 # Change access rights for the Laravel folders
 # in order to make Laravel able to access 
+#agregar CronJob
+/etc/init.d/cron start 
+touch /var/log/email.log
+echo "*/1 * * * * root  php /var/www/html/artisan schedule:run >> /dev/null 2>&1" | tee -a /etc/crontab > /dev/null
 # cache and logs folder.
 chmod -R 775 /var/www/html/
 chown -R www-data:www-data /var/www/html/
