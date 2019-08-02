@@ -38,6 +38,7 @@ use App\Handler\ReservationKeyReceivedHandler;
 use App\Handler\KeyDeliveredHandler;
 use App\Handler\ReservationEditMailHandler;
 use App\Handler\PaymentGateway\ReservationProcessPaymentHandler;
+use App\Handler\UsersHandlers\ReservationAsociateUserHandler;
 use App\Handler\ReservationHasCheckinMovilHandler;
 use App\Handler\DeactivateKeyHandler;
 use App\Handler\Web\ReservationActiveHandler;
@@ -873,6 +874,26 @@ class ReservationController extends Controller
     public function findExtrasContratados($reserva_id)
     {
         $handler = new FindExtrasContratadosHandler(['reserva_id' => $reserva_id]);
+        $handler->processHandler();
+
+        if ($handler->isSuccess()) {
+            return new JsonResponse($handler->getData());
+        }
+
+        return new JsonResponse($handler->getErrors(), $handler->getStatusCode());
+    }
+
+    /**
+     * Asocia un usuario a una reserva segun localizador y user_id
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function reservationAsociateUser(Request $request)
+    {
+        $params = $request->all();
+        $params['session'] = $request->header('session');
+        $handler = new ReservationAsociateUserHandler($params);
         $handler->processHandler();
 
         if ($handler->isSuccess()) {
