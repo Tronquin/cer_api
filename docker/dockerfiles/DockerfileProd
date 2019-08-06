@@ -1,5 +1,5 @@
 #Base image for the container
-FROM registry-docker.jacidi.com/php:7.2-apache
+FROM registry.jacidi.com/php:7.2-apache
 #Install GIT, GnuPG, NodeJS and NPM
 RUN apt-get update && apt-get install -y git gnupg && \
     curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
