@@ -54,6 +54,14 @@ class ReservationPaymentHandler extends BaseHandler {
                     }
 
                     $reservation_instance = Reservation::where('localizador_erp', $reservation['localizador'])->first();
+                    $iso = 'es';
+                    if($reservation_instance){
+                        $iso = $reservation_instance->iso;
+                    }
+                    if(!$reservation_instance && isset($this->params['data']['iso'])){
+                        $iso = $this->params['data']['iso'];
+                    }
+
                     $data = [
                         'data' => [
                             'modificaciones' => $response['data']['modificaciones'],
@@ -72,7 +80,7 @@ class ReservationPaymentHandler extends BaseHandler {
                             'cancellationPolicy' => $reservation['politica_cancelacion']['nombre_cliente'],
                             'address' => $reservation['ubicacion']['direccion'],
                             'services' => $services,
-                            'iso' => $reservation_instance->iso,
+                            'iso' => $iso,
                             'total' => ''
                         ]
                     ];
