@@ -15,7 +15,7 @@ class KeyDeliveredHandler extends BaseHandler {
         $response = ERPService::keyDelivered($this->params['data']);
         $key_delivered = ReservationKey::where('reserva_id', '=', $this->params['data']['reserva_id'])->first();
 
-        if (count($key_delivered) > 0) {
+        if ($key_delivered) {
             $key_delivered->keys_delivered = $response['data']['llaves_entregadas'];
             $sql = $key_delivered->save();
 

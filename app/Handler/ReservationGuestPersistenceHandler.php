@@ -14,7 +14,7 @@ class ReservationGuestPersistenceHandler extends BaseHandler {
             $guest_persistence = ReservationGuestPersistence::where('reserva_id', '=', $this->params['data']['reserva_id'])->delete();
 
             foreach ($this->params['data']['huesped'] as $huesped) {
-
+                if(!isset($huesped['isAdult'])) $huesped['isAdult'] = 1;
                 $guest_persistence = new ReservationGuestPersistence();
 
                 $guest_persistence->reserva_id = $this->params['data']['reserva_id'];
