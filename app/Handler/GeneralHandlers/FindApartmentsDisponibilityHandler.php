@@ -38,7 +38,6 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
         //dump($response);
         if($response['data'] !== ''){
             foreach ($response['data'] as $key => &$ubication){
-                dump($ubication);
                 if(!isset($location)){
                     $ubicaciones['promocions'] = [];
                     $location = Location::query()->where('ubicacion_id', $ubication['id'])->with('promocions')->first()->toArray();
@@ -103,8 +102,8 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     }
                 }
                 $ubication['tipologias'] = $validTipologia;
-                unset($response['data'][$key]['disponibility']);
                 $ubication['tarifas'] = $ubication['disponibility']['rate_tarifas'];
+                unset($response['data'][$key]['disponibility']);
             }
         }
 
