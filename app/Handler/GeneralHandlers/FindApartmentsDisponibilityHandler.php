@@ -103,6 +103,7 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                 }
                 $ubication['tipologias'] = $validTipologia;
                 unset($response['data'][$key]['disponibility']);
+                $ubication['tarifas'] = $ubication['disponibility']['rate_tarifas'];
             }
         }
         
