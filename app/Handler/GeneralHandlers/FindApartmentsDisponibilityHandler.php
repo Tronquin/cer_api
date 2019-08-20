@@ -55,12 +55,16 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     foreach ($ubication['experiencias'] as &$experiencia){
                         foreach($ubication['disponibility']['experiencias'] as $exp){
                             if($experiencia['experiencia_id'] === $exp['id']){
-                                if($location['ubicacion_id'] !== 5){
+                                if($experiencia['ubicacion_id'] !== 5){
                                     $experiencia['precio_upgrade'] = $exp['precio_upgrade'];
                                     $experiencia['precio_desglosado'] = $exp['precio_desglosado'];
                                 }else{
                                     $experiencia['precio_upgrade'] = 0;
-                                    $experiencia['precio_desglosado'] = 0;
+                                    $experiencia['precio_desglosado'] = [
+                                        'base_imponible' => 0,
+                                        'iva' => 0,
+                                        'pvp' => 0
+                                    ];
                                 }
                             }
                         }
@@ -73,12 +77,16 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     foreach ($ubication['packages'] as &$pack){
                         foreach($ubication['disponibility']['tarifas'] as $tarifa){
                             if($pack['tarifa_id'] === $tarifa['id']){
-                                if($location['ubicacion_id'] !== 5){
+                                if($pack['ubicacion_id'] !== 5){
                                     $pack['precio_upgrade'] = $tarifa['precio_upgrade'];
                                     $pack['precio_desglosado'] = $tarifa['precio_desglosado'];
                                 }else{
                                     $pack['precio_upgrade'] = 0;
-                                    $pack['precio_desglosado'] = 0;
+                                    $pack['precio_desglosado'] = [
+                                        'base_imponible' => 0,
+                                        'iva' => 0,
+                                        'pvp' => 0
+                                    ];
                                 }
                             }
                         }
@@ -88,12 +96,16 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                     $cancelation_policy = [];
                     foreach($ubication['disponibility']['politicas'] as $pkey => $politicas){
                         $cancelation_policy[$pkey] = CancellationPolicy::query()->where('politica_cancelacion_id', $politicas['id'])->first()->toArray(); 
-                        if($location['ubicacion_id'] !== 5){ 
+                        if($cancelation_policy[$pkey]['ubicacion_id'] !== 5){ 
                             $cancelation_policy[$pkey]['precio_desglosado']     =   $politicas['precio_desglosado'];
                             $cancelation_policy[$pkey]['precio_upgrade']     =   $politicas['precio_upgrade'];
                         }else{
                             $cancelation_policy[$pkey]['precio_desglosado']     =   0;
-                            $cancelation_policy[$pkey]['precio_upgrade']     =   0;
+                            $cancelation_policy[$pkey]['precio_upgrade']     =   [
+                                'base_imponible' => 0,
+                                'iva' => 0,
+                                'pvp' => 0
+                            ];
                         }
                     }
                     $ubication['politica_cancelacions'] = $cancelation_policy;
@@ -109,12 +121,16 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                         if($tip['tipologia_id'] === $t['id']){
                             $tip['dormitorios'] = $t['dormitorios'];
                             $tip['lavabos'] = $t['lavabos'];
-                            if($location['ubicacion_id'] !== 5){ 
+                            if($tip['ubicacion_id'] !== 5){ 
                                 $tip['precio_upgrade'] = $t['precio_upgrade'];
                                 $tip['precio_desglosado'] = $t['precio_desglosado'];
                             }else{
                                 $tip['precio_upgrade'] = 0;
-                                $tip['precio_desglosado'] = 0;
+                                $tip['precio_desglosado'] = [
+                                    'base_imponible' => 0,
+                                    'iva' => 0,
+                                    'pvp' => 0
+                                ];
                             }
                             $tip['noches'] = $t['noches'];
                             $validTipologia[] = $tip;
