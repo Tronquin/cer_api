@@ -100,8 +100,8 @@ class FindApartmentsDisponibilityHandler extends BaseHandler {
                             $cancelation_policy[$pkey]['precio_desglosado']     =   $politicas['precio_desglosado'];
                             $cancelation_policy[$pkey]['precio_upgrade']     =   $politicas['precio_upgrade'];
                         }else{
-                            $cancelation_policy[$pkey]['precio_desglosado']     =   0;
-                            $cancelation_policy[$pkey]['precio_upgrade']     =   [
+                            $cancelation_policy[$pkey]['precio_upgrade']     =   0;
+                            $cancelation_policy[$pkey]['precio_desglosado']     =   [
                                 'base_imponible' => 0,
                                 'iva' => 0,
                                 'pvp' => 0
