@@ -43,6 +43,7 @@ class ImageWebp extends Command
         $path = storage_path('app/public/');
         $images = [];
         $locate = "locate '{$path}'";
+        $this->info($locate);
         exec($locate, $images);
 
         foreach ($images as $image) {
