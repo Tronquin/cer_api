@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y git gnupg && \
 
 #Add Laravel necessary php extensioRUN dpkg --configure -a \
 RUN apt-get update && apt-get install -y \
+    mlocate \
+    webp \
     cron \
     unzip \
     vim \

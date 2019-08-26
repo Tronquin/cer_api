@@ -38,11 +38,13 @@ class ImageWebp extends Command
      */
     public function handle()
     {
+        $this->info('Convirtiendo imagenes a formato webp');
+
         $path = storage_path('app/public/');
         $images = [];
-        exec("locate '{$path}'", $images);
-
-        $this->info('Convirtiendo imagenes a formato webp');
+        $locate = "locate '{$path}'";
+        $this->info($locate);
+        exec($locate, $images);
 
         foreach ($images as $image) {
             $explode = explode('/', $image);
