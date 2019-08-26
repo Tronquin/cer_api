@@ -36,10 +36,17 @@ class UploadImage
     
             $tamaño = getimagesize(env('APP_URL') . 'storage/image/size/' . $size);
             $name = $name . $tamaño[0] . 'x' . $tamaño[1] . '-' . $uniq;
-    
+            $explode = explode('/', $path);
+            $lastPartUrl = last($explode);
+            $nameAndFormat = explode('.', $lastPartUrl);
+
             $imagen = new Imagen();
             $imagen->slug = $name;
             $imagen->url = $path;
+            $imagen->width = $tamaño[0];
+            $imagen->height = $tamaño[1];
+            $imagen->format = last($nameAndFormat);
+            $imagen->category = \App\Imagen::CATEGORY_GENERAL;
             $imagen->save();
         }else{
             $name = str_replace( env('APP_URL') . 'storage/image/' , '' , $base64);

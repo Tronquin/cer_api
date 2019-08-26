@@ -45,7 +45,6 @@ class UpdateExperienceHandler extends BaseHandler
         if (isset($this->params['front_page'])) {
             // Imagen
             $path = UploadImage::upload($this->params['front_page'], 'experiences/' . $experience->id . '/', $front_image_name);
-
             $experience->front_page = $path;
         }
 
