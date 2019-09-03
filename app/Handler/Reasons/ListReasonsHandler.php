@@ -2,6 +2,7 @@
 namespace App\Handler\Reasons;
 
 use App\ReasonsInfo;
+use App\Reason;
 use App\Handler\BaseHandler;
 use App\Service\UrlGenerator;
 
@@ -25,6 +26,7 @@ class ListReasonsHandler extends BaseHandler {
                 $reason['photo'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $reason['photo'])]);
                 $reason['icon'] = UrlGenerator::generate('storage.image', ['image' => str_replace('/', '-', $reason['icon'])]);
             }
+            $info['fieldTranslationsReason'] = (new Reason())->fieldTranslations();
         }
                
         
