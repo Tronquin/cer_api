@@ -1,5 +1,9 @@
 <?php
 namespace App\Service;
+use Request;
+use App\Audit;
+use App\OAuth2Client;
+use App\Configuration;
 
 class ERPService {
 
@@ -611,10 +615,27 @@ class ERPService {
         $response = curl_exec($ch);
         curl_close($ch);
 
+        $responseTemp = $response;
+
         $response = json_decode($response, true);
-        
-        
+            
         if (! $response) {
+            
+            $token = Request::header('token');
+            $client = OAuth2Client::query()->where('token', $token)->first();
+
+            if ($client) {
+                $config = Configuration::query()->first();
+                $audit = new Audit();
+                $audit->ip = Request::ip();
+                $audit->oauth2_client_id = $client->id;
+                $audit->action = $url;
+                $audit->params = json_encode($params);
+                $audit->response = $responseTemp;
+                $audit->version = $config->version;
+
+                $audit->save();
+            }
             // Si no retorna un Json dispara una exception
             throw new \Exception('Bad request to ERP');
         }
