@@ -73,6 +73,7 @@ class ERPGetData {
                 $ubicacion_lang['es'] = [
                     'descripcion' => $ubicacion['descripcion_es'],
                     'apartment_section_name' => 'Apartamentos',
+                    'title_photos_and_more' => 'Castro Exclusive en imágenes',
                     'title_info' => '¿Porqué proponemos tres experiencias?',
                     'description_info' => 'la experiencia castro Exclusive Residences consiste en llenar los 80 metros cuadrados de tu apartamento de vivencias y recuerdos donde tú eliges qué herramientas usar para ello'
                 ];
@@ -80,18 +81,21 @@ class ERPGetData {
                     'descripcion' => $ubicacion['descripcion_en'],
                     'apartment_section_name' => '',
                     'description_info' => '',
+                    'title_photos_and_more' => '',
                     'title_info' => ''
                 ];
                 $ubicacion_lang['fr'] = [
                     'descripcion' => $ubicacion['descripcion_fr'],
                     'apartment_section_name' => '',
                     'description_info' => '',
+                    'title_photos_and_more' => '',
                     'title_info' => ''
                 ];
                 $ubicacion_lang['po'] = [
                     'descripcion' => $ubicacion['descripcion_po'],
                     'apartment_section_name' => '',
                     'description_info' => '',
+                    'title_photos_and_more' => '',
                     'title_info' => ''
                 ];
                 $ubicacion_erp->save();
@@ -166,6 +170,23 @@ class ERPGetData {
                                 $translation->field = 'title_info';
                                 $translation->translation = $lang['title_info'];
         
+                                $translation->save();
+                            }
+
+                            $translation = FieldTranslation::where('content_id',$ubicacion_erp->id)
+                                            ->where('field','title_photos_and_more')
+                                            ->where('language_id',$language['id'])
+                                            ->where('content_type', Location::class)
+                                            ->first();
+                                            
+                            if(!$translation){
+                                $translation = new FieldTranslation();
+                                $translation->content_id = $ubicacion_erp->id;
+                                $translation->content_type = Location::class;
+                                $translation->language_id = $language['id'];
+                                $translation->field = 'title_photos_and_more';
+                                $translation->translation = $lang['title_photos_and_more'];
+
                                 $translation->save();
                             }
                         }
